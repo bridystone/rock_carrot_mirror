@@ -3,7 +3,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:path/path.dart';
 
-const String globalDbName = "sandsteinklettern.db";
+const String globalDbName = 'sandsteinklettern.db';
 
 class SqlYacGuideFlutter {
   static final SqlYacGuideFlutter _singleton = SqlYacGuideFlutter._internal();
@@ -33,9 +33,9 @@ class SqlYacGuideFlutter {
     // Make sure the directory exists
     try {
       await Directory(databasesPath).create(recursive: true);
-      if (resetDatabase) File(path).delete();
+      if (resetDatabase) await File(path).delete();
     } catch (_) {
-      print("failed");
+      print('failed');
     }
     return await openDatabase(
       path,
@@ -47,20 +47,20 @@ class SqlYacGuideFlutter {
   /* 
     Tables created for empty new database
   */
-  FutureOr<void> _onCreate(Database db, id) async {
-    print("create Tables");
-    db.execute(
-        "CREATE TABLE land (land TEXT PRIMARY KEY, ISO3166 TEXT, KFZ TEXT)");
-    db.execute(/*json-query-key:land*/
-        "CREATE TABLE gebiet (gebiet_ID INT PRIMARY KEY, gebiet TEXT, land TEXT, sprache2 TEXT, gdefaultanzeige TEXT, schwskala TEXT)");
-    db.execute(/*json-query-key:gebietid*/
-        "CREATE TABLE teilgebiet (sektor_ID INT PRIMARY KEY, gebietid INT, sektornr INT, sektorname_d TEXT, sektorname_cz TEXT)");
-    db.execute(/*json-query-key:sektorid*/
-        "CREATE TABLE gipfel (gipfel_ID INT PRIMARY KEY, gipfelnr INT, gipfelname_d TEXT, gipfelname_cz TEXT, status TEXT, typ TEXT, vgrd TEXT, ngrd TEXT, posfehler TEXT, schartenhoehe TEXT, talhoehe TEXT, sektorid INT)");
-    db.execute(/*json-query-key:sektorid*/
-        "CREATE TABLE wege (weg_ID INT PRIMARY KEY, gipfelid INT, schwierigkeit TEXT, erstbegvorsteig TEXT, erstbegnachstieg TEXT, erstbegdatum TEXT, ringzahl TEXT, wegbeschr_d TEXT, wegbeschr_cz TEXT, kletterei TEXT, wegname_d TEXT, wegname_cz TEXT, wegstatus TEXT, wegnr INT)");
-    db.execute(/*json-query-key:sektorid*/
-        "CREATE TABLE komment (komment_ID INT PRIMARY KEY, userid INT, datum TEXT, adatum TEXT, wegid INT, sektorid INT, gebietid INT, qual TEXT, sicher TEXT, nass TEXT, kommentar TEXT, gipfelid INT, schwer TEXT, geklettert TEXT, begehung TEXT)");
+  FutureOr<void> _onCreate(Database db, dynamic id) async {
+    print('create Tables');
+    await db.execute(
+        'CREATE TABLE land (land TEXT PRIMARY KEY, ISO3166 TEXT, KFZ TEXT)');
+    await db.execute(/*json-query-key:land*/
+        'CREATE TABLE gebiet (gebiet_ID INT PRIMARY KEY, gebiet TEXT, land TEXT, sprache2 TEXT, gdefaultanzeige TEXT, schwskala TEXT)');
+    await db.execute(/*json-query-key:gebietid*/
+        'CREATE TABLE teilgebiet (sektor_ID INT PRIMARY KEY, gebietid INT, sektornr INT, sektorname_d TEXT, sektorname_cz TEXT)');
+    await db.execute(/*json-query-key:sektorid*/
+        'CREATE TABLE gipfel (gipfel_ID INT PRIMARY KEY, gipfelnr TEXT, gipfelname_d TEXT, gipfelname_cz TEXT, status TEXT, typ TEXT, vgrd TEXT, ngrd TEXT, posfehler TEXT, schartenhoehe TEXT, talhoehe TEXT, sektorid INT)');
+    await db.execute(/*json-query-key:sektorid*/
+        'CREATE TABLE wege (weg_ID INT PRIMARY KEY, gipfelid INT, schwierigkeit TEXT, erstbegvorstieg TEXT, erstbegnachstieg TEXT, erstbegdatum TEXT, ringzahl TEXT, wegbeschr_d TEXT, wegbeschr_cz TEXT, kletterei TEXT, wegname_d TEXT, wegname_cz TEXT, wegstatus TEXT, wegnr INT, sektorid INT)');
+    await db.execute(/*json-query-key:sektorid*/
+        'CREATE TABLE komment (komment_ID INT PRIMARY KEY, userid INT, datum TEXT, adatum TEXT, wegid INT, sektorid INT, gebietid INT, qual TEXT, sicher TEXT, nass TEXT, kommentar TEXT, gipfelid INT, schwer TEXT, geklettert TEXT, begehung TEXT)');
   }
 
   /* 
@@ -86,9 +86,12 @@ class SqlYacGuideFlutter {
   }
 
   Future<List<Map<String, Object?>>> queryCountries() async {
-    return database.then((db) => db.query(
-          'land',
-          columns: ['land'],
+    return database.then((db) => db.rawQuery(
+          'SELECT land.land, COUNT(gebiet) as count'
+          ' FROM land'
+          ' LEFT OUTER JOIN gebiet'
+          ' ON land.land = gebiet.land'
+          ' GROUP BY land.land',
         ));
   }
 
@@ -99,7 +102,7 @@ class SqlYacGuideFlutter {
     return database.then(
       (db) => db.delete(
         'gebiet',
-        where: "land = ?",
+        where: 'land = ?',
         whereArgs: [land],
       ),
     );
@@ -127,14 +130,14 @@ class SqlYacGuideFlutter {
   }
 
   Future<List<Map<String, Object?>>> queryAreas(String land) async {
-    return database.then((db) => db.query(
-          'gebiet',
-          columns: [
-            'gebiet_ID',
-            'gebiet',
-          ],
-          where: "land = ?",
-          whereArgs: [land],
+    return database.then((db) => db.rawQuery(
+          'SELECT gebiet_ID, gebiet, COUNT(teilgebiet.gebietid) as count'
+          ' FROM gebiet'
+          ' LEFT OUTER JOIN teilgebiet'
+          ' ON gebiet.gebiet_ID = teilgebiet.gebietid'
+          ' WHERE land = ?'
+          ' GROUP BY gebiet.gebiet_ID',
+          [land],
         ));
   }
 
@@ -145,7 +148,7 @@ class SqlYacGuideFlutter {
     return database.then(
       (db) => db.delete(
         'teilgebiet',
-        where: "gebietid = ?",
+        where: 'gebietid = ?',
         whereArgs: [gebietid],
       ),
     );
@@ -171,35 +174,33 @@ class SqlYacGuideFlutter {
   }
 
   Future<List<Map<String, Object?>>> querySubareas(int gebietid) async {
-    return database.then((db) => db.query(
-          'teilgebiet',
-          columns: [
-            'sektor_ID',
-            'sektornr',
-            'sektorname_d',
-            'sektorname_cz',
-          ],
-          where: "gebietid = ?",
-          whereArgs: [gebietid],
+    return database.then((db) => db.rawQuery(
+          'SELECT sektor_ID, sektornr, sektorname_d, sektorname_cz, COUNT(gipfel.sektorid) as count'
+          ' FROM teilgebiet'
+          ' LEFT OUTER JOIN gipfel'
+          ' ON teilgebiet.sektor_ID = gipfel.sektorid'
+          ' WHERE gebietid = ?'
+          ' GROUP BY teilgebiet.sektor_ID',
+          [gebietid],
         ));
   }
 
   /*
     Gipfel stuff
     */
-  FutureOr<int> deleteGipfel(int sektorid) async {
+  FutureOr<int> deleteGipfels(int sektorid) async {
     return database.then(
       (db) => db.delete(
         'gipfel',
-        where: "sektorid = ?",
+        where: 'sektorid = ?',
         whereArgs: [sektorid],
       ),
     );
   }
 
-  FutureOr<int> insertGipdel(
+  FutureOr<int> insertGipfels(
     int gipfelID,
-    int gipfelnr,
+    String gipfelnr,
     String gipfelnameD,
     String gipfelnameCZ,
     String status,
@@ -209,10 +210,10 @@ class SqlYacGuideFlutter {
     String posfehler,
     String schartenhoehe,
     String talhoehe,
-    String sektorid,
+    int sektorid,
   ) async {
     return database.then((db) => db.insert(
-          'gebiet',
+          'gipfel',
           {
             'gipfel_ID': gipfelID,
             'gipfelnr': gipfelnr,
@@ -230,23 +231,19 @@ class SqlYacGuideFlutter {
         ));
   }
 
-  Future<List<Map<String, Object?>>> queryGipfel(
+  Future<List<Map<String, Object?>>> queryGipfels(
     int sektorid,
   ) async {
-    return database.then((db) => db.query(
-          'wege',
-          columns: [
-            'gipfel_ID',
-            'gipfelnr',
-            'gipfelname_d',
-            'gipfelname_cz',
-            'status',
-            'typ',
-            'schartenhoehe',
-            'talhoehe'
-          ],
-          where: "sektorid = ?",
-          whereArgs: [sektorid],
+    return database.then((db) => db.rawQuery(
+          'SELECT gipfel_ID, gipfelnr, gipfelname_d, gipfelname_cz, '
+          '   status, typ, schartenhoehe, talhoehe, gipfel.sektorid, '
+          '   COUNT(wege.gipfelid) as count'
+          ' FROM gipfel'
+          '   LEFT OUTER JOIN wege'
+          '   ON gipfel.gipfel_ID = wege.gipfelid'
+          ' WHERE gipfel.sektorid = ?'
+          ' GROUP BY gipfel.gipfel_id',
+          [sektorid],
         ));
   }
 
@@ -257,7 +254,7 @@ class SqlYacGuideFlutter {
     return database.then(
       (db) => db.delete(
         'wege',
-        where: "sektorid = ?",
+        where: 'sektorid = ?',
         whereArgs: [sektorid],
       ),
     );
@@ -267,7 +264,7 @@ class SqlYacGuideFlutter {
     int wegID,
     int gipfelid,
     String schwierigkeit,
-    String erstbegvorsteig,
+    String erstbegvorstieg,
     String erstbegnachstieg,
     String erstbegdatum,
     String ringzahl,
@@ -277,15 +274,17 @@ class SqlYacGuideFlutter {
     String wegnameD,
     String wegnameCZ,
     String wegstatus,
-    int wegnr,
+    String wegnr,
+    int sektorid,
   ) async {
     return database.then((db) => db.insert(
-          'gebiet',
+          'wege',
           {
+            'sektorid': sektorid,
             'weg_ID': wegID,
             'gipfelid': gipfelid,
             'schwierigkeit': schwierigkeit,
-            'erstbegvorsteig': erstbegvorsteig,
+            'erstbegvorstieg': erstbegvorstieg,
             'erstbegnachstieg': erstbegnachstieg,
             'erstbegdatum': erstbegdatum,
             'ringzahl': ringzahl,
@@ -293,7 +292,7 @@ class SqlYacGuideFlutter {
             'wegbeschr_cz': wegbeschrCZ,
             'kletterei': kletterei,
             'wegname_d': wegnameD,
-            'wegnameCZ': wegnameCZ,
+            'wegname_cz': wegnameCZ,
             'wegstatus': wegstatus,
             'wegnr': wegnr,
           },
@@ -301,23 +300,26 @@ class SqlYacGuideFlutter {
   }
 
   Future<List<Map<String, Object?>>> queryWege(
-    int sektorid,
     int gipfelid,
   ) async {
     return database.then((db) => db.query(
           'wege',
           columns: [
-            'Weg_ID'
-                'schwierigkeit',
+            'sektorid',
+            'Weg_ID',
+            'gipfelid',
+            'schwierigkeit',
             'ringzahl',
             'wegbeschr_d',
+            'wegbeschr_cz',
             'kletterei',
             'wegname_d',
+            'wegname_cz',
             'wegstatus',
             'wegnr'
           ],
-          where: "sektorid = ? AND gipfelid = ?",
-          whereArgs: [sektorid, gipfelid],
+          where: 'gipfelid = ?',
+          whereArgs: [gipfelid],
         ));
   }
 
@@ -328,7 +330,7 @@ class SqlYacGuideFlutter {
     return database.then(
       (db) => db.delete(
         'komment',
-        where: "sektorid = ?",
+        where: 'sektorid = ?',
         whereArgs: [sektorid],
       ),
     );
@@ -389,7 +391,7 @@ class SqlYacGuideFlutter {
             'geklettert',
             'begehung'
           ],
-          where: "sektorid = ? AND gipfelid = ? AND wegid = ?",
+          where: 'sektorid = ? AND gipfelid = ? AND wegid = ?',
           whereArgs: [sektorid, gipfelid, wegid],
         ));
   }

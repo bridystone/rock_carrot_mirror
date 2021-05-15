@@ -3,21 +3,23 @@ import 'package:yacguide_flutter/Baseitems/BaseItem.dart';
 import 'package:yacguide_flutter/Baseitems/BaseItems.dart';
 
 class Country extends BaseItem {
+  @override
   String name;
   int areaCount;
-  Country(this.name, this.areaCount) : super(0, name, 0);
+  Country(this.name, this.areaCount) : super(0, name, areaCount);
 
   factory Country.fromSql(Map<String, Object?> sqlResult) {
     return Country(
       sqlResult['land'].toString(),
-      sqlResult['land'].toString().length, // should be areacount
+      int.parse(sqlResult['count'].toString()),
     );
   }
 }
 
 class Countries extends BaseItems {
-  Countries(parent) : super(parent);
+  Countries(BaseItem parent) : super(parent);
 
+  @override
   FutureOr<int> sqlFromJson(Map<String, dynamic> json) {
     return sqlHelper.insertCountry(
       json['land'],
@@ -26,23 +28,26 @@ class Countries extends BaseItems {
     );
   }
 
+  @override
   FutureOr<void> fetchFromWeb([
-    String queryValue = "",
+    String queryValue = '',
     String queryKey = '',
-    String target = "land",
+    String target = 'land',
   ]) async {
     await super.fetchFromWeb(target, queryKey, queryValue);
   }
 
+  @override
   Future<List<Map<String, Object?>>> getItems({
-    String queryItemString = "",
+    String queryItemString = '',
     int queryItemInt = 0,
   }) {
     return sqlHelper.queryCountries();
   }
 
+  @override
   FutureOr<int> deleteItems({
-    String queryItemString = "",
+    String queryItemString = '',
     int queryItemInt = 0,
   }) {
     return sqlHelper.deleteCountries();

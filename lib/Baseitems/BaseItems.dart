@@ -6,7 +6,7 @@ import 'package:yacguide_flutter/Baseitems/BaseItem.dart';
 import 'package:yacguide_flutter/Database/sql.dart';
 
 abstract class BaseItems {
-  late BaseItem parent;
+  BaseItem parent;
 
   BaseItems(this.parent);
 
@@ -16,20 +16,20 @@ abstract class BaseItems {
     */
   FutureOr<void> fetchFromWeb(
     String target, [
-    String queryKey = "",
-    String queryValue = "",
+    String queryKey = '',
+    String queryValue = '',
   ]) async {
     final uri = Uri(
       scheme: 'http',
       host: 'db-sandsteinklettern.gipfelbuch.de',
       path: 'json' + target + '.php',
       query: 'app=yacguide' +
-          ((queryKey != "")
-              ? "&$queryKey=${Uri.encodeQueryComponent(
+          ((queryKey != '')
+              ? '&$queryKey=${Uri.encodeQueryComponent(
                   queryValue,
                   encoding: latin1,
-                )}"
-              : ""),
+                )}'
+              : ''),
     );
     print(uri.toString());
     final response = await http.get(uri);
@@ -43,7 +43,7 @@ abstract class BaseItems {
         await deleteItems(queryItemInt: int.parse(queryValue));
       }
       //TODO: check if other activation than .toList() is possible
-      body.map((item) {
+      body.map((dynamic item) {
         sqlFromJson(item);
       }).toList(); //toList() -> only to activate the map
     } else {
@@ -73,11 +73,11 @@ class Root extends BaseItems {
     return 0;
   }
 
-  Future<List<Map<String, Object?>>> getItems({String queryItem = ""}) {
+  Future<List<Map<String, Object?>>> getItems({String queryItem = ''}) {
     return Future.value();
   }
 
-  FutureOr<int> deleteItems({String queryItem = ""}) {
+  FutureOr<int> deleteItems({String queryItem = ''}) {
     return 0;
   }
 }

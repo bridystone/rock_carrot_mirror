@@ -1,7 +1,7 @@
 class BaseItem {
   final int id;
   final String name;
-  final int childCount;
+  int childCount;
   BaseItem(this.id, this.name, this.childCount);
 
   factory BaseItem.fromSql(Map<String, Object?> sqlResult) {

@@ -13,32 +13,32 @@ class AreasMaterial extends StatefulWidget {
   // transfer country to state object
   @override
   _AreasMaterialState createState() {
-    return _AreasMaterialState(this.parentItem);
+    return _AreasMaterialState(parentItem);
   }
 }
 
 class _AreasMaterialState
     extends BaseItemsMaterialStatefulState<AreasMaterial> {
   final Country parentItem;
-  late Areas areas;
+  Areas areas;
 
   _AreasMaterialState(this.parentItem)
       : areas = Areas(parentItem),
         super(parentItem);
 
   @override
-  FutureBuilder itemsBody(BaseItem parentItem) {
-    return FutureBuilder(
+  FutureBuilder futureBuilderListItems(BaseItem parentItem) {
+    return FutureBuilder<List<Map<String, Object?>>>(
       builder: baseitemsBuilder,
       future: areas.getItems(queryItemString: parentItem.name),
       initialData: <Map<String, Object?>>[
-        {"gebiet_ID": "1"}
+        {'gebiet_ID': '1'}
       ],
     );
   }
 
   @override
-  List<BaseItem> getItemsData(snapshot) {
+  List<BaseItem> getItemsData(AsyncSnapshot snapshot) {
     List<Map<String, Object?>> sqlAreas = snapshot.data;
     return sqlAreas.map((item) => Area.fromSql(item)).toList();
   }

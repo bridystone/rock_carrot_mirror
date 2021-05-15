@@ -12,26 +12,26 @@ class SubAreasMaterial extends StatefulWidget {
   // transfer country to state object
   @override
   _SubAreasMaterialState createState() {
-    return _SubAreasMaterialState(this.parentItem);
+    return _SubAreasMaterialState(parentItem);
   }
 }
 
 class _SubAreasMaterialState
     extends BaseItemsMaterialStatefulState<SubAreasMaterial> {
   final Area parentItem;
-  late Subareas subareas;
+  Subareas subareas;
 
   _SubAreasMaterialState(this.parentItem)
       : subareas = Subareas(parentItem),
         super(parentItem);
 
   @override
-  FutureBuilder itemsBody(BaseItem parentItem) {
-    return FutureBuilder(
+  FutureBuilder futureBuilderListItems(BaseItem parentItem) {
+    return FutureBuilder<List<Map<String, Object?>>>(
       builder: baseitemsBuilder,
       future: subareas.getItems(queryItemInt: parentItem.id),
 /*      initialData: <Map<String, Object?>>[
-        {"gebiet_ID": "1"}
+        {'gebiet_ID': '1'}
       ],*/
     );
   }
@@ -44,7 +44,7 @@ class _SubAreasMaterialState
 
   @override
   FutureOr<int> deleteItems() {
-    return subareas.deleteItems(queryItemString: parentItem.name);
+    return subareas.deleteItems(queryItemInt: parentItem.id);
   }
 
   @override
