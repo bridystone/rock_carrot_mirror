@@ -15,6 +15,8 @@ void main() {
       runApp(YacGuideFlutterCupertino());
       return;
     }
-  } catch (e) {}
-  print("not a supported platform");
+  } catch (e) {
+    throw Exception(e);
+  }
+  print('not a supported platform');
 }

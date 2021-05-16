@@ -7,7 +7,7 @@ class YacGuideFlutterCupertino extends StatelessWidget {
     return CupertinoApp(
       title: 'YacGuideFlutter',
       home: CupertinoPageScaffold(
-        child: Text(""),
+        child: Text(''),
       ),
     );
   }

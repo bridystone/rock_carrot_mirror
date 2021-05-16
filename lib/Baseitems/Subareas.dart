@@ -1,36 +1,41 @@
 import 'dart:async';
+import 'package:yacguide_flutter/Baseitems/Areas.dart';
 import 'package:yacguide_flutter/Baseitems/BaseItem.dart';
 import 'package:yacguide_flutter/Baseitems/BaseItems.dart';
 
 class Subarea extends BaseItem {
+  @override
   int id;
   int nr;
+  @override
   String name;
   int gipfelCount;
   Subarea(this.id, this.nr, this.name, this.gipfelCount)
-      : super(0, name, gipfelCount);
+      : super(id, name, gipfelCount);
 
   factory Subarea.fromSql(Map<String, Object?> sqlResult) {
     return Subarea(
       int.parse(sqlResult['sektor_ID'].toString()),
       int.parse(sqlResult['sektornr'].toString()),
       sqlResult['sektorname_d'].toString(),
-      sqlResult['sektorname_d'].toString().length, // should be Subareacount
+      int.parse(sqlResult['count'].toString()), // should be Subareacount
     );
   }
 }
 
 class Subareas extends BaseItems {
-  Subareas(parent) : super(parent);
+  Subareas(Area parent) : super(parent);
 
+  @override
   FutureOr<void> fetchFromWeb(
     String queryValue, [
     String queryKey = 'gebietid',
-    String target = "teilgebiet",
+    String target = 'teilgebiet',
   ]) async {
     await super.fetchFromWeb(target, queryKey, queryValue);
   }
 
+  @override
   FutureOr<int> sqlFromJson(Map<String, dynamic> json) {
     return sqlHelper.insertSubareas(
       int.parse(json['sektor_ID']),
@@ -41,15 +46,17 @@ class Subareas extends BaseItems {
     );
   }
 
+  @override
   Future<List<Map<String, Object?>>> getItems({
-    String queryItemString = "",
+    String queryItemString = '',
     int queryItemInt = 0,
   }) {
     return sqlHelper.querySubareas(queryItemInt);
   }
 
+  @override
   FutureOr<int> deleteItems({
-    String queryItemString = "",
+    String queryItemString = '',
     int queryItemInt = 0,
   }) {
     return sqlHelper.deleteSubareas(queryItemInt);

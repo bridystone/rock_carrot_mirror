@@ -8,7 +8,7 @@ class CountryMaterial extends StatefulWidget {
   final BaseItem parentItem;
   CountryMaterial(this.parentItem);
   @override
-  _CountryMaterialState createState() => _CountryMaterialState(this.parentItem);
+  _CountryMaterialState createState() => _CountryMaterialState(parentItem);
 }
 
 class _CountryMaterialState
@@ -21,12 +21,12 @@ class _CountryMaterialState
         super(parentItem);
 
   @override
-  FutureBuilder itemsBody(BaseItem parentItem) {
-    return FutureBuilder(
+  FutureBuilder futureBuilderListItems(BaseItem parentItem) {
+    return FutureBuilder<List<Map<String, Object?>>>(
       builder: baseitemsBuilder,
       future: countries.getItems(),
 /*      initialData: <Map<String, Object?>>[
-        {"gebiet_ID": "1"}
+        {'gebiet_ID': '1'}
       ],*/
     );
   }
@@ -44,6 +44,6 @@ class _CountryMaterialState
 
   @override
   FutureOr<void> fetchFromWeb() {
-    return countries.fetchFromWeb("");
+    return countries.fetchFromWeb('');
   }
 }

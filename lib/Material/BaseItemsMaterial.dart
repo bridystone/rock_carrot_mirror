@@ -23,64 +23,68 @@ abstract class BaseItemsMaterialStatefulState<T extends StatefulWidget>
           IconButton(
             icon: Icon(Icons.update),
             onPressed: () async {
-              await fetchFromWeb();
               //refresh Scaffold
+              await fetchFromWeb();
               setState(() {});
             },
           ),
         ],
       ),
-      body: itemsBody(baseitem),
+      body: futureBuilderListItems(baseitem),
     );
   }
 
-  FutureBuilder itemsBody(BaseItem parentItem) {
-    return FutureBuilder(builder: baseitemsBuilder);
-  }
+  FutureBuilder futureBuilderListItems(BaseItem parentItem);
 
   FutureOr<int> deleteItems();
   FutureOr<void> fetchFromWeb();
 
   // Dummy - to be overwritten!
-  List<BaseItem> getItemsData(snapshot) {
-    List<Map<String, Object?>> sqlItems = snapshot.data;
-    return sqlItems.map((item) => BaseItem.fromSql(item)).toList();
+  List<BaseItem> getItemsData(AsyncSnapshot snapshot);
+
+  Widget baseitemsBuilder(BuildContext context, AsyncSnapshot snapshot) {
+    if (snapshot.hasError) {
+      return futureBuilderErrorMessage(snapshot);
+    }
+
+    if (snapshot.connectionState == ConnectionState.done) {
+      final items = getItemsData(snapshot);
+      return buildList(items);
+    }
+
+    return futureBuilderLoadingMessage(snapshot);
   }
 
-  Widget baseitemsBuilder(context, AsyncSnapshot snapshot) {
-    if (snapshot.hasError) {
-      print("ERROR" + snapshot.error.toString());
-      return Column(children: [
-        Icon(
-          Icons.error_outline,
-          color: Colors.yellow,
-          size: 50,
+  Widget futureBuilderErrorMessage(AsyncSnapshot snapshot) {
+    print('ERROR' + snapshot.error.toString());
+    return Column(children: [
+      Icon(
+        Icons.error_outline,
+        color: Colors.yellow,
+        size: 50,
+      ),
+      Padding(
+        padding: EdgeInsets.all(60),
+        child: Text(snapshot.error.toString()),
+      ),
+    ]);
+  }
+
+  Widget futureBuilderLoadingMessage(AsyncSnapshot snapshot) {
+    final message = 'Loading data... ${snapshot.connectionState.toString()}';
+    return Column(
+      children: [
+        SizedBox(
+          width: 50,
+          height: 50,
+          child: CircularProgressIndicator(),
         ),
         Padding(
-          padding: EdgeInsets.all(60),
-          child: Text(snapshot.error.toString()),
-        ),
-      ]);
-    }
-    if (!snapshot.hasData) {
-      return Column(
-        children: [
-          SizedBox(
-            child: CircularProgressIndicator(),
-            width: 50,
-            height: 50,
-          ),
-          const Padding(
-            padding: EdgeInsets.all(50),
-            child: Text('Loading data...'),
-          )
-        ],
-      );
-    }
-
-    final items = getItemsData(snapshot);
-
-    return buildList(items);
+          padding: EdgeInsets.all(50),
+          child: Text(message),
+        )
+      ],
+    );
   }
 
   Widget buildList(List<BaseItem> items) {
@@ -91,13 +95,16 @@ abstract class BaseItemsMaterialStatefulState<T extends StatefulWidget>
         return Column(children: [
           ListTile(
             title: Text(items[i].name),
-            trailing: Text("(" + items[i].childCount.toString() + ")"),
+            trailing: Text('(' + items[i].childCount.toString() + ')'),
             onTap: () {
               Navigator.pushNamed(
                 context,
                 '/' + items[i].runtimeType.toString(),
                 arguments: items[i], // parent item
-              );
+              ).then((value) {
+                // refresh current page after back button is pushed to ensure new data is taken care of
+                setState(() {});
+              });
             },
           ),
           Divider(
