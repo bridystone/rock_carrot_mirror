@@ -44,11 +44,11 @@ class _SubAreasMaterialState
 
   @override
   FutureOr<int> deleteItems() {
-    return subareas.deleteItems(queryItemInt: parentItem.id);
+    return subareas.deleteItems();
   }
 
   @override
   FutureOr<void> fetchFromWeb() {
-    return subareas.fetchFromWeb(parentItem.id.toString());
+    return subareas.fetchFromWeb();
   }
 }

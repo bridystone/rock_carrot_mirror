@@ -43,7 +43,7 @@ class _CountryMaterialState
   }
 
   @override
-  FutureOr<void> fetchFromWeb() {
-    return countries.fetchFromWeb('');
+  FutureOr<void> fetchFromWeb() async {
+    return await countries.fetchFromWeb();
   }
 }

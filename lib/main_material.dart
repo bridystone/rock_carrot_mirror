@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:yacguide_flutter/Baseitems/Areas.dart';
 import 'package:yacguide_flutter/Baseitems/BaseItem.dart';
 import 'package:yacguide_flutter/Baseitems/Countries.dart';
-import 'package:yacguide_flutter/Baseitems/Gipfels.dart';
+import 'package:yacguide_flutter/Baseitems/Rocks.dart';
 import 'package:yacguide_flutter/Baseitems/Subareas.dart';
 import 'package:yacguide_flutter/Material/AreasMaterial.dart';
 import 'package:yacguide_flutter/Material/SubareasMaterial.dart';
 import 'package:yacguide_flutter/Material/CountriesMaterial.dart';
-import 'package:yacguide_flutter/Material/GipfelsMaterial.dart';
-import 'package:yacguide_flutter/Material/WegeMaterial.dart';
+import 'package:yacguide_flutter/Material/RocksMaterial.dart';
+import 'package:yacguide_flutter/Material/RoutesMaterial.dart';
 
 class YacGuideFlutterMaterial extends StatelessWidget {
   @override
@@ -33,12 +33,12 @@ class YacGuideFlutterMaterial extends StatelessWidget {
                 builder: (context) => SubAreasMaterial(area));
           case '/Subarea':
             final subarea = settings.arguments as Subarea;
-            return MaterialPageRoute<GipfelsMaterial>(
-                builder: (context) => GipfelsMaterial(subarea));
-          case '/Gipfel':
-            final gipfel = settings.arguments as Gipfel;
-            return MaterialPageRoute<WegeMaterial>(
-                builder: (context) => WegeMaterial(gipfel));
+            return MaterialPageRoute<RocksMaterial>(
+                builder: (context) => RocksMaterial(subarea));
+          case '/Rock':
+            final rock = settings.arguments as Rock;
+            return MaterialPageRoute<RoutesMaterial>(
+                builder: (context) => RoutesMaterial(rock));
           default:
         }
       },

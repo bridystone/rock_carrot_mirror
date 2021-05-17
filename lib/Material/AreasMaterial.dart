@@ -45,11 +45,11 @@ class _AreasMaterialState
 
   @override
   FutureOr<int> deleteItems() {
-    return areas.deleteItems(queryItemString: parentItem.name);
+    return areas.deleteItems();
   }
 
   @override
   FutureOr<void> fetchFromWeb() {
-    return areas.fetchFromWeb(parentItem.name);
+    return areas.fetchFromWeb();
   }
 }
