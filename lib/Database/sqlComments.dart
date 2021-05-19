@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:yacguide_flutter/Baseitems/Comments.dart';
 import 'package:yacguide_flutter/Database/sql.dart';
 
 extension SqlHandlerComments on SqlHandler {
@@ -12,6 +13,24 @@ extension SqlHandlerComments on SqlHandler {
     );
   }
 
+  Future<List<Comment>> queryRouteComments(
+    int wegid,
+  ) async {
+    final sqlResults = await database.then((db) => db.query(
+          'komment',
+          columns: SqlHandler.databaseTableColumns['komment']!
+              .map((tableRow) => tableRow['name']!)
+              .toList(),
+          where: 'wegid = ?',
+          whereArgs: [wegid],
+        ));
+    return sqlResults
+        .map(
+          (sqlRow) => Comment.fromSql(sqlRow),
+        )
+        .toList();
+  }
+
   Future<List<Map<String, Object?>>> queryComment(
     int sektorid,
     int gipfelid,
@@ -20,15 +39,23 @@ extension SqlHandlerComments on SqlHandler {
     return database.then((db) => db.query(
           'komment',
           columns: [
+            'komment_ID',
+            'userid',
+            'datum',
+            'adatum',
+            'wegid',
+            'sektorid',
+            'gebietid',
             'qual',
             'sicher',
             'nass',
             'kommentar',
+            'gipfelid',
             'schwer',
             'geklettert',
             'begehung'
           ],
-          where: 'sektorid = ? AND gipfelid = ? AND wegid = ?',
+          where: 'sektorid = ? OR gipfelid = ? OR wegid = ?',
           whereArgs: [sektorid, gipfelid, wegid],
         ));
   }

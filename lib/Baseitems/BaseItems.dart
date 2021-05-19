@@ -68,7 +68,10 @@ abstract class BaseItems {
     final response = await http.get(uri);
     // check if response is valid and refresh items in database
     if (_isResponseValid(response)) {
-      await deleteItems();
+      // TODO: is here a duplicate delete?!?!
+      // this might be, because fetchWeb is called multi times - and every time old data is removed
+      // delete should happen elsewhere
+      //await deleteItems();
 
       // insert data to DB
       final List<dynamic> jsonData = json.decode(response.body);

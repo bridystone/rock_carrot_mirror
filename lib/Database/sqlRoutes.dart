@@ -22,6 +22,9 @@ extension SqlHandlerRoutes on SqlHandler {
             'Weg_ID',
             'gipfelid',
             'schwierigkeit',
+            'erstbegvorstieg',
+            'erstbegnachstieg',
+            'erstbegdatum',
             'ringzahl',
             'wegbeschr_d',
             'wegbeschr_cz',
@@ -33,6 +36,7 @@ extension SqlHandlerRoutes on SqlHandler {
           ],
           where: 'gipfelid = ?',
           whereArgs: [gipfelid],
+          orderBy: 'wegnr',
         ));
   }
 }

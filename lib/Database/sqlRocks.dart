@@ -23,7 +23,8 @@ extension SqlHandlerRocks on SqlHandler {
           '   LEFT OUTER JOIN wege'
           '   ON gipfel.gipfel_ID = wege.gipfelid'
           ' WHERE gipfel.sektorid = ?'
-          ' GROUP BY gipfel.gipfel_id',
+          ' GROUP BY gipfel.gipfel_id'
+          ' ORDER BY gipfelnr',
           [sektorid],
         ));
   }
