@@ -25,6 +25,7 @@ abstract class BaseItemsMaterialStatefulState<T extends StatefulWidget>
             onPressed: () async {
               //refresh Scaffold
               await fetchFromWeb();
+
               setState(() {});
             },
           ),

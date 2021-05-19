@@ -1,9 +1,10 @@
 import 'dart:async';
 import 'package:yacguide_flutter/Baseitems/BaseItem.dart';
 import 'package:yacguide_flutter/Baseitems/BaseItems.dart';
-import 'package:yacguide_flutter/Baseitems/Gipfels.dart';
+import 'package:yacguide_flutter/Baseitems/Rocks.dart';
+import 'package:yacguide_flutter/Database/sqlRoutes.dart';
 
-class Weg extends BaseItem {
+class Route extends BaseItem {
   @override
   int id; /*sektorid!!*/
   int wegId;
@@ -17,8 +18,8 @@ class Weg extends BaseItem {
   String wegnameCZ;
   String wegstatus;
   String wegnr;
-  int wegeCount;
-  Weg(
+  int routeCount;
+  Route(
     this.id,
     this.wegId,
     this.gipfelId,
@@ -31,12 +32,12 @@ class Weg extends BaseItem {
     this.wegnameCZ,
     this.wegstatus,
     this.wegnr,
-    this.wegeCount,
-  ) : super(id, wegname, wegeCount);
+    this.routeCount,
+  ) : super(id, wegname, routeCount);
 
-  factory Weg.fromSql(Map<String, Object?> sqlResult) {
-    return Weg(
-      int.parse(sqlResult['sektorid'].toString()),
+  factory Route.fromSql(Map<String, Object?> sqlResult) {
+    return Route(
+      0, //sektor id
       int.parse(sqlResult['weg_ID'].toString()),
       int.parse(sqlResult['gipfelid'].toString()),
       sqlResult['schwierigkeit'].toString(),
@@ -53,53 +54,31 @@ class Weg extends BaseItem {
   }
 }
 
-class Wege extends BaseItems {
-  Wege(Gipfel parent) : super(parent);
-
-  @override
-  FutureOr<void> fetchFromWeb(
-    String queryValue, [
-    String queryKey = 'sektorid',
-    String target = 'wege',
-  ]) async {
-    await super.fetchFromWeb(target, queryKey, queryValue);
-  }
-
-  @override
-  FutureOr<int> sqlFromJson(Map<String, dynamic> json) {
-    return sqlHelper.insertWege(
-      int.parse(json['weg_ID']),
-      int.parse(json['gipfelid']),
-      json['schwierigkeit'],
-      json['erstbegvorstieg'],
-      json['erstbegnachstieg'],
-      json['erstbegdatum'],
-      json['ringzahl'],
-      json['wegbeschr_d'],
-      json['wegbeschr_cz'],
-      json['kletterei'],
-      json['wegname_d'],
-      json['wegname_cz'],
-      json['wegstatus'],
-      json['wegnr'],
-      parent.id, // = sektorid
-      //int.parse(json['sektorid']),
-    );
-  }
+class Routes extends BaseItems {
+  Routes(Rock parent) : super(parent);
 
   @override
   Future<List<Map<String, Object?>>> getItems({
     String queryItemString = '',
     int queryItemInt = 0,
   }) {
-    return sqlHelper.queryWege(queryItemInt);
+    return sqlHelper.queryRoutes(queryItemInt);
   }
 
   @override
-  FutureOr<int> deleteItems({
-    String queryItemString = '',
-    int queryItemInt = 0,
-  }) {
-    return sqlHelper.deleteWege(queryItemInt);
+  FutureOr<int> deleteItems() {
+    if (parent.name == BaseItems.dummyName) {
+      return sqlHelper.deleteRoutes(parent.id); // should be sektor_id
+    }
+    throw Exception('not to be called - should be deleted from rocks');
+  }
+
+  /// ensure that this is only called from Rocks and not directly
+  @override
+  FutureOr<void> fetchFromWeb() async {
+    if (parent.name == BaseItems.dummyName) {
+      return super.fetchFromWeb(); // should be sektor_id
+    }
+    throw Exception('not to be called - should be deleted from rocks');
   }
 }

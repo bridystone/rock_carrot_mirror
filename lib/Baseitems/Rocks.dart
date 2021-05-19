@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'package:yacguide_flutter/Baseitems/BaseItem.dart';
 import 'package:yacguide_flutter/Baseitems/BaseItems.dart';
+import 'package:yacguide_flutter/Baseitems/Routes.dart';
 import 'package:yacguide_flutter/Baseitems/Subareas.dart';
+import 'package:yacguide_flutter/Database/sqlRocks.dart';
 
-class Gipfel extends BaseItem {
+class Rock extends BaseItem {
   @override
   int id; /*sektorid!!*/
   int gipfelId;
@@ -14,8 +16,8 @@ class Gipfel extends BaseItem {
   String gipfelTyp;
   String schartenhoehe;
   String talhoehe;
-  int wegeCount;
-  Gipfel(
+  int routeCount;
+  Rock(
     this.id,
     this.gipfelId,
     this.gipfelNr,
@@ -25,11 +27,11 @@ class Gipfel extends BaseItem {
     this.gipfelTyp,
     this.schartenhoehe,
     this.talhoehe,
-    this.wegeCount,
-  ) : super(id, gipfelName, wegeCount);
+    this.routeCount,
+  ) : super(id, gipfelName, routeCount);
 
-  factory Gipfel.fromSql(Map<String, Object?> sqlResult) {
-    return Gipfel(
+  factory Rock.fromSql(Map<String, Object?> sqlResult) {
+    return Rock(
       int.parse(sqlResult['sektorid'].toString()),
       int.parse(sqlResult['gipfel_ID'].toString()),
       sqlResult['gipfelnr'].toString(),
@@ -42,51 +44,40 @@ class Gipfel extends BaseItem {
       int.parse(sqlResult['count'].toString()), // should be Subareacount
     );
   }
+
+  /// this is used this delete/insert Routes/Comments
+  /// since only sektorid is important and this is not a real parent
+  factory Rock.dummyRock(int sektorId) {
+    return Rock(sektorId, 0, '', BaseItems.dummyName, '', '', '', '', '', 0);
+  }
 }
 
-class Gipfels extends BaseItems {
-  Gipfels(Subarea parent) : super(parent);
-
-  @override
-  FutureOr<void> fetchFromWeb(
-    String queryValue, [
-    String queryKey = 'sektorid',
-    String target = 'gipfel',
-  ]) async {
-    await super.fetchFromWeb(target, queryKey, queryValue);
-  }
-
-  @override
-  FutureOr<int> sqlFromJson(Map<String, dynamic> json) {
-    return sqlHelper.insertGipfels(
-      int.parse(json['gipfel_ID']),
-      json['gipfelnr'],
-      json['gipfelname_d'],
-      json['gipfelname_cz'],
-      json['status'],
-      json['typ'],
-      json['vgrd'],
-      json['ngrd'],
-      json['posfehler'],
-      json['schartenhoehe'],
-      json['talhoehe'],
-      int.parse(json['sektorid']),
-    );
-  }
+class Rocks extends BaseItems {
+  Rocks(Subarea parent) : super(parent);
 
   @override
   Future<List<Map<String, Object?>>> getItems({
     String queryItemString = '',
     int queryItemInt = 0,
   }) {
-    return sqlHelper.queryGipfels(queryItemInt);
+    return sqlHelper.queryRocks(queryItemInt);
   }
 
   @override
-  FutureOr<int> deleteItems({
-    String queryItemString = '',
-    int queryItemInt = 0,
-  }) {
-    return sqlHelper.deleteGipfels(queryItemInt);
+  FutureOr<int> deleteItems() {
+    // delete Routes as well with a dummy Rock Items
+    Routes(Rock.dummyRock(parent.id)).deleteItems();
+
+    return sqlHelper.deleteRocks(parent.id);
+  }
+
+  /// special overide for Rocks
+  /// will as well fetch data for Routes & Comments
+  @override
+  FutureOr<void> fetchFromWeb() async {
+    // fetch Rocks
+    await super.fetchFromWeb();
+    // fetch Routes
+    await Routes(Rock.dummyRock(parent.id)).fetchFromWeb();
   }
 }

@@ -5,50 +5,153 @@ import 'package:path/path.dart';
 
 const String globalDbName = 'sandsteinklettern.db';
 
-class SqlYacGuideFlutter {
-  static final SqlYacGuideFlutter _singleton = SqlYacGuideFlutter._internal();
-  static bool _isInitialized = false;
-  late final Future<Database> _db;
+class SqlHandler {
+  /// Singleton instance of the class
+  static final SqlHandler _singleton = SqlHandler._internal();
+
+  /// internal db connection - DO NOT USE even internally
+  /// use getter database instead
+  Future<Database>? _db;
 
   // hide constructor as private
-  SqlYacGuideFlutter._internal();
+  SqlHandler._internal();
   // factory constructur of singleton
-  factory SqlYacGuideFlutter() {
+  factory SqlHandler() {
     return _singleton;
   }
 
+  static const databaseRuntimetypeTables = {
+    'Countries': 'land',
+    'Areas': 'gebiet',
+    'Subareas': 'teilgebiet',
+    'Rocks': 'gipfel',
+    'Routes': 'wege',
+    'Comments': 'komment',
+  };
+
+  static const databaseTableColumns = {
+    'land': [
+      {'name': 'land', 'type': 'TEXT PRIMARY KEY'},
+      {'name': 'ISO3166', 'type': 'TEXT'},
+      {'name': 'KFZ', 'type': 'TEXT'},
+    ],
+    // json query key: land
+    'gebiet': [
+      {'name': 'gebiet_ID', 'type': 'INT PRIMARY KEY'},
+      {'name': 'gebiet', 'type': 'TEXT'},
+      {'name': 'land', 'type': 'TEXT'},
+      {'name': 'sprache2', 'type': 'TEXT'},
+      {'name': 'gdefaultanzeige', 'type': 'TEXT'},
+      {'name': 'schwskala', 'type': 'TEXT'},
+    ],
+    // json query key: gebietid
+    'teilgebiet': [
+      {'name': 'sektor_ID', 'type': 'INT PRIMARY KEY'},
+      {'name': 'gebietid', 'type': 'INT'},
+      {'name': 'sektornr', 'type': 'TEXT'},
+      {'name': 'sektorname_d', 'type': 'TEXT'},
+      {'name': 'sektorname_cz', 'type': 'TEXT'},
+    ],
+    // json query key: sektorid
+    'gipfel': [
+      {'name': 'gipfel_ID', 'type': 'INT PRIMARY KEY'},
+      {'name': 'gipfelnr', 'type': 'TEXT'},
+      {'name': 'gipfelname_d', 'type': 'TEXT'},
+      {'name': 'gipfelname_cz', 'type': 'TEXT'},
+      {'name': 'status', 'type': 'TEXT'},
+      {'name': 'typ', 'type': 'TEXT'},
+      {'name': 'vgrd', 'type': 'TEXT'},
+      {'name': 'ngrd', 'type': 'TEXT'},
+      {'name': 'posfehler', 'type': 'TEXT'},
+      {'name': 'schartenhoehe', 'type': 'TEXT'},
+      {'name': 'talhoehe', 'type': 'TEXT'},
+      {'name': 'sektorid', 'type': 'INT'},
+    ],
+    // json query key: sektorid
+    'wege': [
+      {'name': 'weg_ID', 'type': 'INT PRIMARY KEY'},
+      {'name': 'gipfelid', 'type': 'INT'},
+      {'name': 'schwierigkeit', 'type': 'TEXT'},
+      {'name': 'erstbegvorstieg', 'type': 'TEXT'},
+      {'name': 'erstbegnachstieg', 'type': 'TEXT'},
+      {'name': 'erstbegdatum', 'type': 'TEXT'},
+      {'name': 'ringzahl', 'type': 'TEXT'},
+      {'name': 'wegbeschr_d', 'type': 'TEXT'},
+      {'name': 'wegbeschr_cz', 'type': 'TEXT'},
+      {'name': 'kletterei', 'type': 'TEXT'},
+      {'name': 'wegname_d', 'type': 'TEXT'},
+      {'name': 'wegname_cz', 'type': 'TEXT'},
+      {'name': 'wegstatus', 'type': 'TEXT'},
+      {'name': 'wegnr', 'type': 'TEXT'},
+      {'name': 'sektorid', 'type': 'INT'},
+    ],
+    // json query keys: gebietid or sektorid
+    'komment': [
+      {'name': 'komment_ID', 'type': 'INT PRIMARY KEY'},
+      {'name': 'userid', 'type': 'INT'},
+      {'name': 'datum', 'type': 'TEXT'},
+      {'name': 'adatum', 'type': 'TEXT'},
+      {'name': 'wegid', 'type': 'INT'},
+      {'name': 'sektorid', 'type': 'INT'},
+      {'name': 'gebietid', 'type': 'INT'},
+      {'name': 'qual', 'type': 'TEXT'},
+      {'name': 'sicher', 'type': 'TEXT'},
+      {'name': 'nass', 'type': 'TEXT'},
+      {'name': 'kommentar', 'type': 'TEXT'},
+      {'name': 'gipfelid', 'type': 'TEXT'},
+      {'name': 'schwer', 'type': 'TEXT'},
+      {'name': 'geklettert', 'type': 'TEXT'},
+      {'name': 'begehung', 'type': 'TEXT'},
+    ],
+  };
+
+  /// database connection
+  ///
+  /// will be opened once, if not yet initialized
   Future<Database> get database async {
-    if (!_isInitialized) {
-      _db = _openConnection(false);
-      _isInitialized = true;
-    }
-    return _db;
+    _db ??= _openConnection(resetDatabase: false);
+    return _db!;
   }
 
-  Future<Database> _openConnection(bool resetDatabase) async {
-    final databasesPath =
-        await getDatabasesPath(); //getApplicationDocumentDirectory()
-    print(databasesPath.toString());
+  /// open connection to the database
+  ///
+  /// only to be used from the database getter
+  /// checks existance of folder and creates database if necessary
+  // TODO: resetDatabase currently not used/usable
+  Future<Database> _openConnection({bool resetDatabase = false}) async {
+    // TODO: Change back to databasesPath, to ensure correct working
+    // final databasesPath = '/sdcard/Android/data/com.example.yacguide_flutter/'; //ONLY FOR TESTING ON Emulator
+    final databasesPath = await getDatabasesPath();
     final path = join(databasesPath, globalDbName);
     // Make sure the directory exists
     try {
       await Directory(databasesPath).create(recursive: true);
       if (resetDatabase) await File(path).delete();
-    } catch (_) {
-      print('failed');
+    } catch (e) {
+      print('failed to create directory or delete database:' + e.toString());
     }
     return await openDatabase(
       path,
+      // version has to be set (1), otherwise onCreate won't work
       version: 1,
+      // create database tables for newly created files
       onCreate: _onCreate,
     );
   }
 
-  /* 
-    Tables created for empty new database
-  */
+  /// create tables for a newly created DB file
   FutureOr<void> _onCreate(Database db, dynamic id) async {
-    print('create Tables');
+    print('create Tables' + id.toString());
+    databaseTableColumns.forEach((tablename, columns) async {
+      //generate create string
+      var createString = 'CREATE TABLE ' + tablename + '(';
+      for (var column in columns) {
+        createString += column['name']! + ' ' + column['type']! + ',';
+      }
+      createString = createString.substring(0, createString.length - 1) + ')';
+      await db.execute(createString);
+    });
+    /*
     await db.execute(
         'CREATE TABLE land (land TEXT PRIMARY KEY, ISO3166 TEXT, KFZ TEXT)');
     await db.execute(/*json-query-key:land*/
@@ -61,338 +164,12 @@ class SqlYacGuideFlutter {
         'CREATE TABLE wege (weg_ID INT PRIMARY KEY, gipfelid INT, schwierigkeit TEXT, erstbegvorstieg TEXT, erstbegnachstieg TEXT, erstbegdatum TEXT, ringzahl TEXT, wegbeschr_d TEXT, wegbeschr_cz TEXT, kletterei TEXT, wegname_d TEXT, wegname_cz TEXT, wegstatus TEXT, wegnr INT, sektorid INT)');
     await db.execute(/*json-query-key:sektorid*/
         'CREATE TABLE komment (komment_ID INT PRIMARY KEY, userid INT, datum TEXT, adatum TEXT, wegid INT, sektorid INT, gebietid INT, qual TEXT, sicher TEXT, nass TEXT, kommentar TEXT, gipfelid INT, schwer TEXT, geklettert TEXT, begehung TEXT)');
+        */
   }
 
-  /* 
-    country stuff
-  */
-  FutureOr<int> deleteCountries() async {
-    return database.then((db) => db.delete('land'));
-  }
-
-  FutureOr<int> insertCountry(
-    String country,
-    String iso,
-    String kfz,
-  ) async {
-    return database.then((db) => db.insert(
-          'land',
-          {
-            'land': country,
-            'ISO3166': iso,
-            'kfz': kfz,
-          },
-        ));
-  }
-
-  Future<List<Map<String, Object?>>> queryCountries() async {
-    return database.then((db) => db.rawQuery(
-          'SELECT land.land, COUNT(gebiet) as count'
-          ' FROM land'
-          ' LEFT OUTER JOIN gebiet'
-          ' ON land.land = gebiet.land'
-          ' GROUP BY land.land',
-        ));
-  }
-
-  /*
-    area stuff
-    */
-  FutureOr<int> deleteAreas(String land) async {
-    return database.then(
-      (db) => db.delete(
-        'gebiet',
-        where: 'land = ?',
-        whereArgs: [land],
-      ),
-    );
-  }
-
-  FutureOr<int> insertAreas(
-    int gebietID,
-    String gebiet,
-    String land,
-    String sprache2,
-    String gdefaultanzeige,
-    String schwskala,
-  ) async {
-    return database.then((db) => db.insert(
-          'gebiet',
-          {
-            'gebiet_ID': gebietID,
-            'gebiet': gebiet,
-            'land': land,
-            'sprache2': land,
-            'gdefaultanzeige': land,
-            'schwskala': land,
-          },
-        ));
-  }
-
-  Future<List<Map<String, Object?>>> queryAreas(String land) async {
-    return database.then((db) => db.rawQuery(
-          'SELECT gebiet_ID, gebiet, COUNT(teilgebiet.gebietid) as count'
-          ' FROM gebiet'
-          ' LEFT OUTER JOIN teilgebiet'
-          ' ON gebiet.gebiet_ID = teilgebiet.gebietid'
-          ' WHERE land = ?'
-          ' GROUP BY gebiet.gebiet_ID',
-          [land],
-        ));
-  }
-
-  /*
-    Subarea stuff
-    */
-  FutureOr<int> deleteSubareas(int gebietid) async {
-    return database.then(
-      (db) => db.delete(
-        'teilgebiet',
-        where: 'gebietid = ?',
-        whereArgs: [gebietid],
-      ),
-    );
-  }
-
-  FutureOr<int> insertSubareas(
-    int sektorID,
-    int gebietid,
-    int sektornr,
-    String sektornameD,
-    String sektornameCZ,
-  ) async {
-    return database.then((db) => db.insert(
-          'teilgebiet',
-          {
-            'sektor_ID': sektorID,
-            'gebietid': gebietid,
-            'sektornr': sektornr,
-            'sektorname_d': sektornameD,
-            'sektorname_cz': sektornameCZ,
-          },
-        ));
-  }
-
-  Future<List<Map<String, Object?>>> querySubareas(int gebietid) async {
-    return database.then((db) => db.rawQuery(
-          'SELECT sektor_ID, sektornr, sektorname_d, sektorname_cz, COUNT(gipfel.sektorid) as count'
-          ' FROM teilgebiet'
-          ' LEFT OUTER JOIN gipfel'
-          ' ON teilgebiet.sektor_ID = gipfel.sektorid'
-          ' WHERE gebietid = ?'
-          ' GROUP BY teilgebiet.sektor_ID',
-          [gebietid],
-        ));
-  }
-
-  /*
-    Gipfel stuff
-    */
-  FutureOr<int> deleteGipfels(int sektorid) async {
-    return database.then(
-      (db) => db.delete(
-        'gipfel',
-        where: 'sektorid = ?',
-        whereArgs: [sektorid],
-      ),
-    );
-  }
-
-  FutureOr<int> insertGipfels(
-    int gipfelID,
-    String gipfelnr,
-    String gipfelnameD,
-    String gipfelnameCZ,
-    String status,
-    String typ,
-    String vgrd,
-    String ngrd,
-    String posfehler,
-    String schartenhoehe,
-    String talhoehe,
-    int sektorid,
-  ) async {
-    return database.then((db) => db.insert(
-          'gipfel',
-          {
-            'gipfel_ID': gipfelID,
-            'gipfelnr': gipfelnr,
-            'gipfelname_D': gipfelnameD,
-            'gipfelname_CZ': gipfelnameCZ,
-            'status': status,
-            'typ': typ,
-            'vgrd': vgrd,
-            'ngrd': ngrd,
-            'posfehler': posfehler,
-            'schartenhoehe': schartenhoehe,
-            'talhoehe': talhoehe,
-            'sektorid': sektorid,
-          },
-        ));
-  }
-
-  Future<List<Map<String, Object?>>> queryGipfels(
-    int sektorid,
-  ) async {
-    return database.then((db) => db.rawQuery(
-          'SELECT gipfel_ID, gipfelnr, gipfelname_d, gipfelname_cz, '
-          '   status, typ, schartenhoehe, talhoehe, gipfel.sektorid, '
-          '   COUNT(wege.gipfelid) as count'
-          ' FROM gipfel'
-          '   LEFT OUTER JOIN wege'
-          '   ON gipfel.gipfel_ID = wege.gipfelid'
-          ' WHERE gipfel.sektorid = ?'
-          ' GROUP BY gipfel.gipfel_id',
-          [sektorid],
-        ));
-  }
-
-  /*
-    Wege stuff
-    */
-  FutureOr<int> deleteWege(int sektorid) async {
-    return database.then(
-      (db) => db.delete(
-        'wege',
-        where: 'sektorid = ?',
-        whereArgs: [sektorid],
-      ),
-    );
-  }
-
-  FutureOr<int> insertWege(
-    int wegID,
-    int gipfelid,
-    String schwierigkeit,
-    String erstbegvorstieg,
-    String erstbegnachstieg,
-    String erstbegdatum,
-    String ringzahl,
-    String wegbeschrD,
-    String wegbeschrCZ,
-    String kletterei,
-    String wegnameD,
-    String wegnameCZ,
-    String wegstatus,
-    String wegnr,
-    int sektorid,
-  ) async {
-    return database.then((db) => db.insert(
-          'wege',
-          {
-            'sektorid': sektorid,
-            'weg_ID': wegID,
-            'gipfelid': gipfelid,
-            'schwierigkeit': schwierigkeit,
-            'erstbegvorstieg': erstbegvorstieg,
-            'erstbegnachstieg': erstbegnachstieg,
-            'erstbegdatum': erstbegdatum,
-            'ringzahl': ringzahl,
-            'wegbeschr_d': wegbeschrD,
-            'wegbeschr_cz': wegbeschrCZ,
-            'kletterei': kletterei,
-            'wegname_d': wegnameD,
-            'wegname_cz': wegnameCZ,
-            'wegstatus': wegstatus,
-            'wegnr': wegnr,
-          },
-        ));
-  }
-
-  Future<List<Map<String, Object?>>> queryWege(
-    int gipfelid,
-  ) async {
-    return database.then((db) => db.query(
-          'wege',
-          columns: [
-            'sektorid',
-            'Weg_ID',
-            'gipfelid',
-            'schwierigkeit',
-            'ringzahl',
-            'wegbeschr_d',
-            'wegbeschr_cz',
-            'kletterei',
-            'wegname_d',
-            'wegname_cz',
-            'wegstatus',
-            'wegnr'
-          ],
-          where: 'gipfelid = ?',
-          whereArgs: [gipfelid],
-        ));
-  }
-
-  /*
-    Komment stuff
-    */
-  FutureOr<int> deleteComment(int sektorid) async {
-    return database.then(
-      (db) => db.delete(
-        'komment',
-        where: 'sektorid = ?',
-        whereArgs: [sektorid],
-      ),
-    );
-  }
-
-  FutureOr<int> insertComment(
-    int kommentID,
-    int userid,
-    String datum,
-    String adatum,
-    int wegid,
-    int sektorid,
-    int gebietid,
-    String qual,
-    String sicher,
-    String nass,
-    String kommentar,
-    int gipfelid,
-    String schwer,
-    String geklettert,
-    String begehung,
-  ) async {
-    return database.then((db) => db.insert(
-          'gebiet',
-          {
-            'komment_ID': kommentID,
-            'userid': userid,
-            'datum': datum,
-            'adatum': adatum,
-            'wegid': wegid,
-            'sektorid': sektorid,
-            'gebietid': gebietid,
-            'qual': qual,
-            'sicher': sicher,
-            'nass': nass,
-            'kommentar': kommentar,
-            'gipfelid': gipfelid,
-            'schwer': schwer,
-            'geklettert': geklettert,
-            'begehung': begehung,
-          },
-        ));
-  }
-
-  Future<List<Map<String, Object?>>> queryComment(
-    int sektorid,
-    int gipfelid,
-    int wegid,
-  ) async {
-    return database.then((db) => db.query(
-          'komment',
-          columns: [
-            'qual',
-            'sicher',
-            'nass',
-            'kommentar',
-            'schwer',
-            'geklettert',
-            'begehung'
-          ],
-          where: 'sektorid = ? AND gipfelid = ? AND wegid = ?',
-          whereArgs: [sektorid, gipfelid, wegid],
-        ));
+  /// Inserts a Country row into the database
+  FutureOr<int> insertDataFromJson(
+      String tableName, Map<String, dynamic> jsonData) async {
+    return await database.then((db) => db.insert(tableName, jsonData));
   }
 }
