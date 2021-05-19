@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:yacguide_flutter/Database/sql.dart';
 
 extension SqlHandlerComments on SqlHandler {
-  FutureOr<int> deleteComment(int sektorid) async {
+  FutureOr<int> deleteComment(int sektorid) {
     return database.then(
       (db) => db.delete(
         'komment',
@@ -16,7 +16,7 @@ extension SqlHandlerComments on SqlHandler {
     int sektorid,
     int gipfelid,
     int wegid,
-  ) async {
+  ) {
     return database.then((db) => db.query(
           'komment',
           columns: [

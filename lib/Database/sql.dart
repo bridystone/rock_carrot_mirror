@@ -108,7 +108,7 @@ class SqlHandler {
   /// database connection
   ///
   /// will be opened once, if not yet initialized
-  Future<Database> get database async {
+  Future<Database> get database {
     _db ??= _openConnection(resetDatabase: false);
     return _db!;
   }
@@ -140,16 +140,16 @@ class SqlHandler {
   }
 
   /// create tables for a newly created DB file
-  FutureOr<void> _onCreate(Database db, dynamic id) async {
+  FutureOr<void> _onCreate(Database db, dynamic id) {
     print('create Tables' + id.toString());
-    databaseTableColumns.forEach((tablename, columns) async {
+    databaseTableColumns.forEach((tablename, columns) {
       //generate create string
       var createString = 'CREATE TABLE ' + tablename + '(';
       for (var column in columns) {
         createString += column['name']! + ' ' + column['type']! + ',';
       }
       createString = createString.substring(0, createString.length - 1) + ')';
-      await db.execute(createString);
+      db.execute(createString);
     });
     /*
     await db.execute(
@@ -169,7 +169,7 @@ class SqlHandler {
 
   /// Inserts a Country row into the database
   FutureOr<int> insertDataFromJson(
-      String tableName, Map<String, dynamic> jsonData) async {
-    return await database.then((db) => db.insert(tableName, jsonData));
+      String tableName, Map<String, dynamic> jsonData) {
+    return database.then((db) => db.insert(tableName, jsonData));
   }
 }

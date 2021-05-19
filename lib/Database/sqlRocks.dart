@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:yacguide_flutter/Database/sql.dart';
 
 extension SqlHandlerRocks on SqlHandler {
-  FutureOr<int> deleteRocks(int sektorid) async {
+  FutureOr<int> deleteRocks(int sektorid) {
     return database.then(
       (db) => db.delete(
         'gipfel',
@@ -14,7 +14,7 @@ extension SqlHandlerRocks on SqlHandler {
 
   Future<List<Map<String, Object?>>> queryRocks(
     int sektorid,
-  ) async {
+  ) {
     return database.then((db) => db.rawQuery(
           'SELECT gipfel_ID, gipfelnr, gipfelname_d, gipfelname_cz, '
           '   status, typ, schartenhoehe, talhoehe, gipfel.sektorid, '

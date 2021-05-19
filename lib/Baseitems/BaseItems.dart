@@ -72,8 +72,8 @@ abstract class BaseItems {
 
       // insert data to DB
       final List<dynamic> jsonData = json.decode(response.body);
-      jsonData.forEach((dynamic element) async {
-        await sqlFromJson(element);
+      jsonData.forEach((dynamic element) {
+        sqlFromJson(element);
       });
     } else {
       throw Exception('failed this receice data');
@@ -97,7 +97,7 @@ abstract class BaseItems {
   /// inserts data into database table based on the runtime type of the calling object
   ///
   /// constant array in sql Handler is used
-  FutureOr<int> sqlFromJson(Map<String, dynamic> json) async {
+  FutureOr<int> sqlFromJson(Map<String, dynamic> json) {
     final tablename =
         SqlHandler.databaseRuntimetypeTables[runtimeType.toString()];
     // special for Routes -> add 'sektorid' to table
@@ -105,7 +105,7 @@ abstract class BaseItems {
     if (runtimeType.toString() == 'Routes') {
       json['sektorid'] = parent.id;
     }
-    return await sqlHelper.insertDataFromJson(
+    return sqlHelper.insertDataFromJson(
       tablename ?? 'NO_VALID_TABLE_VS_RUNTIMETYPE',
       json,
     );
