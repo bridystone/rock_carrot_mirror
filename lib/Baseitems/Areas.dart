@@ -28,8 +28,8 @@ class Areas extends BaseItems {
   Future<List<Map<String, Object?>>> getItems({
     String queryItemString = '',
     int queryItemInt = 0,
-  }) async {
-    return await sqlHelper.queryAreas(queryItemString);
+  }) {
+    return sqlHelper.queryAreas(queryItemString);
   }
 
   @override

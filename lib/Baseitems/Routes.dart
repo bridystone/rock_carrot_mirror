@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'package:yacguide_flutter/Baseitems/BaseItem.dart';
 import 'package:yacguide_flutter/Baseitems/BaseItems.dart';
+import 'package:yacguide_flutter/Baseitems/Comments.dart';
 import 'package:yacguide_flutter/Baseitems/Rocks.dart';
 import 'package:yacguide_flutter/Database/sqlRoutes.dart';
+import 'package:yacguide_flutter/Database/sqlComments.dart';
 
 class Route extends BaseItem {
   @override
@@ -10,6 +12,9 @@ class Route extends BaseItem {
   int wegId;
   int gipfelId;
   String schwierigkeit;
+  String erstbegvorstieg;
+  String erstbegnachstieg;
+  String erstbegdatum;
   String ringzahl;
   String wegbeschr;
   String wegbeschrCZ;
@@ -24,6 +29,9 @@ class Route extends BaseItem {
     this.wegId,
     this.gipfelId,
     this.schwierigkeit,
+    this.erstbegvorstieg,
+    this.erstbegnachstieg,
+    this.erstbegdatum,
     this.ringzahl,
     this.wegbeschr,
     this.wegbeschrCZ,
@@ -41,6 +49,9 @@ class Route extends BaseItem {
       int.parse(sqlResult['weg_ID'].toString()),
       int.parse(sqlResult['gipfelid'].toString()),
       sqlResult['schwierigkeit'].toString(),
+      sqlResult['erstbegvorstieg'].toString(),
+      sqlResult['erstbegnachstieg'].toString(),
+      sqlResult['erstbegdatum'].toString(),
       sqlResult['ringzahl'].toString(),
       sqlResult['wegbeschr_d'].toString(),
       sqlResult['wegbeschr_cz'].toString(),
@@ -80,5 +91,10 @@ class Routes extends BaseItems {
       return super.fetchFromWeb(); // should be sektor_id
     }
     throw Exception('not to be called - should be deleted from rocks');
+  }
+
+  /// get Comment data from SQLite
+  Future<List<Comment>> getComments(Route route) {
+    return sqlHelper.queryRouteComments(route.wegId);
   }
 }

@@ -37,7 +37,7 @@ class Countries extends BaseItems {
   }
 
   @override
-  FutureOr<int> deleteItems() async {
-    return await sqlHelper.deleteCountries();
+  FutureOr<int> deleteItems() {
+    return sqlHelper.deleteCountries();
   }
 }

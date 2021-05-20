@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:yacguide_flutter/Database/sql.dart';
 
 extension SqlHandlerSubareas on SqlHandler {
-  FutureOr<int> deleteSubareas(int gebietid) async {
+  FutureOr<int> deleteSubareas(int gebietid) {
     return database.then(
       (db) => db.delete(
         'teilgebiet',
@@ -12,7 +12,7 @@ extension SqlHandlerSubareas on SqlHandler {
     );
   }
 
-  Future<List<Map<String, Object?>>> querySubareas(int gebietid) async {
+  Future<List<Map<String, Object?>>> querySubareas(int gebietid) {
     return database.then((db) => db.rawQuery(
           'SELECT sektor_ID, sektornr, sektorname_d, sektorname_cz, COUNT(gipfel.sektorid) as count'
           ' FROM teilgebiet'

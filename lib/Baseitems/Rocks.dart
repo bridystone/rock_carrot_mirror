@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:yacguide_flutter/Baseitems/BaseItem.dart';
 import 'package:yacguide_flutter/Baseitems/BaseItems.dart';
+import 'package:yacguide_flutter/Baseitems/Comments.dart';
 import 'package:yacguide_flutter/Baseitems/Routes.dart';
 import 'package:yacguide_flutter/Baseitems/Subareas.dart';
 import 'package:yacguide_flutter/Database/sqlRocks.dart';
@@ -64,9 +65,10 @@ class Rocks extends BaseItems {
   }
 
   @override
-  FutureOr<int> deleteItems() {
+  FutureOr<int> deleteItems() async {
     // delete Routes as well with a dummy Rock Items
-    Routes(Rock.dummyRock(parent.id)).deleteItems();
+    var _ = await Routes(Rock.dummyRock(parent.id)).deleteItems();
+    _ = await Comments(Rock.dummyRock(parent.id)).deleteItems();
 
     return sqlHelper.deleteRocks(parent.id);
   }
@@ -79,5 +81,6 @@ class Rocks extends BaseItems {
     await super.fetchFromWeb();
     // fetch Routes
     await Routes(Rock.dummyRock(parent.id)).fetchFromWeb();
+    await Comments(Rock.dummyRock(parent.id)).fetchFromWeb();
   }
 }
