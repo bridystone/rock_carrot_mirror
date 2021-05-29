@@ -62,63 +62,80 @@ class CommentsSheet with Comments, FutureBuilderHelper {
   /// if no data is available - it shows: no data
   /// otherwise multiple comments are shown
   Widget buildModalComments(List<Comment> comments) {
+    if (comments.isEmpty) {
+      return Padding(
+          padding: EdgeInsets.all(10),
+          child: Padding(
+              padding: EdgeInsets.all(20.0),
+              child: Center(
+                child: Text('no comments available'),
+              )));
+    }
     return Padding(
-        padding: EdgeInsets.all(10),
-        child: comments.isEmpty
-            // no comments available
-            ? Padding(
-                padding: EdgeInsets.all(20.0),
-                child: Center(
-                  child: Text('no comments available'),
-                ))
-            // enumerate all comments
-            : SingleChildScrollView(
-                padding: EdgeInsets.zero,
-                child: Column(
-                  // iterating through all available comments
-                  children: comments.map((comment) {
-                    return Column(children: [
-                      // status row top
-                      Row(children: [
-                        Text(
-                          comment.date + ' UID:' + comment.userId,
-                          style: TextStyle(
-                            fontStyle: FontStyle.normal,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 13,
-                          ),
-                        ),
-                      ]),
-                      // actual comment
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 10),
-                        child: Text(
-                          comment.comment,
-                          style: TextStyle(
-                            fontStyle: FontStyle.italic,
-                            fontSize: 13,
-                          ),
-                        ),
-                      ),
-                      // statusrow bottom
-                      Column(children: [
-                        Row(children: [
-                          Text('qual:' + comment.quality),
-                          Icon(Icons.thumb_up),
-                          Text(' | sicher:' + comment.safety),
-                          Text(' | nass:' + comment.wetness),
-                        ]),
-                        Row(
-                          children: [
-                            Text('schwer:' + comment.difficulty),
-                            Text(' | geklettert:' + comment.climbed),
-                            Text(' | begehung:' + comment.climb),
-                          ],
-                        )
-                      ]),
-                    ]);
-                  }).toList(),
-                ),
-              ));
+      padding: EdgeInsets.all(10),
+      child: Column(
+        children: [
+          Expanded(
+            child:
+                // enumerate all comments via ListView Builder
+                ListView.builder(
+              padding: EdgeInsets.zero,
+              itemCount: comments.length,
+              itemBuilder: (context, i) {
+                return commentsItemTile(comments[i]);
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// comment tile
+  ///
+  /// How each comment should look like
+  Widget commentsItemTile(Comment comment) {
+    return Column(children: [
+      // status row top
+      Row(
+        children: [
+          Text(
+            comment.date + ' UID:' + comment.userId,
+            style: TextStyle(
+              fontStyle: FontStyle.normal,
+              fontWeight: FontWeight.bold,
+              fontSize: 13,
+            ),
+          ),
+        ],
+      ),
+      // actual comment
+      Padding(
+        padding: EdgeInsets.only(bottom: 10),
+        child: Text(
+          comment.comment,
+          style: TextStyle(
+            fontStyle: FontStyle.italic,
+            fontSize: 13,
+          ),
+        ),
+      ),
+      // statusrow bottom
+      Column(children: [
+        Row(children: [
+          Text('qual:' + comment.quality),
+          Icon(Icons.thumb_up),
+          Text(' | sicher:' + comment.safety),
+          Text(' | nass:' + comment.wetness),
+        ]),
+        Row(
+          children: [
+            Text('schwer:' + comment.difficulty),
+            Text(' | geklettert:' + comment.climbed),
+            Text(' | begehung:' + comment.climb),
+          ],
+        )
+      ]),
+    ]);
   }
 }
