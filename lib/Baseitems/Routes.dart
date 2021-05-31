@@ -48,6 +48,11 @@ class Route extends BaseItem {
     return (_wegname.isEmpty) ? _wegnameCZ : _wegname;
   }
 
+  @override
+  String get nameCZ {
+    return _wegnameCZ;
+  }
+  
   /// climbing grade
   String get grade {
     return _schwierigkeit;
