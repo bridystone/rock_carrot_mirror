@@ -145,37 +145,13 @@ class _BaseItemTileState extends State<BaseItemTile> {
 
   /// the actual Content of the Tile
   Widget _customBaseItemTileContent(BuildContext context) {
-    /// add nr to tile, if available
-    Widget nameWidget;
-    if (_baseitem.nr != 0) {
-      nameWidget = Row(children: [
-        Padding(
-          padding: EdgeInsets.only(right: 5.0),
-          child: Text(_baseitem.nr.toString()),
-        ),
-        Text(_baseitem.name),
-      ]);
-    } else {
-      nameWidget = Text(_baseitem.name);
-    }
-
-    return Container(
-      padding: EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 15.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //crossAxisAlignment: CrossAxisAlignment.stretch,
-        //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Container(
-            padding: EdgeInsets.only(top: 1.0, bottom: 1.0),
-            child: nameWidget,
-          ),
-          Container(
-            alignment: Alignment.centerRight,
-            child: Text(_baseitem.childCount),
-          )
-        ],
-      ),
+    return ListTile(
+      title: 
+        _baseitem.nr != 0 ? // if there is a reference number for the rock
+        Text(_baseitem.nr.toString() + ' ' + _baseitem.name) : //concat number and name
+        Text(_baseitem.name), // else show only name
+      subtitle: _baseitem.nameCZ != '2nd Language Name' ? Text(_baseitem.nameCZ) : null, //if second language set, show it, else don't
+      trailing: Text(_baseitem.childCount), 
     );
-  }
+  }    
 }

@@ -25,57 +25,26 @@ class _RouteTileState extends State<RouteTile> {
                 ,
               ],
             ),*/
-        title: Row(
-          children: [
-            Padding(
-              padding: EdgeInsets.only(right: 7.0),
-              child: Text(
-                _route.nr.toString(),
-                style: TextStyle(fontSize: 13),
-              ),
-            ),
-            Text(
-              _route.name,
-              style: TextStyle(fontSize: 14),
-            ),
-            (_route.commentCountInt! > 0)
-                ? Padding(
-                    padding: EdgeInsets.only(left: 1),
-                    child: Icon(
-                      Icons.comment,
-                      size: 15,
-                    ))
-                : Container(),
-          ],
-        ),
-
-        subtitle: Row(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Text(
-              _route.grade,
-              style: TextStyle(fontSize: 13),
-            ),
-            Text(
-              _route.climbingStyle,
-              style: TextStyle(fontSize: 13),
-            ),
-          ],
-        ),
-        key: Key(_route.name),
-        //trailing: Text('(' + items[i].childCount.toString() + ')'),
+        title: ListTile( //Title of ExpansionTile is a ListTile
+          title: Row(
+            children: [
+              Text(_route.nr.toString()+ ' ' + _route.name),
+              (_route.commentCountInt! > 0) ? // if comment in database, show comment icon
+                Icon(
+                  Icons.comment,
+                  size: 15,
+                  ) :
+                Container (),
+            ],            
+          ),
+          subtitle: _route.nameCZ != '2nd Language Name' ? Text(_route.nameCZ) : null, //show czech name if available
+          trailing: Text(_route.grade), //show grade
+        ),  
         children: [
           ListTile(
-            trailing: Column(
-              children: [
-                Transform.rotate(
-                  angle: 00 * 3.1416 / 180,
-                  child: Text(
-                    _route.rings,
-                    style: TextStyle(fontSize: 10),
-                  ),
-                )
-              ],
+            trailing: Text(
+              _route.rings,
+              style: TextStyle(fontSize: 10),
             ),
             title: Text(
               _route.description,

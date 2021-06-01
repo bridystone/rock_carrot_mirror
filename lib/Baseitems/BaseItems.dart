@@ -8,12 +8,14 @@ enum ChildCountStatus {
 
 class BaseItem {
   String name;
+  String nameCZ;
   double nr;
   int childCountInt;
   int? commentCountInt;
   String? commentCount;
   BaseItem({
     this.name = 'Root-BaseItem',
+    this.nameCZ = '2nd Language Name',
     this.nr = 0,
     // ignore: invalid_required_named_param
     @required this.childCountInt = 0,

@@ -31,6 +31,11 @@ class Subarea extends BaseItem {
     return (_sektornameD.isEmpty) ? _sektornameCZ : _sektornameD;
   }
 
+  @override
+  String get nameCZ {
+    return _sektornameCZ;
+  }
+
   int get subareaId {
     return _sektorid;
   }

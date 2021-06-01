@@ -52,6 +52,11 @@ class Rock extends BaseItem {
     return (_gipfelName.isEmpty) ? _gipfelNameCZ : _gipfelName;
   }
 
+  @override
+  String get nameCZ {
+    return _gipfelNameCZ;
+  }
+
   int get rockId {
     return _gipfelId;
   }
