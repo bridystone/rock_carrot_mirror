@@ -406,6 +406,16 @@ class SqlHandler {
           OR 
           REPLACE(name, 'EV', 'Einstiegsvariante') = REPLACE(wegname_d, '*', '') collate nocase
           OR 
+    			REPLACE(wegname_d, 'ß', 'ss') = REPLACE(name, '*', '') collate nocase
+          OR 
+          REPLACE(name, ' ', '') = REPLACE(wegname_d, '*', '') collate nocase
+          OR           
+          REPLACE(name, ' ', '-') = REPLACE(wegname_d, '*', '') collate nocase
+          OR           
+          name = REPLACE(REPLACE(wegname_d, '*', ''), ' ', '') collate nocase
+          OR           
+          name = REPLACE(REPLACE(wegname_d, '*', ''), ' ', '-') collate nocase
+          OR
           name = TRIM(REPLACE(wegname_d,'*','')) collate nocase
           )
         GROUP BY id -- because der is duplicates in db-sandsteinklettern
