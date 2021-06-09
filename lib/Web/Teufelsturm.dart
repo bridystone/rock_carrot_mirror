@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'package:flutter/cupertino.dart';
 import 'package:pool/pool.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:rock_carrot/Database/sql.dart';
 import 'package:rock_carrot/Database/sqlTeufelsturm.dart';
+import 'package:rock_carrot/Material/BaseItemTile.dart';
 import 'package:rock_carrot/Web/TeufelsturmScraper.dart';
 import 'package:rock_carrot/Web/WebHelper.dart';
 import 'package:semaphore/semaphore.dart';
@@ -120,7 +122,8 @@ class Teufelsturm with WebHelper, TeufelsturmScraper {
   /// update data from Sandsteinklettern
   ///
   /// fetch the data, then delete records, finally insert new data
-  Future<int> updateTTComments(int areaId) async {
+  Future<int> updateTTComments(
+      int areaId, ValueNotifier<ProgressStruct> progress) async {
     /// stream that holds the requested items
     final webRequestDataControllerRoutes = StreamController<Map<String, int>>();
     final webRequestDataControllerComments =
@@ -141,6 +144,9 @@ class Teufelsturm with WebHelper, TeufelsturmScraper {
       SqlHandler.ttRocksTablename,
       jsonData,
     );
+
+    // perform progress
+    progress.value = ProgressStruct(50, true, 'Rocks');
 
     ///
     /// ROUTES
@@ -201,6 +207,10 @@ class Teufelsturm with WebHelper, TeufelsturmScraper {
           SqlHandler.ttRoutesTablename,
           jsonRoutes,
         );
+
+        final percent =
+            (sqlRockIds.length - numberOfIds) * 100 ~/ sqlRockIds.length;
+        progress.value = ProgressStruct(percent, true, 'Routes');
 
         /// count ids for semaphore to be released
         if (--numberOfIds == 0) {
@@ -281,13 +291,17 @@ class Teufelsturm with WebHelper, TeufelsturmScraper {
           jsonComments,
         );
 
+        final percent =
+            (sqlRoutes.length - numberOfCommentIds) * 100 ~/ sqlRoutes.length;
+        progress.value = ProgressStruct(percent, true, 'Comments');
+
         /// count ids for semaphore to be released
         if (--numberOfCommentIds == 0) {
           semaphoreComments.release();
         }
       }
     });
-
+    progress.value = ProgressStruct(90, true);
     //wait for requests to finish
     await semaphoreComments.acquire();
     semaphoreComments.release();
@@ -295,9 +309,9 @@ class Teufelsturm with WebHelper, TeufelsturmScraper {
     // perform commit
     await SqlHandler().commitInsertJsonData(batchComments);
 
+    progress.value = ProgressStruct(100, true, 'Caching');
     // now perform the cache of mapping tables
     await SqlHandler().cacheTTMapping(areaId);
-
     return rockCount;
   }
 }

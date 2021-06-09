@@ -42,12 +42,39 @@ class BaseItemTile extends StatefulWidget {
       );
 }
 
+class ProgressStruct {
+  bool _inProgress;
+  int _value;
+  String _currentThread;
+
+  bool get inProgress {
+    return _inProgress;
+  }
+
+  int get value {
+    return _value;
+  }
+
+  String get currentThread {
+    return _currentThread;
+  }
+
+  ProgressStruct(
+    this._value, [
+    this._inProgress = false,
+    this._currentThread = '',
+  ]);
+}
+
 class _BaseItemTileState extends State<BaseItemTile> {
   final BaseItem _baseitem;
   final Function? _updateFunction;
   final Function? _updateAllFunction;
   final Function? _deleteFunction;
   final dynamic _functionParameter; //might be String or int
+
+  /// notifier to update progress
+  final progressNotifier = ValueNotifier<ProgressStruct>(ProgressStruct(-1));
 
   _BaseItemTileState(
     this._baseitem,
@@ -119,17 +146,14 @@ class _BaseItemTileState extends State<BaseItemTile> {
         color: Colors.greenAccent,
         icon: Icons.cloud_download,
         onTap: () async {
-          setState(() {
-            _baseitem.setChildCountStatus(ChildCountStatus.update_in_progress);
-          });
-          // TODO: show Modal Dialog
+          // start update
+          progressNotifier.value = ProgressStruct(0, true, 'updating');
           // clear number for update
           final records = await _updateAllFunction!(
-              sandsteinNameTeufelsturmAreaIdMap[_baseitem.name]) as int;
+              sandsteinNameTeufelsturmAreaIdMap[_baseitem.name],
+              progressNotifier) as int;
           // set Results
-          setState(() {
-            _baseitem.updateChildCount(records);
-          });
+          progressNotifier.value = ProgressStruct(records);
         },
       ));
     }
@@ -176,13 +200,27 @@ class _BaseItemTileState extends State<BaseItemTile> {
 
   /// the actual Content of the Tile
   Widget _customBaseItemTileContent(BuildContext context) {
+    /// set progressnotifier to child count, if no update is in process
+    progressNotifier.value = ProgressStruct(_baseitem.childCountInt, false);
+
     return ListTile(
-      title: 
-        _baseitem.nr != 0 ? // if there is a reference number for the rock
-        Text(_baseitem.nr.toString() + ' ' + _baseitem.name) : //concat number and name
-        Text(_baseitem.name), // else show only name
-      subtitle: _baseitem.nameCZ != '2nd Language Name' ? Text(_baseitem.nameCZ) : null, //if second language set, show it, else don't
-      trailing: Text(_baseitem.childCount), 
+      title: _baseitem.nr != 0
+          ? // if there is a reference number for the rock
+          Text(_baseitem.nr.toString() + ' ' + _baseitem.name)
+          : //concat number and name
+          Text(_baseitem.name), // else show only name
+      subtitle: _baseitem.nameCZ != '2nd Language Name'
+          ? Text(_baseitem.nameCZ)
+          : null, //if second language set, show it, else don't
+      trailing: ValueListenableBuilder<ProgressStruct>(
+          valueListenable: progressNotifier,
+          builder: (context, value, child) {
+            return value.inProgress
+                ? Text(
+                    value.currentThread + ': ' + value.value.toString() + '%',
+                  )
+                : Text(value.value.toString());
+          }),
     );
-  }    
+  }
 }
