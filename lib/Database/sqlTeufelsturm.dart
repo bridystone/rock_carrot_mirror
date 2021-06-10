@@ -91,7 +91,7 @@ extension SqlHandlerTeufelsturm on SqlHandler {
             gipfel.gipfel_id as sandstein_rockid,
             ?
           FROM tt_rocks
-            INNER JOIN tt_mapping_areas -- or tt_mapping_areas_view
+            INNER JOIN tt_mapping_areas
             ON tt_areaid = tt_rocks.areaid AND tt_areaid = ?
             INNER JOIN gipfel
             ON sandstein_areaid = sektorid
@@ -114,7 +114,7 @@ extension SqlHandlerTeufelsturm on SqlHandler {
             weg_id as sandstein_routeid,
             ?
           FROM "tt_routes"
-            INNER JOIN tt_mapping_rocks -- or tt_mapping_rocks_view
+            INNER JOIN tt_mapping_rocks
             ON tt_rockid = rockid AND tt_areaid = ?
             INNER JOIN wege
             ON sandstein_rockid = gipfelid
@@ -136,14 +136,13 @@ extension SqlHandlerTeufelsturm on SqlHandler {
                 'ss','ß') -- sometimes replaced - but not always
               ,'-','')
               ,' ','')
-                collate nocase 
               OR
               name = 
                 REPLACE(
                   wegname_d,
-                '*','')collate nocase -- sometimes ß replaced - but not always
+                '*','') -- sometimes ß replaced - but not always
               OR 
-              name = tt_mapping_routes_static.tt_routename collate nocase
+              name = tt_mapping_routes_static.tt_routename
               GROUP BY id
         ''',
         [areaid, areaid],

@@ -41,6 +41,7 @@ class Route extends BaseItem {
     int commentCountInt,
   ) : super(
           nr: double.parse(_wegnr),
+          childCountInt: -1,
           commentCountInt: commentCountInt,
         );
 

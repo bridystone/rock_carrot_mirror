@@ -45,97 +45,97 @@ class SqlHandler {
   /// table configuration in database
   static const databaseTableColumns = {
     countriesTablename: {
-      'land': 'TEXT PRIMARY KEY',
-      'ISO3166': 'TEXT',
-      'KFZ': 'TEXT',
+      'land': 'TEXT COLLATE NOCASE PRIMARY KEY',
+      'ISO3166': 'TEXT COLLATE NOCASE',
+      'KFZ': 'TEXT COLLATE NOCASE',
     },
     // json query key: land
     areasTablename: {
       'gebiet_ID': 'INT PRIMARY KEY',
-      'gebiet': 'TEXT',
-      'land': 'TEXT',
-      'sprache2': 'TEXT',
-      'gdefaultanzeige': 'TEXT',
-      'schwskala': 'TEXT',
+      'gebiet': 'TEXT COLLATE NOCASE',
+      'land': 'TEXT COLLATE NOCASE',
+      'sprache2': 'TEXT COLLATE NOCASE',
+      'gdefaultanzeige': 'TEXT COLLATE NOCASE',
+      'schwskala': 'TEXT COLLATE NOCASE',
     },
     // json query key: gebietid
     subareasTablename: {
       'sektor_ID': 'INT PRIMARY KEY',
       'gebietid': 'INT',
-      'sektornr': 'TEXT',
-      'sektorname_d': 'TEXT',
-      'sektorname_cz': 'TEXT',
+      'sektornr': 'TEXT COLLATE NOCASE',
+      'sektorname_d': 'TEXT COLLATE NOCASE',
+      'sektorname_cz': 'TEXT COLLATE NOCASE',
     },
     // json query key: sektorid
     rocksTablename: {
       'gipfel_ID': 'INT PRIMARY KEY',
-      'gipfelnr': 'TEXT',
-      'gipfelname_d': 'TEXT',
-      'gipfelname_cz': 'TEXT',
-      'status': 'TEXT',
-      'typ': 'TEXT',
-      'vgrd': 'TEXT',
-      'ngrd': 'TEXT',
-      'posfehler': 'TEXT',
-      'schartenhoehe': 'TEXT',
-      'talhoehe': 'TEXT',
+      'gipfelnr': 'TEXT COLLATE NOCASE',
+      'gipfelname_d': 'TEXT COLLATE NOCASE',
+      'gipfelname_cz': 'TEXT COLLATE NOCASE',
+      'status': 'TEXT COLLATE NOCASE',
+      'typ': 'TEXT COLLATE NOCASE',
+      'vgrd': 'TEXT COLLATE NOCASE',
+      'ngrd': 'TEXT COLLATE NOCASE',
+      'posfehler': 'TEXT COLLATE NOCASE',
+      'schartenhoehe': 'TEXT COLLATE NOCASE',
+      'talhoehe': 'TEXT COLLATE NOCASE',
       'sektorid': 'INT',
     },
     // json query key: sektorid
     routesTablename: {
       'weg_ID': 'INT PRIMARY KEY',
       'gipfelid': 'INT',
-      'schwierigkeit': 'TEXT',
-      'erstbegvorstieg': 'TEXT',
-      'erstbegnachstieg': 'TEXT',
-      'erstbegdatum': 'TEXT',
-      'ringzahl': 'TEXT',
-      'wegbeschr_d': 'TEXT',
-      'wegbeschr_cz': 'TEXT',
-      'kletterei': 'TEXT',
-      'wegname_d': 'TEXT',
-      'wegname_cz': 'TEXT',
-      'wegstatus': 'TEXT',
-      'wegnr': 'TEXT',
+      'schwierigkeit': 'TEXT COLLATE NOCASE',
+      'erstbegvorstieg': 'TEXT COLLATE NOCASE',
+      'erstbegnachstieg': 'TEXT COLLATE NOCASE',
+      'erstbegdatum': 'TEXT COLLATE NOCASE',
+      'ringzahl': 'TEXT COLLATE NOCASE',
+      'wegbeschr_d': 'TEXT COLLATE NOCASE',
+      'wegbeschr_cz': 'TEXT COLLATE NOCASE',
+      'kletterei': 'TEXT COLLATE NOCASE',
+      'wegname_d': 'TEXT COLLATE NOCASE',
+      'wegname_cz': 'TEXT COLLATE NOCASE',
+      'wegstatus': 'TEXT COLLATE NOCASE',
+      'wegnr': 'TEXT COLLATE NOCASE',
     },
     // json query keys: gebietid or sektorid
     commentsTablename: {
       'komment_ID': 'INT PRIMARY KEY',
       'userid': 'INT',
-      'datum': 'TEXT',
-      'adatum': 'TEXT',
+      'datum': 'TEXT COLLATE NOCASE',
+      'adatum': 'TEXT COLLATE NOCASE',
       'wegid': 'INT',
       'sektorid': 'INT',
       'gebietid': 'INT',
-      'qual': 'TEXT',
-      'sicher': 'TEXT',
-      'nass': 'TEXT',
-      'kommentar': 'TEXT',
+      'qual': 'TEXT COLLATE NOCASE',
+      'sicher': 'TEXT COLLATE NOCASE',
+      'nass': 'TEXT COLLATE NOCASE',
+      'kommentar': 'TEXT COLLATE NOCASE',
       'gipfelid': 'INT',
-      'schwer': 'TEXT',
-      'geklettert': 'TEXT',
-      'begehung': 'TEXT',
+      'schwer': 'TEXT COLLATE NOCASE',
+      'geklettert': 'TEXT COLLATE NOCASE',
+      'begehung': 'TEXT COLLATE NOCASE',
     },
 
     /// Teufelsturm data tables
     ttRocksTablename: {
       'id': 'INT PRIMARY KEY', // internal TT number
-      'nr': 'TEXT', // number in area
-      'name': 'TEXT',
+      'nr': 'TEXT COLLATE NOCASE', // number in area
+      'name': 'TEXT COLLATE NOCASE',
       'areaid': 'INT',
-      'areaName': 'TEXT',
+      'areaName': 'TEXT COLLATE NOCASE',
     },
     ttRoutesTablename: {
       'id': 'INT PRIMARY KEY', // internal TT number
-      'name': 'TEXT',
-      'average_quality': 'TEXT',
-      'difficulty': 'TEXT',
+      'name': 'TEXT COLLATE NOCASE',
+      'average_quality': 'TEXT COLLATE NOCASE',
+      'difficulty': 'TEXT COLLATE NOCASE',
       // internal TT number (might be missing depending on scraping method)
       'rockid': 'INT',
-      'rockName': 'TEXT',
+      'rockName': 'TEXT COLLATE NOCASE',
       // internal TT number (might be missing depending on scraping methof)
       'areaid': 'INT',
-      'areaName': 'TEXT',
+      'areaName': 'TEXT COLLATE NOCASE',
     },
     ttCommentsTablename: {
       'ID': 'INTEGER PRIMARY KEY AUTOINCREMENT',
@@ -143,10 +143,10 @@ class SqlHandler {
       // internal TT number (might be missing depending on scraping method)
       'rockid': 'INT',
       'areaid': 'INT',
-      'user': 'TEXT',
-      'date': 'TEXT',
-      'comment': 'TEXT',
-      'quality': 'TEXT',
+      'user': 'TEXT COLLATE NOCASE',
+      'date': 'TEXT COLLATE NOCASE',
+      'comment': 'TEXT COLLATE NOCASE',
+      'quality': 'TEXT COLLATE NOCASE',
     },
 
     /// teufelsturm mapping tables
@@ -178,7 +178,7 @@ class SqlHandler {
   ///
   /// will be opened once, if not yet initialized
   Future<Database> get database {
-    _db ??= _openConnection(resetDatabase: false);
+    _db ??= _openConnection();
     return _db!;
   }
 
@@ -186,15 +186,13 @@ class SqlHandler {
   ///
   /// only to be used from the database getter
   /// checks existance of folder and creates database if necessary
-  // TODO: resetDatabase currently not used/usable
-  Future<Database> _openConnection({bool resetDatabase = false}) async {
+  Future<Database> _openConnection() async {
     final databasesPath = await getDatabasesPath();
     final path = join(databasesPath, globalDbName);
     print(path);
     // Make sure the directory exists
     try {
       await Directory(databasesPath).create(recursive: true);
-      if (resetDatabase) await File(path).delete();
     } catch (e) {
       print('failed to create directory or delete database:' + e.toString());
     }
@@ -222,7 +220,6 @@ class SqlHandler {
       db.execute(createString);
     });
     // create indexes for PRIMARY KEYS & FOREIGN LOOKUPS
-    //TODO: is indexes for PRIMARY KEYS necessary?
     db.execute('CREATE INDEX pk_land ON land (land)');
 
     db.execute('CREATE INDEX pk_gebiet_ID ON gebiet (gebiet_ID)');

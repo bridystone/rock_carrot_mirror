@@ -67,30 +67,39 @@ abstract class BaseItemsMaterialStatefulState<T extends StatefulWidget>
       }
     }
     // add Maps icon, if it is a Rock
-    // TODO: only show, if there are coordinates available
     if (baseitem is Rock) {
-      iconButtons.add(IconButton(
-        icon: Icon(
-          Icons.map,
-        ),
-        onPressed: () async {
-          // check if OSMAnd is available - otherwise start google maps or apple Maps
-          var preferredMap = MapType.osmand;
-          if (!(await MapLauncher.isMapAvailable(MapType.osmand) ?? false)) {
-            if (Platform.isIOS) {
-              preferredMap = MapType.apple;
-            } else {
-              preferredMap = MapType.google;
+      if (baseitem.latitude == 0 || baseitem.longitude == 0) {
+        // grey Button if no valid coordinates
+        iconButtons.add(
+          Icon(
+            Icons.map,
+            color: Colors.grey,
+          ),
+        );
+      } else {
+        iconButtons.add(IconButton(
+          icon: Icon(
+            Icons.map,
+          ),
+          onPressed: () async {
+            // check if OSMAnd is available - otherwise start google maps or apple Maps
+            var preferredMap = MapType.osmand;
+            if (!(await MapLauncher.isMapAvailable(MapType.osmand) ?? false)) {
+              if (Platform.isIOS) {
+                preferredMap = MapType.apple;
+              } else {
+                preferredMap = MapType.google;
+              }
             }
-          }
 
-          await MapLauncher.showMarker(
-            mapType: preferredMap,
-            coords: Coords(baseitem.latitude, baseitem.longitude),
-            title: baseitem.name,
-          );
-        },
-      ));
+            await MapLauncher.showMarker(
+              mapType: preferredMap,
+              coords: Coords(baseitem.latitude, baseitem.longitude),
+              title: baseitem.name,
+            );
+          },
+        ));
+      }
     }
     // add other icons
     iconButtons.add(IconButton(

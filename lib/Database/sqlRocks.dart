@@ -54,7 +54,7 @@ extension SqlHandlerRocks on SqlHandler {
     });
   }
 
-  // TODO: add comment count
+  /// query Rock information from database
   Future<List<Map<String, Object?>>> queryRocks(
     int sektorid,
   ) {

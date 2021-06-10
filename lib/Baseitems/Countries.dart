@@ -26,8 +26,6 @@ class Country extends BaseItem {
   }
 
   /// create new countryelement from sqlResult
-  // TODO: use sqlHandler Table information to get this in
-  // use number of rows + INT VS TEXT?
   factory Country.fromSql(Map<String, Object?> sqlResult) {
     return Country(
       sqlResult.values.elementAt(0).toString(), //land

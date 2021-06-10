@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:pedantic/pedantic.dart';
 import 'package:rock_carrot/Database/sql.dart';
 import 'package:rock_carrot/Database/sqlCountries.dart';
 import 'package:rock_carrot/Database/sqlAreas.dart';

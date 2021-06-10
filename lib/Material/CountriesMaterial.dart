@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:rock_carrot/Baseitems/BaseItems.dart';
 import 'package:rock_carrot/Baseitems/Countries.dart';
@@ -20,7 +18,10 @@ class _CountryMaterialState
   final Countries _countries = Countries();
 
   _CountryMaterialState() {
-    searchBar = initializeSearchBar(BaseItem(name: 'Countries'));
+    searchBar = initializeSearchBar(BaseItem(
+      name: 'Countries',
+      childCountInt: -1,
+    ));
   }
 
   /// build the Scaffold
