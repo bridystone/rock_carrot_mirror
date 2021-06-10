@@ -68,10 +68,9 @@ extension SandsteinSql on Sandstein {
     await SqlHandler().deleteSubareasIncludingComments(areaId);
 
     // insert new data
-    //TODO: check if unawaited works as  intended
-    unawaited(SqlHandler()
-        .insertJsonData(SqlHandler.commentsTablename, jsonDataComments));
-    return SqlHandler()
+    await SqlHandler()
+        .insertJsonData(SqlHandler.commentsTablename, jsonDataComments);
+    return await SqlHandler()
         .insertJsonData(SqlHandler.subareasTablename, jsonDataSubareas);
   }
 
@@ -131,13 +130,12 @@ extension SandsteinSql on Sandstein {
     await SqlHandler().deleteRocksIncludingSubitems(subareaId);
 
     // insert new data
-    //TODO: check if unawaited works as  intended
-    unawaited(SqlHandler()
-        .insertJsonData(SqlHandler.commentsTablename, jsonDataComments));
-    unawaited(SqlHandler()
-        .insertJsonData(SqlHandler.routesTablename, jsonDataRoutes));
+    await SqlHandler()
+        .insertJsonData(SqlHandler.commentsTablename, jsonDataComments);
+    await SqlHandler()
+        .insertJsonData(SqlHandler.routesTablename, jsonDataRoutes);
 
-    return SqlHandler()
+    return await SqlHandler()
         .insertJsonData(SqlHandler.rocksTablename, jsonDataRocks);
   }
 }

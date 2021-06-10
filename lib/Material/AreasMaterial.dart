@@ -3,17 +3,20 @@ import 'package:rock_carrot/Baseitems/Countries.dart';
 import 'package:rock_carrot/Baseitems/Areas.dart';
 import 'package:rock_carrot/Material/BaseItemTile.dart';
 import 'package:rock_carrot/Material/BaseMaterial.dart';
+import 'package:rock_carrot/Material/ProgressNotifier.dart';
 import 'package:rock_carrot/Web/Sandstein.dart';
 import 'package:rock_carrot/Web/SandsteinSql.dart';
 
 class AreasMaterial extends StatefulWidget {
   final Country _parentItem;
-  AreasMaterial(this._parentItem);
+  // support updateing the child Values
+  final ProgressNotifier _parentProgressNotifier;
+  AreasMaterial(this._parentItem, this._parentProgressNotifier);
 
   // transfer country to state object
   @override
   _AreasMaterialState createState() {
-    return _AreasMaterialState(_parentItem);
+    return _AreasMaterialState(_parentItem, _parentProgressNotifier);
   }
 }
 
@@ -21,8 +24,10 @@ class _AreasMaterialState
     extends BaseItemsMaterialStatefulState<AreasMaterial> {
   /// All basic functionality is in this object (incl. parentItem)
   final Areas _areas;
+  final ProgressNotifier _parentProgressNotifier;
 
-  _AreasMaterialState(Country country) : _areas = Areas(country) {
+  _AreasMaterialState(Country country, this._parentProgressNotifier)
+      : _areas = Areas(country) {
     searchBar = initializeSearchBar(_areas.parentCountry);
     // default sorting ist by child count
     sortAlpha = false;
@@ -36,7 +41,10 @@ class _AreasMaterialState
         // enable Refresh data with pulldown
         body: RefreshIndicator(
           onRefresh: () async {
-            await Sandstein().updateAreas(_areas.parentCountry.name);
+            final count =
+                await Sandstein().updateAreas(_areas.parentCountry.name);
+            // update state of parent Scaffold
+            _parentProgressNotifier.setStaticValue(count);
             setState(() {});
             return Future<void>.value();
           },

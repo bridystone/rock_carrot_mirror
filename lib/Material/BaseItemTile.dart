@@ -203,7 +203,7 @@ class _BaseItemTileState extends State<BaseItemTile>
         Navigator.pushNamed(
           context,
           '/' + _baseitem.runtimeType.toString(),
-          arguments: _baseitem, // parent item
+          arguments: [_baseitem, progressNotifier], // parent item
         ).then((value) {
           // refresh current page after back button is pushed to ensure new data is taken care of
           // TODO: NOTIFY parent, if data was updated

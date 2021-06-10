@@ -2,26 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:rock_carrot/Baseitems/Subareas.dart';
 import 'package:rock_carrot/Baseitems/Rocks.dart';
 import 'package:rock_carrot/Material/BaseMaterial.dart';
+import 'package:rock_carrot/Material/ProgressNotifier.dart';
 import 'package:rock_carrot/Material/RockTile.dart';
 import 'package:rock_carrot/Web/Sandstein.dart';
 import 'package:rock_carrot/Web/SandsteinSql.dart';
 
 class RocksMaterial extends StatefulWidget {
   final Subarea parentItem;
-  RocksMaterial(this.parentItem);
+  // support updateing the child Values
+  final ProgressNotifier _parentProgressNotifier;
+
+  RocksMaterial(this.parentItem, this._parentProgressNotifier);
 
   // transfer country to state object
   @override
   _RocksMaterialState createState() {
-    return _RocksMaterialState(parentItem);
+    return _RocksMaterialState(parentItem, _parentProgressNotifier);
   }
 }
 
 class _RocksMaterialState
     extends BaseItemsMaterialStatefulState<RocksMaterial> {
   final Rocks _rocks;
+  final ProgressNotifier _parentProgressNotifier;
 
-  _RocksMaterialState(Subarea subarea) : _rocks = Rocks(subarea) {
+  _RocksMaterialState(Subarea subarea, this._parentProgressNotifier)
+      : _rocks = Rocks(subarea) {
     searchBar = initializeSearchBar(_rocks.parentSubArea);
     // default sorting ist by number
     sortAlpha = false;
@@ -35,8 +41,10 @@ class _RocksMaterialState
         // enable Refresh data with pulldown
         body: RefreshIndicator(
           onRefresh: () async {
-            await Sandstein()
+            final count = await Sandstein()
                 .updateRocksIncludingSubitems(_rocks.parentSubArea.subareaId);
+            // update parent Tile
+            _parentProgressNotifier.setStaticValue(count);
             setState(() {});
             return Future<void>.value();
           },

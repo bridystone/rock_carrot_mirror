@@ -3,18 +3,22 @@ import 'package:rock_carrot/Baseitems/Areas.dart';
 import 'package:rock_carrot/Baseitems/Subareas.dart';
 import 'package:rock_carrot/Material/BaseItemTile.dart';
 import 'package:rock_carrot/Material/BaseMaterial.dart';
+import 'package:rock_carrot/Material/ProgressNotifier.dart';
 import 'package:rock_carrot/Web/Sandstein.dart';
 import 'package:rock_carrot/Web/SandsteinSql.dart';
 import 'package:rock_carrot/Web/Teufelsturm.dart';
 
 class SubAreasMaterial extends StatefulWidget {
   final Area _parentItem;
-  SubAreasMaterial(this._parentItem);
+  // support updateing the child Values
+  final ProgressNotifier _parentProgressNotifier;
+
+  SubAreasMaterial(this._parentItem, this._parentProgressNotifier);
 
   // transfer country to state object
   @override
   _SubAreasMaterialState createState() {
-    return _SubAreasMaterialState(_parentItem);
+    return _SubAreasMaterialState(_parentItem, _parentProgressNotifier);
   }
 }
 
@@ -22,8 +26,10 @@ class _SubAreasMaterialState
     extends BaseItemsMaterialStatefulState<SubAreasMaterial> {
   /// All basic functionality is in this object (incl. parentItem)
   final Subareas _subareas;
+  final ProgressNotifier _parentProgressNotifier;
 
-  _SubAreasMaterialState(Area area) : _subareas = Subareas(area) {
+  _SubAreasMaterialState(Area area, this._parentProgressNotifier)
+      : _subareas = Subareas(area) {
     searchBar = initializeSearchBar(_subareas.parentArea);
     // default sorting ist by child count
     sortAlpha = false;
@@ -37,8 +43,11 @@ class _SubAreasMaterialState
         // enable Refresh data with pulldown
         body: RefreshIndicator(
           onRefresh: () async {
-            await Sandstein()
+            final count = await Sandstein()
                 .updateSubareasInclComments(_subareas.parentArea.areaId);
+            // update parent tile
+            _parentProgressNotifier.setStaticValue(count);
+
             setState(() {});
             return Future<void>.value();
           },
