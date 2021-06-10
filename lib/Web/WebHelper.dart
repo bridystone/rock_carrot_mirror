@@ -8,10 +8,11 @@ class WebHelper {
     if (response.body.isEmpty) {
       throw Exception('Empty data container' + response.request.toString());
     }
+    /* DO NOT THROW exception here
     // Text:'null' from json indicates, that no data is available
     if (response.body == 'null') {
       throw Exception('null container' + response.request.toString());
-    }
+    }*/
     if (response.statusCode != 200) {
       throw Exception('wrong status code: ${response.statusCode}' +
           response.request.toString());

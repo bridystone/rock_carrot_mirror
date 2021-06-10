@@ -4,6 +4,7 @@ import 'package:rock_carrot/Baseitems/Rocks.dart';
 import 'package:rock_carrot/Material/BaseMaterial.dart';
 import 'package:rock_carrot/Material/ProgressNotifier.dart';
 import 'package:rock_carrot/Material/RockTile.dart';
+import 'package:rock_carrot/Material/Snackbar.dart';
 import 'package:rock_carrot/Web/Sandstein.dart';
 import 'package:rock_carrot/Web/SandsteinSql.dart';
 
@@ -41,12 +42,19 @@ class _RocksMaterialState
         // enable Refresh data with pulldown
         body: RefreshIndicator(
           onRefresh: () async {
-            final count = await Sandstein()
-                .updateRocksIncludingSubitems(_rocks.parentSubArea.subareaId);
+            int count;
+            try {
+              count = await Sandstein()
+                  .updateRocksIncludingSubitems(_rocks.parentSubArea.subareaId);
+            } catch (e) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(ErrorSnack(e.toString()));
+              count = 0;
+            }
+
             // update parent Tile
             _parentProgressNotifier.setStaticValue(count);
             setState(() {});
-            return Future<void>.value();
           },
           child: FutureBuilder<List<Rock>>(
             builder: futureBuildItemList,

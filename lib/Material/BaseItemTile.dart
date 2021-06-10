@@ -4,6 +4,7 @@ import 'package:rock_carrot/Baseitems/Areas.dart';
 import 'package:rock_carrot/Baseitems/BaseItems.dart';
 import 'package:rock_carrot/Baseitems/Subareas.dart';
 import 'package:rock_carrot/Material/ProgressNotifier.dart';
+import 'package:rock_carrot/Material/Snackbar.dart';
 import 'package:rock_carrot/Web/Teufelsturm.dart';
 
 class BaseItemTile extends StatefulWidget {
@@ -93,8 +94,8 @@ class _BaseItemTileState extends State<BaseItemTile>
         icon: Icons.update,
         onTap: () async {
           if (progressNotifier.isInProgress) {
-            ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Update already in progress')));
+            ScaffoldMessenger.of(context)
+                .showSnackBar(ErrorSnack('Update already in progress'));
             return;
           }
           progressNotifier.updatePercentage(0);
@@ -103,6 +104,8 @@ class _BaseItemTileState extends State<BaseItemTile>
           try {
             records = await _updateFunction!(_functionParameter) as int;
           } catch (e) {
+            ScaffoldMessenger.of(context)
+                .showSnackBar(ErrorSnack(e.toString()));
             print(e.toString());
             records = 0;
           }
@@ -118,8 +121,8 @@ class _BaseItemTileState extends State<BaseItemTile>
         icon: Icons.system_update_rounded,
         onTap: () async {
           if (progressNotifier.isInProgress) {
-            ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Update already in progress')));
+            ScaffoldMessenger.of(context)
+                .showSnackBar(ErrorSnack('Update already in progress'));
             return;
           }
           // clear number for update
@@ -131,6 +134,8 @@ class _BaseItemTileState extends State<BaseItemTile>
                 await _updateAllFunction!(_functionParameter, progressNotifier)
                     as int;
           } catch (e) {
+            ScaffoldMessenger.of(context)
+                .showSnackBar(ErrorSnack(e.toString()));
             print(e.toString());
             records = 0;
           }
@@ -149,8 +154,8 @@ class _BaseItemTileState extends State<BaseItemTile>
         icon: Icons.cloud_download,
         onTap: () async {
           if (progressNotifier.isInProgress) {
-            ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Update already in progress')));
+            ScaffoldMessenger.of(context)
+                .showSnackBar(ErrorSnack('Update already in progress'));
             return;
           }
 
@@ -168,6 +173,8 @@ class _BaseItemTileState extends State<BaseItemTile>
                 sandsteinNameTeufelsturmAreaIdMap[_baseitem.name],
                 progressNotifier) as int;
           } catch (e) {
+            ScaffoldMessenger.of(context)
+                .showSnackBar(ErrorSnack(e.toString()));
             print(e.toString());
             records = 0;
           }
@@ -204,12 +211,7 @@ class _BaseItemTileState extends State<BaseItemTile>
           context,
           '/' + _baseitem.runtimeType.toString(),
           arguments: [_baseitem, progressNotifier], // parent item
-        ).then((value) {
-          // refresh current page after back button is pushed to ensure new data is taken care of
-          // TODO: NOTIFY parent, if data was updated
-          // TODO: Notify dedicated child to update / first update the data and do notification
-          //setState(() {});
-        });
+        );
       },
       child: _customBaseItemTileContent(context),
     );

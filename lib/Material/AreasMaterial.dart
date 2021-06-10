@@ -4,6 +4,7 @@ import 'package:rock_carrot/Baseitems/Areas.dart';
 import 'package:rock_carrot/Material/BaseItemTile.dart';
 import 'package:rock_carrot/Material/BaseMaterial.dart';
 import 'package:rock_carrot/Material/ProgressNotifier.dart';
+import 'package:rock_carrot/Material/Snackbar.dart';
 import 'package:rock_carrot/Web/Sandstein.dart';
 import 'package:rock_carrot/Web/SandsteinSql.dart';
 
@@ -41,8 +42,14 @@ class _AreasMaterialState
         // enable Refresh data with pulldown
         body: RefreshIndicator(
           onRefresh: () async {
-            final count =
-                await Sandstein().updateAreas(_areas.parentCountry.name);
+            int count;
+            try {
+              count = await Sandstein().updateAreas(_areas.parentCountry.name);
+            } catch (e) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(ErrorSnack(e.toString()));
+              count = 0;
+            }
             // update state of parent Scaffold
             _parentProgressNotifier.setStaticValue(count);
             setState(() {});

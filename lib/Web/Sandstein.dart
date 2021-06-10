@@ -67,7 +67,12 @@ class Sandstein with WebHelper {
     // check if response is valid and refresh items in database
     if (isResponseValid(response)) {
       // insert data to DB
-      return json.decode(_cleanString(response.body));
+      try {
+        return json.decode(_cleanString(response.body));
+      } catch (e) {
+        // return empty
+        return <List>[];
+      }
     } else {
       throw Exception('failed this receice data');
     }

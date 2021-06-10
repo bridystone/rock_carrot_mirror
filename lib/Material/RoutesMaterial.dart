@@ -33,7 +33,6 @@ class _RoutesMaterialState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: searchBar.build(context),
-      // enable Refresh data with pulldown
       body: FutureBuilder<List<Route>>(
         builder: futureBuildItemList,
         future: _routes.getRoutes(),

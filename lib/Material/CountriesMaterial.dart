@@ -5,6 +5,7 @@ import 'package:rock_carrot/Baseitems/BaseItems.dart';
 import 'package:rock_carrot/Baseitems/Countries.dart';
 import 'package:rock_carrot/Material/BaseItemTile.dart';
 import 'package:rock_carrot/Material/BaseMaterial.dart';
+import 'package:rock_carrot/Material/Snackbar.dart';
 import 'package:rock_carrot/Web/Sandstein.dart';
 import 'package:rock_carrot/Web/SandsteinSql.dart';
 
@@ -30,9 +31,14 @@ class _CountryMaterialState
         // enable Refresh data with pulldown
         body: RefreshIndicator(
           onRefresh: () async {
-            await Sandstein().updateCountries();
+            try {
+              await Sandstein().updateCountries();
+            } catch (e) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(ErrorSnack(e.toString()));
+            }
+
             setState(() {});
-            return Future<void>.value();
           },
           child: FutureBuilder<List<Country>>(
             builder: futureBuildItemList,

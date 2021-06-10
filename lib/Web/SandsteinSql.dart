@@ -53,25 +53,27 @@ extension SandsteinSql on Sandstein {
   /// fetch the data, then delete records, finally insert new data
   Future<int> updateSubareasInclComments(int areaId) async {
     // fetch data from subareas + comments
+    // delete old data
+    await SqlHandler().deleteSubareasIncludingComments(areaId);
+
     final jsonDataSubareas = fetchJsonFromWeb(
       Sandstein.subareasWebTarget,
       Sandstein.subareasWebQuery,
       areaId.toString(),
     );
+    final count = await SqlHandler()
+        .insertJsonData(SqlHandler.subareasTablename, jsonDataSubareas);
+
     final jsonDataComments = fetchJsonFromWeb(
       Sandstein.commentsWebTarget,
       Sandstein.commentsWebQuerySubareas,
       areaId.toString(),
     );
 
-    // delete old data
-    await SqlHandler().deleteSubareasIncludingComments(areaId);
-
     // insert new data
     await SqlHandler()
         .insertJsonData(SqlHandler.commentsTablename, jsonDataComments);
-    return await SqlHandler()
-        .insertJsonData(SqlHandler.subareasTablename, jsonDataSubareas);
+    return count;
   }
 
   /// update data from Sandsteinklettern
@@ -111,31 +113,35 @@ extension SandsteinSql on Sandstein {
   ///
   /// fetch the data, then delete records, finally insert new data
   Future<int> updateRocksIncludingSubitems(int subareaId) async {
+    // delete all data
+    await SqlHandler().deleteRocksIncludingSubitems(subareaId);
+
     final jsonDataRocks = fetchJsonFromWeb(
       Sandstein.rocksWebTarget,
       Sandstein.rocksWebQuery,
       subareaId.toString(),
     );
+    final count = await SqlHandler()
+        .insertJsonData(SqlHandler.rocksTablename, jsonDataRocks);
+
     final jsonDataRoutes = fetchJsonFromWeb(
       Sandstein.routesWebTarget,
       Sandstein.routesWebQuery,
       subareaId.toString(),
     );
+    await SqlHandler()
+        .insertJsonData(SqlHandler.routesTablename, jsonDataRoutes);
+
     final jsonDataComments = fetchJsonFromWeb(
       Sandstein.commentsWebTarget,
       Sandstein.commentsWebQueryRocks,
       subareaId.toString(),
     );
-    // delete all data
-    await SqlHandler().deleteRocksIncludingSubitems(subareaId);
 
     // insert new data
     await SqlHandler()
         .insertJsonData(SqlHandler.commentsTablename, jsonDataComments);
-    await SqlHandler()
-        .insertJsonData(SqlHandler.routesTablename, jsonDataRoutes);
 
-    return await SqlHandler()
-        .insertJsonData(SqlHandler.rocksTablename, jsonDataRocks);
+    return count;
   }
 }
