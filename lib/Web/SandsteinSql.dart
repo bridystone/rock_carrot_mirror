@@ -6,6 +6,7 @@ import 'package:rock_carrot/Database/sqlCountries.dart';
 import 'package:rock_carrot/Database/sqlAreas.dart';
 import 'package:rock_carrot/Database/sqlSubareas.dart';
 import 'package:rock_carrot/Database/sqlRocks.dart';
+import 'package:rock_carrot/Material/ProgressNotifier.dart';
 import 'package:rock_carrot/Web/Sandstein.dart';
 
 extension SandsteinSql on Sandstein {
@@ -78,15 +79,25 @@ extension SandsteinSql on Sandstein {
   ///
   /// This is a combination of Subareas fetch
   /// with All Rock Data (incl. subitems)
-  Future<int> updateSubareasInclAllSubitems(int areaId) async {
+  Future<int> updateSubareasInclAllSubitems(
+      int areaId, ProgressNotifier progress) async {
+    progress.startProgress('Subareas');
     // update subareas
     final result = await updateSubareasInclComments(areaId);
+    progress.finishProgress();
     // get results from database and iterate through all items
     final sqlResults = await SqlHandler().querySubareas(areaId);
-    sqlResults.forEach((sqlRow) {
-      updateRocksIncludingSubitems(
+    progress.startProgress('Rocks');
+    var percentageCounter = sqlResults.length;
+
+    for (var sqlRow in sqlResults) {
+      await updateRocksIncludingSubitems(
           int.parse(sqlRow.values.elementAt(0).toString()));
-    });
+      final percent =
+          (sqlResults.length - --percentageCounter) * 100 ~/ sqlResults.length;
+      progress.updatePercentage(percent);
+    }
+    progress.finishProgress();
     // return result from subareas fetch
     return result;
   }

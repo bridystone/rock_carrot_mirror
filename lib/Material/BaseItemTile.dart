@@ -3,6 +3,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:rock_carrot/Baseitems/Areas.dart';
 import 'package:rock_carrot/Baseitems/BaseItems.dart';
 import 'package:rock_carrot/Baseitems/Subareas.dart';
+import 'package:rock_carrot/Material/ProgressNotifier.dart';
 import 'package:rock_carrot/Web/Teufelsturm.dart';
 
 class BaseItemTile extends StatefulWidget {
@@ -42,31 +43,8 @@ class BaseItemTile extends StatefulWidget {
       );
 }
 
-class ProgressStruct {
-  bool _inProgress;
-  int _value;
-  String _currentThread;
-
-  bool get inProgress {
-    return _inProgress;
-  }
-
-  int get value {
-    return _value;
-  }
-
-  String get currentThread {
-    return _currentThread;
-  }
-
-  ProgressStruct(
-    this._value, [
-    this._inProgress = false,
-    this._currentThread = '',
-  ]);
-}
-
-class _BaseItemTileState extends State<BaseItemTile> {
+class _BaseItemTileState extends State<BaseItemTile>
+    with AutomaticKeepAliveClientMixin {
   final BaseItem _baseitem;
   final Function? _updateFunction;
   final Function? _updateAllFunction;
@@ -74,7 +52,16 @@ class _BaseItemTileState extends State<BaseItemTile> {
   final dynamic _functionParameter; //might be String or int
 
   /// notifier to update progress
-  final progressNotifier = ValueNotifier<ProgressStruct>(ProgressStruct(-1));
+  final ProgressNotifier progressNotifier;
+
+  /// keep the Tile alive as long as Progress is done
+  @override
+  bool get wantKeepAlive {
+    // TODO: only keep alive, when update is in progress
+    // seems to be a sync/async issue
+    return true;
+    //progressNotifier.isInProgress; // doesn't seem to work with progressNotifier
+  }
 
   _BaseItemTileState(
     this._baseitem,
@@ -82,10 +69,16 @@ class _BaseItemTileState extends State<BaseItemTile> {
     this._updateAllFunction,
     this._deleteFunction,
     this._functionParameter,
-  );
+  ) :
+        // init progress notifier with STATIC Childcount (no progress)
+        progressNotifier =
+            ProgressNotifier(ProgressStruct(_baseitem.childCountInt));
 
   @override
   Widget build(BuildContext context) {
+    // call automaticKeepAlive Superclass
+    super.build(context);
+
     return _customCountryTileSlide(context);
   }
 
@@ -99,15 +92,22 @@ class _BaseItemTileState extends State<BaseItemTile> {
         color: Colors.green,
         icon: Icons.update,
         onTap: () async {
-          setState(() {
-            _baseitem.setChildCountStatus(ChildCountStatus.update_in_progress);
-          });
+          if (progressNotifier.isInProgress) {
+            ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Update already in progress')));
+            return;
+          }
+          progressNotifier.updatePercentage(0);
 
-          final records = await _updateFunction!(_functionParameter) as int;
-
-          setState(() {
-            _baseitem.updateChildCount(records);
-          });
+          int records;
+          try {
+            records = await _updateFunction!(_functionParameter) as int;
+          } catch (e) {
+            print(e.toString());
+          } finally {
+            records = 0;
+          }
+          progressNotifier.setStaticValue(records);
         },
       ));
     }
@@ -118,22 +118,26 @@ class _BaseItemTileState extends State<BaseItemTile> {
         color: Colors.greenAccent,
         icon: Icons.system_update_rounded,
         onTap: () async {
+          if (progressNotifier.isInProgress) {
+            ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Update already in progress')));
+            return;
+          }
           // clear number for update
-          setState(() {
-            _baseitem.setChildCountStatus(ChildCountStatus.update_in_progress);
-          });
+          progressNotifier.updatePercentage(0);
 
-          // first perform update of area
-          // otherwise the caching of data will result in 0 values
-          // TODO: doesn't seem to work - caching fails if no update was done before
-          final records = await _updateFunction!(_functionParameter) as int;
-          // perform actual Scraping
-          await _updateAllFunction!(_functionParameter) as int;
+          int records;
+          try {
+            records =
+                await _updateAllFunction!(_functionParameter, progressNotifier)
+                    as int;
+          } catch (e) {
+            print(e.toString());
+          } finally {
+            records = 0;
+          }
 
-          // set Results
-          setState(() {
-            _baseitem.updateChildCount(records);
-          });
+          progressNotifier.setStaticValue(records);
         },
       ));
     }
@@ -146,14 +150,33 @@ class _BaseItemTileState extends State<BaseItemTile> {
         color: Colors.greenAccent,
         icon: Icons.cloud_download,
         onTap: () async {
+          if (progressNotifier.isInProgress) {
+            ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Update already in progress')));
+            return;
+          }
+
           // start update
-          progressNotifier.value = ProgressStruct(0, true, 'updating');
-          // clear number for update
-          final records = await _updateAllFunction!(
-              sandsteinNameTeufelsturmAreaIdMap[_baseitem.name],
-              progressNotifier) as int;
+          progressNotifier.updatePercentage(0);
+
+          int records;
+          try {
+            // first perform update of area
+            // otherwise the caching of data will result in 0 values
+            records = await _updateFunction!(_functionParameter) as int;
+
+            // now perform the scraping
+            await _updateAllFunction!(
+                sandsteinNameTeufelsturmAreaIdMap[_baseitem.name],
+                progressNotifier) as int;
+          } catch (e) {
+            print(e.toString());
+          } finally {
+            records = 0;
+          }
+
           // set Results
-          progressNotifier.value = ProgressStruct(records);
+          progressNotifier.setStaticValue(records);
         },
       ));
     }
@@ -164,10 +187,7 @@ class _BaseItemTileState extends State<BaseItemTile> {
         icon: Icons.delete,
         onTap: () async {
           await _deleteFunction!(_functionParameter);
-
-          setState(() {
-            _baseitem.setChildCountStatus(ChildCountStatus.empty);
-          });
+          progressNotifier.setStaticValue(0);
         },
       ));
     }
@@ -201,7 +221,7 @@ class _BaseItemTileState extends State<BaseItemTile> {
   /// the actual Content of the Tile
   Widget _customBaseItemTileContent(BuildContext context) {
     /// set progressnotifier to child count, if no update is in process
-    progressNotifier.value = ProgressStruct(_baseitem.childCountInt, false);
+    progressNotifier.setStaticValue(_baseitem.childCountInt);
 
     return ListTile(
       title: _baseitem.nr != 0
@@ -214,13 +234,7 @@ class _BaseItemTileState extends State<BaseItemTile> {
           : null, //if second language set, show it, else don't
       trailing: ValueListenableBuilder<ProgressStruct>(
           valueListenable: progressNotifier,
-          builder: (context, value, child) {
-            return value.inProgress
-                ? Text(
-                    value.currentThread + ': ' + value.value.toString() + '%',
-                  )
-                : Text(value.value.toString());
-          }),
+          builder: (context, progress, child) => Text(progress.Text)),
     );
   }
 }

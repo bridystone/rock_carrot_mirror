@@ -1,11 +1,10 @@
 import 'dart:async';
-import 'package:flutter/cupertino.dart';
 import 'package:pool/pool.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:rock_carrot/Database/sql.dart';
 import 'package:rock_carrot/Database/sqlTeufelsturm.dart';
-import 'package:rock_carrot/Material/BaseItemTile.dart';
+import 'package:rock_carrot/Material/ProgressNotifier.dart';
 import 'package:rock_carrot/Web/TeufelsturmScraper.dart';
 import 'package:rock_carrot/Web/WebHelper.dart';
 import 'package:semaphore/semaphore.dart';
@@ -50,80 +49,10 @@ class Teufelsturm with WebHelper, TeufelsturmScraper {
     }
   }
 
-/*
-  /// fetch all Route information for a dedicated Area
-  Future<String> fetchRoutesByArea(int teufelsturmAreaId) async {
-    final uri = Uri.http('teufelsturm.de', 'wege/suche.php');
-    final response = await http.post(uri, body: {
-      'anzahl': 'Alle', // all items in one page
-      'gebiet': teufelsturmAreaId.toString(),
-    });
-    if (isResponseValid(response)) {
-      return response.body;
-    } else {
-      throw Exception('failed this receice data');
-    }
-  }
-
-  Future<String?> fetchRoutesByRock(int teufelsturmRockId) async {
-    final uri = Uri.http('teufelsturm.de', 'wege/suche.php');
-    /*
-    final response = await http.post(uri, body: {
-      'anzahl': 'Alle',
-      'gipfelnr': teufelsturmRockId.toString(),
-    });*/
-    final http.Response response;
-    try {
-      response = await http.post(
-        uri,
-        body: {'gipfelnr': teufelsturmRockId.toString()},
-      ).timeout(Duration(seconds: 1));
-      if (isResponseValid(response)) {
-        return response.body;
-      } else {
-        throw Exception('failed this receice data');
-      }
-    } catch (e) {
-      print('TIMEOUT for rockId $teufelsturmRockId: ' + e.toString());
-      return null;
-    }
-  }
-
-  Future<String?> fetchCommentsByRoute(int teufelsturmRouteId) async {
-    final uri = Uri.http(
-      'teufelsturm.de',
-      'wege/bewertungen/anzeige.php',
-      // TODO: remove get-values and check, if the post still works
-      <String, dynamic>{
-        'wegnr': teufelsturmRouteId.toString(),
-      },
-    );
-    // TODO: (not really - just a reminder) get requests result in hanging after a while
-    // post requests seem to work as well
-//    final response = await http.get(uri);
-    final http.Response response;
-    try {
-      response = await http.post(
-        uri,
-        body: {'wegnr': teufelsturmRouteId.toString()},
-      ).timeout(Duration(seconds: 1));
-      if (isResponseValid(response)) {
-        return response.body;
-      } else {
-        throw Exception('failed this receice data');
-      }
-    } catch (e) {
-      print('TIMEOUT for routeId $teufelsturmRouteId: ' + e.toString());
-      return null;
-    }
-  }
-*/
-
   /// update data from Sandsteinklettern
   ///
   /// fetch the data, then delete records, finally insert new data
-  Future<int> updateTTComments(
-      int areaId, ValueNotifier<ProgressStruct> progress) async {
+  Future<int> updateTTComments(int areaId, ProgressNotifier progress) async {
     /// stream that holds the requested items
     final webRequestDataControllerRoutes = StreamController<Map<String, int>>();
     final webRequestDataControllerComments =
@@ -135,18 +64,25 @@ class Teufelsturm with WebHelper, TeufelsturmScraper {
     /// semaphore that signals the finish line :)
     final semaphoreRoutes = LocalSemaphore(1);
 
+    progress.startProgress('Rocks');
     // get Rocks of Areas ID;
     final rockResponse = await fetchRocksByArea(areaId);
 
+    progress.updatePercentage(33);
+
     final jsonData = parseRocks(rockResponse, areaId: areaId);
+
+    progress.updatePercentage(66);
+
     await SqlHandler().deleteTTRocks(areaId);
     final rockCount = SqlHandler().insertJsonData(
       SqlHandler.ttRocksTablename,
       jsonData,
     );
 
-    // perform progress
-    progress.value = ProgressStruct(50, true, 'Rocks');
+    progress.finishProgress();
+
+    progress.startProgress('Routes');
 
     ///
     /// ROUTES
@@ -173,8 +109,7 @@ class Teufelsturm with WebHelper, TeufelsturmScraper {
     var numberOfIds = sqlRockIds.length;
 
     // implementing the subscription to the Request Stream
-    final routeSubscription = webRequestDataControllerRoutes.stream
-        .listen((Map<String, int> data) async {
+    webRequestDataControllerRoutes.stream.listen((Map<String, int> data) async {
       final retries = data['retries'] ?? 0;
       final id = data['id'] ?? 0;
       http.Response? response;
@@ -208,9 +143,10 @@ class Teufelsturm with WebHelper, TeufelsturmScraper {
           jsonRoutes,
         );
 
+        // update progress
         final percent =
             (sqlRockIds.length - numberOfIds) * 100 ~/ sqlRockIds.length;
-        progress.value = ProgressStruct(percent, true, 'Routes');
+        progress.updatePercentage(percent);
 
         /// count ids for semaphore to be released
         if (--numberOfIds == 0) {
@@ -222,8 +158,12 @@ class Teufelsturm with WebHelper, TeufelsturmScraper {
     //wait for requests to finish
     await semaphoreRoutes.acquire();
     semaphoreRoutes.release();
+
+    progress.finishProgress();
     // perform commit
     await SqlHandler().commitInsertJsonData(batchRoutes);
+
+    progress.startProgress('Comments');
 
     ///
     ///COMMENTS
@@ -254,7 +194,7 @@ class Teufelsturm with WebHelper, TeufelsturmScraper {
     var numberOfCommentIds = sqlRoutes.length;
 
     // implementing the subscription to the Request Stream
-    final routeSubscriptionComments = webRequestDataControllerComments.stream
+    webRequestDataControllerComments.stream
         .listen((Map<String, int> data) async {
       final retries = data['retries'] ?? 0;
       final id = data['routeid'] ?? -1;
@@ -293,7 +233,7 @@ class Teufelsturm with WebHelper, TeufelsturmScraper {
 
         final percent =
             (sqlRoutes.length - numberOfCommentIds) * 100 ~/ sqlRoutes.length;
-        progress.value = ProgressStruct(percent, true, 'Comments');
+        progress.updatePercentage(percent);
 
         /// count ids for semaphore to be released
         if (--numberOfCommentIds == 0) {
@@ -301,17 +241,19 @@ class Teufelsturm with WebHelper, TeufelsturmScraper {
         }
       }
     });
-    progress.value = ProgressStruct(90, true);
+
     //wait for requests to finish
     await semaphoreComments.acquire();
     semaphoreComments.release();
 
+    progress.finishProgress();
     // perform commit
     await SqlHandler().commitInsertJsonData(batchComments);
 
-    progress.value = ProgressStruct(100, true, 'Caching');
+    progress.startProgress('Caching');
     // now perform the cache of mapping tables
     await SqlHandler().cacheTTMapping(areaId);
+    progress.finishProgress();
     return rockCount;
   }
 }
