@@ -104,7 +104,6 @@ class _BaseItemTileState extends State<BaseItemTile>
             records = await _updateFunction!(_functionParameter) as int;
           } catch (e) {
             print(e.toString());
-          } finally {
             records = 0;
           }
           progressNotifier.setStaticValue(records);
@@ -133,7 +132,6 @@ class _BaseItemTileState extends State<BaseItemTile>
                     as int;
           } catch (e) {
             print(e.toString());
-          } finally {
             records = 0;
           }
 
@@ -171,7 +169,6 @@ class _BaseItemTileState extends State<BaseItemTile>
                 progressNotifier) as int;
           } catch (e) {
             print(e.toString());
-          } finally {
             records = 0;
           }
 
