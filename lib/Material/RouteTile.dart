@@ -18,35 +18,32 @@ class _RouteTileState extends State<RouteTile> {
     return Column(children: [
       ExpansionTile(
         tilePadding: EdgeInsets.only(left: 5),
-        /*
-            leading: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ,
-              ],
-            ),*/
-        title: ListTile( //Title of ExpansionTile is a ListTile
-          title: Text.rich( // use rich text to combine Text and Icon and NOT overflow on long route names
+        title: ListTile(
+          //Title of ExpansionTile is a ListTile
+          title: Text.rich(
+            // use rich text to combine Text and Icon and NOT overflow on long route names
             TextSpan(
               children: [
                 TextSpan(
-                  text: _route.nr.toString()+ ' ' + _route.name,
+                  text: _route.nr.toString() + ' ' + _route.name,
                 ),
                 WidgetSpan(
-                  child: (_route.commentCountInt! > 0) ? 
-                    Icon(
-                      Icons.comment,
-                      size: 15,
-                    )
-                    : Container(),
+                  child: (_route.commentCountInt! > 0)
+                      ? Icon(
+                          Icons.comment,
+                          size: 15,
+                        )
+                      : Container(),
                 ),
               ],
             ),
           ),
 
-          subtitle: _route.nameCZ != '2nd Language Name' ? Text(_route.nameCZ) : null, //show czech name if available
+          subtitle: _route.nameCZ != '2nd Language Name'
+              ? Text(_route.nameCZ)
+              : null, //show czech name if available
           trailing: Text(_route.grade), //show grade
-        ),  
+        ),
         children: [
           ListTile(
             trailing: Text(
@@ -54,19 +51,18 @@ class _RouteTileState extends State<RouteTile> {
               style: TextStyle(fontSize: 10),
             ),
             title: Text(
-              _route.climbingStyle != '' ?
-              _route.climbingStyle +'\n'+ _route.description:
-              _route.description,
+              _route.climbingStyle != ''
+                  ? _route.climbingStyle + '\n' + _route.description
+                  : _route.description,
               style: TextStyle(fontSize: 12),
             ),
-            subtitle: Text( // concat string for first ascent
-              _route.firstAscentLead + 
-              (_route.firstAscentLead != '' ? ', ' : '') +
-
-              _route.firstAscentPartners + 
-              (_route.firstAscentPartners != '' ? ', ' : '') +
-              
-              _route.firstAscentDate,
+            subtitle: Text(
+              // concat string for first ascent
+              _route.firstAscentLead +
+                  (_route.firstAscentLead != '' ? ', ' : '') +
+                  _route.firstAscentPartners +
+                  (_route.firstAscentPartners != '' ? ', ' : '') +
+                  _route.firstAscentDate,
               style: TextStyle(fontSize: 12),
             ),
             onTap: () {

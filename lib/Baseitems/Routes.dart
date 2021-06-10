@@ -53,7 +53,7 @@ class Route extends BaseItem {
   String get nameCZ {
     return _wegnameCZ;
   }
-  
+
   /// climbing grade
   String get grade {
     return _schwierigkeit;
@@ -72,18 +72,19 @@ class Route extends BaseItem {
   }
 
   String get firstAscentDate {
-    if (_erstbegdatum != '0000-00-00' && !_erstbegnachstieg.contains(r'um ') && !_erstbegnachstieg.contains(r'vor ') ){
-      DateTime date = DateFormat('yyyy-MM-dd').parse(_erstbegdatum); //parse date 
-      return DateFormat('d.M.yy').format(date); // use same format as in the climbing guide
-    } 
-    else if (_erstbegnachstieg.contains(r'vor ')) { //year of ascent in _erstbegnachstieg
-      return _erstbegnachstieg.substring(_erstbegnachstieg.indexOf(r'vor ')); 
-    }
-
-    else if (_erstbegnachstieg.contains(r'um ')) { //year of ascent in _erstbegnachstieg
-      return _erstbegnachstieg.substring(_erstbegnachstieg.indexOf(r'um ')); 
-    }
-    else {
+    if (_erstbegdatum != '0000-00-00' &&
+        !_erstbegnachstieg.contains(r'um ') &&
+        !_erstbegnachstieg.contains(r'vor ')) {
+      final date = DateFormat('yyyy-MM-dd').parse(_erstbegdatum); //parse date
+      return DateFormat('d.M.yy')
+          .format(date); // use same format as in the climbing guide
+    } else if (_erstbegnachstieg.contains(r'vor ')) {
+      //year of ascent in _erstbegnachstieg
+      return _erstbegnachstieg.substring(_erstbegnachstieg.indexOf(r'vor '));
+    } else if (_erstbegnachstieg.contains(r'um ')) {
+      //year of ascent in _erstbegnachstieg
+      return _erstbegnachstieg.substring(_erstbegnachstieg.indexOf(r'um '));
+    } else {
       return '';
     }
   }
@@ -93,16 +94,17 @@ class Route extends BaseItem {
   }
 
   String get firstAscentPartners {
-    if (_erstbegnachstieg.contains(r'vor ')){ // ascent without known date, but before a certain year ...
-      return _erstbegnachstieg.indexOf(r'vor') == 0 ? '' : _erstbegnachstieg.substring(0,_erstbegnachstieg.indexOf(r', ')); 
-    } 
-    
-    else if (_erstbegnachstieg.contains(r'um ')){ // ascent without known date, but around a certain year ...
-      return _erstbegnachstieg.indexOf(r'um') == 0 ? '' : _erstbegnachstieg.substring(0,_erstbegnachstieg.indexOf(r', ')); 
-    } 
-
-
-    else{
+    if (_erstbegnachstieg.contains(r'vor ')) {
+      // ascent without known date, but before a certain year ...
+      return _erstbegnachstieg.indexOf(r'vor') == 0
+          ? ''
+          : _erstbegnachstieg.substring(0, _erstbegnachstieg.indexOf(r', '));
+    } else if (_erstbegnachstieg.contains(r'um ')) {
+      // ascent without known date, but around a certain year ...
+      return _erstbegnachstieg.indexOf(r'um') == 0
+          ? ''
+          : _erstbegnachstieg.substring(0, _erstbegnachstieg.indexOf(r', '));
+    } else {
       return _erstbegnachstieg;
     }
   }

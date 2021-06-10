@@ -102,23 +102,7 @@ abstract class BaseItemsMaterialStatefulState<T extends StatefulWidget>
     ));
     // add Searchbar Action
     iconButtons.add(searchBar.getSearchAction(context));
-    /*
-        IconButton(
-          icon: Icon(Icons.update),
-          onPressed: () async {
-            // show modal dialog while unpdating data from Web to Database
-            await showModalBottomSheet<void>(
-              isDismissible: false,
-              context: context,
-              builder: (BuildContext context) => FutureBuilder(
-                builder: futureBuilderUpdateLoading,
-                future: Sandstein().updateCountries(),
-              ),
-            );
-            // invalidate the whole scaffold
-            setState(() {});
-          },
-        ),*/
+
     return AppBar(
       title: RichText(
         text: TextSpan(
@@ -128,25 +112,6 @@ abstract class BaseItemsMaterialStatefulState<T extends StatefulWidget>
       actions: iconButtons,
     );
   }
-  /*
-  // TODO: modal dialog for long running updates!
-  /// handle modal dialog box for updating data
-  Widget futureBuilderUpdateLoading(
-      BuildContext context, AsyncSnapshot snapshot) {
-    if (snapshot.hasError) {
-      return futureBuilderErrorMessage(snapshot);
-    }
-
-    if (snapshot.connectionState == ConnectionState.done) {
-      // autoclose dialog when finished
-      Navigator.of(context).pop();
-      // push data into protected storage
-      return Text('Finished');
-    }
-
-    return futureBuilderLoadingMessage(snapshot);
-  }
-*/
 
   /// the actual data for presentation
   List<BaseItem> _baseitem_list = [];

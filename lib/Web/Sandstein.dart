@@ -80,30 +80,12 @@ class Sandstein with WebHelper {
     var string_unesc = unesc.convert(_string);
     //replace ambigous Czech encoding to correct UTF8 + quotation marks
     return string_unesc
-        .replaceAll(r'\u008a', '\u0160')  // Š upper case
-        .replaceAll(r'\u008e', '\u017d')  // Ž upper case
-        .replaceAll(r'\u009a', '\u0161')  // š lower case
-        .replaceAll(r'\u009e', '\u017e')  // ž lower case
-        .replaceAll(r'\u0084', '\u201e')  // „ low double comma quotation mark
-        .replaceAll(r'\u0093', '\u201c')  // “ double turned comma quotation mark
+        .replaceAll(r'\u008a', '\u0160') // Š upper case
+        .replaceAll(r'\u008e', '\u017d') // Ž upper case
+        .replaceAll(r'\u009a', '\u0161') // š lower case
+        .replaceAll(r'\u009e', '\u017e') // ž lower case
+        .replaceAll(r'\u0084', '\u201e') // „ low double comma quotation mark
+        .replaceAll(r'\u0093', '\u201c') // “ double turned comma quotation mark
         .replaceAll(RegExp(r'[\\]+\"'), r'\"'); // fix escaped quotes
-  }
-
-  /// handle bad answers from http response
-  ///
-  /// TODO: implement as logging
-  bool _isResponseValid(http.Response response) {
-    if (response.body.isEmpty) {
-      throw Exception('Empty data container' + response.request.toString());
-    }
-    // Text:'null' from json indicates, that no data is available
-    if (response.body == 'null') {
-      throw Exception('null container' + response.request.toString());
-    }
-    if (response.statusCode != 200) {
-      throw Exception('wrong status code: ${response.statusCode}' +
-          response.request.toString());
-    }
-    return true;
   }
 }

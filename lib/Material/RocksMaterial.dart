@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rock_carrot/Baseitems/Subareas.dart';
 import 'package:rock_carrot/Baseitems/Rocks.dart';
-import 'package:rock_carrot/Material/BaseItemTile.dart';
 import 'package:rock_carrot/Material/BaseMaterial.dart';
 import 'package:rock_carrot/Material/RockTile.dart';
 import 'package:rock_carrot/Web/Sandstein.dart';
