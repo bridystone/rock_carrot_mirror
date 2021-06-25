@@ -1,14 +1,56 @@
+# use docker image
+image: bridystone/flutterdocker:latest
+# registry.gitlab.com/bridystone/rock_carrot/flutterdocker:latest
 stages:
-  # - test
+  - test
   - build
 
-# Flutter Test Stage (currently rather empty)
-# flutter_test:
-#   stage: test
-#   script:
-#     - flutter test
-#   tags:
-#     - flutter
+################################################################################
+# tests from Gitlab Templates 
+################################################################################
+
+code_quality:
+  stage: test
+  # only run on merge request
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+  before_script:
+    - pub global activate dart_code_metrics
+    - export PATH="$PATH":"$HOME/.pub-cache/bin"
+  script:
+    - metrics lib -r codeclimate  > gl-code-quality-report.json
+  artifacts:
+    reports:
+      codequality: gl-code-quality-report.json
+  # tags:
+  #   - flutter
+
+test:
+  stage: test
+  # only run on merge request
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+  before_script:
+    - pub global activate junitreport
+    - export PATH="$PATH":"$HOME/.pub-cache/bin"
+  script:
+    - flutter test --machine --coverage | tojunit -o report.xml
+    - lcov --summary coverage/lcov.info
+    - genhtml coverage/lcov.info --output=coverage
+  coverage: '/lines\.*: \d+\.\d+\%/'
+  artifacts:
+    name: coverage
+    paths:
+      - $CI_PROJECT_DIR/coverage
+    reports:
+      junit: report.xml
+#  tags:
+#    - flutter
+
+
+################################################################################
+# Commit Releases 
+################################################################################
 
 # android debug 
 android:debug:
@@ -16,82 +58,94 @@ android:debug:
   rules: # do NOT run if tag commit 
     - if: $CI_COMMIT_TAG
       when: never
-    - if: $CI_COMMIT_BRANCH
+    # only run on merge request
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
   before_script:
     - flutter packages get
     - flutter clean
   script:
     - flutter doctor --android-licenses
     - flutter build apk --debug
+  after_script:
+    - mkdir debug
+    - cp build/app/outputs/flutter-apk/app.apk debug/rock_carrot.apk
+    - cp build/app/outputs/flutter-apk/app.apk.sha1 debug/rock_carrot.apk.sha1
   artifacts:
     paths:
-      - "**/**/**/**/**/debug/*.apk"
+      - "debug/rock_carrot.apk"
+      - "debug/rock_carrot.apk.sha1"
     expire_in: 1 day
-  tags:
-    - flutter
+#  tags:
+#    - flutter
 
-android:release:
-  stage: build
-  rules: # do NOT run if tag commit 
-    - if: $CI_COMMIT_TAG
-      when: never
-    - if: $CI_COMMIT_BRANCH
-  before_script:
-    - flutter packages get
-    - flutter clean
-  script:
-    - flutter doctor --android-licenses
-    - flutter build apk --release
-  artifacts:
-    paths:
-      - "**/**/**/**/**/release/*.apk"
-    expire_in: 1 week
-  tags:
-    - flutter
+# android:release:
+#   stage: build
+#   rules: # do NOT run if tag commit 
+#     - if: $CI_COMMIT_TAG
+#       when: never
+#     - if: $CI_COMMIT_BRANCH
+#   before_script:
+#     - flutter packages get
+#     - flutter clean
+#   script:
+#     - flutter doctor --android-licenses
+#     - flutter build apk --release
+#   artifacts:
+#     paths:
+#       - "**/**/**/**/**/release/*.apk"
+#     expire_in: 1 week
+#  tags:
+#    - flutter
 
-ios:debug:
-  stage: build
-  rules: # do NOT run if tag commit 
-    - if: $CI_COMMIT_TAG
-      when: never
-    - if: $CI_COMMIT_BRANCH
-  before_script:
-    - flutter packages get
-    - flutter clean
-  script:
-    - flutter build ios
-    - cd ios
-    - pod install
-    - xcodebuild clean archive -workspace Runner.xcworkspace -scheme Runner -archivePath RunnerArchive.xcarchive
-    - xcodebuild -exportArchive -archivePath RunnerArchive.xcarchive -exportPath ./build/Debug -exportOptionsPlist Runner/Info-Debug.plist
-  artifacts:
-    paths:
-      - "ios/build/Debug/*.ipa"
-    expire_in: 1 day
-  tags:
-    - flutter
+# ios:debug:
+#   stage: build
+#   rules: # do NOT run if tag commit 
+#     - if: $CI_COMMIT_TAG
+#       when: never
+#     - if: $CI_COMMIT_BRANCH
+#   before_script:
+#     - flutter packages get
+#     - flutter clean
+#   script:
+#     - flutter build ios
+#     - cd ios
+#     - pod install
+#     - xcodebuild clean archive -workspace Runner.xcworkspace -scheme Runner -archivePath RunnerArchive.xcarchive
+#     - xcodebuild -exportArchive -archivePath RunnerArchive.xcarchive -exportPath ./build/Debug -exportOptionsPlist Runner/Info-Debug.plist
+#   artifacts:
+#     paths:
+#       - "ios/build/Debug/*.ipa"
+#     expire_in: 1 day
+#   tags:
+#     - flutter
+#     - ios
 
-ios:release:
-  stage: build
-  rules: # do NOT run if tag commit 
-    - if: $CI_COMMIT_TAG
-      when: never
-    - if: $CI_COMMIT_BRANCH
-  before_script:
-    - flutter packages get
-    - flutter clean
-  script:
-    - flutter build ios
-    - cd ios
-    - pod install;
-    - xcodebuild clean archive -workspace Runner.xcworkspace -scheme Runner -archivePath RunnerArchive.xcarchive
-    - xcodebuild -exportArchive -archivePath RunnerArchive.xcarchive -exportPath ./build/Release -exportOptionsPlist Runner/Info-Release.plist
-  artifacts:
-    paths:
-      - "ios/build/Release/*.ipa"
-    expire_in: 1 week
-  tags:
-    - flutter
+# ios:release:
+#   stage: build
+#   rules: # do NOT run if tag commit 
+#     - if: $CI_COMMIT_TAG
+#       when: never
+#     - if: $CI_COMMIT_BRANCH
+#   before_script:
+#     - flutter packages get
+#     - flutter clean
+#   script:
+#     - flutter build ios
+#     - cd ios
+#     - pod install;
+#     - xcodebuild clean archive -workspace Runner.xcworkspace -scheme Runner -archivePath RunnerArchive.xcarchive
+#     - xcodebuild -exportArchive -archivePath RunnerArchive.xcarchive -exportPath ./build/Release -exportOptionsPlist Runner/Info-Release.plist
+#   artifacts:
+#     paths:
+#       - "ios/build/Release/*.ipa"
+#     expire_in: 1 week
+#   tags:
+#     - flutter
+#     - ios
+
+################################################################################
+# TAG Releases 
+################################################################################
 
 android_tag:release:
   stage: build
@@ -103,29 +157,33 @@ android_tag:release:
   script:
     - flutter doctor --android-licenses
     - flutter build apk --release
+  after_script:
+    - mkdir release
+    - cp build/app/outputs/flutter-apk/app.apk release/rock_carrot.apk
+    - cp build/app/outputs/flutter-apk/app.apk.sha1 release/rock_carrot.apk.sha1
   artifacts:
     paths:
-      - "**/**/**/**/**/release/*.apk"
+      - "release/rock_carrot.apk"
+      - "release/rock_carrot.apk.sha1"
     expire_in: never # default = 30 days
-  tags:
-    - flutter
 
-ios_tag:release:
-  stage: build
-  rules: # run only if tag commit 
-    - if: $CI_COMMIT_TAG
-  before_script:
-    - flutter packages get
-    - flutter clean
-  script:
-    - flutter build ios
-    - cd ios
-    - pod install;
-    - xcodebuild clean archive -workspace Runner.xcworkspace -scheme Runner -archivePath RunnerArchive.xcarchive
-    - xcodebuild -exportArchive -archivePath RunnerArchive.xcarchive -exportPath ./build/Release -exportOptionsPlist Runner/Info-Release.plist
-  artifacts:
-    paths:
-      - "ios/build/Release/*.ipa"
-    expire_in: never # default = 30 days
-  tags:
-    - flutter
+# ios_tag:release:
+#   stage: build
+#   rules: # run only if tag commit 
+#     - if: $CI_COMMIT_TAG
+#   before_script:
+#     - flutter packages get
+#     - flutter clean
+#   script:
+#     - flutter build ios
+#     - cd ios
+#     - pod install;
+#     - xcodebuild clean archive -workspace Runner.xcworkspace -scheme Runner -archivePath RunnerArchive.xcarchive
+#     - xcodebuild -exportArchive -archivePath RunnerArchive.xcarchive -exportPath ./build/Release -exportOptionsPlist Runner/Info-Release.plist
+#   artifacts:
+#     paths:
+#       - "ios/build/Release/*.ipa"
+#     expire_in: never # default = 30 days
+#   tags:
+#     - flutter
+#     - ios

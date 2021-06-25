@@ -5,6 +5,16 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:rock_carrot/main_material.dart';
+
 void main() {
-  // no tests yet
+  // dummy test
+  testWidgets('Does it run', (WidgetTester tester) async {
+    await tester.pumpWidget(RockCarrotMaterial());
+    final textFinder = find.byType(MaterialApp);
+
+    expect(textFinder, findsOneWidget);
+  });
 }
