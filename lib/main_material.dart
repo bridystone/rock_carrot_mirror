@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:rock_carrot/Baseitems/Areas.dart';
-import 'package:rock_carrot/Baseitems/Countries.dart';
-import 'package:rock_carrot/Baseitems/Rocks.dart';
-import 'package:rock_carrot/Baseitems/Subareas.dart';
-import 'package:rock_carrot/Baseitems/cubit/update_cubit.dart';
-import 'package:rock_carrot/Material/Routes/AreasMaterial.dart';
-import 'package:rock_carrot/Material/ProgressNotifier.dart';
-import 'package:rock_carrot/Material/Routes/SubareasMaterial.dart';
-import 'package:rock_carrot/Material/Routes/CountriesMaterial.dart';
-import 'package:rock_carrot/Material/Routes/RocksMaterial.dart';
-import 'package:rock_carrot/Material/Routes/RoutesMaterial.dart';
+import 'package:rock_carrot/models/areas.dart';
+import 'package:rock_carrot/models/countries.dart';
+import 'package:rock_carrot/models/rocks.dart';
+import 'package:rock_carrot/models/subareas.dart';
+import 'package:rock_carrot/models/cubit/update_cubit.dart';
+import 'package:rock_carrot/material/screens/areas_material.dart';
+import 'package:rock_carrot/material/progress_notifier.dart';
+import 'package:rock_carrot/material/screens/subareas_material.dart';
+import 'package:rock_carrot/material/screens/countries_material.dart';
+import 'package:rock_carrot/material/screens/rocks_material.dart';
+import 'package:rock_carrot/material/screens/routes_material.dart';
 
 class RockCarrotMaterial extends StatelessWidget {
   @override
