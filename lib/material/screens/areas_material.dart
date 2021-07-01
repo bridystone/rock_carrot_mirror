@@ -27,13 +27,9 @@ class AreasMaterial extends StatefulWidget {
 
 class _AreasMaterialState
     extends BaseitemsMaterialStatefulState<AreasMaterial> {
-  /// All basic functionality is in this object (incl. parentItem)
-  final Areas _areas;
-
-  _AreasMaterialState(Country country) : _areas = Areas(country) {
-    searchBar = initializeSearchBar(_areas.parentCountry);
+  _AreasMaterialState(Country country) : super(Areas(country)) {
     // default sorting ist by child count
-    sortAlpha = false;
+    baseitems.sortAlpha = false;
   }
 
   /// build the Scaffold
@@ -46,7 +42,7 @@ class _AreasMaterialState
           onRefresh: () async {
             int count;
             try {
-              count = await Sandstein().updateAreas(_areas.parentCountry);
+              count = await baseitems.updateFromRemote();
             } catch (e) {
               ScaffoldMessenger.of(context)
                   .showSnackBar(ErrorSnack(e.toString()));
@@ -54,13 +50,13 @@ class _AreasMaterialState
             }
             // update state of parent Scaffold
             widget._parentProgressNotifier.setStaticValue(count);
-            widget._parentCubit.callGetValueAsync(_areas.parentCountry);
+            widget._parentCubit.callGetValueAsync(baseitems.parent);
             setState(() {});
             return Future<void>.value();
           },
           child: FutureBuilder<List<Area>>(
             builder: futureBuildItemList,
-            future: _areas.getAreas(),
+            future: (baseitems as Areas).getAreas(),
           ),
         ));
   }
@@ -68,10 +64,10 @@ class _AreasMaterialState
   @override
   Widget buildItemList(AsyncSnapshot snapshot) {
     // store snapshot data in local list
-    baseitem_list = snapshot.data;
+    baseitems.baseitem_list = snapshot.data;
 
     // if list is empty - show message what to do...
-    if (baseitem_list.isEmpty) {
+    if (baseitems.baseitem_list.isEmpty) {
       return ListView.builder(
         itemCount: 1,
         itemBuilder: (context, i) {
@@ -82,9 +78,9 @@ class _AreasMaterialState
 
     return ListView.builder(
       padding: EdgeInsets.all(0),
-      itemCount: baseitem_list.length,
+      itemCount: baseitems.baseitem_list.length,
       itemBuilder: (context, i) {
-        final area = baseitem_list[i] as Area;
+        final area = baseitems.baseitem_list[i] as Area;
         return Column(children: [
           // only first time generate a devider
           (i == 0)

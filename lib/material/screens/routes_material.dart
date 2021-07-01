@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart' hide Route;
-import 'package:rock_carrot/models/baseitems.dart';
+import 'package:flutter/material.dart'
+    hide Route; // hide route because of naming issues with this classes
 import 'package:rock_carrot/models/rocks.dart';
 import 'package:rock_carrot/models/routes.dart';
 import 'package:rock_carrot/material/screens/baseitem_material.dart';
@@ -19,13 +19,10 @@ class RoutesMaterial extends StatefulWidget {
 }
 
 class _RoutesMaterialState
-    extends BaseitemsMaterialStatefulState<RoutesMaterial> with Baseitems {
-  final Routes _routes;
-
-  _RoutesMaterialState(Rock rock) : _routes = Routes(rock) {
-    searchBar = initializeSearchBar(_routes.parentRock);
+    extends BaseitemsMaterialStatefulState<RoutesMaterial> {
+  _RoutesMaterialState(Rock rock) : super(Routes(rock)) {
     // default sorting ist by number
-    sortAlpha = false;
+    baseitems.sortAlpha = false;
   }
 
   /// build the Scaffold
@@ -35,7 +32,7 @@ class _RoutesMaterialState
       appBar: searchBar.build(context),
       body: FutureBuilder<List<Route>>(
         builder: futureBuildItemList,
-        future: _routes.getRoutes(),
+        future: (baseitems as Routes).getRoutes(),
       ),
     );
   }
@@ -43,13 +40,13 @@ class _RoutesMaterialState
   @override
   Widget buildItemList(AsyncSnapshot snapshot) {
     // store snapshot data in local list
-    baseitem_list = snapshot.data;
+    baseitems.baseitem_list = snapshot.data;
 
     return ListView.builder(
       padding: EdgeInsets.all(0),
-      itemCount: baseitem_list.length,
+      itemCount: baseitems.baseitem_list.length,
       itemBuilder: (context, i) {
-        final route = baseitem_list[i] as Route;
+        final route = baseitems.baseitem_list[i] as Route;
         return RouteTile(route);
       },
     );

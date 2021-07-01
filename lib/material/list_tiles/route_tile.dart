@@ -39,9 +39,9 @@ class _RouteTileState extends State<RouteTile> {
             ),
           ),
 
-          subtitle: _route.nameCZ != '2nd Language Name'
-              ? Text(_route.nameCZ)
-              : null, //show czech name if available
+          subtitle: _route.hasSecondLanguageName
+              ? Text(_route.secondLanguageName)
+              : null,
           trailing: Text(_route.grade), //show grade
         ),
         children: [

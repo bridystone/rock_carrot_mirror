@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:rock_carrot/models/areas.dart';
 import 'package:rock_carrot/models/baseitems.dart';
+import 'package:rock_carrot/models/countries.dart';
 import 'package:rock_carrot/models/subareas.dart';
 import 'package:rock_carrot/models/cubit/update_cubit.dart';
 import 'package:rock_carrot/material/progress_notifier.dart';
@@ -66,10 +67,10 @@ class _BaseitemTileState extends State<BaseitemTile>
     // call automaticKeepAlive Superclass
     super.build(context);
 
-    return _customCountryTileSlide(context);
+    return _customBaseitemTileSlide(context);
   }
 
-  Widget _customCountryTileSlide(BuildContext context) {
+  Widget _customBaseitemTileSlide(BuildContext context) {
     List<Widget>? primarySlideActions = [];
     List<Widget>? secondarySlideActions = [];
     // implement update /delete is supplied
@@ -88,7 +89,10 @@ class _BaseitemTileState extends State<BaseitemTile>
 
           int records;
           try {
-            records = await widget._updateFunction!(_baseitem) as int;
+            // TODO: WIP: for Country already changed
+            records = _baseitem is Country
+                ? await widget._updateFunction!()
+                : await widget._updateFunction!(_baseitem);
           } catch (e) {
             ScaffoldMessenger.of(context)
                 .showSnackBar(ErrorSnack(e.toString()));
@@ -229,9 +233,9 @@ class _BaseitemTileState extends State<BaseitemTile>
       subtitle: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          _baseitem.nameCZ != '2nd Language Name'
-              ? Text(_baseitem.nameCZ)
-              : Container(), //if second language set, show it, else don't
+          if (_baseitem.hasSecondLanguageName) ...[
+            Text(_baseitem.secondLanguageName)
+          ],
         ],
       ),
       trailing: Container(

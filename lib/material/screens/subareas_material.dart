@@ -29,13 +29,9 @@ class SubAreasMaterial extends StatefulWidget {
 
 class _SubAreasMaterialState
     extends BaseitemsMaterialStatefulState<SubAreasMaterial> {
-  /// All basic functionality is in this object (incl. parentItem)
-  final Subareas _subareas;
-
-  _SubAreasMaterialState(Area area) : _subareas = Subareas(area) {
-    searchBar = initializeSearchBar(_subareas.parentArea);
+  _SubAreasMaterialState(Area area) : super(Subareas(area)) {
     // default sorting ist by child count
-    sortAlpha = false;
+    baseitems.sortAlpha = false;
   }
 
   /// build the Scaffold
@@ -48,8 +44,7 @@ class _SubAreasMaterialState
           onRefresh: () async {
             int count;
             try {
-              count = await Sandstein()
-                  .updateSubareasInclComments(_subareas.parentArea);
+              count = await baseitems.updateFromRemote();
             } catch (e) {
               ScaffoldMessenger.of(context)
                   .showSnackBar(ErrorSnack(e.toString()));
@@ -58,13 +53,13 @@ class _SubAreasMaterialState
 
             // update parent tile
             widget._parentProgressNotifier.setStaticValue(count);
-            widget._parentUpdateCubit.callGetValueAsync(_subareas.parentArea);
+            widget._parentUpdateCubit.callGetValueAsync(baseitems.parent);
 
             setState(() {});
           },
           child: FutureBuilder<List<Subarea>>(
             builder: futureBuildItemList,
-            future: _subareas.getSubareas(),
+            future: (baseitems as Subareas).getSubareas(),
           ),
         ));
   }
@@ -72,10 +67,10 @@ class _SubAreasMaterialState
   @override
   Widget buildItemList(AsyncSnapshot snapshot) {
     // store snapshot data in local list
-    baseitem_list = snapshot.data;
+    baseitems.baseitem_list = snapshot.data;
 
     // if list is empty - show message what to do...
-    if (baseitem_list.isEmpty) {
+    if (baseitems.baseitem_list.isEmpty) {
       return ListView.builder(
         itemCount: 1,
         itemBuilder: (context, i) {
@@ -86,9 +81,9 @@ class _SubAreasMaterialState
 
     return ListView.builder(
       padding: EdgeInsets.all(0),
-      itemCount: baseitem_list.length,
+      itemCount: baseitems.baseitem_list.length,
       itemBuilder: (context, i) {
-        final subarea = baseitem_list[i] as Subarea;
+        final subarea = baseitems.baseitem_list[i] as Subarea;
         return Column(children: [
           // only first time generate a devider
           (i == 0)

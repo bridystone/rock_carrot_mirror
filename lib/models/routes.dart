@@ -135,12 +135,11 @@ class Route extends Baseitem {
   }
 }
 
-class Routes {
-  final Rock parentRock;
-  Routes(this.parentRock);
+class Routes extends Baseitems {
+  Routes(Rock parent) : super(parent);
 
   Future<List<Route>> getRoutes() async {
-    final sqlResults = SqlHandler().queryRoutes(parentRock.rockId);
+    final sqlResults = SqlHandler().queryRoutes((parent as Rock).rockId);
     // maps sqlResults to Route and return
     return sqlResults.then(
       (sqlResultsFinal) => sqlResultsFinal
@@ -149,5 +148,10 @@ class Routes {
           )
           .toList(),
     );
+  }
+
+  @override
+  Future<int> updateFromRemote() {
+    throw UnimplementedError('This should not Happen - no update possible');
   }
 }

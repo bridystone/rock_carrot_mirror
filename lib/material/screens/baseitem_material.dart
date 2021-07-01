@@ -19,44 +19,51 @@ abstract class BaseitemsMaterialStatefulState<T extends StatefulWidget>
   /// any search will transfer data to the [searchBarValue]
   /// this will change the outcome of the [baseitem_list] getter
   late SearchBar searchBar;
-  String searchBarValue = '';
+
+  /// item for _baseitems functionality (sorting)
+  @protected
+  final Baseitems baseitems;
+
+  BaseitemsMaterialStatefulState(Baseitems baseitems) : baseitems = baseitems {
+    searchBar = initializeSearchBar(baseitems.parent);
+  }
 
   /// initialize Searchbar
-  SearchBar initializeSearchBar(Baseitem baseitem) {
+  SearchBar initializeSearchBar(Baseitem currentItem) {
     return SearchBar(
       inBar: false,
       hintText: 'enter Text',
-      // TODO: understand this? why setState?
+      // setting the relevant setState method
       setState: setState,
       // add default appBar without Search
-      buildDefaultAppBar: (BuildContext context) => generateAppbar(baseitem),
+      buildDefaultAppBar: (BuildContext context) => generateAppbar(currentItem),
       // handle callbacks
       onChanged: (String value) => setState(() {
-        searchBarValue = value;
+        baseitems.currentFilterValue = value;
       }),
       onCleared: () => setState(() {
-        searchBarValue = '';
+        baseitems.currentFilterValue = '';
       }),
       onClosed: () => setState(() {
-        searchBarValue = '';
+        baseitems.currentFilterValue = '';
       }),
       closeOnSubmit: true,
     );
   }
 
   /// Appbar generation
-  AppBar generateAppbar(Baseitem baseitem) {
+  AppBar generateAppbar(Baseitem currentItem) {
     // prepare icon Buttons
     List<Widget>? iconButtons = [];
     // check, if comment item will be generated
-    if (baseitem is Area || baseitem is Subarea || baseitem is Rock) {
-      if (baseitem.commentCountInt! > 0) {
+    if (currentItem is Area || currentItem is Subarea || currentItem is Rock) {
+      if (currentItem.commentCountInt! > 0) {
         iconButtons.add(IconButton(
           icon: Icon(
             Icons.comment,
           ),
           onPressed: () {
-            CommentsSheet().showCommentsSheet(context, baseitem);
+            CommentsSheet().showCommentsSheet(context, currentItem);
           },
         ));
       } else {
@@ -68,8 +75,8 @@ abstract class BaseitemsMaterialStatefulState<T extends StatefulWidget>
       }
     }
     // add Maps icon, if it is a Rock
-    if (baseitem is Rock) {
-      if (baseitem.latitude == 0 || baseitem.longitude == 0) {
+    if (currentItem is Rock) {
+      if (currentItem.latitude == 0 || currentItem.longitude == 0) {
         // grey Button if no valid coordinates
         iconButtons.add(
           Icon(
@@ -103,8 +110,8 @@ abstract class BaseitemsMaterialStatefulState<T extends StatefulWidget>
             }
             await MapLauncher.showMarker(
               mapType: preferredMap,
-              coords: Coords(baseitem.latitude, baseitem.longitude),
-              title: baseitem.name,
+              coords: Coords(currentItem.latitude, currentItem.longitude),
+              title: currentItem.name,
             );
           },
         ));
@@ -114,7 +121,7 @@ abstract class BaseitemsMaterialStatefulState<T extends StatefulWidget>
     iconButtons.add(IconButton(
       icon: Icon(Icons.sort_by_alpha),
       onPressed: () {
-        sortAlpha = !sortAlpha;
+        baseitems.sortAlpha = !baseitems.sortAlpha;
         setState(() {});
       },
     ));
@@ -124,39 +131,11 @@ abstract class BaseitemsMaterialStatefulState<T extends StatefulWidget>
     return AppBar(
       title: RichText(
         text: TextSpan(
-          text: baseitem.name,
+          text: currentItem.name,
         ),
       ),
       actions: iconButtons,
     );
-  }
-
-  /// the actual data for presentation
-  List<Baseitem> _baseitem_list = [];
-
-  /// item for _baseitems functionality (sorting)
-  final Baseitems _baseitems = Baseitems();
-
-  bool sortAlpha = true;
-  set baseitem_list(List<Baseitem> new_list) {
-    _baseitem_list = new_list;
-  }
-
-  List<Baseitem> get baseitem_list {
-    if (sortAlpha) {
-      _baseitem_list.sort(_baseitems.sortByName);
-    } else {
-      _baseitem_list.sort(_baseitems.sortByChildsDesc);
-    }
-    // checking the search
-    if (searchBarValue.isEmpty) {
-      return _baseitem_list;
-    } else {
-      return _baseitem_list
-          .where((element) =>
-              element.name.toLowerCase().contains(searchBarValue.toLowerCase()))
-          .toList();
-    }
   }
 
   /// abstract function to get futures to concrete data

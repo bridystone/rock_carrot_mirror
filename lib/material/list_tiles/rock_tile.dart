@@ -37,9 +37,8 @@ class _RockTileState extends State<RockTile> {
                 )
             : //concat number and name
             Text(_rock.name), // else show only name
-        subtitle: _rock.nameCZ != '2nd Language Name'
-            ? Text(_rock.nameCZ)
-            : null, //if second language set, show it, else don't
+        subtitle:
+            _rock.hasSecondLanguageName ? Text(_rock.secondLanguageName) : null,
         trailing: Text(_rock.childCount),
         onTap: () {
           Navigator.pushNamed(

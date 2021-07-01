@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:rock_carrot/models/baseitems.dart';
 import 'package:rock_carrot/database/sql.dart';
 import 'package:rock_carrot/database/sql_countries.dart';
+import 'package:rock_carrot/web/sandstein.dart';
+import 'package:rock_carrot/web/sandstein_sql.dart';
 
 class Country extends Baseitem {
   // fields from the database
@@ -36,7 +38,13 @@ class Country extends Baseitem {
   }
 }
 
-class Countries {
+class Countries extends Baseitems {
+  Countries()
+      : super(Baseitem(
+          name: 'Countries',
+          childCountInt: -1,
+        ));
+
   /// get Items from database and transform them into a list of items
   Future<List<Country>> getCountries() {
     final sqlResults = SqlHandler().queryCountries();
@@ -47,5 +55,10 @@ class Countries {
           )
           .toList(),
     );
+  }
+
+  @override
+  Future<int> updateFromRemote() {
+    return Sandstein().updateCountries();
   }
 }

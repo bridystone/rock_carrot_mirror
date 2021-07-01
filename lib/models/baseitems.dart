@@ -8,19 +8,22 @@ enum ChildCountStatus {
 
 class Baseitem {
   String name;
-  String nameCZ;
+  String? nameCZ;
   double nr;
   int childCountInt;
   int? commentCountInt;
   String? commentCount;
   Baseitem({
     this.name = 'Root-Baseitem',
-    this.nameCZ = '2nd Language Name',
     this.nr = 0,
     // ignore: invalid_required_named_param
     @required this.childCountInt = 0,
     this.commentCountInt,
   });
+
+  /// 2nd Language stuff
+  bool get hasSecondLanguageName => nameCZ != null;
+  String get secondLanguageName => nameCZ ?? '';
 
   // Child element Getter + Update functions
   String get childCount {
@@ -44,7 +47,24 @@ class Baseitem {
   }
 }
 
-class Baseitems {
+abstract class Baseitems {
+  /// parent of current item
+  Baseitem parent;
+  Baseitems(this.parent);
+
+  /// the actual data for presentation
+  List<Baseitem> _baseitem_list = [];
+
+  /// currently configured filter
+  String _filterValue = '';
+
+  /// type of sorting
+  bool sortAlpha = true;
+
+  set currentFilterValue(String newValue) {
+    _filterValue = newValue;
+  }
+
   /// sorting method Name ASC
   int sortByName(Baseitem item_a, Baseitem item_b) {
     return item_a.name.compareTo(item_b.name);
@@ -60,4 +80,27 @@ class Baseitems {
       return ((item_a.nr - item_b.nr) * 10).round();
     }
   }
+
+  set baseitem_list(List<Baseitem> new_list) {
+    _baseitem_list = new_list;
+  }
+
+  List<Baseitem> get baseitem_list {
+    if (sortAlpha) {
+      _baseitem_list.sort(sortByName);
+    } else {
+      _baseitem_list.sort(sortByChildsDesc);
+    }
+    // checking the search
+    if (_filterValue.isEmpty) {
+      return _baseitem_list;
+    } else {
+      return _baseitem_list
+          .where((element) =>
+              element.name.toLowerCase().contains(_filterValue.toLowerCase()))
+          .toList();
+    }
+  }
+
+  Future<int> updateFromRemote();
 }

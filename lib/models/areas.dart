@@ -3,6 +3,8 @@ import 'package:rock_carrot/models/baseitems.dart';
 import 'package:rock_carrot/models/countries.dart';
 import 'package:rock_carrot/database/sql.dart';
 import 'package:rock_carrot/database/sql_areas.dart';
+import 'package:rock_carrot/web/sandstein.dart';
+import 'package:rock_carrot/web/sandstein_sql.dart';
 
 class Area extends Baseitem {
   int _gebietid;
@@ -54,13 +56,12 @@ class Area extends Baseitem {
   }
 }
 
-class Areas {
+class Areas extends Baseitems {
   /// store parent country
-  Country parentCountry;
-  Areas(this.parentCountry);
+  Areas(Country parent) : super(parent);
 
   Future<List<Area>> getAreas() async {
-    final sqlResults = SqlHandler().queryAreas(parentCountry.name);
+    final sqlResults = SqlHandler().queryAreas(parent.name);
     // maps sqlResults to Area and return
     return sqlResults.then(
       (sqlResultsFinal) => sqlResultsFinal
@@ -69,5 +70,10 @@ class Areas {
           )
           .toList(),
     );
+  }
+
+  @override
+  Future<int> updateFromRemote() {
+    return Sandstein().updateAreas(parent as Country);
   }
 }

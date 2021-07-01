@@ -3,6 +3,8 @@ import 'package:rock_carrot/models/areas.dart';
 import 'package:rock_carrot/models/baseitems.dart';
 import 'package:rock_carrot/database/sql.dart';
 import 'package:rock_carrot/database/sql_subareas.dart';
+import 'package:rock_carrot/web/sandstein.dart';
+import 'package:rock_carrot/web/sandstein_sql.dart';
 
 class Subarea extends Baseitem {
   int _sektorid;
@@ -53,14 +55,12 @@ class Subarea extends Baseitem {
   }
 }
 
-class Subareas {
-  /// store parent area
-  Area parentArea;
-  Subareas(this.parentArea);
+class Subareas extends Baseitems {
+  Subareas(Area parent) : super(parent);
 
   // TODO: something for Baseitem? with <T>?
   Future<List<Subarea>> getSubareas() async {
-    final sqlResults = SqlHandler().querySubareas(parentArea.areaId);
+    final sqlResults = SqlHandler().querySubareas((parent as Area).areaId);
     // maps sqlResults to Subareas and return
     return sqlResults.then(
       (sqlResultsFinal) => sqlResultsFinal
@@ -69,5 +69,10 @@ class Subareas {
           )
           .toList(),
     );
+  }
+
+  @override
+  Future<int> updateFromRemote() {
+    return Sandstein().updateSubareasInclComments(parent as Area);
   }
 }

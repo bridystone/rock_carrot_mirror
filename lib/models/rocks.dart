@@ -3,6 +3,8 @@ import 'package:rock_carrot/models/baseitems.dart';
 import 'package:rock_carrot/models/subareas.dart';
 import 'package:rock_carrot/database/sql.dart';
 import 'package:rock_carrot/database/sql_rocks.dart';
+import 'package:rock_carrot/web/sandstein.dart';
+import 'package:rock_carrot/web/sandstein_sql.dart';
 
 class Rock extends Baseitem {
   int _gipfelId;
@@ -99,13 +101,12 @@ class Rock extends Baseitem {
   }
 }
 
-class Rocks {
+class Rocks extends Baseitems {
   /// store parent area
-  Subarea parentSubArea;
-  Rocks(this.parentSubArea);
+  Rocks(Subarea parent) : super(parent);
 
   Future<List<Rock>> getRocks() async {
-    final sqlResults = SqlHandler().queryRocks(parentSubArea.subareaId);
+    final sqlResults = SqlHandler().queryRocks((parent as Subarea).subareaId);
     // maps sqlResults to Rock and return
     return sqlResults.then(
       (sqlResultsFinal) => sqlResultsFinal
@@ -114,5 +115,10 @@ class Rocks {
           )
           .toList(),
     );
+  }
+
+  @override
+  Future<int> updateFromRemote() {
+    return Sandstein().updateRocksIncludingSubitems(parent as Subarea);
   }
 }

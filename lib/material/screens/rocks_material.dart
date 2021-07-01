@@ -6,8 +6,6 @@ import 'package:rock_carrot/material/screens/baseitem_material.dart';
 import 'package:rock_carrot/material/progress_notifier.dart';
 import 'package:rock_carrot/material/list_tiles/rock_tile.dart';
 import 'package:rock_carrot/material/snackbar.dart';
-import 'package:rock_carrot/web/sandstein.dart';
-import 'package:rock_carrot/web/sandstein_sql.dart';
 
 class RocksMaterial extends StatefulWidget {
   final Subarea parentItem;
@@ -27,12 +25,9 @@ class RocksMaterial extends StatefulWidget {
 
 class _RocksMaterialState
     extends BaseitemsMaterialStatefulState<RocksMaterial> {
-  final Rocks _rocks;
-
-  _RocksMaterialState(Subarea subarea) : _rocks = Rocks(subarea) {
-    searchBar = initializeSearchBar(_rocks.parentSubArea);
+  _RocksMaterialState(Subarea subarea) : super(Rocks(subarea)) {
     // default sorting ist by number
-    sortAlpha = false;
+    baseitems.sortAlpha = false;
   }
 
   /// build the Scaffold
@@ -45,8 +40,7 @@ class _RocksMaterialState
           onRefresh: () async {
             int count;
             try {
-              count = await Sandstein()
-                  .updateRocksIncludingSubitems(_rocks.parentSubArea);
+              count = await baseitems.updateFromRemote();
             } catch (e) {
               ScaffoldMessenger.of(context)
                   .showSnackBar(ErrorSnack(e.toString()));
@@ -55,12 +49,12 @@ class _RocksMaterialState
 
             // update parent Tile
             widget._parentProgressNotifier.setStaticValue(count);
-            widget._parentUpdateCubit.callGetValueAsync(_rocks.parentSubArea);
+            widget._parentUpdateCubit.callGetValueAsync(baseitems.parent);
             setState(() {});
           },
           child: FutureBuilder<List<Rock>>(
             builder: futureBuildItemList,
-            future: _rocks.getRocks(),
+            future: (baseitems as Rocks).getRocks(),
           ),
         ));
   }
@@ -68,10 +62,10 @@ class _RocksMaterialState
   @override
   Widget buildItemList(AsyncSnapshot snapshot) {
     // store snapshot data in local list
-    baseitem_list = snapshot.data;
+    baseitems.baseitem_list = snapshot.data;
 
     // if list is empty - show message what to do...
-    if (baseitem_list.isEmpty) {
+    if (baseitems.baseitem_list.isEmpty) {
       return ListView.builder(
         itemCount: 1,
         itemBuilder: (context, i) {
@@ -82,9 +76,9 @@ class _RocksMaterialState
 
     return ListView.builder(
       padding: EdgeInsets.all(0),
-      itemCount: baseitem_list.length,
+      itemCount: baseitems.baseitem_list.length,
       itemBuilder: (context, i) {
-        final rock = baseitem_list[i] as Rock;
+        final rock = baseitems.baseitem_list[i] as Rock;
         return RockTile(rock);
       },
     );
