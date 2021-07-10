@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rock_carrot/blocs/update_state_bloc/update_state_bloc.dart';
 import 'package:rock_carrot/models/areas.dart';
+import 'package:rock_carrot/models/baseitems.dart';
 import 'package:rock_carrot/models/countries.dart';
 import 'package:rock_carrot/models/cubit/update_cubit.dart';
 import 'package:rock_carrot/material/list_tiles/baseitem_tile.dart';
@@ -27,25 +29,29 @@ class _CountryMaterialState
   /// build the Scaffold
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: searchBar.build(context),
-        // enable Refresh data with pulldown
-        body: RefreshIndicator(
-          onRefresh: () async {
-            try {
-              await baseitems.updateFromRemote();
-            } catch (e) {
-              ScaffoldMessenger.of(context)
-                  .showSnackBar(ErrorSnack(e.toString()));
-            }
-
-            setState(() {});
-          },
-          child: FutureBuilder<List<Country>>(
-            builder: futureBuildItemList,
-            future: _countries.getCountries(),
-          ),
-        ));
+    return BlocProvider(
+      create: (context) => UpdateStateBloc(),
+      child: Scaffold(
+          appBar: searchBar.build(context),
+          // enable Refresh data with pulldown
+          body: RefreshIndicator(
+            onRefresh: () async {
+              //updateStateBloc.add(UpdateStateEvent.update(Baseitem()));
+              /*
+                try {
+                  await baseitems.updateFromRemote();
+                } catch (e) {
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(ErrorSnack(e.toString()));
+                }*/
+              setState(() {});
+            },
+            child: FutureBuilder<List<Country>>(
+              builder: futureBuildItemList,
+              future: _countries.getCountries(),
+            ),
+          )),
+    );
   }
 
   /// generate Listview with all Country Data
@@ -54,7 +60,29 @@ class _CountryMaterialState
     // store snapshot data in local list
     baseitems.baseitem_list = snapshot.data;
 
+    return BlocBuilder<UpdateStateBloc, UpdateStateState>(
+      builder: (context, state) {
+        print(state.runtimeType);
+        state.when(
+          idle: () => null,
+          updating: (step, percent) => ScaffoldMessenger.of(context)
+              .showSnackBar(ErrorSnack('$step: $percent')),
+          finished: (result) => ScaffoldMessenger.of(context)
+              .showSnackBar(ErrorSnack('finished: $result')),
+          updatingAll: (_, __) => null,
+          finishedAll: (_) => null,
+          updatingTT: (_, __) => null,
+          finishedTT: (_) => null,
+          failure: (dynamic e) => {print(e.toString())},
+        );
+        return _onUpdateStateIdle(context, snapshot);
+      },
+    );
+  }
+
+  Widget _onUpdateStateIdle(BuildContext context, AsyncSnapshot snapshot) {
     // if list is empty - show message what to do...
+    print('HERE I AM');
     if (baseitems.baseitem_list.isEmpty) {
       return ListView.builder(
         itemCount: 1,

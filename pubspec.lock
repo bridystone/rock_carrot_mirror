@@ -39,9 +39,11 @@ packages:
   bloc:
     dependency: "direct main"
     description:
-      name: bloc
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "packages/bloc"
+      ref: "4c19f2ea143462788b095241ef9fcccb3992e659"
+      resolved-ref: "4c19f2ea143462788b095241ef9fcccb3992e659"
+      url: "git@github.com:felangel/bloc"
+    source: git
     version: "7.0.0"
   boolean_selector:
     dependency: transitive
@@ -231,11 +233,13 @@ packages:
     source: sdk
     version: "0.0.0"
   flutter_bloc:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
-      name: flutter_bloc
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "packages/flutter_bloc"
+      ref: "4c19f2ea143462788b095241ef9fcccb3992e659"
+      resolved-ref: "4c19f2ea143462788b095241ef9fcccb3992e659"
+      url: "git@github.com:felangel/bloc"
+    source: git
     version: "7.0.1"
   flutter_launcher_icons:
     dependency: "direct main"
