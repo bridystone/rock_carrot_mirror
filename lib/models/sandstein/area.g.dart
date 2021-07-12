@@ -16,6 +16,7 @@ _$_Area _$_$_AreaFromJson(Map<String, dynamic> json) {
     json['schwskala'] as String,
     json['subarea_count'] as int,
     json['komment_count'] as int,
+    DateTime.parse(json['insert_timestamp'] as String),
   );
 }
 
@@ -28,4 +29,5 @@ Map<String, dynamic> _$_$_AreaToJson(_$_Area instance) => <String, dynamic>{
       'schwskala': instance.schwskala,
       'subarea_count': instance.childCount,
       'komment_count': instance.commentCount,
+      'insert_timestamp': instance.lastUpdated.toIso8601String(),
     };

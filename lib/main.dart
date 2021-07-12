@@ -7,7 +7,6 @@ import 'package:rock_carrot/blocs/rocks/rocks_bloc.dart';
 import 'package:rock_carrot/blocs/routes/routes_bloc.dart';
 import 'package:rock_carrot/blocs/simple_bloc_observer.dart';
 import 'package:rock_carrot/blocs/subareas/subareas_bloc.dart';
-import 'package:rock_carrot/blocs/view/view_bloc.dart';
 
 // ignore: unused_import
 import 'package:rock_carrot/main_material.dart';
@@ -15,7 +14,7 @@ import 'package:rock_carrot/rock_carrot_app.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
-  Bloc.observer = SimpleBlocObserver();
+  //Bloc.observer = SimpleBlocObserver();
 
   try {
     // Platform is not working on Web

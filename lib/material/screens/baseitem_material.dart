@@ -4,7 +4,6 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_search_bar/flutter_search_bar.dart';
 import 'package:map_launcher/map_launcher.dart';
-import 'package:rock_carrot/blocs/update_state_bloc/update_state_bloc.dart';
 import 'package:rock_carrot/models/areas.dart';
 import 'package:rock_carrot/models/baseitems.dart';
 import 'package:rock_carrot/models/rocks.dart';
@@ -24,7 +23,6 @@ abstract class BaseitemsMaterialStatefulState<T extends StatefulWidget>
   /// item for _baseitems functionality (sorting)
   @protected
   final Baseitems baseitems;
-  final updateStateBloc = UpdateStateBloc();
 
   BaseitemsMaterialStatefulState(Baseitems baseitems) : baseitems = baseitems {
     searchBar = initializeSearchBar(baseitems.parent);

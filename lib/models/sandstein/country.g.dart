@@ -12,6 +12,7 @@ _$_Country _$_$_CountryFromJson(Map<String, dynamic> json) {
     json['ISO3166'] as String,
     json['KFZ'] as String,
     json['count'] as int,
+    DateTime.parse(json['insert_timestamp'] as String),
   );
 }
 
@@ -21,4 +22,5 @@ Map<String, dynamic> _$_$_CountryToJson(_$_Country instance) =>
       'ISO3166': instance.iso3166,
       'KFZ': instance.kfz,
       'count': instance.childCount,
+      'insert_timestamp': instance.lastUpdated.toIso8601String(),
     };

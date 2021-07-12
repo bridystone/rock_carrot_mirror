@@ -8,5 +8,15 @@ class AreasState with _$AreasState {
     Country country,
     List<Area> areas,
   ) = _AreasReceived;
-  const factory AreasState.failure() = _Failure;
+
+  // Update
+  const factory AreasState.updateInProgress(
+    String step,
+    int percent,
+  ) = _UpdateInProgress;
+  const factory AreasState.updateFinished(
+    int result,
+  ) = _UpdateFinished;
+
+  const factory AreasState.failure(dynamic exception) = _Failure;
 }

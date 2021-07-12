@@ -37,7 +37,7 @@ class ViewBloc extends Bloc<ViewEvent, ViewState> {
 
   void _onToCountries(
     _ToCountries event,
-    Emit<ViewState> emit_dummy,
+    Emit<ViewState> emit,
   ) async {
     countriesBloc.add(CountriesEvent.requestCountries());
     emit(ViewState.countries());
@@ -45,7 +45,7 @@ class ViewBloc extends Bloc<ViewEvent, ViewState> {
 
   void _onToAreas(
     _ToAreas event,
-    Emit<ViewState> emit_dummy,
+    Emit<ViewState> emit,
   ) async {
     if (event.country != null) {
       areasBloc.add(AreasEvent.requestAreas(event.country!));
@@ -59,7 +59,7 @@ class ViewBloc extends Bloc<ViewEvent, ViewState> {
 
   void _onToSubreas(
     _ToSubareas event,
-    Emit<ViewState> emit_dummy,
+    Emit<ViewState> emit,
   ) async {
     if (event.area != null) {
       subareasBloc.add(SubareasEvent.requestSubareas(event.area!));
@@ -71,7 +71,7 @@ class ViewBloc extends Bloc<ViewEvent, ViewState> {
 
   void _onToRocks(
     _ToRocks event,
-    Emit<ViewState> emit_dummy,
+    Emit<ViewState> emit,
   ) async {
     if (event.subarea != null) {
       rocksBloc.add(RocksEvent.requestRocks(event.subarea!));
@@ -82,7 +82,7 @@ class ViewBloc extends Bloc<ViewEvent, ViewState> {
 
   void _onToRoutes(
     _ToRoutes event,
-    Emit<ViewState> emit_dummy,
+    Emit<ViewState> emit,
   ) async {
     if (event.rock != null) {
       routesBloc.add(RoutesEvent.requestRoutes(event.rock!));

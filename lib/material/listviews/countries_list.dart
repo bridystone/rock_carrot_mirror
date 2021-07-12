@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:rock_carrot/material/widgets/country_tile.dart';
+import 'package:rock_carrot/blocs/areas/areas_bloc.dart';
+import 'package:rock_carrot/material/listviews/country_tile.dart';
 import 'package:rock_carrot/models/sandstein/country.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CountriesListView extends StatelessWidget {
   final List<Country> countries;
+  final ScrollController scrollController;
 
   const CountriesListView({
     Key? key,
     required this.countries,
+    required this.scrollController,
   }) : super(key: key);
 
   @override
@@ -20,6 +24,10 @@ class CountriesListView extends StatelessWidget {
             },
           )
         : ListView.builder(
+            // next two items are for storing the scroll position
+            controller: scrollController,
+            key: PageStorageKey<String>('CountriesScrolling'),
+
             padding: EdgeInsets.all(0),
             itemCount: countries.length,
             itemBuilder: (context, i) {
@@ -27,8 +35,11 @@ class CountriesListView extends StatelessWidget {
               return Column(children: [
                 // only first time generate a divider
                 if (i == 0) ...[Divider(height: 1, thickness: 1)],
-                // Cubit for updating Timestamp
-                CountryTile(country: country),
+                BlocProvider<AreasBloc>(
+                  create: (context) =>
+                      AreasBloc()..add(AreasEvent.requestAreas(country)),
+                  child: CountryTile(country: country),
+                ),
                 Divider(
                   height: 1,
                   thickness: 1,

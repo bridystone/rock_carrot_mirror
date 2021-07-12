@@ -58,6 +58,7 @@ class Subarea extends Baseitem {
 class Subareas extends Baseitems {
   Subareas(Area parent) : super(parent);
 
+  // ignore: todo
   // TODO: something for Baseitem? with <T>?
   Future<List<Subarea>> getSubareas() async {
     final sqlResults = SqlHandler().querySubareas((parent as Area).areaId);

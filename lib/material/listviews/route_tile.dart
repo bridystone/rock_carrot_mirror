@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart' hide Route;
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:rock_carrot/blocs/view/view_bloc.dart';
 import 'package:rock_carrot/models/sandstein/route.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RouteTile extends StatelessWidget {
   final Route route;

@@ -22,6 +22,18 @@ class _$RocksEventTearOff {
     );
   }
 
+  _UpdateRocks updateRocks(Subarea subarea) {
+    return _UpdateRocks(
+      subarea,
+    );
+  }
+
+  _UpdateRocksTT updateRocksTT(Subarea subarea) {
+    return _UpdateRocksTT(
+      subarea,
+    );
+  }
+
   _InvalidateRocks invalidateRocks() {
     return const _InvalidateRocks();
   }
@@ -35,12 +47,16 @@ mixin _$RocksEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(Subarea subarea) requestRocks,
+    required TResult Function(Subarea subarea) updateRocks,
+    required TResult Function(Subarea subarea) updateRocksTT,
     required TResult Function() invalidateRocks,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Subarea subarea)? requestRocks,
+    TResult Function(Subarea subarea)? updateRocks,
+    TResult Function(Subarea subarea)? updateRocksTT,
     TResult Function()? invalidateRocks,
     required TResult orElse(),
   }) =>
@@ -48,12 +64,16 @@ mixin _$RocksEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_RequestRocks value) requestRocks,
+    required TResult Function(_UpdateRocks value) updateRocks,
+    required TResult Function(_UpdateRocksTT value) updateRocksTT,
     required TResult Function(_InvalidateRocks value) invalidateRocks,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_RequestRocks value)? requestRocks,
+    TResult Function(_UpdateRocks value)? updateRocks,
+    TResult Function(_UpdateRocksTT value)? updateRocksTT,
     TResult Function(_InvalidateRocks value)? invalidateRocks,
     required TResult orElse(),
   }) =>
@@ -150,6 +170,8 @@ class _$_RequestRocks implements _RequestRocks {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(Subarea subarea) requestRocks,
+    required TResult Function(Subarea subarea) updateRocks,
+    required TResult Function(Subarea subarea) updateRocksTT,
     required TResult Function() invalidateRocks,
   }) {
     return requestRocks(subarea);
@@ -159,6 +181,8 @@ class _$_RequestRocks implements _RequestRocks {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Subarea subarea)? requestRocks,
+    TResult Function(Subarea subarea)? updateRocks,
+    TResult Function(Subarea subarea)? updateRocksTT,
     TResult Function()? invalidateRocks,
     required TResult orElse(),
   }) {
@@ -172,6 +196,8 @@ class _$_RequestRocks implements _RequestRocks {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_RequestRocks value) requestRocks,
+    required TResult Function(_UpdateRocks value) updateRocks,
+    required TResult Function(_UpdateRocksTT value) updateRocksTT,
     required TResult Function(_InvalidateRocks value) invalidateRocks,
   }) {
     return requestRocks(this);
@@ -181,6 +207,8 @@ class _$_RequestRocks implements _RequestRocks {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_RequestRocks value)? requestRocks,
+    TResult Function(_UpdateRocks value)? updateRocks,
+    TResult Function(_UpdateRocksTT value)? updateRocksTT,
     TResult Function(_InvalidateRocks value)? invalidateRocks,
     required TResult orElse(),
   }) {
@@ -197,6 +225,270 @@ abstract class _RequestRocks implements RocksEvent {
   Subarea get subarea => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$RequestRocksCopyWith<_RequestRocks> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$UpdateRocksCopyWith<$Res> {
+  factory _$UpdateRocksCopyWith(
+          _UpdateRocks value, $Res Function(_UpdateRocks) then) =
+      __$UpdateRocksCopyWithImpl<$Res>;
+  $Res call({Subarea subarea});
+
+  $SubareaCopyWith<$Res> get subarea;
+}
+
+/// @nodoc
+class __$UpdateRocksCopyWithImpl<$Res> extends _$RocksEventCopyWithImpl<$Res>
+    implements _$UpdateRocksCopyWith<$Res> {
+  __$UpdateRocksCopyWithImpl(
+      _UpdateRocks _value, $Res Function(_UpdateRocks) _then)
+      : super(_value, (v) => _then(v as _UpdateRocks));
+
+  @override
+  _UpdateRocks get _value => super._value as _UpdateRocks;
+
+  @override
+  $Res call({
+    Object? subarea = freezed,
+  }) {
+    return _then(_UpdateRocks(
+      subarea == freezed
+          ? _value.subarea
+          : subarea // ignore: cast_nullable_to_non_nullable
+              as Subarea,
+    ));
+  }
+
+  @override
+  $SubareaCopyWith<$Res> get subarea {
+    return $SubareaCopyWith<$Res>(_value.subarea, (value) {
+      return _then(_value.copyWith(subarea: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$_UpdateRocks implements _UpdateRocks {
+  const _$_UpdateRocks(this.subarea);
+
+  @override
+  final Subarea subarea;
+
+  @override
+  String toString() {
+    return 'RocksEvent.updateRocks(subarea: $subarea)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _UpdateRocks &&
+            (identical(other.subarea, subarea) ||
+                const DeepCollectionEquality().equals(other.subarea, subarea)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(subarea);
+
+  @JsonKey(ignore: true)
+  @override
+  _$UpdateRocksCopyWith<_UpdateRocks> get copyWith =>
+      __$UpdateRocksCopyWithImpl<_UpdateRocks>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(Subarea subarea) requestRocks,
+    required TResult Function(Subarea subarea) updateRocks,
+    required TResult Function(Subarea subarea) updateRocksTT,
+    required TResult Function() invalidateRocks,
+  }) {
+    return updateRocks(subarea);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Subarea subarea)? requestRocks,
+    TResult Function(Subarea subarea)? updateRocks,
+    TResult Function(Subarea subarea)? updateRocksTT,
+    TResult Function()? invalidateRocks,
+    required TResult orElse(),
+  }) {
+    if (updateRocks != null) {
+      return updateRocks(subarea);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_RequestRocks value) requestRocks,
+    required TResult Function(_UpdateRocks value) updateRocks,
+    required TResult Function(_UpdateRocksTT value) updateRocksTT,
+    required TResult Function(_InvalidateRocks value) invalidateRocks,
+  }) {
+    return updateRocks(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_RequestRocks value)? requestRocks,
+    TResult Function(_UpdateRocks value)? updateRocks,
+    TResult Function(_UpdateRocksTT value)? updateRocksTT,
+    TResult Function(_InvalidateRocks value)? invalidateRocks,
+    required TResult orElse(),
+  }) {
+    if (updateRocks != null) {
+      return updateRocks(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _UpdateRocks implements RocksEvent {
+  const factory _UpdateRocks(Subarea subarea) = _$_UpdateRocks;
+
+  Subarea get subarea => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$UpdateRocksCopyWith<_UpdateRocks> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$UpdateRocksTTCopyWith<$Res> {
+  factory _$UpdateRocksTTCopyWith(
+          _UpdateRocksTT value, $Res Function(_UpdateRocksTT) then) =
+      __$UpdateRocksTTCopyWithImpl<$Res>;
+  $Res call({Subarea subarea});
+
+  $SubareaCopyWith<$Res> get subarea;
+}
+
+/// @nodoc
+class __$UpdateRocksTTCopyWithImpl<$Res> extends _$RocksEventCopyWithImpl<$Res>
+    implements _$UpdateRocksTTCopyWith<$Res> {
+  __$UpdateRocksTTCopyWithImpl(
+      _UpdateRocksTT _value, $Res Function(_UpdateRocksTT) _then)
+      : super(_value, (v) => _then(v as _UpdateRocksTT));
+
+  @override
+  _UpdateRocksTT get _value => super._value as _UpdateRocksTT;
+
+  @override
+  $Res call({
+    Object? subarea = freezed,
+  }) {
+    return _then(_UpdateRocksTT(
+      subarea == freezed
+          ? _value.subarea
+          : subarea // ignore: cast_nullable_to_non_nullable
+              as Subarea,
+    ));
+  }
+
+  @override
+  $SubareaCopyWith<$Res> get subarea {
+    return $SubareaCopyWith<$Res>(_value.subarea, (value) {
+      return _then(_value.copyWith(subarea: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$_UpdateRocksTT implements _UpdateRocksTT {
+  const _$_UpdateRocksTT(this.subarea);
+
+  @override
+  final Subarea subarea;
+
+  @override
+  String toString() {
+    return 'RocksEvent.updateRocksTT(subarea: $subarea)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _UpdateRocksTT &&
+            (identical(other.subarea, subarea) ||
+                const DeepCollectionEquality().equals(other.subarea, subarea)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(subarea);
+
+  @JsonKey(ignore: true)
+  @override
+  _$UpdateRocksTTCopyWith<_UpdateRocksTT> get copyWith =>
+      __$UpdateRocksTTCopyWithImpl<_UpdateRocksTT>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(Subarea subarea) requestRocks,
+    required TResult Function(Subarea subarea) updateRocks,
+    required TResult Function(Subarea subarea) updateRocksTT,
+    required TResult Function() invalidateRocks,
+  }) {
+    return updateRocksTT(subarea);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Subarea subarea)? requestRocks,
+    TResult Function(Subarea subarea)? updateRocks,
+    TResult Function(Subarea subarea)? updateRocksTT,
+    TResult Function()? invalidateRocks,
+    required TResult orElse(),
+  }) {
+    if (updateRocksTT != null) {
+      return updateRocksTT(subarea);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_RequestRocks value) requestRocks,
+    required TResult Function(_UpdateRocks value) updateRocks,
+    required TResult Function(_UpdateRocksTT value) updateRocksTT,
+    required TResult Function(_InvalidateRocks value) invalidateRocks,
+  }) {
+    return updateRocksTT(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_RequestRocks value)? requestRocks,
+    TResult Function(_UpdateRocks value)? updateRocks,
+    TResult Function(_UpdateRocksTT value)? updateRocksTT,
+    TResult Function(_InvalidateRocks value)? invalidateRocks,
+    required TResult orElse(),
+  }) {
+    if (updateRocksTT != null) {
+      return updateRocksTT(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _UpdateRocksTT implements RocksEvent {
+  const factory _UpdateRocksTT(Subarea subarea) = _$_UpdateRocksTT;
+
+  Subarea get subarea => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$UpdateRocksTTCopyWith<_UpdateRocksTT> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -241,6 +533,8 @@ class _$_InvalidateRocks implements _InvalidateRocks {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(Subarea subarea) requestRocks,
+    required TResult Function(Subarea subarea) updateRocks,
+    required TResult Function(Subarea subarea) updateRocksTT,
     required TResult Function() invalidateRocks,
   }) {
     return invalidateRocks();
@@ -250,6 +544,8 @@ class _$_InvalidateRocks implements _InvalidateRocks {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Subarea subarea)? requestRocks,
+    TResult Function(Subarea subarea)? updateRocks,
+    TResult Function(Subarea subarea)? updateRocksTT,
     TResult Function()? invalidateRocks,
     required TResult orElse(),
   }) {
@@ -263,6 +559,8 @@ class _$_InvalidateRocks implements _InvalidateRocks {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_RequestRocks value) requestRocks,
+    required TResult Function(_UpdateRocks value) updateRocks,
+    required TResult Function(_UpdateRocksTT value) updateRocksTT,
     required TResult Function(_InvalidateRocks value) invalidateRocks,
   }) {
     return invalidateRocks(this);
@@ -272,6 +570,8 @@ class _$_InvalidateRocks implements _InvalidateRocks {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_RequestRocks value)? requestRocks,
+    TResult Function(_UpdateRocks value)? updateRocks,
+    TResult Function(_UpdateRocksTT value)? updateRocksTT,
     TResult Function(_InvalidateRocks value)? invalidateRocks,
     required TResult orElse(),
   }) {
@@ -305,8 +605,23 @@ class _$RocksStateTearOff {
     );
   }
 
-  _Failure failure() {
-    return const _Failure();
+  _UpdateInProgress updateInProgress(String step, int percent) {
+    return _UpdateInProgress(
+      step,
+      percent,
+    );
+  }
+
+  _UpdateFinished updateFinished(int result) {
+    return _UpdateFinished(
+      result,
+    );
+  }
+
+  _Failure failure(dynamic exception) {
+    return _Failure(
+      exception,
+    );
   }
 }
 
@@ -320,7 +635,9 @@ mixin _$RocksState {
     required TResult Function() initial,
     required TResult Function() inProgress,
     required TResult Function(Subarea subarea, List<Rock> rocks) rocksReceived,
-    required TResult Function() failure,
+    required TResult Function(String step, int percent) updateInProgress,
+    required TResult Function(int result) updateFinished,
+    required TResult Function(dynamic exception) failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -328,7 +645,9 @@ mixin _$RocksState {
     TResult Function()? initial,
     TResult Function()? inProgress,
     TResult Function(Subarea subarea, List<Rock> rocks)? rocksReceived,
-    TResult Function()? failure,
+    TResult Function(String step, int percent)? updateInProgress,
+    TResult Function(int result)? updateFinished,
+    TResult Function(dynamic exception)? failure,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -337,6 +656,8 @@ mixin _$RocksState {
     required TResult Function(_Initial value) initial,
     required TResult Function(_InProgress value) inProgress,
     required TResult Function(_RocksReceived value) rocksReceived,
+    required TResult Function(_UpdateInProgress value) updateInProgress,
+    required TResult Function(_UpdateFinished value) updateFinished,
     required TResult Function(_Failure value) failure,
   }) =>
       throw _privateConstructorUsedError;
@@ -345,6 +666,8 @@ mixin _$RocksState {
     TResult Function(_Initial value)? initial,
     TResult Function(_InProgress value)? inProgress,
     TResult Function(_RocksReceived value)? rocksReceived,
+    TResult Function(_UpdateInProgress value)? updateInProgress,
+    TResult Function(_UpdateFinished value)? updateFinished,
     TResult Function(_Failure value)? failure,
     required TResult orElse(),
   }) =>
@@ -407,7 +730,9 @@ class _$_Initial implements _Initial {
     required TResult Function() initial,
     required TResult Function() inProgress,
     required TResult Function(Subarea subarea, List<Rock> rocks) rocksReceived,
-    required TResult Function() failure,
+    required TResult Function(String step, int percent) updateInProgress,
+    required TResult Function(int result) updateFinished,
+    required TResult Function(dynamic exception) failure,
   }) {
     return initial();
   }
@@ -418,7 +743,9 @@ class _$_Initial implements _Initial {
     TResult Function()? initial,
     TResult Function()? inProgress,
     TResult Function(Subarea subarea, List<Rock> rocks)? rocksReceived,
-    TResult Function()? failure,
+    TResult Function(String step, int percent)? updateInProgress,
+    TResult Function(int result)? updateFinished,
+    TResult Function(dynamic exception)? failure,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -433,6 +760,8 @@ class _$_Initial implements _Initial {
     required TResult Function(_Initial value) initial,
     required TResult Function(_InProgress value) inProgress,
     required TResult Function(_RocksReceived value) rocksReceived,
+    required TResult Function(_UpdateInProgress value) updateInProgress,
+    required TResult Function(_UpdateFinished value) updateFinished,
     required TResult Function(_Failure value) failure,
   }) {
     return initial(this);
@@ -444,6 +773,8 @@ class _$_Initial implements _Initial {
     TResult Function(_Initial value)? initial,
     TResult Function(_InProgress value)? inProgress,
     TResult Function(_RocksReceived value)? rocksReceived,
+    TResult Function(_UpdateInProgress value)? updateInProgress,
+    TResult Function(_UpdateFinished value)? updateFinished,
     TResult Function(_Failure value)? failure,
     required TResult orElse(),
   }) {
@@ -500,7 +831,9 @@ class _$_InProgress implements _InProgress {
     required TResult Function() initial,
     required TResult Function() inProgress,
     required TResult Function(Subarea subarea, List<Rock> rocks) rocksReceived,
-    required TResult Function() failure,
+    required TResult Function(String step, int percent) updateInProgress,
+    required TResult Function(int result) updateFinished,
+    required TResult Function(dynamic exception) failure,
   }) {
     return inProgress();
   }
@@ -511,7 +844,9 @@ class _$_InProgress implements _InProgress {
     TResult Function()? initial,
     TResult Function()? inProgress,
     TResult Function(Subarea subarea, List<Rock> rocks)? rocksReceived,
-    TResult Function()? failure,
+    TResult Function(String step, int percent)? updateInProgress,
+    TResult Function(int result)? updateFinished,
+    TResult Function(dynamic exception)? failure,
     required TResult orElse(),
   }) {
     if (inProgress != null) {
@@ -526,6 +861,8 @@ class _$_InProgress implements _InProgress {
     required TResult Function(_Initial value) initial,
     required TResult Function(_InProgress value) inProgress,
     required TResult Function(_RocksReceived value) rocksReceived,
+    required TResult Function(_UpdateInProgress value) updateInProgress,
+    required TResult Function(_UpdateFinished value) updateFinished,
     required TResult Function(_Failure value) failure,
   }) {
     return inProgress(this);
@@ -537,6 +874,8 @@ class _$_InProgress implements _InProgress {
     TResult Function(_Initial value)? initial,
     TResult Function(_InProgress value)? inProgress,
     TResult Function(_RocksReceived value)? rocksReceived,
+    TResult Function(_UpdateInProgress value)? updateInProgress,
+    TResult Function(_UpdateFinished value)? updateFinished,
     TResult Function(_Failure value)? failure,
     required TResult orElse(),
   }) {
@@ -639,7 +978,9 @@ class _$_RocksReceived implements _RocksReceived {
     required TResult Function() initial,
     required TResult Function() inProgress,
     required TResult Function(Subarea subarea, List<Rock> rocks) rocksReceived,
-    required TResult Function() failure,
+    required TResult Function(String step, int percent) updateInProgress,
+    required TResult Function(int result) updateFinished,
+    required TResult Function(dynamic exception) failure,
   }) {
     return rocksReceived(subarea, rocks);
   }
@@ -650,7 +991,9 @@ class _$_RocksReceived implements _RocksReceived {
     TResult Function()? initial,
     TResult Function()? inProgress,
     TResult Function(Subarea subarea, List<Rock> rocks)? rocksReceived,
-    TResult Function()? failure,
+    TResult Function(String step, int percent)? updateInProgress,
+    TResult Function(int result)? updateFinished,
+    TResult Function(dynamic exception)? failure,
     required TResult orElse(),
   }) {
     if (rocksReceived != null) {
@@ -665,6 +1008,8 @@ class _$_RocksReceived implements _RocksReceived {
     required TResult Function(_Initial value) initial,
     required TResult Function(_InProgress value) inProgress,
     required TResult Function(_RocksReceived value) rocksReceived,
+    required TResult Function(_UpdateInProgress value) updateInProgress,
+    required TResult Function(_UpdateFinished value) updateFinished,
     required TResult Function(_Failure value) failure,
   }) {
     return rocksReceived(this);
@@ -676,6 +1021,8 @@ class _$_RocksReceived implements _RocksReceived {
     TResult Function(_Initial value)? initial,
     TResult Function(_InProgress value)? inProgress,
     TResult Function(_RocksReceived value)? rocksReceived,
+    TResult Function(_UpdateInProgress value)? updateInProgress,
+    TResult Function(_UpdateFinished value)? updateFinished,
     TResult Function(_Failure value)? failure,
     required TResult orElse(),
   }) {
@@ -698,38 +1045,77 @@ abstract class _RocksReceived implements RocksState {
 }
 
 /// @nodoc
-abstract class _$FailureCopyWith<$Res> {
-  factory _$FailureCopyWith(_Failure value, $Res Function(_Failure) then) =
-      __$FailureCopyWithImpl<$Res>;
+abstract class _$UpdateInProgressCopyWith<$Res> {
+  factory _$UpdateInProgressCopyWith(
+          _UpdateInProgress value, $Res Function(_UpdateInProgress) then) =
+      __$UpdateInProgressCopyWithImpl<$Res>;
+  $Res call({String step, int percent});
 }
 
 /// @nodoc
-class __$FailureCopyWithImpl<$Res> extends _$RocksStateCopyWithImpl<$Res>
-    implements _$FailureCopyWith<$Res> {
-  __$FailureCopyWithImpl(_Failure _value, $Res Function(_Failure) _then)
-      : super(_value, (v) => _then(v as _Failure));
+class __$UpdateInProgressCopyWithImpl<$Res>
+    extends _$RocksStateCopyWithImpl<$Res>
+    implements _$UpdateInProgressCopyWith<$Res> {
+  __$UpdateInProgressCopyWithImpl(
+      _UpdateInProgress _value, $Res Function(_UpdateInProgress) _then)
+      : super(_value, (v) => _then(v as _UpdateInProgress));
 
   @override
-  _Failure get _value => super._value as _Failure;
+  _UpdateInProgress get _value => super._value as _UpdateInProgress;
+
+  @override
+  $Res call({
+    Object? step = freezed,
+    Object? percent = freezed,
+  }) {
+    return _then(_UpdateInProgress(
+      step == freezed
+          ? _value.step
+          : step // ignore: cast_nullable_to_non_nullable
+              as String,
+      percent == freezed
+          ? _value.percent
+          : percent // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
 }
 
 /// @nodoc
 
-class _$_Failure implements _Failure {
-  const _$_Failure();
+class _$_UpdateInProgress implements _UpdateInProgress {
+  const _$_UpdateInProgress(this.step, this.percent);
+
+  @override
+  final String step;
+  @override
+  final int percent;
 
   @override
   String toString() {
-    return 'RocksState.failure()';
+    return 'RocksState.updateInProgress(step: $step, percent: $percent)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _Failure);
+    return identical(this, other) ||
+        (other is _UpdateInProgress &&
+            (identical(other.step, step) ||
+                const DeepCollectionEquality().equals(other.step, step)) &&
+            (identical(other.percent, percent) ||
+                const DeepCollectionEquality().equals(other.percent, percent)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(step) ^
+      const DeepCollectionEquality().hash(percent);
+
+  @JsonKey(ignore: true)
+  @override
+  _$UpdateInProgressCopyWith<_UpdateInProgress> get copyWith =>
+      __$UpdateInProgressCopyWithImpl<_UpdateInProgress>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -737,9 +1123,11 @@ class _$_Failure implements _Failure {
     required TResult Function() initial,
     required TResult Function() inProgress,
     required TResult Function(Subarea subarea, List<Rock> rocks) rocksReceived,
-    required TResult Function() failure,
+    required TResult Function(String step, int percent) updateInProgress,
+    required TResult Function(int result) updateFinished,
+    required TResult Function(dynamic exception) failure,
   }) {
-    return failure();
+    return updateInProgress(step, percent);
   }
 
   @override
@@ -748,11 +1136,13 @@ class _$_Failure implements _Failure {
     TResult Function()? initial,
     TResult Function()? inProgress,
     TResult Function(Subarea subarea, List<Rock> rocks)? rocksReceived,
-    TResult Function()? failure,
+    TResult Function(String step, int percent)? updateInProgress,
+    TResult Function(int result)? updateFinished,
+    TResult Function(dynamic exception)? failure,
     required TResult orElse(),
   }) {
-    if (failure != null) {
-      return failure();
+    if (updateInProgress != null) {
+      return updateInProgress(step, percent);
     }
     return orElse();
   }
@@ -763,6 +1153,271 @@ class _$_Failure implements _Failure {
     required TResult Function(_Initial value) initial,
     required TResult Function(_InProgress value) inProgress,
     required TResult Function(_RocksReceived value) rocksReceived,
+    required TResult Function(_UpdateInProgress value) updateInProgress,
+    required TResult Function(_UpdateFinished value) updateFinished,
+    required TResult Function(_Failure value) failure,
+  }) {
+    return updateInProgress(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_InProgress value)? inProgress,
+    TResult Function(_RocksReceived value)? rocksReceived,
+    TResult Function(_UpdateInProgress value)? updateInProgress,
+    TResult Function(_UpdateFinished value)? updateFinished,
+    TResult Function(_Failure value)? failure,
+    required TResult orElse(),
+  }) {
+    if (updateInProgress != null) {
+      return updateInProgress(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _UpdateInProgress implements RocksState {
+  const factory _UpdateInProgress(String step, int percent) =
+      _$_UpdateInProgress;
+
+  String get step => throw _privateConstructorUsedError;
+  int get percent => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$UpdateInProgressCopyWith<_UpdateInProgress> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$UpdateFinishedCopyWith<$Res> {
+  factory _$UpdateFinishedCopyWith(
+          _UpdateFinished value, $Res Function(_UpdateFinished) then) =
+      __$UpdateFinishedCopyWithImpl<$Res>;
+  $Res call({int result});
+}
+
+/// @nodoc
+class __$UpdateFinishedCopyWithImpl<$Res> extends _$RocksStateCopyWithImpl<$Res>
+    implements _$UpdateFinishedCopyWith<$Res> {
+  __$UpdateFinishedCopyWithImpl(
+      _UpdateFinished _value, $Res Function(_UpdateFinished) _then)
+      : super(_value, (v) => _then(v as _UpdateFinished));
+
+  @override
+  _UpdateFinished get _value => super._value as _UpdateFinished;
+
+  @override
+  $Res call({
+    Object? result = freezed,
+  }) {
+    return _then(_UpdateFinished(
+      result == freezed
+          ? _value.result
+          : result // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_UpdateFinished implements _UpdateFinished {
+  const _$_UpdateFinished(this.result);
+
+  @override
+  final int result;
+
+  @override
+  String toString() {
+    return 'RocksState.updateFinished(result: $result)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _UpdateFinished &&
+            (identical(other.result, result) ||
+                const DeepCollectionEquality().equals(other.result, result)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(result);
+
+  @JsonKey(ignore: true)
+  @override
+  _$UpdateFinishedCopyWith<_UpdateFinished> get copyWith =>
+      __$UpdateFinishedCopyWithImpl<_UpdateFinished>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() inProgress,
+    required TResult Function(Subarea subarea, List<Rock> rocks) rocksReceived,
+    required TResult Function(String step, int percent) updateInProgress,
+    required TResult Function(int result) updateFinished,
+    required TResult Function(dynamic exception) failure,
+  }) {
+    return updateFinished(result);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? inProgress,
+    TResult Function(Subarea subarea, List<Rock> rocks)? rocksReceived,
+    TResult Function(String step, int percent)? updateInProgress,
+    TResult Function(int result)? updateFinished,
+    TResult Function(dynamic exception)? failure,
+    required TResult orElse(),
+  }) {
+    if (updateFinished != null) {
+      return updateFinished(result);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_InProgress value) inProgress,
+    required TResult Function(_RocksReceived value) rocksReceived,
+    required TResult Function(_UpdateInProgress value) updateInProgress,
+    required TResult Function(_UpdateFinished value) updateFinished,
+    required TResult Function(_Failure value) failure,
+  }) {
+    return updateFinished(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_InProgress value)? inProgress,
+    TResult Function(_RocksReceived value)? rocksReceived,
+    TResult Function(_UpdateInProgress value)? updateInProgress,
+    TResult Function(_UpdateFinished value)? updateFinished,
+    TResult Function(_Failure value)? failure,
+    required TResult orElse(),
+  }) {
+    if (updateFinished != null) {
+      return updateFinished(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _UpdateFinished implements RocksState {
+  const factory _UpdateFinished(int result) = _$_UpdateFinished;
+
+  int get result => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$UpdateFinishedCopyWith<_UpdateFinished> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$FailureCopyWith<$Res> {
+  factory _$FailureCopyWith(_Failure value, $Res Function(_Failure) then) =
+      __$FailureCopyWithImpl<$Res>;
+  $Res call({dynamic exception});
+}
+
+/// @nodoc
+class __$FailureCopyWithImpl<$Res> extends _$RocksStateCopyWithImpl<$Res>
+    implements _$FailureCopyWith<$Res> {
+  __$FailureCopyWithImpl(_Failure _value, $Res Function(_Failure) _then)
+      : super(_value, (v) => _then(v as _Failure));
+
+  @override
+  _Failure get _value => super._value as _Failure;
+
+  @override
+  $Res call({
+    Object? exception = freezed,
+  }) {
+    return _then(_Failure(
+      exception == freezed
+          ? _value.exception
+          : exception // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_Failure implements _Failure {
+  const _$_Failure(this.exception);
+
+  @override
+  final dynamic exception;
+
+  @override
+  String toString() {
+    return 'RocksState.failure(exception: $exception)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _Failure &&
+            (identical(other.exception, exception) ||
+                const DeepCollectionEquality()
+                    .equals(other.exception, exception)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(exception);
+
+  @JsonKey(ignore: true)
+  @override
+  _$FailureCopyWith<_Failure> get copyWith =>
+      __$FailureCopyWithImpl<_Failure>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() inProgress,
+    required TResult Function(Subarea subarea, List<Rock> rocks) rocksReceived,
+    required TResult Function(String step, int percent) updateInProgress,
+    required TResult Function(int result) updateFinished,
+    required TResult Function(dynamic exception) failure,
+  }) {
+    return failure(exception);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? inProgress,
+    TResult Function(Subarea subarea, List<Rock> rocks)? rocksReceived,
+    TResult Function(String step, int percent)? updateInProgress,
+    TResult Function(int result)? updateFinished,
+    TResult Function(dynamic exception)? failure,
+    required TResult orElse(),
+  }) {
+    if (failure != null) {
+      return failure(exception);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_InProgress value) inProgress,
+    required TResult Function(_RocksReceived value) rocksReceived,
+    required TResult Function(_UpdateInProgress value) updateInProgress,
+    required TResult Function(_UpdateFinished value) updateFinished,
     required TResult Function(_Failure value) failure,
   }) {
     return failure(this);
@@ -774,6 +1429,8 @@ class _$_Failure implements _Failure {
     TResult Function(_Initial value)? initial,
     TResult Function(_InProgress value)? inProgress,
     TResult Function(_RocksReceived value)? rocksReceived,
+    TResult Function(_UpdateInProgress value)? updateInProgress,
+    TResult Function(_UpdateFinished value)? updateFinished,
     TResult Function(_Failure value)? failure,
     required TResult orElse(),
   }) {
@@ -785,5 +1442,10 @@ class _$_Failure implements _Failure {
 }
 
 abstract class _Failure implements RocksState {
-  const factory _Failure() = _$_Failure;
+  const factory _Failure(dynamic exception) = _$_Failure;
+
+  dynamic get exception => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$FailureCopyWith<_Failure> get copyWith =>
+      throw _privateConstructorUsedError;
 }

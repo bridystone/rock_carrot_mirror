@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:rock_carrot/material/widgets/area_tile.dart';
-import 'package:rock_carrot/models/sandstein/area.dart';
+import 'package:rock_carrot/material/listviews/rock_tile.dart';
+import 'package:rock_carrot/models/sandstein/rock.dart';
 
-class AreasListView extends StatelessWidget {
-  final List<Area> areas;
+class RocksListView extends StatelessWidget {
+  final List<Rock> rocks;
+  final ScrollController scrollController;
 
-  const AreasListView({
+  const RocksListView({
     Key? key,
-    required this.areas,
+    required this.rocks,
+    required this.scrollController,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return areas.isEmpty
+    return rocks.isEmpty
         ? ListView.builder(
             itemCount: 1,
             itemBuilder: (context, i) {
@@ -20,15 +22,19 @@ class AreasListView extends StatelessWidget {
             },
           )
         : ListView.builder(
+            // next two items are for storing the scroll position
+            controller: scrollController,
+            key: PageStorageKey<String>(key.toString() + 'RocksScrolling'),
+
             padding: EdgeInsets.all(0),
-            itemCount: areas.length,
+            itemCount: rocks.length,
             itemBuilder: (context, i) {
-              final area = areas[i];
+              final rock = rocks[i];
               return Column(children: [
                 // only first time generate a divider
                 if (i == 0) ...[Divider(height: 1, thickness: 1)],
                 // Cubit for updating Timestamp
-                AreaTile(area: area),
+                RockTile(rock: rock),
                 Divider(
                   height: 1,
                   thickness: 1,

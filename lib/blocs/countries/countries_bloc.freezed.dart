@@ -19,6 +19,10 @@ class _$CountriesEventTearOff {
   _RequestCountries requestCountries() {
     return const _RequestCountries();
   }
+
+  _UpdateCountries updateCountries() {
+    return const _UpdateCountries();
+  }
 }
 
 /// @nodoc
@@ -29,22 +33,26 @@ mixin _$CountriesEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() requestCountries,
+    required TResult Function() updateCountries,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? requestCountries,
+    TResult Function()? updateCountries,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_RequestCountries value) requestCountries,
+    required TResult Function(_UpdateCountries value) updateCountries,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_RequestCountries value)? requestCountries,
+    TResult Function(_UpdateCountries value)? updateCountries,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -108,6 +116,7 @@ class _$_RequestCountries implements _RequestCountries {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() requestCountries,
+    required TResult Function() updateCountries,
   }) {
     return requestCountries();
   }
@@ -116,6 +125,7 @@ class _$_RequestCountries implements _RequestCountries {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? requestCountries,
+    TResult Function()? updateCountries,
     required TResult orElse(),
   }) {
     if (requestCountries != null) {
@@ -128,6 +138,7 @@ class _$_RequestCountries implements _RequestCountries {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_RequestCountries value) requestCountries,
+    required TResult Function(_UpdateCountries value) updateCountries,
   }) {
     return requestCountries(this);
   }
@@ -136,6 +147,7 @@ class _$_RequestCountries implements _RequestCountries {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_RequestCountries value)? requestCountries,
+    TResult Function(_UpdateCountries value)? updateCountries,
     required TResult orElse(),
   }) {
     if (requestCountries != null) {
@@ -147,6 +159,92 @@ class _$_RequestCountries implements _RequestCountries {
 
 abstract class _RequestCountries implements CountriesEvent {
   const factory _RequestCountries() = _$_RequestCountries;
+}
+
+/// @nodoc
+abstract class _$UpdateCountriesCopyWith<$Res> {
+  factory _$UpdateCountriesCopyWith(
+          _UpdateCountries value, $Res Function(_UpdateCountries) then) =
+      __$UpdateCountriesCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$UpdateCountriesCopyWithImpl<$Res>
+    extends _$CountriesEventCopyWithImpl<$Res>
+    implements _$UpdateCountriesCopyWith<$Res> {
+  __$UpdateCountriesCopyWithImpl(
+      _UpdateCountries _value, $Res Function(_UpdateCountries) _then)
+      : super(_value, (v) => _then(v as _UpdateCountries));
+
+  @override
+  _UpdateCountries get _value => super._value as _UpdateCountries;
+}
+
+/// @nodoc
+
+class _$_UpdateCountries implements _UpdateCountries {
+  const _$_UpdateCountries();
+
+  @override
+  String toString() {
+    return 'CountriesEvent.updateCountries()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _UpdateCountries);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() requestCountries,
+    required TResult Function() updateCountries,
+  }) {
+    return updateCountries();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? requestCountries,
+    TResult Function()? updateCountries,
+    required TResult orElse(),
+  }) {
+    if (updateCountries != null) {
+      return updateCountries();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_RequestCountries value) requestCountries,
+    required TResult Function(_UpdateCountries value) updateCountries,
+  }) {
+    return updateCountries(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_RequestCountries value)? requestCountries,
+    TResult Function(_UpdateCountries value)? updateCountries,
+    required TResult orElse(),
+  }) {
+    if (updateCountries != null) {
+      return updateCountries(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _UpdateCountries implements CountriesEvent {
+  const factory _UpdateCountries() = _$_UpdateCountries;
 }
 
 /// @nodoc
@@ -167,8 +265,23 @@ class _$CountriesStateTearOff {
     );
   }
 
-  _Failure failure() {
-    return const _Failure();
+  _UpdateInProgress updateInProgress(String step, int percent) {
+    return _UpdateInProgress(
+      step,
+      percent,
+    );
+  }
+
+  _UpdateFinished updateFinished(int result) {
+    return _UpdateFinished(
+      result,
+    );
+  }
+
+  _Failure failure(dynamic execption) {
+    return _Failure(
+      execption,
+    );
   }
 }
 
@@ -182,7 +295,9 @@ mixin _$CountriesState {
     required TResult Function() initial,
     required TResult Function() inProgress,
     required TResult Function(List<Country> countries) countriesReceived,
-    required TResult Function() failure,
+    required TResult Function(String step, int percent) updateInProgress,
+    required TResult Function(int result) updateFinished,
+    required TResult Function(dynamic execption) failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -190,7 +305,9 @@ mixin _$CountriesState {
     TResult Function()? initial,
     TResult Function()? inProgress,
     TResult Function(List<Country> countries)? countriesReceived,
-    TResult Function()? failure,
+    TResult Function(String step, int percent)? updateInProgress,
+    TResult Function(int result)? updateFinished,
+    TResult Function(dynamic execption)? failure,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -199,6 +316,8 @@ mixin _$CountriesState {
     required TResult Function(_Initial value) initial,
     required TResult Function(_InProgress value) inProgress,
     required TResult Function(_CountriesReceived value) countriesReceived,
+    required TResult Function(_UpdateInProgress value) updateInProgress,
+    required TResult Function(_UpdateFinished value) updateFinished,
     required TResult Function(_Failure value) failure,
   }) =>
       throw _privateConstructorUsedError;
@@ -207,6 +326,8 @@ mixin _$CountriesState {
     TResult Function(_Initial value)? initial,
     TResult Function(_InProgress value)? inProgress,
     TResult Function(_CountriesReceived value)? countriesReceived,
+    TResult Function(_UpdateInProgress value)? updateInProgress,
+    TResult Function(_UpdateFinished value)? updateFinished,
     TResult Function(_Failure value)? failure,
     required TResult orElse(),
   }) =>
@@ -270,7 +391,9 @@ class _$_Initial implements _Initial {
     required TResult Function() initial,
     required TResult Function() inProgress,
     required TResult Function(List<Country> countries) countriesReceived,
-    required TResult Function() failure,
+    required TResult Function(String step, int percent) updateInProgress,
+    required TResult Function(int result) updateFinished,
+    required TResult Function(dynamic execption) failure,
   }) {
     return initial();
   }
@@ -281,7 +404,9 @@ class _$_Initial implements _Initial {
     TResult Function()? initial,
     TResult Function()? inProgress,
     TResult Function(List<Country> countries)? countriesReceived,
-    TResult Function()? failure,
+    TResult Function(String step, int percent)? updateInProgress,
+    TResult Function(int result)? updateFinished,
+    TResult Function(dynamic execption)? failure,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -296,6 +421,8 @@ class _$_Initial implements _Initial {
     required TResult Function(_Initial value) initial,
     required TResult Function(_InProgress value) inProgress,
     required TResult Function(_CountriesReceived value) countriesReceived,
+    required TResult Function(_UpdateInProgress value) updateInProgress,
+    required TResult Function(_UpdateFinished value) updateFinished,
     required TResult Function(_Failure value) failure,
   }) {
     return initial(this);
@@ -307,6 +434,8 @@ class _$_Initial implements _Initial {
     TResult Function(_Initial value)? initial,
     TResult Function(_InProgress value)? inProgress,
     TResult Function(_CountriesReceived value)? countriesReceived,
+    TResult Function(_UpdateInProgress value)? updateInProgress,
+    TResult Function(_UpdateFinished value)? updateFinished,
     TResult Function(_Failure value)? failure,
     required TResult orElse(),
   }) {
@@ -363,7 +492,9 @@ class _$_InProgress implements _InProgress {
     required TResult Function() initial,
     required TResult Function() inProgress,
     required TResult Function(List<Country> countries) countriesReceived,
-    required TResult Function() failure,
+    required TResult Function(String step, int percent) updateInProgress,
+    required TResult Function(int result) updateFinished,
+    required TResult Function(dynamic execption) failure,
   }) {
     return inProgress();
   }
@@ -374,7 +505,9 @@ class _$_InProgress implements _InProgress {
     TResult Function()? initial,
     TResult Function()? inProgress,
     TResult Function(List<Country> countries)? countriesReceived,
-    TResult Function()? failure,
+    TResult Function(String step, int percent)? updateInProgress,
+    TResult Function(int result)? updateFinished,
+    TResult Function(dynamic execption)? failure,
     required TResult orElse(),
   }) {
     if (inProgress != null) {
@@ -389,6 +522,8 @@ class _$_InProgress implements _InProgress {
     required TResult Function(_Initial value) initial,
     required TResult Function(_InProgress value) inProgress,
     required TResult Function(_CountriesReceived value) countriesReceived,
+    required TResult Function(_UpdateInProgress value) updateInProgress,
+    required TResult Function(_UpdateFinished value) updateFinished,
     required TResult Function(_Failure value) failure,
   }) {
     return inProgress(this);
@@ -400,6 +535,8 @@ class _$_InProgress implements _InProgress {
     TResult Function(_Initial value)? initial,
     TResult Function(_InProgress value)? inProgress,
     TResult Function(_CountriesReceived value)? countriesReceived,
+    TResult Function(_UpdateInProgress value)? updateInProgress,
+    TResult Function(_UpdateFinished value)? updateFinished,
     TResult Function(_Failure value)? failure,
     required TResult orElse(),
   }) {
@@ -483,7 +620,9 @@ class _$_CountriesReceived implements _CountriesReceived {
     required TResult Function() initial,
     required TResult Function() inProgress,
     required TResult Function(List<Country> countries) countriesReceived,
-    required TResult Function() failure,
+    required TResult Function(String step, int percent) updateInProgress,
+    required TResult Function(int result) updateFinished,
+    required TResult Function(dynamic execption) failure,
   }) {
     return countriesReceived(countries);
   }
@@ -494,7 +633,9 @@ class _$_CountriesReceived implements _CountriesReceived {
     TResult Function()? initial,
     TResult Function()? inProgress,
     TResult Function(List<Country> countries)? countriesReceived,
-    TResult Function()? failure,
+    TResult Function(String step, int percent)? updateInProgress,
+    TResult Function(int result)? updateFinished,
+    TResult Function(dynamic execption)? failure,
     required TResult orElse(),
   }) {
     if (countriesReceived != null) {
@@ -509,6 +650,8 @@ class _$_CountriesReceived implements _CountriesReceived {
     required TResult Function(_Initial value) initial,
     required TResult Function(_InProgress value) inProgress,
     required TResult Function(_CountriesReceived value) countriesReceived,
+    required TResult Function(_UpdateInProgress value) updateInProgress,
+    required TResult Function(_UpdateFinished value) updateFinished,
     required TResult Function(_Failure value) failure,
   }) {
     return countriesReceived(this);
@@ -520,6 +663,8 @@ class _$_CountriesReceived implements _CountriesReceived {
     TResult Function(_Initial value)? initial,
     TResult Function(_InProgress value)? inProgress,
     TResult Function(_CountriesReceived value)? countriesReceived,
+    TResult Function(_UpdateInProgress value)? updateInProgress,
+    TResult Function(_UpdateFinished value)? updateFinished,
     TResult Function(_Failure value)? failure,
     required TResult orElse(),
   }) {
@@ -541,38 +686,77 @@ abstract class _CountriesReceived implements CountriesState {
 }
 
 /// @nodoc
-abstract class _$FailureCopyWith<$Res> {
-  factory _$FailureCopyWith(_Failure value, $Res Function(_Failure) then) =
-      __$FailureCopyWithImpl<$Res>;
+abstract class _$UpdateInProgressCopyWith<$Res> {
+  factory _$UpdateInProgressCopyWith(
+          _UpdateInProgress value, $Res Function(_UpdateInProgress) then) =
+      __$UpdateInProgressCopyWithImpl<$Res>;
+  $Res call({String step, int percent});
 }
 
 /// @nodoc
-class __$FailureCopyWithImpl<$Res> extends _$CountriesStateCopyWithImpl<$Res>
-    implements _$FailureCopyWith<$Res> {
-  __$FailureCopyWithImpl(_Failure _value, $Res Function(_Failure) _then)
-      : super(_value, (v) => _then(v as _Failure));
+class __$UpdateInProgressCopyWithImpl<$Res>
+    extends _$CountriesStateCopyWithImpl<$Res>
+    implements _$UpdateInProgressCopyWith<$Res> {
+  __$UpdateInProgressCopyWithImpl(
+      _UpdateInProgress _value, $Res Function(_UpdateInProgress) _then)
+      : super(_value, (v) => _then(v as _UpdateInProgress));
 
   @override
-  _Failure get _value => super._value as _Failure;
+  _UpdateInProgress get _value => super._value as _UpdateInProgress;
+
+  @override
+  $Res call({
+    Object? step = freezed,
+    Object? percent = freezed,
+  }) {
+    return _then(_UpdateInProgress(
+      step == freezed
+          ? _value.step
+          : step // ignore: cast_nullable_to_non_nullable
+              as String,
+      percent == freezed
+          ? _value.percent
+          : percent // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
 }
 
 /// @nodoc
 
-class _$_Failure implements _Failure {
-  const _$_Failure();
+class _$_UpdateInProgress implements _UpdateInProgress {
+  const _$_UpdateInProgress(this.step, this.percent);
+
+  @override
+  final String step;
+  @override
+  final int percent;
 
   @override
   String toString() {
-    return 'CountriesState.failure()';
+    return 'CountriesState.updateInProgress(step: $step, percent: $percent)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _Failure);
+    return identical(this, other) ||
+        (other is _UpdateInProgress &&
+            (identical(other.step, step) ||
+                const DeepCollectionEquality().equals(other.step, step)) &&
+            (identical(other.percent, percent) ||
+                const DeepCollectionEquality().equals(other.percent, percent)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(step) ^
+      const DeepCollectionEquality().hash(percent);
+
+  @JsonKey(ignore: true)
+  @override
+  _$UpdateInProgressCopyWith<_UpdateInProgress> get copyWith =>
+      __$UpdateInProgressCopyWithImpl<_UpdateInProgress>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -580,9 +764,11 @@ class _$_Failure implements _Failure {
     required TResult Function() initial,
     required TResult Function() inProgress,
     required TResult Function(List<Country> countries) countriesReceived,
-    required TResult Function() failure,
+    required TResult Function(String step, int percent) updateInProgress,
+    required TResult Function(int result) updateFinished,
+    required TResult Function(dynamic execption) failure,
   }) {
-    return failure();
+    return updateInProgress(step, percent);
   }
 
   @override
@@ -591,11 +777,13 @@ class _$_Failure implements _Failure {
     TResult Function()? initial,
     TResult Function()? inProgress,
     TResult Function(List<Country> countries)? countriesReceived,
-    TResult Function()? failure,
+    TResult Function(String step, int percent)? updateInProgress,
+    TResult Function(int result)? updateFinished,
+    TResult Function(dynamic execption)? failure,
     required TResult orElse(),
   }) {
-    if (failure != null) {
-      return failure();
+    if (updateInProgress != null) {
+      return updateInProgress(step, percent);
     }
     return orElse();
   }
@@ -606,6 +794,272 @@ class _$_Failure implements _Failure {
     required TResult Function(_Initial value) initial,
     required TResult Function(_InProgress value) inProgress,
     required TResult Function(_CountriesReceived value) countriesReceived,
+    required TResult Function(_UpdateInProgress value) updateInProgress,
+    required TResult Function(_UpdateFinished value) updateFinished,
+    required TResult Function(_Failure value) failure,
+  }) {
+    return updateInProgress(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_InProgress value)? inProgress,
+    TResult Function(_CountriesReceived value)? countriesReceived,
+    TResult Function(_UpdateInProgress value)? updateInProgress,
+    TResult Function(_UpdateFinished value)? updateFinished,
+    TResult Function(_Failure value)? failure,
+    required TResult orElse(),
+  }) {
+    if (updateInProgress != null) {
+      return updateInProgress(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _UpdateInProgress implements CountriesState {
+  const factory _UpdateInProgress(String step, int percent) =
+      _$_UpdateInProgress;
+
+  String get step => throw _privateConstructorUsedError;
+  int get percent => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$UpdateInProgressCopyWith<_UpdateInProgress> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$UpdateFinishedCopyWith<$Res> {
+  factory _$UpdateFinishedCopyWith(
+          _UpdateFinished value, $Res Function(_UpdateFinished) then) =
+      __$UpdateFinishedCopyWithImpl<$Res>;
+  $Res call({int result});
+}
+
+/// @nodoc
+class __$UpdateFinishedCopyWithImpl<$Res>
+    extends _$CountriesStateCopyWithImpl<$Res>
+    implements _$UpdateFinishedCopyWith<$Res> {
+  __$UpdateFinishedCopyWithImpl(
+      _UpdateFinished _value, $Res Function(_UpdateFinished) _then)
+      : super(_value, (v) => _then(v as _UpdateFinished));
+
+  @override
+  _UpdateFinished get _value => super._value as _UpdateFinished;
+
+  @override
+  $Res call({
+    Object? result = freezed,
+  }) {
+    return _then(_UpdateFinished(
+      result == freezed
+          ? _value.result
+          : result // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_UpdateFinished implements _UpdateFinished {
+  const _$_UpdateFinished(this.result);
+
+  @override
+  final int result;
+
+  @override
+  String toString() {
+    return 'CountriesState.updateFinished(result: $result)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _UpdateFinished &&
+            (identical(other.result, result) ||
+                const DeepCollectionEquality().equals(other.result, result)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(result);
+
+  @JsonKey(ignore: true)
+  @override
+  _$UpdateFinishedCopyWith<_UpdateFinished> get copyWith =>
+      __$UpdateFinishedCopyWithImpl<_UpdateFinished>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() inProgress,
+    required TResult Function(List<Country> countries) countriesReceived,
+    required TResult Function(String step, int percent) updateInProgress,
+    required TResult Function(int result) updateFinished,
+    required TResult Function(dynamic execption) failure,
+  }) {
+    return updateFinished(result);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? inProgress,
+    TResult Function(List<Country> countries)? countriesReceived,
+    TResult Function(String step, int percent)? updateInProgress,
+    TResult Function(int result)? updateFinished,
+    TResult Function(dynamic execption)? failure,
+    required TResult orElse(),
+  }) {
+    if (updateFinished != null) {
+      return updateFinished(result);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_InProgress value) inProgress,
+    required TResult Function(_CountriesReceived value) countriesReceived,
+    required TResult Function(_UpdateInProgress value) updateInProgress,
+    required TResult Function(_UpdateFinished value) updateFinished,
+    required TResult Function(_Failure value) failure,
+  }) {
+    return updateFinished(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_InProgress value)? inProgress,
+    TResult Function(_CountriesReceived value)? countriesReceived,
+    TResult Function(_UpdateInProgress value)? updateInProgress,
+    TResult Function(_UpdateFinished value)? updateFinished,
+    TResult Function(_Failure value)? failure,
+    required TResult orElse(),
+  }) {
+    if (updateFinished != null) {
+      return updateFinished(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _UpdateFinished implements CountriesState {
+  const factory _UpdateFinished(int result) = _$_UpdateFinished;
+
+  int get result => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$UpdateFinishedCopyWith<_UpdateFinished> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$FailureCopyWith<$Res> {
+  factory _$FailureCopyWith(_Failure value, $Res Function(_Failure) then) =
+      __$FailureCopyWithImpl<$Res>;
+  $Res call({dynamic execption});
+}
+
+/// @nodoc
+class __$FailureCopyWithImpl<$Res> extends _$CountriesStateCopyWithImpl<$Res>
+    implements _$FailureCopyWith<$Res> {
+  __$FailureCopyWithImpl(_Failure _value, $Res Function(_Failure) _then)
+      : super(_value, (v) => _then(v as _Failure));
+
+  @override
+  _Failure get _value => super._value as _Failure;
+
+  @override
+  $Res call({
+    Object? execption = freezed,
+  }) {
+    return _then(_Failure(
+      execption == freezed
+          ? _value.execption
+          : execption // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_Failure implements _Failure {
+  const _$_Failure(this.execption);
+
+  @override
+  final dynamic execption;
+
+  @override
+  String toString() {
+    return 'CountriesState.failure(execption: $execption)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _Failure &&
+            (identical(other.execption, execption) ||
+                const DeepCollectionEquality()
+                    .equals(other.execption, execption)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(execption);
+
+  @JsonKey(ignore: true)
+  @override
+  _$FailureCopyWith<_Failure> get copyWith =>
+      __$FailureCopyWithImpl<_Failure>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() inProgress,
+    required TResult Function(List<Country> countries) countriesReceived,
+    required TResult Function(String step, int percent) updateInProgress,
+    required TResult Function(int result) updateFinished,
+    required TResult Function(dynamic execption) failure,
+  }) {
+    return failure(execption);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? inProgress,
+    TResult Function(List<Country> countries)? countriesReceived,
+    TResult Function(String step, int percent)? updateInProgress,
+    TResult Function(int result)? updateFinished,
+    TResult Function(dynamic execption)? failure,
+    required TResult orElse(),
+  }) {
+    if (failure != null) {
+      return failure(execption);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_InProgress value) inProgress,
+    required TResult Function(_CountriesReceived value) countriesReceived,
+    required TResult Function(_UpdateInProgress value) updateInProgress,
+    required TResult Function(_UpdateFinished value) updateFinished,
     required TResult Function(_Failure value) failure,
   }) {
     return failure(this);
@@ -617,6 +1071,8 @@ class _$_Failure implements _Failure {
     TResult Function(_Initial value)? initial,
     TResult Function(_InProgress value)? inProgress,
     TResult Function(_CountriesReceived value)? countriesReceived,
+    TResult Function(_UpdateInProgress value)? updateInProgress,
+    TResult Function(_UpdateFinished value)? updateFinished,
     TResult Function(_Failure value)? failure,
     required TResult orElse(),
   }) {
@@ -628,5 +1084,10 @@ class _$_Failure implements _Failure {
 }
 
 abstract class _Failure implements CountriesState {
-  const factory _Failure() = _$_Failure;
+  const factory _Failure(dynamic execption) = _$_Failure;
+
+  dynamic get execption => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$FailureCopyWith<_Failure> get copyWith =>
+      throw _privateConstructorUsedError;
 }

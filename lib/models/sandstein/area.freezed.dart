@@ -28,7 +28,8 @@ class _$AreaTearOff {
       @JsonKey(name: 'gdefaultanzeige') String gdefaultanzeige,
       @JsonKey(name: 'schwskala') String schwskala,
       @JsonKey(name: 'subarea_count') int childCount,
-      @JsonKey(name: 'komment_count') int commentCount) {
+      @JsonKey(name: 'komment_count') int commentCount,
+      @JsonKey(name: 'insert_timestamp') DateTime lastUpdated) {
     return _Area(
       gebietid,
       gebiet,
@@ -38,6 +39,7 @@ class _$AreaTearOff {
       schwskala,
       childCount,
       commentCount,
+      lastUpdated,
     );
   }
 
@@ -67,6 +69,8 @@ mixin _$Area {
   int get childCount => throw _privateConstructorUsedError;
   @JsonKey(name: 'komment_count')
   int get commentCount => throw _privateConstructorUsedError;
+  @JsonKey(name: 'insert_timestamp')
+  DateTime get lastUpdated => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -85,7 +89,8 @@ abstract class $AreaCopyWith<$Res> {
       @JsonKey(name: 'gdefaultanzeige') String gdefaultanzeige,
       @JsonKey(name: 'schwskala') String schwskala,
       @JsonKey(name: 'subarea_count') int childCount,
-      @JsonKey(name: 'komment_count') int commentCount});
+      @JsonKey(name: 'komment_count') int commentCount,
+      @JsonKey(name: 'insert_timestamp') DateTime lastUpdated});
 }
 
 /// @nodoc
@@ -106,6 +111,7 @@ class _$AreaCopyWithImpl<$Res> implements $AreaCopyWith<$Res> {
     Object? schwskala = freezed,
     Object? childCount = freezed,
     Object? commentCount = freezed,
+    Object? lastUpdated = freezed,
   }) {
     return _then(_value.copyWith(
       gebietid: gebietid == freezed
@@ -140,6 +146,10 @@ class _$AreaCopyWithImpl<$Res> implements $AreaCopyWith<$Res> {
           ? _value.commentCount
           : commentCount // ignore: cast_nullable_to_non_nullable
               as int,
+      lastUpdated: lastUpdated == freezed
+          ? _value.lastUpdated
+          : lastUpdated // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
@@ -157,7 +167,8 @@ abstract class _$AreaCopyWith<$Res> implements $AreaCopyWith<$Res> {
       @JsonKey(name: 'gdefaultanzeige') String gdefaultanzeige,
       @JsonKey(name: 'schwskala') String schwskala,
       @JsonKey(name: 'subarea_count') int childCount,
-      @JsonKey(name: 'komment_count') int commentCount});
+      @JsonKey(name: 'komment_count') int commentCount,
+      @JsonKey(name: 'insert_timestamp') DateTime lastUpdated});
 }
 
 /// @nodoc
@@ -179,6 +190,7 @@ class __$AreaCopyWithImpl<$Res> extends _$AreaCopyWithImpl<$Res>
     Object? schwskala = freezed,
     Object? childCount = freezed,
     Object? commentCount = freezed,
+    Object? lastUpdated = freezed,
   }) {
     return _then(_Area(
       gebietid == freezed
@@ -213,6 +225,10 @@ class __$AreaCopyWithImpl<$Res> extends _$AreaCopyWithImpl<$Res>
           ? _value.commentCount
           : commentCount // ignore: cast_nullable_to_non_nullable
               as int,
+      lastUpdated == freezed
+          ? _value.lastUpdated
+          : lastUpdated // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
@@ -228,7 +244,8 @@ class _$_Area implements _Area {
       @JsonKey(name: 'gdefaultanzeige') this.gdefaultanzeige,
       @JsonKey(name: 'schwskala') this.schwskala,
       @JsonKey(name: 'subarea_count') this.childCount,
-      @JsonKey(name: 'komment_count') this.commentCount);
+      @JsonKey(name: 'komment_count') this.commentCount,
+      @JsonKey(name: 'insert_timestamp') this.lastUpdated);
 
   factory _$_Area.fromJson(Map<String, dynamic> json) =>
       _$_$_AreaFromJson(json);
@@ -257,10 +274,13 @@ class _$_Area implements _Area {
   @override
   @JsonKey(name: 'komment_count')
   final int commentCount;
+  @override
+  @JsonKey(name: 'insert_timestamp')
+  final DateTime lastUpdated;
 
   @override
   String toString() {
-    return 'Area(gebietid: $gebietid, gebiet: $gebiet, land: $land, sprache2: $sprache2, gdefaultanzeige: $gdefaultanzeige, schwskala: $schwskala, childCount: $childCount, commentCount: $commentCount)';
+    return 'Area(gebietid: $gebietid, gebiet: $gebiet, land: $land, sprache2: $sprache2, gdefaultanzeige: $gdefaultanzeige, schwskala: $schwskala, childCount: $childCount, commentCount: $commentCount, lastUpdated: $lastUpdated)';
   }
 
   @override
@@ -288,7 +308,10 @@ class _$_Area implements _Area {
                     .equals(other.childCount, childCount)) &&
             (identical(other.commentCount, commentCount) ||
                 const DeepCollectionEquality()
-                    .equals(other.commentCount, commentCount)));
+                    .equals(other.commentCount, commentCount)) &&
+            (identical(other.lastUpdated, lastUpdated) ||
+                const DeepCollectionEquality()
+                    .equals(other.lastUpdated, lastUpdated)));
   }
 
   @override
@@ -301,7 +324,8 @@ class _$_Area implements _Area {
       const DeepCollectionEquality().hash(gdefaultanzeige) ^
       const DeepCollectionEquality().hash(schwskala) ^
       const DeepCollectionEquality().hash(childCount) ^
-      const DeepCollectionEquality().hash(commentCount);
+      const DeepCollectionEquality().hash(commentCount) ^
+      const DeepCollectionEquality().hash(lastUpdated);
 
   @JsonKey(ignore: true)
   @override
@@ -323,7 +347,8 @@ abstract class _Area implements Area {
       @JsonKey(name: 'gdefaultanzeige') String gdefaultanzeige,
       @JsonKey(name: 'schwskala') String schwskala,
       @JsonKey(name: 'subarea_count') int childCount,
-      @JsonKey(name: 'komment_count') int commentCount) = _$_Area;
+      @JsonKey(name: 'komment_count') int commentCount,
+      @JsonKey(name: 'insert_timestamp') DateTime lastUpdated) = _$_Area;
 
   factory _Area.fromJson(Map<String, dynamic> json) = _$_Area.fromJson;
 
@@ -351,6 +376,9 @@ abstract class _Area implements Area {
   @override
   @JsonKey(name: 'komment_count')
   int get commentCount => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'insert_timestamp')
+  DateTime get lastUpdated => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$AreaCopyWith<_Area> get copyWith => throw _privateConstructorUsedError;

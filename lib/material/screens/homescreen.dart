@@ -4,20 +4,32 @@ import 'package:rock_carrot/blocs/countries/countries_bloc.dart';
 import 'package:rock_carrot/blocs/rocks/rocks_bloc.dart';
 import 'package:rock_carrot/blocs/routes/routes_bloc.dart';
 import 'package:rock_carrot/blocs/subareas/subareas_bloc.dart';
-import 'package:rock_carrot/blocs/update_state_bloc/update_state_bloc.dart';
 import 'package:rock_carrot/blocs/view/view_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rock_carrot/material/widgets/areas_list.dart';
-import 'package:rock_carrot/material/widgets/countries_list.dart';
-import 'package:rock_carrot/material/widgets/rocks_list.dart';
-import 'package:rock_carrot/material/widgets/routes_list.dart';
-import 'package:rock_carrot/material/widgets/subareas_list.dart';
+import 'package:rock_carrot/material/listviews/areas_list.dart';
+import 'package:rock_carrot/material/listviews/countries_list.dart';
+import 'package:rock_carrot/material/listviews/rocks_list.dart';
+import 'package:rock_carrot/material/listviews/routes_list.dart';
+import 'package:rock_carrot/material/listviews/subareas_list.dart';
 
 // TODO: is something like this useful?!
 enum HomeScreenTabs { country, area, subarea, rock, route }
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  HomeScreen({Key? key}) : super(key: key);
+
+  // Store Scrolling Position
+  // https://stackoverflow.com/questions/60292911/how-to-get-flutter-scrollcontroller-to-save-position-of-listview-builder-when
+  final ScrollController controllerCountries =
+      ScrollController(keepScrollOffset: true);
+  final ScrollController controllerAreas =
+      ScrollController(keepScrollOffset: true);
+  final ScrollController controllerSubareas =
+      ScrollController(keepScrollOffset: true);
+  final ScrollController controllerRocks =
+      ScrollController(keepScrollOffset: true);
+  final ScrollController controllerRoutes =
+      ScrollController(keepScrollOffset: true);
 
   @override
   Widget build(BuildContext context) {
@@ -29,11 +41,20 @@ class HomeScreen extends StatelessWidget {
           ),
           body: RefreshIndicator(onRefresh: () async {
             state.when(
-              countries: () => BlocProvider.of<UpdateStateBloc>(context)
-                  .add(UpdateStateEvent.updateCountries()),
-              areas: (country) => null,
-              subareas: (_) => null,
-              rocks: (_) => null,
+              countries: () => BlocProvider.of<CountriesBloc>(context)
+                  .add(CountriesEvent.updateCountries()),
+              areas: (country) => country != null
+                  ? BlocProvider.of<AreasBloc>(context)
+                      .add(AreasEvent.updateAreas(country))
+                  : null,
+              subareas: (area) => area != null
+                  ? BlocProvider.of<SubareasBloc>(context)
+                      .add(SubareasEvent.updateSubareas(area))
+                  : null,
+              rocks: (subarea) => subarea != null
+                  ? BlocProvider.of<RocksBloc>(context)
+                      .add(RocksEvent.updateRocks(subarea))
+                  : null,
               routes: (_) => null,
             );
           }, child: BlocBuilder<ViewBloc, ViewState>(
@@ -42,44 +63,75 @@ class HomeScreen extends StatelessWidget {
                 countries: () => BlocBuilder<CountriesBloc, CountriesState>(
                   builder: (context, state) => state.when(
                     inProgress: () => CircularProgressIndicator(),
-                    countriesReceived: (countries) =>
-                        CountriesListView(countries: countries),
-                    failure: () => Text('Snackbar'),
+                    updateInProgress: (step, percentage) =>
+                        Text('$step: $percentage'),
+                    updateFinished: (result) => Text('Finished: $result'),
+                    countriesReceived: (countries) => CountriesListView(
+                      countries: countries,
+                      scrollController: controllerCountries,
+                    ),
+                    failure: (dynamic e) => Text('Snackbar'),
                     initial: () => Text('should not happen: $state'),
                   ),
                 ),
                 areas: (country) => BlocBuilder<AreasBloc, AreasState>(
                   builder: (context, state) => state.when(
                     inProgress: () => CircularProgressIndicator(),
-                    areasReceived: (country, areas) =>
-                        AreasListView(areas: areas),
-                    failure: () => Text('Snackbar'),
+                    areasReceived: (country, areas) => AreasListView(
+                      areas: areas,
+                      scrollController: controllerAreas,
+                      // use key to ensure that scroll position is stored per country
+                      key: Key('ListviewArea' + country.land),
+                    ),
+                    failure: (dynamic e) => Text('Snackbar'),
                     initial: () => Text('should not happen: $state'),
+                    updateInProgress: (step, percentage) =>
+                        Text('$step: $percentage'),
+                    updateFinished: (result) => Text('Finished: $result'),
                   ),
                 ),
                 subareas: (area) => BlocBuilder<SubareasBloc, SubareasState>(
                   builder: (context, state) => state.when(
                     inProgress: () => CircularProgressIndicator(),
-                    subareasReceived: (area, subareas) =>
-                        SubareasListView(subareas: subareas),
-                    failure: () => Text('Snackbar'),
+                    subareasReceived: (area, subareas) => SubareasListView(
+                      subareas: subareas,
+                      scrollController: controllerSubareas,
+                      // use key to ensure that scroll position is stored per area
+                      key: Key('ListviewSubarea' + area.gebiet),
+                    ),
+                    failure: (dynamic e) => Text('Snackbar'),
                     initial: () => Text('should not happen: $state'),
+                    updateInProgress: (step, percentage) =>
+                        Text('$step: $percentage'),
+                    updateFinished: (result) => Text('Finished: $result'),
                   ),
                 ),
                 rocks: (subarea) => BlocBuilder<RocksBloc, RocksState>(
                   builder: (context, state) => state.when(
                     inProgress: () => CircularProgressIndicator(),
-                    rocksReceived: (subarea, rocks) =>
-                        RocksListView(rocks: rocks),
-                    failure: () => Text('Snackbar'),
+                    rocksReceived: (subarea, rocks) => RocksListView(
+                      rocks: rocks,
+                      scrollController: controllerRocks,
+                      // use key to ensure that scroll position is stored per subarea
+                      key: Key('ListviewRocks' + subarea.sektornameD),
+                    ),
+                    failure: (dynamic e) => Text('Snackbar'),
                     initial: () => Text('should not happen: $state'),
+                    updateInProgress: (step, percentage) =>
+                        Text('$step: $percentage'),
+                    updateFinished: (result) => Text('Finished: $result'),
                   ),
                 ),
                 routes: (rock) => BlocBuilder<RoutesBloc, RoutesState>(
                   builder: (context, state) => state.when(
                     inProgress: () => CircularProgressIndicator(),
-                    routesReceived: (rock, routes) =>
-                        RoutesListView(routes: routes),
+                    routesReceived: (rock, routes) => RoutesListView(
+                        routes: routes,
+                        scrollController: controllerRoutes,
+                        // use key to ensure that scroll position is stored per subarea
+                        key: Key('ListviewRoutes' +
+                            rock.gipfelName +
+                            rock.sektorid.toString())),
                     failure: () => Text('Snackbar'),
                     initial: () => Text('should not happen: $state'),
                   ),

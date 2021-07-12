@@ -74,8 +74,7 @@ mixin _$Comment {
   int get wegid => throw _privateConstructorUsedError;
   int get sektorid => throw _privateConstructorUsedError;
   int get gebietid => throw _privateConstructorUsedError;
-  String get qual =>
-      throw _privateConstructorUsedError; // TODO: TEST SQL Convert!
+  String get qual => throw _privateConstructorUsedError;
   @RouteSafetyConverter()
   @JsonKey(name: 'sicher')
   String get safetyRouteIcon => throw _privateConstructorUsedError;
@@ -372,7 +371,7 @@ class _$_Comment implements _Comment {
   final int gebietid;
   @override
   final String qual;
-  @override // TODO: TEST SQL Convert!
+  @override
   @RouteSafetyConverter()
   @JsonKey(name: 'sicher')
   final String safetyRouteIcon;
@@ -510,7 +509,7 @@ abstract class _Comment implements Comment {
   int get gebietid => throw _privateConstructorUsedError;
   @override
   String get qual => throw _privateConstructorUsedError;
-  @override // TODO: TEST SQL Convert!
+  @override
   @RouteSafetyConverter()
   @JsonKey(name: 'sicher')
   String get safetyRouteIcon => throw _privateConstructorUsedError;

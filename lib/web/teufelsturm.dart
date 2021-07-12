@@ -27,6 +27,24 @@ const Map<String, int> sandsteinNameTeufelsturmAreaIdMap = {
   'Wildensteiner Gebiet': 12,
   'Hinterhermsdorf': 13,
 };
+
+/// mapping of teufelsturm Area names to id
+const Map<int, int> sandsteinIdTeufelsturmAreaIdMap = {
+  133: 1, //Gebiet der Steine
+  124: 2, //Bielatal
+  132: 3, //Schrammsteine
+  131: 4, //Schmilka
+  130: 5, //Rathen
+  134: 6, //Wehlen
+  128: 7, //Brand
+  129: 8, //Kleiner Zschand
+  126: 9, //Großer Zschand
+  123: 10, //Affensteine
+  125: 11, //Erzgebirgsgrenzgebiet
+  135: 12, //Wildensteiner Gebiet
+  127: 13, //Hinterhermsdorf
+};
+
 const List<int> teufelsturmAreaIdSandsteinSubareaIdMap = [
   0, // nothing
   133, //1

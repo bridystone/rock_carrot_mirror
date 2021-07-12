@@ -35,7 +35,8 @@ class _$RouteTearOff {
       @JsonKey(name: 'wegname_cz') String wegnameCZ,
       @JsonKey(name: 'wegstatus') String wegstatus,
       @JsonKey(name: 'wegnr') String wegnr,
-      @JsonKey(name: 'comment_count') int commentCount) {
+      @JsonKey(name: 'comment_count') int commentCount,
+      @JsonKey(name: 'insert_timestamp') DateTime lastUpdated) {
     return _Route(
       wegId,
       gipfelId,
@@ -52,6 +53,7 @@ class _$RouteTearOff {
       wegstatus,
       wegnr,
       commentCount,
+      lastUpdated,
     );
   }
 
@@ -95,6 +97,8 @@ mixin _$Route {
   String get wegnr => throw _privateConstructorUsedError;
   @JsonKey(name: 'comment_count')
   int get commentCount => throw _privateConstructorUsedError;
+  @JsonKey(name: 'insert_timestamp')
+  DateTime get lastUpdated => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -120,7 +124,8 @@ abstract class $RouteCopyWith<$Res> {
       @JsonKey(name: 'wegname_cz') String wegnameCZ,
       @JsonKey(name: 'wegstatus') String wegstatus,
       @JsonKey(name: 'wegnr') String wegnr,
-      @JsonKey(name: 'comment_count') int commentCount});
+      @JsonKey(name: 'comment_count') int commentCount,
+      @JsonKey(name: 'insert_timestamp') DateTime lastUpdated});
 }
 
 /// @nodoc
@@ -148,6 +153,7 @@ class _$RouteCopyWithImpl<$Res> implements $RouteCopyWith<$Res> {
     Object? wegstatus = freezed,
     Object? wegnr = freezed,
     Object? commentCount = freezed,
+    Object? lastUpdated = freezed,
   }) {
     return _then(_value.copyWith(
       wegId: wegId == freezed
@@ -210,6 +216,10 @@ class _$RouteCopyWithImpl<$Res> implements $RouteCopyWith<$Res> {
           ? _value.commentCount
           : commentCount // ignore: cast_nullable_to_non_nullable
               as int,
+      lastUpdated: lastUpdated == freezed
+          ? _value.lastUpdated
+          : lastUpdated // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
@@ -234,7 +244,8 @@ abstract class _$RouteCopyWith<$Res> implements $RouteCopyWith<$Res> {
       @JsonKey(name: 'wegname_cz') String wegnameCZ,
       @JsonKey(name: 'wegstatus') String wegstatus,
       @JsonKey(name: 'wegnr') String wegnr,
-      @JsonKey(name: 'comment_count') int commentCount});
+      @JsonKey(name: 'comment_count') int commentCount,
+      @JsonKey(name: 'insert_timestamp') DateTime lastUpdated});
 }
 
 /// @nodoc
@@ -263,6 +274,7 @@ class __$RouteCopyWithImpl<$Res> extends _$RouteCopyWithImpl<$Res>
     Object? wegstatus = freezed,
     Object? wegnr = freezed,
     Object? commentCount = freezed,
+    Object? lastUpdated = freezed,
   }) {
     return _then(_Route(
       wegId == freezed
@@ -325,6 +337,10 @@ class __$RouteCopyWithImpl<$Res> extends _$RouteCopyWithImpl<$Res>
           ? _value.commentCount
           : commentCount // ignore: cast_nullable_to_non_nullable
               as int,
+      lastUpdated == freezed
+          ? _value.lastUpdated
+          : lastUpdated // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
@@ -347,7 +363,8 @@ class _$_Route implements _Route {
       @JsonKey(name: 'wegname_cz') this.wegnameCZ,
       @JsonKey(name: 'wegstatus') this.wegstatus,
       @JsonKey(name: 'wegnr') this.wegnr,
-      @JsonKey(name: 'comment_count') this.commentCount);
+      @JsonKey(name: 'comment_count') this.commentCount,
+      @JsonKey(name: 'insert_timestamp') this.lastUpdated);
 
   factory _$_Route.fromJson(Map<String, dynamic> json) =>
       _$_$_RouteFromJson(json);
@@ -397,10 +414,13 @@ class _$_Route implements _Route {
   @override
   @JsonKey(name: 'comment_count')
   final int commentCount;
+  @override
+  @JsonKey(name: 'insert_timestamp')
+  final DateTime lastUpdated;
 
   @override
   String toString() {
-    return 'Route(wegId: $wegId, gipfelId: $gipfelId, schwierigkeit: $schwierigkeit, erstbegvorstieg: $erstbegvorstieg, erstbegnachstieg: $erstbegnachstieg, erstbegdatum: $erstbegdatum, ringzahl: $ringzahl, wegbeschr: $wegbeschr, wegbeschrCZ: $wegbeschrCZ, kletterei: $kletterei, wegname: $wegname, wegnameCZ: $wegnameCZ, wegstatus: $wegstatus, wegnr: $wegnr, commentCount: $commentCount)';
+    return 'Route(wegId: $wegId, gipfelId: $gipfelId, schwierigkeit: $schwierigkeit, erstbegvorstieg: $erstbegvorstieg, erstbegnachstieg: $erstbegnachstieg, erstbegdatum: $erstbegdatum, ringzahl: $ringzahl, wegbeschr: $wegbeschr, wegbeschrCZ: $wegbeschrCZ, kletterei: $kletterei, wegname: $wegname, wegnameCZ: $wegnameCZ, wegstatus: $wegstatus, wegnr: $wegnr, commentCount: $commentCount, lastUpdated: $lastUpdated)';
   }
 
   @override
@@ -449,7 +469,10 @@ class _$_Route implements _Route {
                 const DeepCollectionEquality().equals(other.wegnr, wegnr)) &&
             (identical(other.commentCount, commentCount) ||
                 const DeepCollectionEquality()
-                    .equals(other.commentCount, commentCount)));
+                    .equals(other.commentCount, commentCount)) &&
+            (identical(other.lastUpdated, lastUpdated) ||
+                const DeepCollectionEquality()
+                    .equals(other.lastUpdated, lastUpdated)));
   }
 
   @override
@@ -469,7 +492,8 @@ class _$_Route implements _Route {
       const DeepCollectionEquality().hash(wegnameCZ) ^
       const DeepCollectionEquality().hash(wegstatus) ^
       const DeepCollectionEquality().hash(wegnr) ^
-      const DeepCollectionEquality().hash(commentCount);
+      const DeepCollectionEquality().hash(commentCount) ^
+      const DeepCollectionEquality().hash(lastUpdated);
 
   @JsonKey(ignore: true)
   @override
@@ -498,7 +522,8 @@ abstract class _Route implements Route {
       @JsonKey(name: 'wegname_cz') String wegnameCZ,
       @JsonKey(name: 'wegstatus') String wegstatus,
       @JsonKey(name: 'wegnr') String wegnr,
-      @JsonKey(name: 'comment_count') int commentCount) = _$_Route;
+      @JsonKey(name: 'comment_count') int commentCount,
+      @JsonKey(name: 'insert_timestamp') DateTime lastUpdated) = _$_Route;
 
   factory _Route.fromJson(Map<String, dynamic> json) = _$_Route.fromJson;
 
@@ -547,6 +572,9 @@ abstract class _Route implements Route {
   @override
   @JsonKey(name: 'comment_count')
   int get commentCount => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'insert_timestamp')
+  DateTime get lastUpdated => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$RouteCopyWith<_Route> get copyWith => throw _privateConstructorUsedError;

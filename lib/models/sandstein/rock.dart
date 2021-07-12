@@ -20,6 +20,7 @@ class Rock with _$Rock {
     @JsonKey(name: 'sektorid') int sektorid,
     @JsonKey(name: 'wege_count') int childCount,
     @JsonKey(name: 'komment_count') int commentCount,
+    @JsonKey(name: 'insert_timestamp') DateTime lastUpdated,
   ) = _Rock;
 
   factory Rock.fromJson(Map<String, dynamic> json) => _$RockFromJson(json);

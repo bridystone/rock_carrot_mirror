@@ -27,6 +27,7 @@ extension SandsteinSql on Sandstein {
     return SqlHandler().insertJsonData(SqlHandler.countriesTablename, jsonData);
   }
 
+// ignore: todo
 // TODO: remove from final version
   FutureOr<int> deleteAreasFromDatabase(String countryName) {
     return SqlHandler().deleteAreas(countryName);
@@ -50,6 +51,7 @@ extension SandsteinSql on Sandstein {
   }
 
   /// delete all subareas including their comemnts
+  // ignore: todo
   /// TODO: get rid of in final
   FutureOr<int> deleteSubareasFromDatabase(int areaId) {
     return SqlHandler().deleteSubareasIncludingComments(areaId);
@@ -123,6 +125,7 @@ extension SandsteinSql on Sandstein {
     return result;
   }
 
+  // ignore: todo
   // TODO: get rid of
   Future<int> deleteRocksFromDatabase(int subareaId) {
     // delete Routes as well with a dummy Rock Items

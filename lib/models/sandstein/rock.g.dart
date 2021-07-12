@@ -22,6 +22,7 @@ _$_Rock _$_$_RockFromJson(Map<String, dynamic> json) {
     json['sektorid'] as int,
     json['wege_count'] as int,
     json['komment_count'] as int,
+    DateTime.parse(json['insert_timestamp'] as String),
   );
 }
 
@@ -40,4 +41,5 @@ Map<String, dynamic> _$_$_RockToJson(_$_Rock instance) => <String, dynamic>{
       'sektorid': instance.sektorid,
       'wege_count': instance.childCount,
       'komment_count': instance.commentCount,
+      'insert_timestamp': instance.lastUpdated.toIso8601String(),
     };

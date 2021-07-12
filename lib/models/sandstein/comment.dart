@@ -4,6 +4,8 @@ import 'package:rock_carrot/models/sandstein/json_converters.dart';
 part 'comment.freezed.dart';
 part 'comment.g.dart';
 
+// TODO: TEST SQL Convert!
+
 @freezed
 class Comment with _$Comment {
   factory Comment(
@@ -15,7 +17,6 @@ class Comment with _$Comment {
     int sektorid,
     int gebietid,
     String qual,
-    // TODO: TEST SQL Convert!
     @RouteSafetyConverter() @JsonKey(name: 'sicher') String safetyRouteIcon,
     String nass,
     String kommentar,

@@ -2,6 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:rock_carrot/artwork/dbsandstein_icons.dart';
 
+class EpochConverter implements JsonConverter<DateTime, int?> {
+  const EpochConverter();
+
+  @override
+  DateTime fromJson(int? epoch) =>
+      DateTime.fromMicrosecondsSinceEpoch(epoch ?? 0);
+
+  @override
+  int? toJson(DateTime? dateTime) => dateTime?.microsecondsSinceEpoch;
+}
+
 class RouteSafetyConverter implements JsonConverter<IconData?, int?> {
   const RouteSafetyConverter();
 

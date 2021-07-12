@@ -6,5 +6,14 @@ class CountriesState with _$CountriesState {
   const factory CountriesState.inProgress() = _InProgress;
   const factory CountriesState.countriesReceived(List<Country> countries) =
       _CountriesReceived;
-  const factory CountriesState.failure() = _Failure;
+  // Update
+  const factory CountriesState.updateInProgress(
+    String step,
+    int percent,
+  ) = _UpdateInProgress;
+  const factory CountriesState.updateFinished(
+    int result,
+  ) = _UpdateFinished;
+
+  const factory CountriesState.failure(dynamic execption) = _Failure;
 }

@@ -27,7 +27,8 @@ class _$SubareaTearOff {
       @JsonKey(name: 'sektorname_d') String sektornameD,
       @JsonKey(name: 'sektorname_cz') String sektornameCZ,
       @JsonKey(name: 'gipfel_count') int childCount,
-      @JsonKey(name: 'komment_count') int commentCount) {
+      @JsonKey(name: 'komment_count') int commentCount,
+      @JsonKey(name: 'insert_timestamp') DateTime lastUpdated) {
     return _Subarea(
       sektorid,
       gebietid,
@@ -36,6 +37,7 @@ class _$SubareaTearOff {
       sektornameCZ,
       childCount,
       commentCount,
+      lastUpdated,
     );
   }
 
@@ -63,6 +65,8 @@ mixin _$Subarea {
   int get childCount => throw _privateConstructorUsedError;
   @JsonKey(name: 'komment_count')
   int get commentCount => throw _privateConstructorUsedError;
+  @JsonKey(name: 'insert_timestamp')
+  DateTime get lastUpdated => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -80,7 +84,8 @@ abstract class $SubareaCopyWith<$Res> {
       @JsonKey(name: 'sektorname_d') String sektornameD,
       @JsonKey(name: 'sektorname_cz') String sektornameCZ,
       @JsonKey(name: 'gipfel_count') int childCount,
-      @JsonKey(name: 'komment_count') int commentCount});
+      @JsonKey(name: 'komment_count') int commentCount,
+      @JsonKey(name: 'insert_timestamp') DateTime lastUpdated});
 }
 
 /// @nodoc
@@ -100,6 +105,7 @@ class _$SubareaCopyWithImpl<$Res> implements $SubareaCopyWith<$Res> {
     Object? sektornameCZ = freezed,
     Object? childCount = freezed,
     Object? commentCount = freezed,
+    Object? lastUpdated = freezed,
   }) {
     return _then(_value.copyWith(
       sektorid: sektorid == freezed
@@ -130,6 +136,10 @@ class _$SubareaCopyWithImpl<$Res> implements $SubareaCopyWith<$Res> {
           ? _value.commentCount
           : commentCount // ignore: cast_nullable_to_non_nullable
               as int,
+      lastUpdated: lastUpdated == freezed
+          ? _value.lastUpdated
+          : lastUpdated // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
@@ -146,7 +156,8 @@ abstract class _$SubareaCopyWith<$Res> implements $SubareaCopyWith<$Res> {
       @JsonKey(name: 'sektorname_d') String sektornameD,
       @JsonKey(name: 'sektorname_cz') String sektornameCZ,
       @JsonKey(name: 'gipfel_count') int childCount,
-      @JsonKey(name: 'komment_count') int commentCount});
+      @JsonKey(name: 'komment_count') int commentCount,
+      @JsonKey(name: 'insert_timestamp') DateTime lastUpdated});
 }
 
 /// @nodoc
@@ -167,6 +178,7 @@ class __$SubareaCopyWithImpl<$Res> extends _$SubareaCopyWithImpl<$Res>
     Object? sektornameCZ = freezed,
     Object? childCount = freezed,
     Object? commentCount = freezed,
+    Object? lastUpdated = freezed,
   }) {
     return _then(_Subarea(
       sektorid == freezed
@@ -197,6 +209,10 @@ class __$SubareaCopyWithImpl<$Res> extends _$SubareaCopyWithImpl<$Res>
           ? _value.commentCount
           : commentCount // ignore: cast_nullable_to_non_nullable
               as int,
+      lastUpdated == freezed
+          ? _value.lastUpdated
+          : lastUpdated // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
@@ -211,7 +227,8 @@ class _$_Subarea implements _Subarea {
       @JsonKey(name: 'sektorname_d') this.sektornameD,
       @JsonKey(name: 'sektorname_cz') this.sektornameCZ,
       @JsonKey(name: 'gipfel_count') this.childCount,
-      @JsonKey(name: 'komment_count') this.commentCount);
+      @JsonKey(name: 'komment_count') this.commentCount,
+      @JsonKey(name: 'insert_timestamp') this.lastUpdated);
 
   factory _$_Subarea.fromJson(Map<String, dynamic> json) =>
       _$_$_SubareaFromJson(json);
@@ -237,10 +254,13 @@ class _$_Subarea implements _Subarea {
   @override
   @JsonKey(name: 'komment_count')
   final int commentCount;
+  @override
+  @JsonKey(name: 'insert_timestamp')
+  final DateTime lastUpdated;
 
   @override
   String toString() {
-    return 'Subarea(sektorid: $sektorid, gebietid: $gebietid, sektornr: $sektornr, sektornameD: $sektornameD, sektornameCZ: $sektornameCZ, childCount: $childCount, commentCount: $commentCount)';
+    return 'Subarea(sektorid: $sektorid, gebietid: $gebietid, sektornr: $sektornr, sektornameD: $sektornameD, sektornameCZ: $sektornameCZ, childCount: $childCount, commentCount: $commentCount, lastUpdated: $lastUpdated)';
   }
 
   @override
@@ -267,7 +287,10 @@ class _$_Subarea implements _Subarea {
                     .equals(other.childCount, childCount)) &&
             (identical(other.commentCount, commentCount) ||
                 const DeepCollectionEquality()
-                    .equals(other.commentCount, commentCount)));
+                    .equals(other.commentCount, commentCount)) &&
+            (identical(other.lastUpdated, lastUpdated) ||
+                const DeepCollectionEquality()
+                    .equals(other.lastUpdated, lastUpdated)));
   }
 
   @override
@@ -279,7 +302,8 @@ class _$_Subarea implements _Subarea {
       const DeepCollectionEquality().hash(sektornameD) ^
       const DeepCollectionEquality().hash(sektornameCZ) ^
       const DeepCollectionEquality().hash(childCount) ^
-      const DeepCollectionEquality().hash(commentCount);
+      const DeepCollectionEquality().hash(commentCount) ^
+      const DeepCollectionEquality().hash(lastUpdated);
 
   @JsonKey(ignore: true)
   @override
@@ -300,7 +324,8 @@ abstract class _Subarea implements Subarea {
       @JsonKey(name: 'sektorname_d') String sektornameD,
       @JsonKey(name: 'sektorname_cz') String sektornameCZ,
       @JsonKey(name: 'gipfel_count') int childCount,
-      @JsonKey(name: 'komment_count') int commentCount) = _$_Subarea;
+      @JsonKey(name: 'komment_count') int commentCount,
+      @JsonKey(name: 'insert_timestamp') DateTime lastUpdated) = _$_Subarea;
 
   factory _Subarea.fromJson(Map<String, dynamic> json) = _$_Subarea.fromJson;
 
@@ -325,6 +350,9 @@ abstract class _Subarea implements Subarea {
   @override
   @JsonKey(name: 'komment_count')
   int get commentCount => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'insert_timestamp')
+  DateTime get lastUpdated => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$SubareaCopyWith<_Subarea> get copyWith =>

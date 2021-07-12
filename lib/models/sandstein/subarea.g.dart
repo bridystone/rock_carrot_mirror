@@ -15,6 +15,7 @@ _$_Subarea _$_$_SubareaFromJson(Map<String, dynamic> json) {
     json['sektorname_cz'] as String,
     json['gipfel_count'] as int,
     json['komment_count'] as int,
+    DateTime.parse(json['insert_timestamp'] as String),
   );
 }
 
@@ -27,4 +28,5 @@ Map<String, dynamic> _$_$_SubareaToJson(_$_Subarea instance) =>
       'sektorname_cz': instance.sektornameCZ,
       'gipfel_count': instance.childCount,
       'komment_count': instance.commentCount,
+      'insert_timestamp': instance.lastUpdated.toIso8601String(),
     };

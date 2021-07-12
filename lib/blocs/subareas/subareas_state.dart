@@ -8,5 +8,14 @@ class SubareasState with _$SubareasState {
     Area area,
     List<Subarea> subareas,
   ) = _SubareasReceived;
-  const factory SubareasState.failure() = _Failure;
+  // Update
+  const factory SubareasState.updateInProgress(
+    String step,
+    int percent,
+  ) = _UpdateInProgress;
+  const factory SubareasState.updateFinished(
+    int result,
+  ) = _UpdateFinished;
+
+  const factory SubareasState.failure(dynamic exception) = _Failure;
 }

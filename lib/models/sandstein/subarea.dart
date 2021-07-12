@@ -13,6 +13,7 @@ class Subarea with _$Subarea {
     @JsonKey(name: 'sektorname_cz') String sektornameCZ,
     @JsonKey(name: 'gipfel_count') int childCount,
     @JsonKey(name: 'komment_count') int commentCount,
+    @JsonKey(name: 'insert_timestamp') DateTime lastUpdated,
   ) = _Subarea;
 
   factory Subarea.fromJson(Map<String, dynamic> json) =>

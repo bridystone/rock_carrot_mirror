@@ -34,7 +34,8 @@ class _$RockTearOff {
       @JsonKey(name: 'talhoehe') String talhoehe,
       @JsonKey(name: 'sektorid') int sektorid,
       @JsonKey(name: 'wege_count') int childCount,
-      @JsonKey(name: 'komment_count') int commentCount) {
+      @JsonKey(name: 'komment_count') int commentCount,
+      @JsonKey(name: 'insert_timestamp') DateTime lastUpdated) {
     return _Rock(
       gipfelId,
       gipfelNr,
@@ -50,6 +51,7 @@ class _$RockTearOff {
       sektorid,
       childCount,
       commentCount,
+      lastUpdated,
     );
   }
 
@@ -91,6 +93,8 @@ mixin _$Rock {
   int get childCount => throw _privateConstructorUsedError;
   @JsonKey(name: 'komment_count')
   int get commentCount => throw _privateConstructorUsedError;
+  @JsonKey(name: 'insert_timestamp')
+  DateTime get lastUpdated => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -115,7 +119,8 @@ abstract class $RockCopyWith<$Res> {
       @JsonKey(name: 'talhoehe') String talhoehe,
       @JsonKey(name: 'sektorid') int sektorid,
       @JsonKey(name: 'wege_count') int childCount,
-      @JsonKey(name: 'komment_count') int commentCount});
+      @JsonKey(name: 'komment_count') int commentCount,
+      @JsonKey(name: 'insert_timestamp') DateTime lastUpdated});
 }
 
 /// @nodoc
@@ -142,6 +147,7 @@ class _$RockCopyWithImpl<$Res> implements $RockCopyWith<$Res> {
     Object? sektorid = freezed,
     Object? childCount = freezed,
     Object? commentCount = freezed,
+    Object? lastUpdated = freezed,
   }) {
     return _then(_value.copyWith(
       gipfelId: gipfelId == freezed
@@ -200,6 +206,10 @@ class _$RockCopyWithImpl<$Res> implements $RockCopyWith<$Res> {
           ? _value.commentCount
           : commentCount // ignore: cast_nullable_to_non_nullable
               as int,
+      lastUpdated: lastUpdated == freezed
+          ? _value.lastUpdated
+          : lastUpdated // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
@@ -223,7 +233,8 @@ abstract class _$RockCopyWith<$Res> implements $RockCopyWith<$Res> {
       @JsonKey(name: 'talhoehe') String talhoehe,
       @JsonKey(name: 'sektorid') int sektorid,
       @JsonKey(name: 'wege_count') int childCount,
-      @JsonKey(name: 'komment_count') int commentCount});
+      @JsonKey(name: 'komment_count') int commentCount,
+      @JsonKey(name: 'insert_timestamp') DateTime lastUpdated});
 }
 
 /// @nodoc
@@ -251,6 +262,7 @@ class __$RockCopyWithImpl<$Res> extends _$RockCopyWithImpl<$Res>
     Object? sektorid = freezed,
     Object? childCount = freezed,
     Object? commentCount = freezed,
+    Object? lastUpdated = freezed,
   }) {
     return _then(_Rock(
       gipfelId == freezed
@@ -309,6 +321,10 @@ class __$RockCopyWithImpl<$Res> extends _$RockCopyWithImpl<$Res>
           ? _value.commentCount
           : commentCount // ignore: cast_nullable_to_non_nullable
               as int,
+      lastUpdated == freezed
+          ? _value.lastUpdated
+          : lastUpdated // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
@@ -330,7 +346,8 @@ class _$_Rock implements _Rock {
       @JsonKey(name: 'talhoehe') this.talhoehe,
       @JsonKey(name: 'sektorid') this.sektorid,
       @JsonKey(name: 'wege_count') this.childCount,
-      @JsonKey(name: 'komment_count') this.commentCount);
+      @JsonKey(name: 'komment_count') this.commentCount,
+      @JsonKey(name: 'insert_timestamp') this.lastUpdated);
 
   factory _$_Rock.fromJson(Map<String, dynamic> json) =>
       _$_$_RockFromJson(json);
@@ -377,10 +394,13 @@ class _$_Rock implements _Rock {
   @override
   @JsonKey(name: 'komment_count')
   final int commentCount;
+  @override
+  @JsonKey(name: 'insert_timestamp')
+  final DateTime lastUpdated;
 
   @override
   String toString() {
-    return 'Rock(gipfelId: $gipfelId, gipfelNr: $gipfelNr, gipfelName: $gipfelName, gipfelNameCZ: $gipfelNameCZ, gipfelStatus: $gipfelStatus, gipfelTyp: $gipfelTyp, vgrd: $vgrd, ngrd: $ngrd, posfehler: $posfehler, schartenhoehe: $schartenhoehe, talhoehe: $talhoehe, sektorid: $sektorid, childCount: $childCount, commentCount: $commentCount)';
+    return 'Rock(gipfelId: $gipfelId, gipfelNr: $gipfelNr, gipfelName: $gipfelName, gipfelNameCZ: $gipfelNameCZ, gipfelStatus: $gipfelStatus, gipfelTyp: $gipfelTyp, vgrd: $vgrd, ngrd: $ngrd, posfehler: $posfehler, schartenhoehe: $schartenhoehe, talhoehe: $talhoehe, sektorid: $sektorid, childCount: $childCount, commentCount: $commentCount, lastUpdated: $lastUpdated)';
   }
 
   @override
@@ -426,7 +446,10 @@ class _$_Rock implements _Rock {
                     .equals(other.childCount, childCount)) &&
             (identical(other.commentCount, commentCount) ||
                 const DeepCollectionEquality()
-                    .equals(other.commentCount, commentCount)));
+                    .equals(other.commentCount, commentCount)) &&
+            (identical(other.lastUpdated, lastUpdated) ||
+                const DeepCollectionEquality()
+                    .equals(other.lastUpdated, lastUpdated)));
   }
 
   @override
@@ -445,7 +468,8 @@ class _$_Rock implements _Rock {
       const DeepCollectionEquality().hash(talhoehe) ^
       const DeepCollectionEquality().hash(sektorid) ^
       const DeepCollectionEquality().hash(childCount) ^
-      const DeepCollectionEquality().hash(commentCount);
+      const DeepCollectionEquality().hash(commentCount) ^
+      const DeepCollectionEquality().hash(lastUpdated);
 
   @JsonKey(ignore: true)
   @override
@@ -473,7 +497,8 @@ abstract class _Rock implements Rock {
       @JsonKey(name: 'talhoehe') String talhoehe,
       @JsonKey(name: 'sektorid') int sektorid,
       @JsonKey(name: 'wege_count') int childCount,
-      @JsonKey(name: 'komment_count') int commentCount) = _$_Rock;
+      @JsonKey(name: 'komment_count') int commentCount,
+      @JsonKey(name: 'insert_timestamp') DateTime lastUpdated) = _$_Rock;
 
   factory _Rock.fromJson(Map<String, dynamic> json) = _$_Rock.fromJson;
 
@@ -519,6 +544,9 @@ abstract class _Rock implements Rock {
   @override
   @JsonKey(name: 'komment_count')
   int get commentCount => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'insert_timestamp')
+  DateTime get lastUpdated => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$RockCopyWith<_Rock> get copyWith => throw _privateConstructorUsedError;

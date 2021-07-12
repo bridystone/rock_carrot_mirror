@@ -48,6 +48,7 @@ class SqlHandler {
       'land': 'TEXT COLLATE NOCASE PRIMARY KEY',
       'ISO3166': 'TEXT COLLATE NOCASE',
       'KFZ': 'TEXT COLLATE NOCASE',
+      'insert_timestamp': 'INT DEFAULT CURRENT_TIMESTAMP',
     },
     // json query key: land
     areasTablename: {
@@ -57,6 +58,7 @@ class SqlHandler {
       'sprache2': 'TEXT COLLATE NOCASE',
       'gdefaultanzeige': 'TEXT COLLATE NOCASE',
       'schwskala': 'TEXT COLLATE NOCASE',
+      'insert_timestamp': 'INT DEFAULT CURRENT_TIMESTAMP',
     },
     // json query key: gebietid
     subareasTablename: {
@@ -65,6 +67,7 @@ class SqlHandler {
       'sektornr': 'TEXT COLLATE NOCASE',
       'sektorname_d': 'TEXT COLLATE NOCASE',
       'sektorname_cz': 'TEXT COLLATE NOCASE',
+      'insert_timestamp': 'INT DEFAULT CURRENT_TIMESTAMP',
     },
     // json query key: sektorid
     rocksTablename: {
@@ -80,6 +83,7 @@ class SqlHandler {
       'schartenhoehe': 'TEXT COLLATE NOCASE',
       'talhoehe': 'TEXT COLLATE NOCASE',
       'sektorid': 'INT',
+      'insert_timestamp': 'INT DEFAULT CURRENT_TIMESTAMP',
     },
     // json query key: sektorid
     routesTablename: {
@@ -97,6 +101,7 @@ class SqlHandler {
       'wegname_cz': 'TEXT COLLATE NOCASE',
       'wegstatus': 'TEXT COLLATE NOCASE',
       'wegnr': 'TEXT COLLATE NOCASE',
+      'insert_timestamp': 'INT DEFAULT CURRENT_TIMESTAMP',
     },
     // json query keys: gebietid or sektorid
     commentsTablename: {
@@ -115,6 +120,7 @@ class SqlHandler {
       'schwer': 'TEXT COLLATE NOCASE',
       'geklettert': 'TEXT COLLATE NOCASE',
       'begehung': 'TEXT COLLATE NOCASE',
+      'insert_timestamp': 'INT DEFAULT CURRENT_TIMESTAMP',
     },
 
     /// Teufelsturm data tables
@@ -124,6 +130,7 @@ class SqlHandler {
       'name': 'TEXT COLLATE NOCASE',
       'areaid': 'INT',
       'areaName': 'TEXT COLLATE NOCASE',
+      'insert_timestamp': 'INT DEFAULT CURRENT_TIMESTAMP',
     },
     ttRoutesTablename: {
       'id': 'INT PRIMARY KEY', // internal TT number
@@ -136,6 +143,7 @@ class SqlHandler {
       // internal TT number (might be missing depending on scraping methof)
       'areaid': 'INT',
       'areaName': 'TEXT COLLATE NOCASE',
+      'insert_timestamp': 'INT DEFAULT CURRENT_TIMESTAMP',
     },
     ttCommentsTablename: {
       'ID': 'INTEGER PRIMARY KEY AUTOINCREMENT',
@@ -147,6 +155,7 @@ class SqlHandler {
       'date': 'TEXT COLLATE NOCASE',
       'comment': 'TEXT COLLATE NOCASE',
       'quality': 'TEXT COLLATE NOCASE',
+      'insert_timestamp': 'INT DEFAULT CURRENT_TIMESTAMP',
     },
 
     /// teufelsturm mapping tables
@@ -196,6 +205,7 @@ class SqlHandler {
     } catch (e) {
       print('failed to create directory or delete database:' + e.toString());
     }
+
     //Sqflite.devSetDebugModeOn(true);
     return await openDatabase(
       path,

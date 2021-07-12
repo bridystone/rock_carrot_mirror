@@ -12,12 +12,12 @@ part 'routes_bloc.freezed.dart';
 class RoutesBloc extends Bloc<RoutesEvent, RoutesState> {
   RoutesBloc() : super(_Initial()) {
     on<_RequestRoutes>(_onRequestRoutes);
-    on<_InvalidateRoutes>((event, emit_dummy) => emit(RoutesState.initial()));
+    on<_InvalidateRoutes>((event, emit) => emit(RoutesState.initial()));
   }
 
   void _onRequestRoutes(
     _RequestRoutes event,
-    Emit<RoutesState> emit_dummy,
+    Emit<RoutesState> emit,
   ) async {
     try {
       emit(RoutesState.inProgress());

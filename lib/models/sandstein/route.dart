@@ -21,6 +21,7 @@ class Route with _$Route {
     @JsonKey(name: 'wegstatus') String wegstatus,
     @JsonKey(name: 'wegnr') String wegnr,
     @JsonKey(name: 'comment_count') int commentCount,
+    @JsonKey(name: 'insert_timestamp') DateTime lastUpdated,
   ) = _Route;
 
   factory Route.fromJson(Map<String, dynamic> json) => _$RouteFromJson(json);

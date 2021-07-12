@@ -4,7 +4,6 @@ import 'package:rock_carrot/blocs/countries/countries_bloc.dart';
 import 'package:rock_carrot/blocs/rocks/rocks_bloc.dart';
 import 'package:rock_carrot/blocs/routes/routes_bloc.dart';
 import 'package:rock_carrot/blocs/subareas/subareas_bloc.dart';
-import 'package:rock_carrot/blocs/update_state_bloc/update_state_bloc.dart';
 import 'package:rock_carrot/blocs/view/view_bloc.dart';
 import 'package:rock_carrot/material/screens/homescreen.dart';
 import 'package:rock_carrot/rock_carrot_theme.dart';
@@ -30,9 +29,6 @@ class RockCarrotApp extends StatelessWidget {
                     rocksBloc: BlocProvider.of<RocksBloc>(context),
                     routesBloc: BlocProvider.of<RoutesBloc>(context),
                   )..add(ViewEvent.toCountries()),
-                ),
-                BlocProvider<UpdateStateBloc>(
-                  create: (context) => UpdateStateBloc(),
                 ),
               ],
               child: HomeScreen(),

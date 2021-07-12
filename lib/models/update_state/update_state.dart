@@ -11,12 +11,13 @@ enum UpdateType {
   rock,
 }
 
+// TODO: check if this is working => @TimestampConverter()
+
 @freezed
 class UpdateState with _$UpdateState {
   factory UpdateState(
     UpdateType type,
     String id,
-    // TODO: check if this is working => @TimestampConverter()
     @EpochConverter() DateTime timestamp,
     @EpochConverter() DateTime timestampTT,
   ) = _UpdateState;

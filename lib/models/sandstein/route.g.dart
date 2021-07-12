@@ -23,6 +23,7 @@ _$_Route _$_$_RouteFromJson(Map<String, dynamic> json) {
     json['wegstatus'] as String,
     json['wegnr'] as String,
     json['comment_count'] as int,
+    DateTime.parse(json['insert_timestamp'] as String),
   );
 }
 
@@ -42,4 +43,5 @@ Map<String, dynamic> _$_$_RouteToJson(_$_Route instance) => <String, dynamic>{
       'wegstatus': instance.wegstatus,
       'wegnr': instance.wegnr,
       'comment_count': instance.commentCount,
+      'insert_timestamp': instance.lastUpdated.toIso8601String(),
     };

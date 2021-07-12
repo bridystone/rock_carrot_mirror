@@ -14,6 +14,7 @@ class Area with _$Area {
     @JsonKey(name: 'schwskala') String schwskala,
     @JsonKey(name: 'subarea_count') int childCount,
     @JsonKey(name: 'komment_count') int commentCount,
+    @JsonKey(name: 'insert_timestamp') DateTime lastUpdated,
   ) = _Area;
 
   factory Area.fromJson(Map<String, dynamic> json) => _$AreaFromJson(json);

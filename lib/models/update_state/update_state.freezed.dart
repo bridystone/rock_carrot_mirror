@@ -44,8 +44,7 @@ const $UpdateState = _$UpdateStateTearOff();
 /// @nodoc
 mixin _$UpdateState {
   UpdateType get type => throw _privateConstructorUsedError;
-  String get id =>
-      throw _privateConstructorUsedError; // TODO: check if this is working => @TimestampConverter()
+  String get id => throw _privateConstructorUsedError;
   @EpochConverter()
   DateTime get timestamp => throw _privateConstructorUsedError;
   @EpochConverter()
@@ -170,7 +169,7 @@ class _$_UpdateState implements _UpdateState {
   final UpdateType type;
   @override
   final String id;
-  @override // TODO: check if this is working => @TimestampConverter()
+  @override
   @EpochConverter()
   final DateTime timestamp;
   @override
@@ -231,7 +230,7 @@ abstract class _UpdateState implements UpdateState {
   UpdateType get type => throw _privateConstructorUsedError;
   @override
   String get id => throw _privateConstructorUsedError;
-  @override // TODO: check if this is working => @TimestampConverter()
+  @override
   @EpochConverter()
   DateTime get timestamp => throw _privateConstructorUsedError;
   @override
