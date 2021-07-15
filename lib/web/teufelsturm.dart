@@ -135,13 +135,15 @@ class Teufelsturm with WebHelper, TeufelsturmScraper {
       final id = data['id'] ?? 0;
       http.Response? response;
       try {
-        response = await pool.withResource(() => http.post(
-              Uri.http(
-                'teufelsturm.de',
-                'wege/suche.php',
-              ),
-              body: {'gipfelnr': id.toString()},
-            ));
+        response = await pool.withResource(
+          () => http.post(
+            Uri.http(
+              'teufelsturm.de',
+              'wege/suche.php',
+            ),
+            body: {'gipfelnr': id.toString()},
+          ).timeout(Duration(seconds: 5)),
+        );
       } catch (e) {
         print('$id: $e');
       }
@@ -222,13 +224,15 @@ class Teufelsturm with WebHelper, TeufelsturmScraper {
       final rockId = data['rockid'] ?? -1;
       http.Response? response;
       try {
-        response = await pool.withResource(() => http.post(
-              Uri.http(
-                'teufelsturm.de',
-                'wege/bewertungen/anzeige.php',
-              ),
-              body: {'wegnr': id.toString()},
-            ));
+        response = await pool.withResource(
+          () => http.post(
+            Uri.http(
+              'teufelsturm.de',
+              'wege/bewertungen/anzeige.php',
+            ),
+            body: {'wegnr': id.toString()},
+          ).timeout(Duration(seconds: 5)),
+        );
       } catch (e) {
         print('$id: $e');
       }
