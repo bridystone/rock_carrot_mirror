@@ -16,8 +16,11 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$CommentsEventTearOff {
   const _$CommentsEventTearOff();
 
-  _RequestComments requestComments() {
-    return const _RequestComments();
+  _RequestComments requestComments(CommentType type, int id) {
+    return _RequestComments(
+      type,
+      id,
+    );
   }
 }
 
@@ -26,14 +29,17 @@ const $CommentsEvent = _$CommentsEventTearOff();
 
 /// @nodoc
 mixin _$CommentsEvent {
+  CommentType get type => throw _privateConstructorUsedError;
+  int get id => throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() requestComments,
+    required TResult Function(CommentType type, int id) requestComments,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? requestComments,
+    TResult Function(CommentType type, int id)? requestComments,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -48,6 +54,10 @@ mixin _$CommentsEvent {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $CommentsEventCopyWith<CommentsEvent> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -55,6 +65,7 @@ abstract class $CommentsEventCopyWith<$Res> {
   factory $CommentsEventCopyWith(
           CommentsEvent value, $Res Function(CommentsEvent) then) =
       _$CommentsEventCopyWithImpl<$Res>;
+  $Res call({CommentType type, int id});
 }
 
 /// @nodoc
@@ -65,13 +76,33 @@ class _$CommentsEventCopyWithImpl<$Res>
   final CommentsEvent _value;
   // ignore: unused_field
   final $Res Function(CommentsEvent) _then;
+
+  @override
+  $Res call({
+    Object? type = freezed,
+    Object? id = freezed,
+  }) {
+    return _then(_value.copyWith(
+      type: type == freezed
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as CommentType,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
 }
 
 /// @nodoc
-abstract class _$RequestCommentsCopyWith<$Res> {
+abstract class _$RequestCommentsCopyWith<$Res>
+    implements $CommentsEventCopyWith<$Res> {
   factory _$RequestCommentsCopyWith(
           _RequestComments value, $Res Function(_RequestComments) then) =
       __$RequestCommentsCopyWithImpl<$Res>;
+  @override
+  $Res call({CommentType type, int id});
 }
 
 /// @nodoc
@@ -84,42 +115,77 @@ class __$RequestCommentsCopyWithImpl<$Res>
 
   @override
   _RequestComments get _value => super._value as _RequestComments;
+
+  @override
+  $Res call({
+    Object? type = freezed,
+    Object? id = freezed,
+  }) {
+    return _then(_RequestComments(
+      type == freezed
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as CommentType,
+      id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$_RequestComments implements _RequestComments {
-  const _$_RequestComments();
+  const _$_RequestComments(this.type, this.id);
+
+  @override
+  final CommentType type;
+  @override
+  final int id;
 
   @override
   String toString() {
-    return 'CommentsEvent.requestComments()';
+    return 'CommentsEvent.requestComments(type: $type, id: $id)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _RequestComments);
+    return identical(this, other) ||
+        (other is _RequestComments &&
+            (identical(other.type, type) ||
+                const DeepCollectionEquality().equals(other.type, type)) &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(type) ^
+      const DeepCollectionEquality().hash(id);
+
+  @JsonKey(ignore: true)
+  @override
+  _$RequestCommentsCopyWith<_RequestComments> get copyWith =>
+      __$RequestCommentsCopyWithImpl<_RequestComments>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() requestComments,
+    required TResult Function(CommentType type, int id) requestComments,
   }) {
-    return requestComments();
+    return requestComments(type, id);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? requestComments,
+    TResult Function(CommentType type, int id)? requestComments,
     required TResult orElse(),
   }) {
     if (requestComments != null) {
-      return requestComments();
+      return requestComments(type, id);
     }
     return orElse();
   }
@@ -146,7 +212,16 @@ class _$_RequestComments implements _RequestComments {
 }
 
 abstract class _RequestComments implements CommentsEvent {
-  const factory _RequestComments() = _$_RequestComments;
+  const factory _RequestComments(CommentType type, int id) = _$_RequestComments;
+
+  @override
+  CommentType get type => throw _privateConstructorUsedError;
+  @override
+  int get id => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$RequestCommentsCopyWith<_RequestComments> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -161,14 +236,16 @@ class _$CommentsStateTearOff {
     return const _InProgress();
   }
 
-  _DataReceived dataRecevied(List<Comment> comments) {
-    return _DataReceived(
+  _CommentsReceived commentsReceived(List<Comment> comments) {
+    return _CommentsReceived(
       comments,
     );
   }
 
-  _Failure failure() {
-    return const _Failure();
+  _Failure failure(dynamic exception) {
+    return _Failure(
+      exception,
+    );
   }
 }
 
@@ -181,16 +258,16 @@ mixin _$CommentsState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() inProgress,
-    required TResult Function(List<Comment> comments) dataRecevied,
-    required TResult Function() failure,
+    required TResult Function(List<Comment> comments) commentsReceived,
+    required TResult Function(dynamic exception) failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? inProgress,
-    TResult Function(List<Comment> comments)? dataRecevied,
-    TResult Function()? failure,
+    TResult Function(List<Comment> comments)? commentsReceived,
+    TResult Function(dynamic exception)? failure,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -198,7 +275,7 @@ mixin _$CommentsState {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_InProgress value) inProgress,
-    required TResult Function(_DataReceived value) dataRecevied,
+    required TResult Function(_CommentsReceived value) commentsReceived,
     required TResult Function(_Failure value) failure,
   }) =>
       throw _privateConstructorUsedError;
@@ -206,7 +283,7 @@ mixin _$CommentsState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_InProgress value)? inProgress,
-    TResult Function(_DataReceived value)? dataRecevied,
+    TResult Function(_CommentsReceived value)? commentsReceived,
     TResult Function(_Failure value)? failure,
     required TResult orElse(),
   }) =>
@@ -269,8 +346,8 @@ class _$_Initial implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() inProgress,
-    required TResult Function(List<Comment> comments) dataRecevied,
-    required TResult Function() failure,
+    required TResult Function(List<Comment> comments) commentsReceived,
+    required TResult Function(dynamic exception) failure,
   }) {
     return initial();
   }
@@ -280,8 +357,8 @@ class _$_Initial implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? inProgress,
-    TResult Function(List<Comment> comments)? dataRecevied,
-    TResult Function()? failure,
+    TResult Function(List<Comment> comments)? commentsReceived,
+    TResult Function(dynamic exception)? failure,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -295,7 +372,7 @@ class _$_Initial implements _Initial {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_InProgress value) inProgress,
-    required TResult Function(_DataReceived value) dataRecevied,
+    required TResult Function(_CommentsReceived value) commentsReceived,
     required TResult Function(_Failure value) failure,
   }) {
     return initial(this);
@@ -306,7 +383,7 @@ class _$_Initial implements _Initial {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_InProgress value)? inProgress,
-    TResult Function(_DataReceived value)? dataRecevied,
+    TResult Function(_CommentsReceived value)? commentsReceived,
     TResult Function(_Failure value)? failure,
     required TResult orElse(),
   }) {
@@ -362,8 +439,8 @@ class _$_InProgress implements _InProgress {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() inProgress,
-    required TResult Function(List<Comment> comments) dataRecevied,
-    required TResult Function() failure,
+    required TResult Function(List<Comment> comments) commentsReceived,
+    required TResult Function(dynamic exception) failure,
   }) {
     return inProgress();
   }
@@ -373,8 +450,8 @@ class _$_InProgress implements _InProgress {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? inProgress,
-    TResult Function(List<Comment> comments)? dataRecevied,
-    TResult Function()? failure,
+    TResult Function(List<Comment> comments)? commentsReceived,
+    TResult Function(dynamic exception)? failure,
     required TResult orElse(),
   }) {
     if (inProgress != null) {
@@ -388,7 +465,7 @@ class _$_InProgress implements _InProgress {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_InProgress value) inProgress,
-    required TResult Function(_DataReceived value) dataRecevied,
+    required TResult Function(_CommentsReceived value) commentsReceived,
     required TResult Function(_Failure value) failure,
   }) {
     return inProgress(this);
@@ -399,7 +476,7 @@ class _$_InProgress implements _InProgress {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_InProgress value)? inProgress,
-    TResult Function(_DataReceived value)? dataRecevied,
+    TResult Function(_CommentsReceived value)? commentsReceived,
     TResult Function(_Failure value)? failure,
     required TResult orElse(),
   }) {
@@ -415,29 +492,29 @@ abstract class _InProgress implements CommentsState {
 }
 
 /// @nodoc
-abstract class _$DataReceivedCopyWith<$Res> {
-  factory _$DataReceivedCopyWith(
-          _DataReceived value, $Res Function(_DataReceived) then) =
-      __$DataReceivedCopyWithImpl<$Res>;
+abstract class _$CommentsReceivedCopyWith<$Res> {
+  factory _$CommentsReceivedCopyWith(
+          _CommentsReceived value, $Res Function(_CommentsReceived) then) =
+      __$CommentsReceivedCopyWithImpl<$Res>;
   $Res call({List<Comment> comments});
 }
 
 /// @nodoc
-class __$DataReceivedCopyWithImpl<$Res>
+class __$CommentsReceivedCopyWithImpl<$Res>
     extends _$CommentsStateCopyWithImpl<$Res>
-    implements _$DataReceivedCopyWith<$Res> {
-  __$DataReceivedCopyWithImpl(
-      _DataReceived _value, $Res Function(_DataReceived) _then)
-      : super(_value, (v) => _then(v as _DataReceived));
+    implements _$CommentsReceivedCopyWith<$Res> {
+  __$CommentsReceivedCopyWithImpl(
+      _CommentsReceived _value, $Res Function(_CommentsReceived) _then)
+      : super(_value, (v) => _then(v as _CommentsReceived));
 
   @override
-  _DataReceived get _value => super._value as _DataReceived;
+  _CommentsReceived get _value => super._value as _CommentsReceived;
 
   @override
   $Res call({
     Object? comments = freezed,
   }) {
-    return _then(_DataReceived(
+    return _then(_CommentsReceived(
       comments == freezed
           ? _value.comments
           : comments // ignore: cast_nullable_to_non_nullable
@@ -448,21 +525,21 @@ class __$DataReceivedCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_DataReceived implements _DataReceived {
-  const _$_DataReceived(this.comments);
+class _$_CommentsReceived implements _CommentsReceived {
+  const _$_CommentsReceived(this.comments);
 
   @override
   final List<Comment> comments;
 
   @override
   String toString() {
-    return 'CommentsState.dataRecevied(comments: $comments)';
+    return 'CommentsState.commentsReceived(comments: $comments)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _DataReceived &&
+        (other is _CommentsReceived &&
             (identical(other.comments, comments) ||
                 const DeepCollectionEquality()
                     .equals(other.comments, comments)));
@@ -474,18 +551,18 @@ class _$_DataReceived implements _DataReceived {
 
   @JsonKey(ignore: true)
   @override
-  _$DataReceivedCopyWith<_DataReceived> get copyWith =>
-      __$DataReceivedCopyWithImpl<_DataReceived>(this, _$identity);
+  _$CommentsReceivedCopyWith<_CommentsReceived> get copyWith =>
+      __$CommentsReceivedCopyWithImpl<_CommentsReceived>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() inProgress,
-    required TResult Function(List<Comment> comments) dataRecevied,
-    required TResult Function() failure,
+    required TResult Function(List<Comment> comments) commentsReceived,
+    required TResult Function(dynamic exception) failure,
   }) {
-    return dataRecevied(comments);
+    return commentsReceived(comments);
   }
 
   @override
@@ -493,12 +570,12 @@ class _$_DataReceived implements _DataReceived {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? inProgress,
-    TResult Function(List<Comment> comments)? dataRecevied,
-    TResult Function()? failure,
+    TResult Function(List<Comment> comments)? commentsReceived,
+    TResult Function(dynamic exception)? failure,
     required TResult orElse(),
   }) {
-    if (dataRecevied != null) {
-      return dataRecevied(comments);
+    if (commentsReceived != null) {
+      return commentsReceived(comments);
     }
     return orElse();
   }
@@ -508,10 +585,10 @@ class _$_DataReceived implements _DataReceived {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_InProgress value) inProgress,
-    required TResult Function(_DataReceived value) dataRecevied,
+    required TResult Function(_CommentsReceived value) commentsReceived,
     required TResult Function(_Failure value) failure,
   }) {
-    return dataRecevied(this);
+    return commentsReceived(this);
   }
 
   @override
@@ -519,23 +596,23 @@ class _$_DataReceived implements _DataReceived {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_InProgress value)? inProgress,
-    TResult Function(_DataReceived value)? dataRecevied,
+    TResult Function(_CommentsReceived value)? commentsReceived,
     TResult Function(_Failure value)? failure,
     required TResult orElse(),
   }) {
-    if (dataRecevied != null) {
-      return dataRecevied(this);
+    if (commentsReceived != null) {
+      return commentsReceived(this);
     }
     return orElse();
   }
 }
 
-abstract class _DataReceived implements CommentsState {
-  const factory _DataReceived(List<Comment> comments) = _$_DataReceived;
+abstract class _CommentsReceived implements CommentsState {
+  const factory _CommentsReceived(List<Comment> comments) = _$_CommentsReceived;
 
   List<Comment> get comments => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  _$DataReceivedCopyWith<_DataReceived> get copyWith =>
+  _$CommentsReceivedCopyWith<_CommentsReceived> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -543,6 +620,7 @@ abstract class _DataReceived implements CommentsState {
 abstract class _$FailureCopyWith<$Res> {
   factory _$FailureCopyWith(_Failure value, $Res Function(_Failure) then) =
       __$FailureCopyWithImpl<$Res>;
+  $Res call({dynamic exception});
 }
 
 /// @nodoc
@@ -553,35 +631,60 @@ class __$FailureCopyWithImpl<$Res> extends _$CommentsStateCopyWithImpl<$Res>
 
   @override
   _Failure get _value => super._value as _Failure;
+
+  @override
+  $Res call({
+    Object? exception = freezed,
+  }) {
+    return _then(_Failure(
+      exception == freezed
+          ? _value.exception
+          : exception // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$_Failure implements _Failure {
-  const _$_Failure();
+  const _$_Failure(this.exception);
+
+  @override
+  final dynamic exception;
 
   @override
   String toString() {
-    return 'CommentsState.failure()';
+    return 'CommentsState.failure(exception: $exception)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _Failure);
+    return identical(this, other) ||
+        (other is _Failure &&
+            (identical(other.exception, exception) ||
+                const DeepCollectionEquality()
+                    .equals(other.exception, exception)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(exception);
+
+  @JsonKey(ignore: true)
+  @override
+  _$FailureCopyWith<_Failure> get copyWith =>
+      __$FailureCopyWithImpl<_Failure>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() inProgress,
-    required TResult Function(List<Comment> comments) dataRecevied,
-    required TResult Function() failure,
+    required TResult Function(List<Comment> comments) commentsReceived,
+    required TResult Function(dynamic exception) failure,
   }) {
-    return failure();
+    return failure(exception);
   }
 
   @override
@@ -589,12 +692,12 @@ class _$_Failure implements _Failure {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? inProgress,
-    TResult Function(List<Comment> comments)? dataRecevied,
-    TResult Function()? failure,
+    TResult Function(List<Comment> comments)? commentsReceived,
+    TResult Function(dynamic exception)? failure,
     required TResult orElse(),
   }) {
     if (failure != null) {
-      return failure();
+      return failure(exception);
     }
     return orElse();
   }
@@ -604,7 +707,7 @@ class _$_Failure implements _Failure {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_InProgress value) inProgress,
-    required TResult Function(_DataReceived value) dataRecevied,
+    required TResult Function(_CommentsReceived value) commentsReceived,
     required TResult Function(_Failure value) failure,
   }) {
     return failure(this);
@@ -615,7 +718,7 @@ class _$_Failure implements _Failure {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_InProgress value)? inProgress,
-    TResult Function(_DataReceived value)? dataRecevied,
+    TResult Function(_CommentsReceived value)? commentsReceived,
     TResult Function(_Failure value)? failure,
     required TResult orElse(),
   }) {
@@ -627,5 +730,10 @@ class _$_Failure implements _Failure {
 }
 
 abstract class _Failure implements CommentsState {
-  const factory _Failure() = _$_Failure;
+  const factory _Failure(dynamic exception) = _$_Failure;
+
+  dynamic get exception => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$FailureCopyWith<_Failure> get copyWith =>
+      throw _privateConstructorUsedError;
 }

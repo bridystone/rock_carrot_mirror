@@ -21,35 +21,29 @@ class _$RockTearOff {
   const _$RockTearOff();
 
   _Rock call(
-      @JsonKey(name: 'gipfel_ID') int gipfelId,
-      @JsonKey(name: 'gipfelnr') String gipfelNr,
-      @JsonKey(name: 'gipfelname_d') String gipfelName,
-      @JsonKey(name: 'gipfelname_cz') String gipfelNameCZ,
-      @JsonKey(name: 'status') String gipfelStatus,
-      @JsonKey(name: 'typ') String gipfelTyp,
-      @JsonKey(name: 'vgrd') String vgrd,
-      @JsonKey(name: 'ngrd') String ngrd,
-      @JsonKey(name: 'posfehler') String posfehler,
-      @JsonKey(name: 'schartenhoehe') String schartenhoehe,
-      @JsonKey(name: 'talhoehe') String talhoehe,
-      @JsonKey(name: 'sektorid') int sektorid,
-      @JsonKey(name: 'wege_count') int childCount,
+      @JsonKey(name: 'gipfel_ID') int id,
+      @DoubleConverter() @JsonKey(name: 'gipfelnr') double? nr,
+      @JsonKey(name: 'gipfelname_d') String name,
+      @JsonKey(name: 'gipfelname_cz') String secondLanguageName,
+      @RockStateConverter() @JsonKey(name: 'status') RockState state,
+      @RockTypeConverter() @JsonKey(name: 'typ') RockType type,
+      @DoubleConverter() @JsonKey(name: 'vgrd') double? vgrd,
+      @DoubleConverter() @JsonKey(name: 'ngrd') double? ngrd,
+      @IntConverter() @JsonKey(name: 'schartenhoehe') int? upperHeight,
+      @IntConverter() @JsonKey(name: 'talhoehe') int? lowerHeight,
       @JsonKey(name: 'komment_count') int commentCount,
       @JsonKey(name: 'insert_timestamp') DateTime lastUpdated) {
     return _Rock(
-      gipfelId,
-      gipfelNr,
-      gipfelName,
-      gipfelNameCZ,
-      gipfelStatus,
-      gipfelTyp,
+      id,
+      nr,
+      name,
+      secondLanguageName,
+      state,
+      type,
       vgrd,
       ngrd,
-      posfehler,
-      schartenhoehe,
-      talhoehe,
-      sektorid,
-      childCount,
+      upperHeight,
+      lowerHeight,
       commentCount,
       lastUpdated,
     );
@@ -66,31 +60,35 @@ const $Rock = _$RockTearOff();
 /// @nodoc
 mixin _$Rock {
   @JsonKey(name: 'gipfel_ID')
-  int get gipfelId => throw _privateConstructorUsedError;
+  int get id => throw _privateConstructorUsedError;
+  @DoubleConverter()
   @JsonKey(name: 'gipfelnr')
-  String get gipfelNr => throw _privateConstructorUsedError;
+  double? get nr => throw _privateConstructorUsedError;
   @JsonKey(name: 'gipfelname_d')
-  String get gipfelName => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
   @JsonKey(name: 'gipfelname_cz')
-  String get gipfelNameCZ => throw _privateConstructorUsedError;
+  String get secondLanguageName => throw _privateConstructorUsedError;
+  @RockStateConverter()
   @JsonKey(name: 'status')
-  String get gipfelStatus => throw _privateConstructorUsedError;
+  RockState get state => throw _privateConstructorUsedError;
+  @RockTypeConverter()
   @JsonKey(name: 'typ')
-  String get gipfelTyp => throw _privateConstructorUsedError;
+  RockType get type => throw _privateConstructorUsedError;
+  @DoubleConverter()
   @JsonKey(name: 'vgrd')
-  String get vgrd => throw _privateConstructorUsedError;
+  double? get vgrd => throw _privateConstructorUsedError;
+  @DoubleConverter()
   @JsonKey(name: 'ngrd')
-  String get ngrd => throw _privateConstructorUsedError;
-  @JsonKey(name: 'posfehler')
-  String get posfehler => throw _privateConstructorUsedError;
+  double? get ngrd =>
+      throw _privateConstructorUsedError; // @JsonKey(name: 'posfehler') int posfehler,
+  @IntConverter()
   @JsonKey(name: 'schartenhoehe')
-  String get schartenhoehe => throw _privateConstructorUsedError;
+  int? get upperHeight => throw _privateConstructorUsedError;
+  @IntConverter()
   @JsonKey(name: 'talhoehe')
-  String get talhoehe => throw _privateConstructorUsedError;
-  @JsonKey(name: 'sektorid')
-  int get sektorid => throw _privateConstructorUsedError;
-  @JsonKey(name: 'wege_count')
-  int get childCount => throw _privateConstructorUsedError;
+  int? get lowerHeight =>
+      throw _privateConstructorUsedError; //@JsonKey(name: 'sektorid') int sektorid,
+//@JsonKey(name: 'wege_count') int childCount,
   @JsonKey(name: 'komment_count')
   int get commentCount => throw _privateConstructorUsedError;
   @JsonKey(name: 'insert_timestamp')
@@ -106,19 +104,16 @@ abstract class $RockCopyWith<$Res> {
   factory $RockCopyWith(Rock value, $Res Function(Rock) then) =
       _$RockCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(name: 'gipfel_ID') int gipfelId,
-      @JsonKey(name: 'gipfelnr') String gipfelNr,
-      @JsonKey(name: 'gipfelname_d') String gipfelName,
-      @JsonKey(name: 'gipfelname_cz') String gipfelNameCZ,
-      @JsonKey(name: 'status') String gipfelStatus,
-      @JsonKey(name: 'typ') String gipfelTyp,
-      @JsonKey(name: 'vgrd') String vgrd,
-      @JsonKey(name: 'ngrd') String ngrd,
-      @JsonKey(name: 'posfehler') String posfehler,
-      @JsonKey(name: 'schartenhoehe') String schartenhoehe,
-      @JsonKey(name: 'talhoehe') String talhoehe,
-      @JsonKey(name: 'sektorid') int sektorid,
-      @JsonKey(name: 'wege_count') int childCount,
+      {@JsonKey(name: 'gipfel_ID') int id,
+      @DoubleConverter() @JsonKey(name: 'gipfelnr') double? nr,
+      @JsonKey(name: 'gipfelname_d') String name,
+      @JsonKey(name: 'gipfelname_cz') String secondLanguageName,
+      @RockStateConverter() @JsonKey(name: 'status') RockState state,
+      @RockTypeConverter() @JsonKey(name: 'typ') RockType type,
+      @DoubleConverter() @JsonKey(name: 'vgrd') double? vgrd,
+      @DoubleConverter() @JsonKey(name: 'ngrd') double? ngrd,
+      @IntConverter() @JsonKey(name: 'schartenhoehe') int? upperHeight,
+      @IntConverter() @JsonKey(name: 'talhoehe') int? lowerHeight,
       @JsonKey(name: 'komment_count') int commentCount,
       @JsonKey(name: 'insert_timestamp') DateTime lastUpdated});
 }
@@ -133,75 +128,60 @@ class _$RockCopyWithImpl<$Res> implements $RockCopyWith<$Res> {
 
   @override
   $Res call({
-    Object? gipfelId = freezed,
-    Object? gipfelNr = freezed,
-    Object? gipfelName = freezed,
-    Object? gipfelNameCZ = freezed,
-    Object? gipfelStatus = freezed,
-    Object? gipfelTyp = freezed,
+    Object? id = freezed,
+    Object? nr = freezed,
+    Object? name = freezed,
+    Object? secondLanguageName = freezed,
+    Object? state = freezed,
+    Object? type = freezed,
     Object? vgrd = freezed,
     Object? ngrd = freezed,
-    Object? posfehler = freezed,
-    Object? schartenhoehe = freezed,
-    Object? talhoehe = freezed,
-    Object? sektorid = freezed,
-    Object? childCount = freezed,
+    Object? upperHeight = freezed,
+    Object? lowerHeight = freezed,
     Object? commentCount = freezed,
     Object? lastUpdated = freezed,
   }) {
     return _then(_value.copyWith(
-      gipfelId: gipfelId == freezed
-          ? _value.gipfelId
-          : gipfelId // ignore: cast_nullable_to_non_nullable
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as int,
-      gipfelNr: gipfelNr == freezed
-          ? _value.gipfelNr
-          : gipfelNr // ignore: cast_nullable_to_non_nullable
+      nr: nr == freezed
+          ? _value.nr
+          : nr // ignore: cast_nullable_to_non_nullable
+              as double?,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String,
-      gipfelName: gipfelName == freezed
-          ? _value.gipfelName
-          : gipfelName // ignore: cast_nullable_to_non_nullable
+      secondLanguageName: secondLanguageName == freezed
+          ? _value.secondLanguageName
+          : secondLanguageName // ignore: cast_nullable_to_non_nullable
               as String,
-      gipfelNameCZ: gipfelNameCZ == freezed
-          ? _value.gipfelNameCZ
-          : gipfelNameCZ // ignore: cast_nullable_to_non_nullable
-              as String,
-      gipfelStatus: gipfelStatus == freezed
-          ? _value.gipfelStatus
-          : gipfelStatus // ignore: cast_nullable_to_non_nullable
-              as String,
-      gipfelTyp: gipfelTyp == freezed
-          ? _value.gipfelTyp
-          : gipfelTyp // ignore: cast_nullable_to_non_nullable
-              as String,
+      state: state == freezed
+          ? _value.state
+          : state // ignore: cast_nullable_to_non_nullable
+              as RockState,
+      type: type == freezed
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as RockType,
       vgrd: vgrd == freezed
           ? _value.vgrd
           : vgrd // ignore: cast_nullable_to_non_nullable
-              as String,
+              as double?,
       ngrd: ngrd == freezed
           ? _value.ngrd
           : ngrd // ignore: cast_nullable_to_non_nullable
-              as String,
-      posfehler: posfehler == freezed
-          ? _value.posfehler
-          : posfehler // ignore: cast_nullable_to_non_nullable
-              as String,
-      schartenhoehe: schartenhoehe == freezed
-          ? _value.schartenhoehe
-          : schartenhoehe // ignore: cast_nullable_to_non_nullable
-              as String,
-      talhoehe: talhoehe == freezed
-          ? _value.talhoehe
-          : talhoehe // ignore: cast_nullable_to_non_nullable
-              as String,
-      sektorid: sektorid == freezed
-          ? _value.sektorid
-          : sektorid // ignore: cast_nullable_to_non_nullable
-              as int,
-      childCount: childCount == freezed
-          ? _value.childCount
-          : childCount // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double?,
+      upperHeight: upperHeight == freezed
+          ? _value.upperHeight
+          : upperHeight // ignore: cast_nullable_to_non_nullable
+              as int?,
+      lowerHeight: lowerHeight == freezed
+          ? _value.lowerHeight
+          : lowerHeight // ignore: cast_nullable_to_non_nullable
+              as int?,
       commentCount: commentCount == freezed
           ? _value.commentCount
           : commentCount // ignore: cast_nullable_to_non_nullable
@@ -220,19 +200,16 @@ abstract class _$RockCopyWith<$Res> implements $RockCopyWith<$Res> {
       __$RockCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(name: 'gipfel_ID') int gipfelId,
-      @JsonKey(name: 'gipfelnr') String gipfelNr,
-      @JsonKey(name: 'gipfelname_d') String gipfelName,
-      @JsonKey(name: 'gipfelname_cz') String gipfelNameCZ,
-      @JsonKey(name: 'status') String gipfelStatus,
-      @JsonKey(name: 'typ') String gipfelTyp,
-      @JsonKey(name: 'vgrd') String vgrd,
-      @JsonKey(name: 'ngrd') String ngrd,
-      @JsonKey(name: 'posfehler') String posfehler,
-      @JsonKey(name: 'schartenhoehe') String schartenhoehe,
-      @JsonKey(name: 'talhoehe') String talhoehe,
-      @JsonKey(name: 'sektorid') int sektorid,
-      @JsonKey(name: 'wege_count') int childCount,
+      {@JsonKey(name: 'gipfel_ID') int id,
+      @DoubleConverter() @JsonKey(name: 'gipfelnr') double? nr,
+      @JsonKey(name: 'gipfelname_d') String name,
+      @JsonKey(name: 'gipfelname_cz') String secondLanguageName,
+      @RockStateConverter() @JsonKey(name: 'status') RockState state,
+      @RockTypeConverter() @JsonKey(name: 'typ') RockType type,
+      @DoubleConverter() @JsonKey(name: 'vgrd') double? vgrd,
+      @DoubleConverter() @JsonKey(name: 'ngrd') double? ngrd,
+      @IntConverter() @JsonKey(name: 'schartenhoehe') int? upperHeight,
+      @IntConverter() @JsonKey(name: 'talhoehe') int? lowerHeight,
       @JsonKey(name: 'komment_count') int commentCount,
       @JsonKey(name: 'insert_timestamp') DateTime lastUpdated});
 }
@@ -248,75 +225,60 @@ class __$RockCopyWithImpl<$Res> extends _$RockCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? gipfelId = freezed,
-    Object? gipfelNr = freezed,
-    Object? gipfelName = freezed,
-    Object? gipfelNameCZ = freezed,
-    Object? gipfelStatus = freezed,
-    Object? gipfelTyp = freezed,
+    Object? id = freezed,
+    Object? nr = freezed,
+    Object? name = freezed,
+    Object? secondLanguageName = freezed,
+    Object? state = freezed,
+    Object? type = freezed,
     Object? vgrd = freezed,
     Object? ngrd = freezed,
-    Object? posfehler = freezed,
-    Object? schartenhoehe = freezed,
-    Object? talhoehe = freezed,
-    Object? sektorid = freezed,
-    Object? childCount = freezed,
+    Object? upperHeight = freezed,
+    Object? lowerHeight = freezed,
     Object? commentCount = freezed,
     Object? lastUpdated = freezed,
   }) {
     return _then(_Rock(
-      gipfelId == freezed
-          ? _value.gipfelId
-          : gipfelId // ignore: cast_nullable_to_non_nullable
+      id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as int,
-      gipfelNr == freezed
-          ? _value.gipfelNr
-          : gipfelNr // ignore: cast_nullable_to_non_nullable
+      nr == freezed
+          ? _value.nr
+          : nr // ignore: cast_nullable_to_non_nullable
+              as double?,
+      name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String,
-      gipfelName == freezed
-          ? _value.gipfelName
-          : gipfelName // ignore: cast_nullable_to_non_nullable
+      secondLanguageName == freezed
+          ? _value.secondLanguageName
+          : secondLanguageName // ignore: cast_nullable_to_non_nullable
               as String,
-      gipfelNameCZ == freezed
-          ? _value.gipfelNameCZ
-          : gipfelNameCZ // ignore: cast_nullable_to_non_nullable
-              as String,
-      gipfelStatus == freezed
-          ? _value.gipfelStatus
-          : gipfelStatus // ignore: cast_nullable_to_non_nullable
-              as String,
-      gipfelTyp == freezed
-          ? _value.gipfelTyp
-          : gipfelTyp // ignore: cast_nullable_to_non_nullable
-              as String,
+      state == freezed
+          ? _value.state
+          : state // ignore: cast_nullable_to_non_nullable
+              as RockState,
+      type == freezed
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as RockType,
       vgrd == freezed
           ? _value.vgrd
           : vgrd // ignore: cast_nullable_to_non_nullable
-              as String,
+              as double?,
       ngrd == freezed
           ? _value.ngrd
           : ngrd // ignore: cast_nullable_to_non_nullable
-              as String,
-      posfehler == freezed
-          ? _value.posfehler
-          : posfehler // ignore: cast_nullable_to_non_nullable
-              as String,
-      schartenhoehe == freezed
-          ? _value.schartenhoehe
-          : schartenhoehe // ignore: cast_nullable_to_non_nullable
-              as String,
-      talhoehe == freezed
-          ? _value.talhoehe
-          : talhoehe // ignore: cast_nullable_to_non_nullable
-              as String,
-      sektorid == freezed
-          ? _value.sektorid
-          : sektorid // ignore: cast_nullable_to_non_nullable
-              as int,
-      childCount == freezed
-          ? _value.childCount
-          : childCount // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double?,
+      upperHeight == freezed
+          ? _value.upperHeight
+          : upperHeight // ignore: cast_nullable_to_non_nullable
+              as int?,
+      lowerHeight == freezed
+          ? _value.lowerHeight
+          : lowerHeight // ignore: cast_nullable_to_non_nullable
+              as int?,
       commentCount == freezed
           ? _value.commentCount
           : commentCount // ignore: cast_nullable_to_non_nullable
@@ -331,67 +293,64 @@ class __$RockCopyWithImpl<$Res> extends _$RockCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Rock implements _Rock {
+class _$_Rock extends _Rock {
   _$_Rock(
-      @JsonKey(name: 'gipfel_ID') this.gipfelId,
-      @JsonKey(name: 'gipfelnr') this.gipfelNr,
-      @JsonKey(name: 'gipfelname_d') this.gipfelName,
-      @JsonKey(name: 'gipfelname_cz') this.gipfelNameCZ,
-      @JsonKey(name: 'status') this.gipfelStatus,
-      @JsonKey(name: 'typ') this.gipfelTyp,
-      @JsonKey(name: 'vgrd') this.vgrd,
-      @JsonKey(name: 'ngrd') this.ngrd,
-      @JsonKey(name: 'posfehler') this.posfehler,
-      @JsonKey(name: 'schartenhoehe') this.schartenhoehe,
-      @JsonKey(name: 'talhoehe') this.talhoehe,
-      @JsonKey(name: 'sektorid') this.sektorid,
-      @JsonKey(name: 'wege_count') this.childCount,
+      @JsonKey(name: 'gipfel_ID') this.id,
+      @DoubleConverter() @JsonKey(name: 'gipfelnr') this.nr,
+      @JsonKey(name: 'gipfelname_d') this.name,
+      @JsonKey(name: 'gipfelname_cz') this.secondLanguageName,
+      @RockStateConverter() @JsonKey(name: 'status') this.state,
+      @RockTypeConverter() @JsonKey(name: 'typ') this.type,
+      @DoubleConverter() @JsonKey(name: 'vgrd') this.vgrd,
+      @DoubleConverter() @JsonKey(name: 'ngrd') this.ngrd,
+      @IntConverter() @JsonKey(name: 'schartenhoehe') this.upperHeight,
+      @IntConverter() @JsonKey(name: 'talhoehe') this.lowerHeight,
       @JsonKey(name: 'komment_count') this.commentCount,
-      @JsonKey(name: 'insert_timestamp') this.lastUpdated);
+      @JsonKey(name: 'insert_timestamp') this.lastUpdated)
+      : super._();
 
   factory _$_Rock.fromJson(Map<String, dynamic> json) =>
       _$_$_RockFromJson(json);
 
   @override
   @JsonKey(name: 'gipfel_ID')
-  final int gipfelId;
+  final int id;
   @override
+  @DoubleConverter()
   @JsonKey(name: 'gipfelnr')
-  final String gipfelNr;
+  final double? nr;
   @override
   @JsonKey(name: 'gipfelname_d')
-  final String gipfelName;
+  final String name;
   @override
   @JsonKey(name: 'gipfelname_cz')
-  final String gipfelNameCZ;
+  final String secondLanguageName;
   @override
+  @RockStateConverter()
   @JsonKey(name: 'status')
-  final String gipfelStatus;
+  final RockState state;
   @override
+  @RockTypeConverter()
   @JsonKey(name: 'typ')
-  final String gipfelTyp;
+  final RockType type;
   @override
+  @DoubleConverter()
   @JsonKey(name: 'vgrd')
-  final String vgrd;
+  final double? vgrd;
   @override
+  @DoubleConverter()
   @JsonKey(name: 'ngrd')
-  final String ngrd;
-  @override
-  @JsonKey(name: 'posfehler')
-  final String posfehler;
-  @override
+  final double? ngrd;
+  @override // @JsonKey(name: 'posfehler') int posfehler,
+  @IntConverter()
   @JsonKey(name: 'schartenhoehe')
-  final String schartenhoehe;
+  final int? upperHeight;
   @override
+  @IntConverter()
   @JsonKey(name: 'talhoehe')
-  final String talhoehe;
-  @override
-  @JsonKey(name: 'sektorid')
-  final int sektorid;
-  @override
-  @JsonKey(name: 'wege_count')
-  final int childCount;
-  @override
+  final int? lowerHeight;
+  @override //@JsonKey(name: 'sektorid') int sektorid,
+//@JsonKey(name: 'wege_count') int childCount,
   @JsonKey(name: 'komment_count')
   final int commentCount;
   @override
@@ -400,50 +359,36 @@ class _$_Rock implements _Rock {
 
   @override
   String toString() {
-    return 'Rock(gipfelId: $gipfelId, gipfelNr: $gipfelNr, gipfelName: $gipfelName, gipfelNameCZ: $gipfelNameCZ, gipfelStatus: $gipfelStatus, gipfelTyp: $gipfelTyp, vgrd: $vgrd, ngrd: $ngrd, posfehler: $posfehler, schartenhoehe: $schartenhoehe, talhoehe: $talhoehe, sektorid: $sektorid, childCount: $childCount, commentCount: $commentCount, lastUpdated: $lastUpdated)';
+    return 'Rock(id: $id, nr: $nr, name: $name, secondLanguageName: $secondLanguageName, state: $state, type: $type, vgrd: $vgrd, ngrd: $ngrd, upperHeight: $upperHeight, lowerHeight: $lowerHeight, commentCount: $commentCount, lastUpdated: $lastUpdated)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _Rock &&
-            (identical(other.gipfelId, gipfelId) ||
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.nr, nr) ||
+                const DeepCollectionEquality().equals(other.nr, nr)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.secondLanguageName, secondLanguageName) ||
                 const DeepCollectionEquality()
-                    .equals(other.gipfelId, gipfelId)) &&
-            (identical(other.gipfelNr, gipfelNr) ||
-                const DeepCollectionEquality()
-                    .equals(other.gipfelNr, gipfelNr)) &&
-            (identical(other.gipfelName, gipfelName) ||
-                const DeepCollectionEquality()
-                    .equals(other.gipfelName, gipfelName)) &&
-            (identical(other.gipfelNameCZ, gipfelNameCZ) ||
-                const DeepCollectionEquality()
-                    .equals(other.gipfelNameCZ, gipfelNameCZ)) &&
-            (identical(other.gipfelStatus, gipfelStatus) ||
-                const DeepCollectionEquality()
-                    .equals(other.gipfelStatus, gipfelStatus)) &&
-            (identical(other.gipfelTyp, gipfelTyp) ||
-                const DeepCollectionEquality()
-                    .equals(other.gipfelTyp, gipfelTyp)) &&
+                    .equals(other.secondLanguageName, secondLanguageName)) &&
+            (identical(other.state, state) ||
+                const DeepCollectionEquality().equals(other.state, state)) &&
+            (identical(other.type, type) ||
+                const DeepCollectionEquality().equals(other.type, type)) &&
             (identical(other.vgrd, vgrd) ||
                 const DeepCollectionEquality().equals(other.vgrd, vgrd)) &&
             (identical(other.ngrd, ngrd) ||
                 const DeepCollectionEquality().equals(other.ngrd, ngrd)) &&
-            (identical(other.posfehler, posfehler) ||
+            (identical(other.upperHeight, upperHeight) ||
                 const DeepCollectionEquality()
-                    .equals(other.posfehler, posfehler)) &&
-            (identical(other.schartenhoehe, schartenhoehe) ||
+                    .equals(other.upperHeight, upperHeight)) &&
+            (identical(other.lowerHeight, lowerHeight) ||
                 const DeepCollectionEquality()
-                    .equals(other.schartenhoehe, schartenhoehe)) &&
-            (identical(other.talhoehe, talhoehe) ||
-                const DeepCollectionEquality()
-                    .equals(other.talhoehe, talhoehe)) &&
-            (identical(other.sektorid, sektorid) ||
-                const DeepCollectionEquality()
-                    .equals(other.sektorid, sektorid)) &&
-            (identical(other.childCount, childCount) ||
-                const DeepCollectionEquality()
-                    .equals(other.childCount, childCount)) &&
+                    .equals(other.lowerHeight, lowerHeight)) &&
             (identical(other.commentCount, commentCount) ||
                 const DeepCollectionEquality()
                     .equals(other.commentCount, commentCount)) &&
@@ -455,19 +400,16 @@ class _$_Rock implements _Rock {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(gipfelId) ^
-      const DeepCollectionEquality().hash(gipfelNr) ^
-      const DeepCollectionEquality().hash(gipfelName) ^
-      const DeepCollectionEquality().hash(gipfelNameCZ) ^
-      const DeepCollectionEquality().hash(gipfelStatus) ^
-      const DeepCollectionEquality().hash(gipfelTyp) ^
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(nr) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(secondLanguageName) ^
+      const DeepCollectionEquality().hash(state) ^
+      const DeepCollectionEquality().hash(type) ^
       const DeepCollectionEquality().hash(vgrd) ^
       const DeepCollectionEquality().hash(ngrd) ^
-      const DeepCollectionEquality().hash(posfehler) ^
-      const DeepCollectionEquality().hash(schartenhoehe) ^
-      const DeepCollectionEquality().hash(talhoehe) ^
-      const DeepCollectionEquality().hash(sektorid) ^
-      const DeepCollectionEquality().hash(childCount) ^
+      const DeepCollectionEquality().hash(upperHeight) ^
+      const DeepCollectionEquality().hash(lowerHeight) ^
       const DeepCollectionEquality().hash(commentCount) ^
       const DeepCollectionEquality().hash(lastUpdated);
 
@@ -482,66 +424,63 @@ class _$_Rock implements _Rock {
   }
 }
 
-abstract class _Rock implements Rock {
+abstract class _Rock extends Rock {
   factory _Rock(
-      @JsonKey(name: 'gipfel_ID') int gipfelId,
-      @JsonKey(name: 'gipfelnr') String gipfelNr,
-      @JsonKey(name: 'gipfelname_d') String gipfelName,
-      @JsonKey(name: 'gipfelname_cz') String gipfelNameCZ,
-      @JsonKey(name: 'status') String gipfelStatus,
-      @JsonKey(name: 'typ') String gipfelTyp,
-      @JsonKey(name: 'vgrd') String vgrd,
-      @JsonKey(name: 'ngrd') String ngrd,
-      @JsonKey(name: 'posfehler') String posfehler,
-      @JsonKey(name: 'schartenhoehe') String schartenhoehe,
-      @JsonKey(name: 'talhoehe') String talhoehe,
-      @JsonKey(name: 'sektorid') int sektorid,
-      @JsonKey(name: 'wege_count') int childCount,
+      @JsonKey(name: 'gipfel_ID') int id,
+      @DoubleConverter() @JsonKey(name: 'gipfelnr') double? nr,
+      @JsonKey(name: 'gipfelname_d') String name,
+      @JsonKey(name: 'gipfelname_cz') String secondLanguageName,
+      @RockStateConverter() @JsonKey(name: 'status') RockState state,
+      @RockTypeConverter() @JsonKey(name: 'typ') RockType type,
+      @DoubleConverter() @JsonKey(name: 'vgrd') double? vgrd,
+      @DoubleConverter() @JsonKey(name: 'ngrd') double? ngrd,
+      @IntConverter() @JsonKey(name: 'schartenhoehe') int? upperHeight,
+      @IntConverter() @JsonKey(name: 'talhoehe') int? lowerHeight,
       @JsonKey(name: 'komment_count') int commentCount,
       @JsonKey(name: 'insert_timestamp') DateTime lastUpdated) = _$_Rock;
+  _Rock._() : super._();
 
   factory _Rock.fromJson(Map<String, dynamic> json) = _$_Rock.fromJson;
 
   @override
   @JsonKey(name: 'gipfel_ID')
-  int get gipfelId => throw _privateConstructorUsedError;
+  int get id => throw _privateConstructorUsedError;
   @override
+  @DoubleConverter()
   @JsonKey(name: 'gipfelnr')
-  String get gipfelNr => throw _privateConstructorUsedError;
+  double? get nr => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'gipfelname_d')
-  String get gipfelName => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'gipfelname_cz')
-  String get gipfelNameCZ => throw _privateConstructorUsedError;
+  String get secondLanguageName => throw _privateConstructorUsedError;
   @override
+  @RockStateConverter()
   @JsonKey(name: 'status')
-  String get gipfelStatus => throw _privateConstructorUsedError;
+  RockState get state => throw _privateConstructorUsedError;
   @override
+  @RockTypeConverter()
   @JsonKey(name: 'typ')
-  String get gipfelTyp => throw _privateConstructorUsedError;
+  RockType get type => throw _privateConstructorUsedError;
   @override
+  @DoubleConverter()
   @JsonKey(name: 'vgrd')
-  String get vgrd => throw _privateConstructorUsedError;
+  double? get vgrd => throw _privateConstructorUsedError;
   @override
+  @DoubleConverter()
   @JsonKey(name: 'ngrd')
-  String get ngrd => throw _privateConstructorUsedError;
-  @override
-  @JsonKey(name: 'posfehler')
-  String get posfehler => throw _privateConstructorUsedError;
-  @override
+  double? get ngrd => throw _privateConstructorUsedError;
+  @override // @JsonKey(name: 'posfehler') int posfehler,
+  @IntConverter()
   @JsonKey(name: 'schartenhoehe')
-  String get schartenhoehe => throw _privateConstructorUsedError;
+  int? get upperHeight => throw _privateConstructorUsedError;
   @override
+  @IntConverter()
   @JsonKey(name: 'talhoehe')
-  String get talhoehe => throw _privateConstructorUsedError;
-  @override
-  @JsonKey(name: 'sektorid')
-  int get sektorid => throw _privateConstructorUsedError;
-  @override
-  @JsonKey(name: 'wege_count')
-  int get childCount => throw _privateConstructorUsedError;
-  @override
+  int? get lowerHeight => throw _privateConstructorUsedError;
+  @override //@JsonKey(name: 'sektorid') int sektorid,
+//@JsonKey(name: 'wege_count') int childCount,
   @JsonKey(name: 'komment_count')
   int get commentCount => throw _privateConstructorUsedError;
   @override

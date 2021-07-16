@@ -26,7 +26,7 @@ class SubareasBloc extends Bloc<SubareasEvent, SubareasState> {
   ) async {
     try {
       emit(SubareasState.inProgress());
-      final sqlResults = await SqlHandler().querySubareas(event.area.gebietid);
+      final sqlResults = await SqlHandler().querySubareas(event.area.id);
       final subareas =
           sqlResults.map((sqlRow) => Subarea.fromJson(sqlRow)).toList();
 
@@ -85,12 +85,12 @@ class SubareasBloc extends Bloc<SubareasEvent, SubareasState> {
   Future<int> _updateSubareasInclComments(Area area) async {
     // fetch data from subareas + comments
     // delete old data
-    await SqlHandler().deleteSubareasIncludingComments(area.gebietid);
+    await SqlHandler().deleteSubareasIncludingComments(area.id);
 
     final jsonDataSubareas = Sandstein().fetchJsonFromWeb(
       Sandstein.subareasWebTarget,
       Sandstein.subareasWebQuery,
-      area.gebietid.toString(),
+      area.id.toString(),
     );
     final count = await SqlHandler()
         .insertJsonData(SqlHandler.subareasTablename, jsonDataSubareas);
@@ -98,7 +98,7 @@ class SubareasBloc extends Bloc<SubareasEvent, SubareasState> {
     final jsonDataComments = Sandstein().fetchJsonFromWeb(
       Sandstein.commentsWebTarget,
       Sandstein.commentsWebQuerySubareas,
-      area.gebietid.toString(),
+      area.id.toString(),
     );
 
     // insert new data
@@ -118,7 +118,7 @@ class SubareasBloc extends Bloc<SubareasEvent, SubareasState> {
     // update subareas
     final result = await _updateSubareasInclComments(area);
     // get results from database and iterate through all items
-    final sqlResults = await SqlHandler().querySubareas(area.gebietid);
+    final sqlResults = await SqlHandler().querySubareas(area.id);
     var percentageCounter = sqlResults.length;
 
     // TODO: UPDATE Subitems - static method?!?!
@@ -129,8 +129,6 @@ class SubareasBloc extends Bloc<SubareasEvent, SubareasState> {
         -1,
         '__dummy__',
         '__dummy__',
-        '__dummy__',
-        -1,
         -1,
         DateTime.now(),
       ));
@@ -142,4 +140,9 @@ class SubareasBloc extends Bloc<SubareasEvent, SubareasState> {
     // return result from subareas fetch
     return result;
   }
+
+  Area? get getAreaOrNull => state.maybeWhen(
+        subareasReceived: (area, subareas) => area,
+        orElse: () => null,
+      );
 }

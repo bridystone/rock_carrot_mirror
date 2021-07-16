@@ -22,7 +22,7 @@ class AreasBloc extends Bloc<AreasEvent, AreasState> {
   ) async {
     try {
       emit(AreasState.inProgress());
-      final sqlResults = await SqlHandler().queryAreas(event.country.land);
+      final sqlResults = await SqlHandler().queryAreas(event.country.name);
       final areas = sqlResults.map((sqlRow) => Area.fromJson(sqlRow)).toList();
 
       emit(AreasState.areasReceived(event.country, areas));
@@ -60,10 +60,25 @@ class AreasBloc extends Bloc<AreasEvent, AreasState> {
     var jsonData = Sandstein().fetchJsonFromWeb(
       Sandstein.areasWebTarget,
       Sandstein.areasWebQuery,
-      country.land,
+      country.name,
     );
-    await SqlHandler().deleteAreas(country.land);
+    await SqlHandler().deleteAreas(country.name);
 
     return SqlHandler().insertJsonData(SqlHandler.areasTablename, jsonData);
   }
+
+  Country? get getCountryOrNull => state.maybeWhen(
+        areasReceived: (country, areas) => country,
+        orElse: () => null,
+      );
+
+  /// return state for filitered Bloc
+  bool get isLoading => state is! _AreasReceived;
+
+  /// return state for filitered Bloc
+  bool get isLoaded => state is _AreasReceived;
+
+  /// return countries for FilteredBloc
+  List<Area> get areas =>
+      (state is _AreasReceived) ? (state as _AreasReceived).areas : [];
 }

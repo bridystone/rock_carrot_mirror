@@ -106,7 +106,7 @@ class SqlHandler {
     // json query keys: gebietid or sektorid
     commentsTablename: {
       'komment_ID': 'INT PRIMARY KEY',
-      'userid': 'INT',
+      'userid': 'TEXT', // TEXT because TT user is a String
       'datum': 'TEXT COLLATE NOCASE',
       'adatum': 'TEXT COLLATE NOCASE',
       'wegid': 'INT',

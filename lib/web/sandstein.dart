@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:html_unescape/html_unescape.dart';
 import 'package:rock_carrot/web/web_helper.dart';
 
-class Sandstein with WebHelper {
+class Sandstein {
   static final _singleton = Sandstein._();
   Sandstein._();
 
@@ -65,7 +65,7 @@ class Sandstein with WebHelper {
     // making the request
     final response = await http.get(uri);
     // check if response is valid and refresh items in database
-    if (isResponseValid(response)) {
+    if (WebHelper.isResponseValid(response)) {
       // insert data to DB
       try {
         return json.decode(_cleanString(response.body));

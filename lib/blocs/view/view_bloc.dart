@@ -33,6 +33,23 @@ class ViewBloc extends Bloc<ViewEvent, ViewState> {
     on<_ToSubareas>(_onToSubreas);
     on<_ToRocks>(_onToRocks);
     on<_ToRoutes>(_onToRoutes);
+
+    on<_ToCountriesWithoutReload>((event, emit) => emit(ViewState.countries()));
+    on<_ToAreasWithoutReload>((event, emit) =>
+        areasBloc.getCountryOrNull != null
+            ? emit(ViewState.areas(areasBloc.getCountryOrNull!))
+            : null);
+    on<_ToSubareasWithoutReload>((event, emit) =>
+        subareasBloc.getAreaOrNull != null
+            ? emit(ViewState.subareas(subareasBloc.getAreaOrNull!))
+            : null);
+    on<_ToRocksWithoutReload>((event, emit) =>
+        rocksBloc.getSubareaOrNull != null
+            ? emit(ViewState.rocks(rocksBloc.getSubareaOrNull!))
+            : null);
+    on<_ToRoutesWithoutReload>((event, emit) => routesBloc.getRockOrNull != null
+        ? emit(ViewState.routes(routesBloc.getRockOrNull!))
+        : null);
   }
 
   void _onToCountries(
@@ -47,13 +64,14 @@ class ViewBloc extends Bloc<ViewEvent, ViewState> {
     _ToAreas event,
     Emit<ViewState> emit,
   ) async {
-    if (event.country != null) {
-      areasBloc.add(AreasEvent.requestAreas(event.country!));
-      // on new Area -> invalidate all subitems
+    // on new Area -> invalidate all subitems
+    if (areasBloc.getCountryOrNull != event.country) {
       subareasBloc.add(SubareasEvent.invalidateSubareas());
       rocksBloc.add(RocksEvent.invalidateRocks());
       routesBloc.add(RoutesEvent.invalidateRoutes());
     }
+    areasBloc.add(AreasEvent.requestAreas(event.country));
+
     emit(ViewState.areas(event.country));
   }
 
@@ -61,11 +79,14 @@ class ViewBloc extends Bloc<ViewEvent, ViewState> {
     _ToSubareas event,
     Emit<ViewState> emit,
   ) async {
-    if (event.area != null) {
-      subareasBloc.add(SubareasEvent.requestSubareas(event.area!));
+    // on new Subarea -> invalidate all subitems
+    if (subareasBloc.getAreaOrNull != event.area) {
       rocksBloc.add(RocksEvent.invalidateRocks());
       routesBloc.add(RoutesEvent.invalidateRoutes());
     }
+
+    subareasBloc.add(SubareasEvent.requestSubareas(event.area));
+
     emit(ViewState.subareas(event.area));
   }
 
@@ -73,10 +94,12 @@ class ViewBloc extends Bloc<ViewEvent, ViewState> {
     _ToRocks event,
     Emit<ViewState> emit,
   ) async {
-    if (event.subarea != null) {
-      rocksBloc.add(RocksEvent.requestRocks(event.subarea!));
+    // on new Rock -> invalidate all subitems
+    if (rocksBloc.getSubareaOrNull != event.subarea) {
       routesBloc.add(RoutesEvent.invalidateRoutes());
     }
+    rocksBloc.add(RocksEvent.requestRocks(event.subarea));
+
     emit(ViewState.rocks(event.subarea));
   }
 
@@ -84,9 +107,18 @@ class ViewBloc extends Bloc<ViewEvent, ViewState> {
     _ToRoutes event,
     Emit<ViewState> emit,
   ) async {
-    if (event.rock != null) {
-      routesBloc.add(RoutesEvent.requestRoutes(event.rock!));
-    }
+    routesBloc.add(RoutesEvent.requestRoutes(event.rock));
+
     emit(ViewState.routes(event.rock));
   }
+
+  Country? get getCountryOrNull => areasBloc.getCountryOrNull;
+  Area? get getAreaOrNull => subareasBloc.getAreaOrNull;
+  Subarea? get getSubareaOrNull => rocksBloc.getSubareaOrNull;
+  Rock? get getRockOrNull => routesBloc.getRockOrNull;
+
+  bool get isAreasValid => getCountryOrNull != null;
+  bool get isSubareasValid => getAreaOrNull != null;
+  bool get isRocksValid => getSubareaOrNull != null;
+  bool get isRoutesValid => getRockOrNull != null;
 }

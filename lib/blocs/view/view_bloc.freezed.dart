@@ -20,28 +20,48 @@ class _$ViewEventTearOff {
     return const _ToCountries();
   }
 
-  _ToAreas toAreas(Country? country) {
+  _ToAreas toAreas(Country country) {
     return _ToAreas(
       country,
     );
   }
 
-  _ToSubareas toSubareas(Area? area) {
+  _ToSubareas toSubareas(Area area) {
     return _ToSubareas(
       area,
     );
   }
 
-  _ToRocks toRocks(Subarea? subarea) {
+  _ToRocks toRocks(Subarea subarea) {
     return _ToRocks(
       subarea,
     );
   }
 
-  _ToRoutes toRoutes(Rock? rock) {
+  _ToRoutes toRoutes(Rock rock) {
     return _ToRoutes(
       rock,
     );
+  }
+
+  _ToCountriesWithoutReload toCountriesWithoutReload() {
+    return const _ToCountriesWithoutReload();
+  }
+
+  _ToAreasWithoutReload toAreasWithoutReload() {
+    return const _ToAreasWithoutReload();
+  }
+
+  _ToSubareasWithoutReload toSubareasWithoutReload() {
+    return const _ToSubareasWithoutReload();
+  }
+
+  _ToRocksWithoutReload toRocksWithoutReload() {
+    return const _ToRocksWithoutReload();
+  }
+
+  _ToRoutesWithoutReload toRoutesWithoutReload() {
+    return const _ToRoutesWithoutReload();
   }
 }
 
@@ -53,19 +73,29 @@ mixin _$ViewEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() toCountries,
-    required TResult Function(Country? country) toAreas,
-    required TResult Function(Area? area) toSubareas,
-    required TResult Function(Subarea? subarea) toRocks,
-    required TResult Function(Rock? rock) toRoutes,
+    required TResult Function(Country country) toAreas,
+    required TResult Function(Area area) toSubareas,
+    required TResult Function(Subarea subarea) toRocks,
+    required TResult Function(Rock rock) toRoutes,
+    required TResult Function() toCountriesWithoutReload,
+    required TResult Function() toAreasWithoutReload,
+    required TResult Function() toSubareasWithoutReload,
+    required TResult Function() toRocksWithoutReload,
+    required TResult Function() toRoutesWithoutReload,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? toCountries,
-    TResult Function(Country? country)? toAreas,
-    TResult Function(Area? area)? toSubareas,
-    TResult Function(Subarea? subarea)? toRocks,
-    TResult Function(Rock? rock)? toRoutes,
+    TResult Function(Country country)? toAreas,
+    TResult Function(Area area)? toSubareas,
+    TResult Function(Subarea subarea)? toRocks,
+    TResult Function(Rock rock)? toRoutes,
+    TResult Function()? toCountriesWithoutReload,
+    TResult Function()? toAreasWithoutReload,
+    TResult Function()? toSubareasWithoutReload,
+    TResult Function()? toRocksWithoutReload,
+    TResult Function()? toRoutesWithoutReload,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -76,6 +106,14 @@ mixin _$ViewEvent {
     required TResult Function(_ToSubareas value) toSubareas,
     required TResult Function(_ToRocks value) toRocks,
     required TResult Function(_ToRoutes value) toRoutes,
+    required TResult Function(_ToCountriesWithoutReload value)
+        toCountriesWithoutReload,
+    required TResult Function(_ToAreasWithoutReload value) toAreasWithoutReload,
+    required TResult Function(_ToSubareasWithoutReload value)
+        toSubareasWithoutReload,
+    required TResult Function(_ToRocksWithoutReload value) toRocksWithoutReload,
+    required TResult Function(_ToRoutesWithoutReload value)
+        toRoutesWithoutReload,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -85,6 +123,11 @@ mixin _$ViewEvent {
     TResult Function(_ToSubareas value)? toSubareas,
     TResult Function(_ToRocks value)? toRocks,
     TResult Function(_ToRoutes value)? toRoutes,
+    TResult Function(_ToCountriesWithoutReload value)? toCountriesWithoutReload,
+    TResult Function(_ToAreasWithoutReload value)? toAreasWithoutReload,
+    TResult Function(_ToSubareasWithoutReload value)? toSubareasWithoutReload,
+    TResult Function(_ToRocksWithoutReload value)? toRocksWithoutReload,
+    TResult Function(_ToRoutesWithoutReload value)? toRoutesWithoutReload,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -145,10 +188,15 @@ class _$_ToCountries implements _ToCountries {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() toCountries,
-    required TResult Function(Country? country) toAreas,
-    required TResult Function(Area? area) toSubareas,
-    required TResult Function(Subarea? subarea) toRocks,
-    required TResult Function(Rock? rock) toRoutes,
+    required TResult Function(Country country) toAreas,
+    required TResult Function(Area area) toSubareas,
+    required TResult Function(Subarea subarea) toRocks,
+    required TResult Function(Rock rock) toRoutes,
+    required TResult Function() toCountriesWithoutReload,
+    required TResult Function() toAreasWithoutReload,
+    required TResult Function() toSubareasWithoutReload,
+    required TResult Function() toRocksWithoutReload,
+    required TResult Function() toRoutesWithoutReload,
   }) {
     return toCountries();
   }
@@ -157,10 +205,15 @@ class _$_ToCountries implements _ToCountries {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? toCountries,
-    TResult Function(Country? country)? toAreas,
-    TResult Function(Area? area)? toSubareas,
-    TResult Function(Subarea? subarea)? toRocks,
-    TResult Function(Rock? rock)? toRoutes,
+    TResult Function(Country country)? toAreas,
+    TResult Function(Area area)? toSubareas,
+    TResult Function(Subarea subarea)? toRocks,
+    TResult Function(Rock rock)? toRoutes,
+    TResult Function()? toCountriesWithoutReload,
+    TResult Function()? toAreasWithoutReload,
+    TResult Function()? toSubareasWithoutReload,
+    TResult Function()? toRocksWithoutReload,
+    TResult Function()? toRoutesWithoutReload,
     required TResult orElse(),
   }) {
     if (toCountries != null) {
@@ -177,6 +230,14 @@ class _$_ToCountries implements _ToCountries {
     required TResult Function(_ToSubareas value) toSubareas,
     required TResult Function(_ToRocks value) toRocks,
     required TResult Function(_ToRoutes value) toRoutes,
+    required TResult Function(_ToCountriesWithoutReload value)
+        toCountriesWithoutReload,
+    required TResult Function(_ToAreasWithoutReload value) toAreasWithoutReload,
+    required TResult Function(_ToSubareasWithoutReload value)
+        toSubareasWithoutReload,
+    required TResult Function(_ToRocksWithoutReload value) toRocksWithoutReload,
+    required TResult Function(_ToRoutesWithoutReload value)
+        toRoutesWithoutReload,
   }) {
     return toCountries(this);
   }
@@ -189,6 +250,11 @@ class _$_ToCountries implements _ToCountries {
     TResult Function(_ToSubareas value)? toSubareas,
     TResult Function(_ToRocks value)? toRocks,
     TResult Function(_ToRoutes value)? toRoutes,
+    TResult Function(_ToCountriesWithoutReload value)? toCountriesWithoutReload,
+    TResult Function(_ToAreasWithoutReload value)? toAreasWithoutReload,
+    TResult Function(_ToSubareasWithoutReload value)? toSubareasWithoutReload,
+    TResult Function(_ToRocksWithoutReload value)? toRocksWithoutReload,
+    TResult Function(_ToRoutesWithoutReload value)? toRoutesWithoutReload,
     required TResult orElse(),
   }) {
     if (toCountries != null) {
@@ -206,9 +272,9 @@ abstract class _ToCountries implements ViewEvent {
 abstract class _$ToAreasCopyWith<$Res> {
   factory _$ToAreasCopyWith(_ToAreas value, $Res Function(_ToAreas) then) =
       __$ToAreasCopyWithImpl<$Res>;
-  $Res call({Country? country});
+  $Res call({Country country});
 
-  $CountryCopyWith<$Res>? get country;
+  $CountryCopyWith<$Res> get country;
 }
 
 /// @nodoc
@@ -228,17 +294,13 @@ class __$ToAreasCopyWithImpl<$Res> extends _$ViewEventCopyWithImpl<$Res>
       country == freezed
           ? _value.country
           : country // ignore: cast_nullable_to_non_nullable
-              as Country?,
+              as Country,
     ));
   }
 
   @override
-  $CountryCopyWith<$Res>? get country {
-    if (_value.country == null) {
-      return null;
-    }
-
-    return $CountryCopyWith<$Res>(_value.country!, (value) {
+  $CountryCopyWith<$Res> get country {
+    return $CountryCopyWith<$Res>(_value.country, (value) {
       return _then(_value.copyWith(country: value));
     });
   }
@@ -250,7 +312,7 @@ class _$_ToAreas implements _ToAreas {
   const _$_ToAreas(this.country);
 
   @override
-  final Country? country;
+  final Country country;
 
   @override
   String toString() {
@@ -278,10 +340,15 @@ class _$_ToAreas implements _ToAreas {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() toCountries,
-    required TResult Function(Country? country) toAreas,
-    required TResult Function(Area? area) toSubareas,
-    required TResult Function(Subarea? subarea) toRocks,
-    required TResult Function(Rock? rock) toRoutes,
+    required TResult Function(Country country) toAreas,
+    required TResult Function(Area area) toSubareas,
+    required TResult Function(Subarea subarea) toRocks,
+    required TResult Function(Rock rock) toRoutes,
+    required TResult Function() toCountriesWithoutReload,
+    required TResult Function() toAreasWithoutReload,
+    required TResult Function() toSubareasWithoutReload,
+    required TResult Function() toRocksWithoutReload,
+    required TResult Function() toRoutesWithoutReload,
   }) {
     return toAreas(country);
   }
@@ -290,10 +357,15 @@ class _$_ToAreas implements _ToAreas {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? toCountries,
-    TResult Function(Country? country)? toAreas,
-    TResult Function(Area? area)? toSubareas,
-    TResult Function(Subarea? subarea)? toRocks,
-    TResult Function(Rock? rock)? toRoutes,
+    TResult Function(Country country)? toAreas,
+    TResult Function(Area area)? toSubareas,
+    TResult Function(Subarea subarea)? toRocks,
+    TResult Function(Rock rock)? toRoutes,
+    TResult Function()? toCountriesWithoutReload,
+    TResult Function()? toAreasWithoutReload,
+    TResult Function()? toSubareasWithoutReload,
+    TResult Function()? toRocksWithoutReload,
+    TResult Function()? toRoutesWithoutReload,
     required TResult orElse(),
   }) {
     if (toAreas != null) {
@@ -310,6 +382,14 @@ class _$_ToAreas implements _ToAreas {
     required TResult Function(_ToSubareas value) toSubareas,
     required TResult Function(_ToRocks value) toRocks,
     required TResult Function(_ToRoutes value) toRoutes,
+    required TResult Function(_ToCountriesWithoutReload value)
+        toCountriesWithoutReload,
+    required TResult Function(_ToAreasWithoutReload value) toAreasWithoutReload,
+    required TResult Function(_ToSubareasWithoutReload value)
+        toSubareasWithoutReload,
+    required TResult Function(_ToRocksWithoutReload value) toRocksWithoutReload,
+    required TResult Function(_ToRoutesWithoutReload value)
+        toRoutesWithoutReload,
   }) {
     return toAreas(this);
   }
@@ -322,6 +402,11 @@ class _$_ToAreas implements _ToAreas {
     TResult Function(_ToSubareas value)? toSubareas,
     TResult Function(_ToRocks value)? toRocks,
     TResult Function(_ToRoutes value)? toRoutes,
+    TResult Function(_ToCountriesWithoutReload value)? toCountriesWithoutReload,
+    TResult Function(_ToAreasWithoutReload value)? toAreasWithoutReload,
+    TResult Function(_ToSubareasWithoutReload value)? toSubareasWithoutReload,
+    TResult Function(_ToRocksWithoutReload value)? toRocksWithoutReload,
+    TResult Function(_ToRoutesWithoutReload value)? toRoutesWithoutReload,
     required TResult orElse(),
   }) {
     if (toAreas != null) {
@@ -332,9 +417,9 @@ class _$_ToAreas implements _ToAreas {
 }
 
 abstract class _ToAreas implements ViewEvent {
-  const factory _ToAreas(Country? country) = _$_ToAreas;
+  const factory _ToAreas(Country country) = _$_ToAreas;
 
-  Country? get country => throw _privateConstructorUsedError;
+  Country get country => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$ToAreasCopyWith<_ToAreas> get copyWith =>
       throw _privateConstructorUsedError;
@@ -345,9 +430,9 @@ abstract class _$ToSubareasCopyWith<$Res> {
   factory _$ToSubareasCopyWith(
           _ToSubareas value, $Res Function(_ToSubareas) then) =
       __$ToSubareasCopyWithImpl<$Res>;
-  $Res call({Area? area});
+  $Res call({Area area});
 
-  $AreaCopyWith<$Res>? get area;
+  $AreaCopyWith<$Res> get area;
 }
 
 /// @nodoc
@@ -368,17 +453,13 @@ class __$ToSubareasCopyWithImpl<$Res> extends _$ViewEventCopyWithImpl<$Res>
       area == freezed
           ? _value.area
           : area // ignore: cast_nullable_to_non_nullable
-              as Area?,
+              as Area,
     ));
   }
 
   @override
-  $AreaCopyWith<$Res>? get area {
-    if (_value.area == null) {
-      return null;
-    }
-
-    return $AreaCopyWith<$Res>(_value.area!, (value) {
+  $AreaCopyWith<$Res> get area {
+    return $AreaCopyWith<$Res>(_value.area, (value) {
       return _then(_value.copyWith(area: value));
     });
   }
@@ -390,7 +471,7 @@ class _$_ToSubareas implements _ToSubareas {
   const _$_ToSubareas(this.area);
 
   @override
-  final Area? area;
+  final Area area;
 
   @override
   String toString() {
@@ -418,10 +499,15 @@ class _$_ToSubareas implements _ToSubareas {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() toCountries,
-    required TResult Function(Country? country) toAreas,
-    required TResult Function(Area? area) toSubareas,
-    required TResult Function(Subarea? subarea) toRocks,
-    required TResult Function(Rock? rock) toRoutes,
+    required TResult Function(Country country) toAreas,
+    required TResult Function(Area area) toSubareas,
+    required TResult Function(Subarea subarea) toRocks,
+    required TResult Function(Rock rock) toRoutes,
+    required TResult Function() toCountriesWithoutReload,
+    required TResult Function() toAreasWithoutReload,
+    required TResult Function() toSubareasWithoutReload,
+    required TResult Function() toRocksWithoutReload,
+    required TResult Function() toRoutesWithoutReload,
   }) {
     return toSubareas(area);
   }
@@ -430,10 +516,15 @@ class _$_ToSubareas implements _ToSubareas {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? toCountries,
-    TResult Function(Country? country)? toAreas,
-    TResult Function(Area? area)? toSubareas,
-    TResult Function(Subarea? subarea)? toRocks,
-    TResult Function(Rock? rock)? toRoutes,
+    TResult Function(Country country)? toAreas,
+    TResult Function(Area area)? toSubareas,
+    TResult Function(Subarea subarea)? toRocks,
+    TResult Function(Rock rock)? toRoutes,
+    TResult Function()? toCountriesWithoutReload,
+    TResult Function()? toAreasWithoutReload,
+    TResult Function()? toSubareasWithoutReload,
+    TResult Function()? toRocksWithoutReload,
+    TResult Function()? toRoutesWithoutReload,
     required TResult orElse(),
   }) {
     if (toSubareas != null) {
@@ -450,6 +541,14 @@ class _$_ToSubareas implements _ToSubareas {
     required TResult Function(_ToSubareas value) toSubareas,
     required TResult Function(_ToRocks value) toRocks,
     required TResult Function(_ToRoutes value) toRoutes,
+    required TResult Function(_ToCountriesWithoutReload value)
+        toCountriesWithoutReload,
+    required TResult Function(_ToAreasWithoutReload value) toAreasWithoutReload,
+    required TResult Function(_ToSubareasWithoutReload value)
+        toSubareasWithoutReload,
+    required TResult Function(_ToRocksWithoutReload value) toRocksWithoutReload,
+    required TResult Function(_ToRoutesWithoutReload value)
+        toRoutesWithoutReload,
   }) {
     return toSubareas(this);
   }
@@ -462,6 +561,11 @@ class _$_ToSubareas implements _ToSubareas {
     TResult Function(_ToSubareas value)? toSubareas,
     TResult Function(_ToRocks value)? toRocks,
     TResult Function(_ToRoutes value)? toRoutes,
+    TResult Function(_ToCountriesWithoutReload value)? toCountriesWithoutReload,
+    TResult Function(_ToAreasWithoutReload value)? toAreasWithoutReload,
+    TResult Function(_ToSubareasWithoutReload value)? toSubareasWithoutReload,
+    TResult Function(_ToRocksWithoutReload value)? toRocksWithoutReload,
+    TResult Function(_ToRoutesWithoutReload value)? toRoutesWithoutReload,
     required TResult orElse(),
   }) {
     if (toSubareas != null) {
@@ -472,9 +576,9 @@ class _$_ToSubareas implements _ToSubareas {
 }
 
 abstract class _ToSubareas implements ViewEvent {
-  const factory _ToSubareas(Area? area) = _$_ToSubareas;
+  const factory _ToSubareas(Area area) = _$_ToSubareas;
 
-  Area? get area => throw _privateConstructorUsedError;
+  Area get area => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$ToSubareasCopyWith<_ToSubareas> get copyWith =>
       throw _privateConstructorUsedError;
@@ -484,9 +588,9 @@ abstract class _ToSubareas implements ViewEvent {
 abstract class _$ToRocksCopyWith<$Res> {
   factory _$ToRocksCopyWith(_ToRocks value, $Res Function(_ToRocks) then) =
       __$ToRocksCopyWithImpl<$Res>;
-  $Res call({Subarea? subarea});
+  $Res call({Subarea subarea});
 
-  $SubareaCopyWith<$Res>? get subarea;
+  $SubareaCopyWith<$Res> get subarea;
 }
 
 /// @nodoc
@@ -506,17 +610,13 @@ class __$ToRocksCopyWithImpl<$Res> extends _$ViewEventCopyWithImpl<$Res>
       subarea == freezed
           ? _value.subarea
           : subarea // ignore: cast_nullable_to_non_nullable
-              as Subarea?,
+              as Subarea,
     ));
   }
 
   @override
-  $SubareaCopyWith<$Res>? get subarea {
-    if (_value.subarea == null) {
-      return null;
-    }
-
-    return $SubareaCopyWith<$Res>(_value.subarea!, (value) {
+  $SubareaCopyWith<$Res> get subarea {
+    return $SubareaCopyWith<$Res>(_value.subarea, (value) {
       return _then(_value.copyWith(subarea: value));
     });
   }
@@ -528,7 +628,7 @@ class _$_ToRocks implements _ToRocks {
   const _$_ToRocks(this.subarea);
 
   @override
-  final Subarea? subarea;
+  final Subarea subarea;
 
   @override
   String toString() {
@@ -556,10 +656,15 @@ class _$_ToRocks implements _ToRocks {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() toCountries,
-    required TResult Function(Country? country) toAreas,
-    required TResult Function(Area? area) toSubareas,
-    required TResult Function(Subarea? subarea) toRocks,
-    required TResult Function(Rock? rock) toRoutes,
+    required TResult Function(Country country) toAreas,
+    required TResult Function(Area area) toSubareas,
+    required TResult Function(Subarea subarea) toRocks,
+    required TResult Function(Rock rock) toRoutes,
+    required TResult Function() toCountriesWithoutReload,
+    required TResult Function() toAreasWithoutReload,
+    required TResult Function() toSubareasWithoutReload,
+    required TResult Function() toRocksWithoutReload,
+    required TResult Function() toRoutesWithoutReload,
   }) {
     return toRocks(subarea);
   }
@@ -568,10 +673,15 @@ class _$_ToRocks implements _ToRocks {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? toCountries,
-    TResult Function(Country? country)? toAreas,
-    TResult Function(Area? area)? toSubareas,
-    TResult Function(Subarea? subarea)? toRocks,
-    TResult Function(Rock? rock)? toRoutes,
+    TResult Function(Country country)? toAreas,
+    TResult Function(Area area)? toSubareas,
+    TResult Function(Subarea subarea)? toRocks,
+    TResult Function(Rock rock)? toRoutes,
+    TResult Function()? toCountriesWithoutReload,
+    TResult Function()? toAreasWithoutReload,
+    TResult Function()? toSubareasWithoutReload,
+    TResult Function()? toRocksWithoutReload,
+    TResult Function()? toRoutesWithoutReload,
     required TResult orElse(),
   }) {
     if (toRocks != null) {
@@ -588,6 +698,14 @@ class _$_ToRocks implements _ToRocks {
     required TResult Function(_ToSubareas value) toSubareas,
     required TResult Function(_ToRocks value) toRocks,
     required TResult Function(_ToRoutes value) toRoutes,
+    required TResult Function(_ToCountriesWithoutReload value)
+        toCountriesWithoutReload,
+    required TResult Function(_ToAreasWithoutReload value) toAreasWithoutReload,
+    required TResult Function(_ToSubareasWithoutReload value)
+        toSubareasWithoutReload,
+    required TResult Function(_ToRocksWithoutReload value) toRocksWithoutReload,
+    required TResult Function(_ToRoutesWithoutReload value)
+        toRoutesWithoutReload,
   }) {
     return toRocks(this);
   }
@@ -600,6 +718,11 @@ class _$_ToRocks implements _ToRocks {
     TResult Function(_ToSubareas value)? toSubareas,
     TResult Function(_ToRocks value)? toRocks,
     TResult Function(_ToRoutes value)? toRoutes,
+    TResult Function(_ToCountriesWithoutReload value)? toCountriesWithoutReload,
+    TResult Function(_ToAreasWithoutReload value)? toAreasWithoutReload,
+    TResult Function(_ToSubareasWithoutReload value)? toSubareasWithoutReload,
+    TResult Function(_ToRocksWithoutReload value)? toRocksWithoutReload,
+    TResult Function(_ToRoutesWithoutReload value)? toRoutesWithoutReload,
     required TResult orElse(),
   }) {
     if (toRocks != null) {
@@ -610,9 +733,9 @@ class _$_ToRocks implements _ToRocks {
 }
 
 abstract class _ToRocks implements ViewEvent {
-  const factory _ToRocks(Subarea? subarea) = _$_ToRocks;
+  const factory _ToRocks(Subarea subarea) = _$_ToRocks;
 
-  Subarea? get subarea => throw _privateConstructorUsedError;
+  Subarea get subarea => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$ToRocksCopyWith<_ToRocks> get copyWith =>
       throw _privateConstructorUsedError;
@@ -622,9 +745,9 @@ abstract class _ToRocks implements ViewEvent {
 abstract class _$ToRoutesCopyWith<$Res> {
   factory _$ToRoutesCopyWith(_ToRoutes value, $Res Function(_ToRoutes) then) =
       __$ToRoutesCopyWithImpl<$Res>;
-  $Res call({Rock? rock});
+  $Res call({Rock rock});
 
-  $RockCopyWith<$Res>? get rock;
+  $RockCopyWith<$Res> get rock;
 }
 
 /// @nodoc
@@ -644,17 +767,13 @@ class __$ToRoutesCopyWithImpl<$Res> extends _$ViewEventCopyWithImpl<$Res>
       rock == freezed
           ? _value.rock
           : rock // ignore: cast_nullable_to_non_nullable
-              as Rock?,
+              as Rock,
     ));
   }
 
   @override
-  $RockCopyWith<$Res>? get rock {
-    if (_value.rock == null) {
-      return null;
-    }
-
-    return $RockCopyWith<$Res>(_value.rock!, (value) {
+  $RockCopyWith<$Res> get rock {
+    return $RockCopyWith<$Res>(_value.rock, (value) {
       return _then(_value.copyWith(rock: value));
     });
   }
@@ -666,7 +785,7 @@ class _$_ToRoutes implements _ToRoutes {
   const _$_ToRoutes(this.rock);
 
   @override
-  final Rock? rock;
+  final Rock rock;
 
   @override
   String toString() {
@@ -694,10 +813,15 @@ class _$_ToRoutes implements _ToRoutes {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() toCountries,
-    required TResult Function(Country? country) toAreas,
-    required TResult Function(Area? area) toSubareas,
-    required TResult Function(Subarea? subarea) toRocks,
-    required TResult Function(Rock? rock) toRoutes,
+    required TResult Function(Country country) toAreas,
+    required TResult Function(Area area) toSubareas,
+    required TResult Function(Subarea subarea) toRocks,
+    required TResult Function(Rock rock) toRoutes,
+    required TResult Function() toCountriesWithoutReload,
+    required TResult Function() toAreasWithoutReload,
+    required TResult Function() toSubareasWithoutReload,
+    required TResult Function() toRocksWithoutReload,
+    required TResult Function() toRoutesWithoutReload,
   }) {
     return toRoutes(rock);
   }
@@ -706,10 +830,15 @@ class _$_ToRoutes implements _ToRoutes {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? toCountries,
-    TResult Function(Country? country)? toAreas,
-    TResult Function(Area? area)? toSubareas,
-    TResult Function(Subarea? subarea)? toRocks,
-    TResult Function(Rock? rock)? toRoutes,
+    TResult Function(Country country)? toAreas,
+    TResult Function(Area area)? toSubareas,
+    TResult Function(Subarea subarea)? toRocks,
+    TResult Function(Rock rock)? toRoutes,
+    TResult Function()? toCountriesWithoutReload,
+    TResult Function()? toAreasWithoutReload,
+    TResult Function()? toSubareasWithoutReload,
+    TResult Function()? toRocksWithoutReload,
+    TResult Function()? toRoutesWithoutReload,
     required TResult orElse(),
   }) {
     if (toRoutes != null) {
@@ -726,6 +855,14 @@ class _$_ToRoutes implements _ToRoutes {
     required TResult Function(_ToSubareas value) toSubareas,
     required TResult Function(_ToRocks value) toRocks,
     required TResult Function(_ToRoutes value) toRoutes,
+    required TResult Function(_ToCountriesWithoutReload value)
+        toCountriesWithoutReload,
+    required TResult Function(_ToAreasWithoutReload value) toAreasWithoutReload,
+    required TResult Function(_ToSubareasWithoutReload value)
+        toSubareasWithoutReload,
+    required TResult Function(_ToRocksWithoutReload value) toRocksWithoutReload,
+    required TResult Function(_ToRoutesWithoutReload value)
+        toRoutesWithoutReload,
   }) {
     return toRoutes(this);
   }
@@ -738,6 +875,11 @@ class _$_ToRoutes implements _ToRoutes {
     TResult Function(_ToSubareas value)? toSubareas,
     TResult Function(_ToRocks value)? toRocks,
     TResult Function(_ToRoutes value)? toRoutes,
+    TResult Function(_ToCountriesWithoutReload value)? toCountriesWithoutReload,
+    TResult Function(_ToAreasWithoutReload value)? toAreasWithoutReload,
+    TResult Function(_ToSubareasWithoutReload value)? toSubareasWithoutReload,
+    TResult Function(_ToRocksWithoutReload value)? toRocksWithoutReload,
+    TResult Function(_ToRoutesWithoutReload value)? toRoutesWithoutReload,
     required TResult orElse(),
   }) {
     if (toRoutes != null) {
@@ -748,12 +890,619 @@ class _$_ToRoutes implements _ToRoutes {
 }
 
 abstract class _ToRoutes implements ViewEvent {
-  const factory _ToRoutes(Rock? rock) = _$_ToRoutes;
+  const factory _ToRoutes(Rock rock) = _$_ToRoutes;
 
-  Rock? get rock => throw _privateConstructorUsedError;
+  Rock get rock => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$ToRoutesCopyWith<_ToRoutes> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$ToCountriesWithoutReloadCopyWith<$Res> {
+  factory _$ToCountriesWithoutReloadCopyWith(_ToCountriesWithoutReload value,
+          $Res Function(_ToCountriesWithoutReload) then) =
+      __$ToCountriesWithoutReloadCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$ToCountriesWithoutReloadCopyWithImpl<$Res>
+    extends _$ViewEventCopyWithImpl<$Res>
+    implements _$ToCountriesWithoutReloadCopyWith<$Res> {
+  __$ToCountriesWithoutReloadCopyWithImpl(_ToCountriesWithoutReload _value,
+      $Res Function(_ToCountriesWithoutReload) _then)
+      : super(_value, (v) => _then(v as _ToCountriesWithoutReload));
+
+  @override
+  _ToCountriesWithoutReload get _value =>
+      super._value as _ToCountriesWithoutReload;
+}
+
+/// @nodoc
+
+class _$_ToCountriesWithoutReload implements _ToCountriesWithoutReload {
+  const _$_ToCountriesWithoutReload();
+
+  @override
+  String toString() {
+    return 'ViewEvent.toCountriesWithoutReload()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _ToCountriesWithoutReload);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() toCountries,
+    required TResult Function(Country country) toAreas,
+    required TResult Function(Area area) toSubareas,
+    required TResult Function(Subarea subarea) toRocks,
+    required TResult Function(Rock rock) toRoutes,
+    required TResult Function() toCountriesWithoutReload,
+    required TResult Function() toAreasWithoutReload,
+    required TResult Function() toSubareasWithoutReload,
+    required TResult Function() toRocksWithoutReload,
+    required TResult Function() toRoutesWithoutReload,
+  }) {
+    return toCountriesWithoutReload();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? toCountries,
+    TResult Function(Country country)? toAreas,
+    TResult Function(Area area)? toSubareas,
+    TResult Function(Subarea subarea)? toRocks,
+    TResult Function(Rock rock)? toRoutes,
+    TResult Function()? toCountriesWithoutReload,
+    TResult Function()? toAreasWithoutReload,
+    TResult Function()? toSubareasWithoutReload,
+    TResult Function()? toRocksWithoutReload,
+    TResult Function()? toRoutesWithoutReload,
+    required TResult orElse(),
+  }) {
+    if (toCountriesWithoutReload != null) {
+      return toCountriesWithoutReload();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_ToCountries value) toCountries,
+    required TResult Function(_ToAreas value) toAreas,
+    required TResult Function(_ToSubareas value) toSubareas,
+    required TResult Function(_ToRocks value) toRocks,
+    required TResult Function(_ToRoutes value) toRoutes,
+    required TResult Function(_ToCountriesWithoutReload value)
+        toCountriesWithoutReload,
+    required TResult Function(_ToAreasWithoutReload value) toAreasWithoutReload,
+    required TResult Function(_ToSubareasWithoutReload value)
+        toSubareasWithoutReload,
+    required TResult Function(_ToRocksWithoutReload value) toRocksWithoutReload,
+    required TResult Function(_ToRoutesWithoutReload value)
+        toRoutesWithoutReload,
+  }) {
+    return toCountriesWithoutReload(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_ToCountries value)? toCountries,
+    TResult Function(_ToAreas value)? toAreas,
+    TResult Function(_ToSubareas value)? toSubareas,
+    TResult Function(_ToRocks value)? toRocks,
+    TResult Function(_ToRoutes value)? toRoutes,
+    TResult Function(_ToCountriesWithoutReload value)? toCountriesWithoutReload,
+    TResult Function(_ToAreasWithoutReload value)? toAreasWithoutReload,
+    TResult Function(_ToSubareasWithoutReload value)? toSubareasWithoutReload,
+    TResult Function(_ToRocksWithoutReload value)? toRocksWithoutReload,
+    TResult Function(_ToRoutesWithoutReload value)? toRoutesWithoutReload,
+    required TResult orElse(),
+  }) {
+    if (toCountriesWithoutReload != null) {
+      return toCountriesWithoutReload(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ToCountriesWithoutReload implements ViewEvent {
+  const factory _ToCountriesWithoutReload() = _$_ToCountriesWithoutReload;
+}
+
+/// @nodoc
+abstract class _$ToAreasWithoutReloadCopyWith<$Res> {
+  factory _$ToAreasWithoutReloadCopyWith(_ToAreasWithoutReload value,
+          $Res Function(_ToAreasWithoutReload) then) =
+      __$ToAreasWithoutReloadCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$ToAreasWithoutReloadCopyWithImpl<$Res>
+    extends _$ViewEventCopyWithImpl<$Res>
+    implements _$ToAreasWithoutReloadCopyWith<$Res> {
+  __$ToAreasWithoutReloadCopyWithImpl(
+      _ToAreasWithoutReload _value, $Res Function(_ToAreasWithoutReload) _then)
+      : super(_value, (v) => _then(v as _ToAreasWithoutReload));
+
+  @override
+  _ToAreasWithoutReload get _value => super._value as _ToAreasWithoutReload;
+}
+
+/// @nodoc
+
+class _$_ToAreasWithoutReload implements _ToAreasWithoutReload {
+  const _$_ToAreasWithoutReload();
+
+  @override
+  String toString() {
+    return 'ViewEvent.toAreasWithoutReload()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _ToAreasWithoutReload);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() toCountries,
+    required TResult Function(Country country) toAreas,
+    required TResult Function(Area area) toSubareas,
+    required TResult Function(Subarea subarea) toRocks,
+    required TResult Function(Rock rock) toRoutes,
+    required TResult Function() toCountriesWithoutReload,
+    required TResult Function() toAreasWithoutReload,
+    required TResult Function() toSubareasWithoutReload,
+    required TResult Function() toRocksWithoutReload,
+    required TResult Function() toRoutesWithoutReload,
+  }) {
+    return toAreasWithoutReload();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? toCountries,
+    TResult Function(Country country)? toAreas,
+    TResult Function(Area area)? toSubareas,
+    TResult Function(Subarea subarea)? toRocks,
+    TResult Function(Rock rock)? toRoutes,
+    TResult Function()? toCountriesWithoutReload,
+    TResult Function()? toAreasWithoutReload,
+    TResult Function()? toSubareasWithoutReload,
+    TResult Function()? toRocksWithoutReload,
+    TResult Function()? toRoutesWithoutReload,
+    required TResult orElse(),
+  }) {
+    if (toAreasWithoutReload != null) {
+      return toAreasWithoutReload();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_ToCountries value) toCountries,
+    required TResult Function(_ToAreas value) toAreas,
+    required TResult Function(_ToSubareas value) toSubareas,
+    required TResult Function(_ToRocks value) toRocks,
+    required TResult Function(_ToRoutes value) toRoutes,
+    required TResult Function(_ToCountriesWithoutReload value)
+        toCountriesWithoutReload,
+    required TResult Function(_ToAreasWithoutReload value) toAreasWithoutReload,
+    required TResult Function(_ToSubareasWithoutReload value)
+        toSubareasWithoutReload,
+    required TResult Function(_ToRocksWithoutReload value) toRocksWithoutReload,
+    required TResult Function(_ToRoutesWithoutReload value)
+        toRoutesWithoutReload,
+  }) {
+    return toAreasWithoutReload(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_ToCountries value)? toCountries,
+    TResult Function(_ToAreas value)? toAreas,
+    TResult Function(_ToSubareas value)? toSubareas,
+    TResult Function(_ToRocks value)? toRocks,
+    TResult Function(_ToRoutes value)? toRoutes,
+    TResult Function(_ToCountriesWithoutReload value)? toCountriesWithoutReload,
+    TResult Function(_ToAreasWithoutReload value)? toAreasWithoutReload,
+    TResult Function(_ToSubareasWithoutReload value)? toSubareasWithoutReload,
+    TResult Function(_ToRocksWithoutReload value)? toRocksWithoutReload,
+    TResult Function(_ToRoutesWithoutReload value)? toRoutesWithoutReload,
+    required TResult orElse(),
+  }) {
+    if (toAreasWithoutReload != null) {
+      return toAreasWithoutReload(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ToAreasWithoutReload implements ViewEvent {
+  const factory _ToAreasWithoutReload() = _$_ToAreasWithoutReload;
+}
+
+/// @nodoc
+abstract class _$ToSubareasWithoutReloadCopyWith<$Res> {
+  factory _$ToSubareasWithoutReloadCopyWith(_ToSubareasWithoutReload value,
+          $Res Function(_ToSubareasWithoutReload) then) =
+      __$ToSubareasWithoutReloadCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$ToSubareasWithoutReloadCopyWithImpl<$Res>
+    extends _$ViewEventCopyWithImpl<$Res>
+    implements _$ToSubareasWithoutReloadCopyWith<$Res> {
+  __$ToSubareasWithoutReloadCopyWithImpl(_ToSubareasWithoutReload _value,
+      $Res Function(_ToSubareasWithoutReload) _then)
+      : super(_value, (v) => _then(v as _ToSubareasWithoutReload));
+
+  @override
+  _ToSubareasWithoutReload get _value =>
+      super._value as _ToSubareasWithoutReload;
+}
+
+/// @nodoc
+
+class _$_ToSubareasWithoutReload implements _ToSubareasWithoutReload {
+  const _$_ToSubareasWithoutReload();
+
+  @override
+  String toString() {
+    return 'ViewEvent.toSubareasWithoutReload()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _ToSubareasWithoutReload);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() toCountries,
+    required TResult Function(Country country) toAreas,
+    required TResult Function(Area area) toSubareas,
+    required TResult Function(Subarea subarea) toRocks,
+    required TResult Function(Rock rock) toRoutes,
+    required TResult Function() toCountriesWithoutReload,
+    required TResult Function() toAreasWithoutReload,
+    required TResult Function() toSubareasWithoutReload,
+    required TResult Function() toRocksWithoutReload,
+    required TResult Function() toRoutesWithoutReload,
+  }) {
+    return toSubareasWithoutReload();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? toCountries,
+    TResult Function(Country country)? toAreas,
+    TResult Function(Area area)? toSubareas,
+    TResult Function(Subarea subarea)? toRocks,
+    TResult Function(Rock rock)? toRoutes,
+    TResult Function()? toCountriesWithoutReload,
+    TResult Function()? toAreasWithoutReload,
+    TResult Function()? toSubareasWithoutReload,
+    TResult Function()? toRocksWithoutReload,
+    TResult Function()? toRoutesWithoutReload,
+    required TResult orElse(),
+  }) {
+    if (toSubareasWithoutReload != null) {
+      return toSubareasWithoutReload();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_ToCountries value) toCountries,
+    required TResult Function(_ToAreas value) toAreas,
+    required TResult Function(_ToSubareas value) toSubareas,
+    required TResult Function(_ToRocks value) toRocks,
+    required TResult Function(_ToRoutes value) toRoutes,
+    required TResult Function(_ToCountriesWithoutReload value)
+        toCountriesWithoutReload,
+    required TResult Function(_ToAreasWithoutReload value) toAreasWithoutReload,
+    required TResult Function(_ToSubareasWithoutReload value)
+        toSubareasWithoutReload,
+    required TResult Function(_ToRocksWithoutReload value) toRocksWithoutReload,
+    required TResult Function(_ToRoutesWithoutReload value)
+        toRoutesWithoutReload,
+  }) {
+    return toSubareasWithoutReload(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_ToCountries value)? toCountries,
+    TResult Function(_ToAreas value)? toAreas,
+    TResult Function(_ToSubareas value)? toSubareas,
+    TResult Function(_ToRocks value)? toRocks,
+    TResult Function(_ToRoutes value)? toRoutes,
+    TResult Function(_ToCountriesWithoutReload value)? toCountriesWithoutReload,
+    TResult Function(_ToAreasWithoutReload value)? toAreasWithoutReload,
+    TResult Function(_ToSubareasWithoutReload value)? toSubareasWithoutReload,
+    TResult Function(_ToRocksWithoutReload value)? toRocksWithoutReload,
+    TResult Function(_ToRoutesWithoutReload value)? toRoutesWithoutReload,
+    required TResult orElse(),
+  }) {
+    if (toSubareasWithoutReload != null) {
+      return toSubareasWithoutReload(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ToSubareasWithoutReload implements ViewEvent {
+  const factory _ToSubareasWithoutReload() = _$_ToSubareasWithoutReload;
+}
+
+/// @nodoc
+abstract class _$ToRocksWithoutReloadCopyWith<$Res> {
+  factory _$ToRocksWithoutReloadCopyWith(_ToRocksWithoutReload value,
+          $Res Function(_ToRocksWithoutReload) then) =
+      __$ToRocksWithoutReloadCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$ToRocksWithoutReloadCopyWithImpl<$Res>
+    extends _$ViewEventCopyWithImpl<$Res>
+    implements _$ToRocksWithoutReloadCopyWith<$Res> {
+  __$ToRocksWithoutReloadCopyWithImpl(
+      _ToRocksWithoutReload _value, $Res Function(_ToRocksWithoutReload) _then)
+      : super(_value, (v) => _then(v as _ToRocksWithoutReload));
+
+  @override
+  _ToRocksWithoutReload get _value => super._value as _ToRocksWithoutReload;
+}
+
+/// @nodoc
+
+class _$_ToRocksWithoutReload implements _ToRocksWithoutReload {
+  const _$_ToRocksWithoutReload();
+
+  @override
+  String toString() {
+    return 'ViewEvent.toRocksWithoutReload()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _ToRocksWithoutReload);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() toCountries,
+    required TResult Function(Country country) toAreas,
+    required TResult Function(Area area) toSubareas,
+    required TResult Function(Subarea subarea) toRocks,
+    required TResult Function(Rock rock) toRoutes,
+    required TResult Function() toCountriesWithoutReload,
+    required TResult Function() toAreasWithoutReload,
+    required TResult Function() toSubareasWithoutReload,
+    required TResult Function() toRocksWithoutReload,
+    required TResult Function() toRoutesWithoutReload,
+  }) {
+    return toRocksWithoutReload();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? toCountries,
+    TResult Function(Country country)? toAreas,
+    TResult Function(Area area)? toSubareas,
+    TResult Function(Subarea subarea)? toRocks,
+    TResult Function(Rock rock)? toRoutes,
+    TResult Function()? toCountriesWithoutReload,
+    TResult Function()? toAreasWithoutReload,
+    TResult Function()? toSubareasWithoutReload,
+    TResult Function()? toRocksWithoutReload,
+    TResult Function()? toRoutesWithoutReload,
+    required TResult orElse(),
+  }) {
+    if (toRocksWithoutReload != null) {
+      return toRocksWithoutReload();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_ToCountries value) toCountries,
+    required TResult Function(_ToAreas value) toAreas,
+    required TResult Function(_ToSubareas value) toSubareas,
+    required TResult Function(_ToRocks value) toRocks,
+    required TResult Function(_ToRoutes value) toRoutes,
+    required TResult Function(_ToCountriesWithoutReload value)
+        toCountriesWithoutReload,
+    required TResult Function(_ToAreasWithoutReload value) toAreasWithoutReload,
+    required TResult Function(_ToSubareasWithoutReload value)
+        toSubareasWithoutReload,
+    required TResult Function(_ToRocksWithoutReload value) toRocksWithoutReload,
+    required TResult Function(_ToRoutesWithoutReload value)
+        toRoutesWithoutReload,
+  }) {
+    return toRocksWithoutReload(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_ToCountries value)? toCountries,
+    TResult Function(_ToAreas value)? toAreas,
+    TResult Function(_ToSubareas value)? toSubareas,
+    TResult Function(_ToRocks value)? toRocks,
+    TResult Function(_ToRoutes value)? toRoutes,
+    TResult Function(_ToCountriesWithoutReload value)? toCountriesWithoutReload,
+    TResult Function(_ToAreasWithoutReload value)? toAreasWithoutReload,
+    TResult Function(_ToSubareasWithoutReload value)? toSubareasWithoutReload,
+    TResult Function(_ToRocksWithoutReload value)? toRocksWithoutReload,
+    TResult Function(_ToRoutesWithoutReload value)? toRoutesWithoutReload,
+    required TResult orElse(),
+  }) {
+    if (toRocksWithoutReload != null) {
+      return toRocksWithoutReload(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ToRocksWithoutReload implements ViewEvent {
+  const factory _ToRocksWithoutReload() = _$_ToRocksWithoutReload;
+}
+
+/// @nodoc
+abstract class _$ToRoutesWithoutReloadCopyWith<$Res> {
+  factory _$ToRoutesWithoutReloadCopyWith(_ToRoutesWithoutReload value,
+          $Res Function(_ToRoutesWithoutReload) then) =
+      __$ToRoutesWithoutReloadCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$ToRoutesWithoutReloadCopyWithImpl<$Res>
+    extends _$ViewEventCopyWithImpl<$Res>
+    implements _$ToRoutesWithoutReloadCopyWith<$Res> {
+  __$ToRoutesWithoutReloadCopyWithImpl(_ToRoutesWithoutReload _value,
+      $Res Function(_ToRoutesWithoutReload) _then)
+      : super(_value, (v) => _then(v as _ToRoutesWithoutReload));
+
+  @override
+  _ToRoutesWithoutReload get _value => super._value as _ToRoutesWithoutReload;
+}
+
+/// @nodoc
+
+class _$_ToRoutesWithoutReload implements _ToRoutesWithoutReload {
+  const _$_ToRoutesWithoutReload();
+
+  @override
+  String toString() {
+    return 'ViewEvent.toRoutesWithoutReload()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _ToRoutesWithoutReload);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() toCountries,
+    required TResult Function(Country country) toAreas,
+    required TResult Function(Area area) toSubareas,
+    required TResult Function(Subarea subarea) toRocks,
+    required TResult Function(Rock rock) toRoutes,
+    required TResult Function() toCountriesWithoutReload,
+    required TResult Function() toAreasWithoutReload,
+    required TResult Function() toSubareasWithoutReload,
+    required TResult Function() toRocksWithoutReload,
+    required TResult Function() toRoutesWithoutReload,
+  }) {
+    return toRoutesWithoutReload();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? toCountries,
+    TResult Function(Country country)? toAreas,
+    TResult Function(Area area)? toSubareas,
+    TResult Function(Subarea subarea)? toRocks,
+    TResult Function(Rock rock)? toRoutes,
+    TResult Function()? toCountriesWithoutReload,
+    TResult Function()? toAreasWithoutReload,
+    TResult Function()? toSubareasWithoutReload,
+    TResult Function()? toRocksWithoutReload,
+    TResult Function()? toRoutesWithoutReload,
+    required TResult orElse(),
+  }) {
+    if (toRoutesWithoutReload != null) {
+      return toRoutesWithoutReload();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_ToCountries value) toCountries,
+    required TResult Function(_ToAreas value) toAreas,
+    required TResult Function(_ToSubareas value) toSubareas,
+    required TResult Function(_ToRocks value) toRocks,
+    required TResult Function(_ToRoutes value) toRoutes,
+    required TResult Function(_ToCountriesWithoutReload value)
+        toCountriesWithoutReload,
+    required TResult Function(_ToAreasWithoutReload value) toAreasWithoutReload,
+    required TResult Function(_ToSubareasWithoutReload value)
+        toSubareasWithoutReload,
+    required TResult Function(_ToRocksWithoutReload value) toRocksWithoutReload,
+    required TResult Function(_ToRoutesWithoutReload value)
+        toRoutesWithoutReload,
+  }) {
+    return toRoutesWithoutReload(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_ToCountries value)? toCountries,
+    TResult Function(_ToAreas value)? toAreas,
+    TResult Function(_ToSubareas value)? toSubareas,
+    TResult Function(_ToRocks value)? toRocks,
+    TResult Function(_ToRoutes value)? toRoutes,
+    TResult Function(_ToCountriesWithoutReload value)? toCountriesWithoutReload,
+    TResult Function(_ToAreasWithoutReload value)? toAreasWithoutReload,
+    TResult Function(_ToSubareasWithoutReload value)? toSubareasWithoutReload,
+    TResult Function(_ToRocksWithoutReload value)? toRocksWithoutReload,
+    TResult Function(_ToRoutesWithoutReload value)? toRoutesWithoutReload,
+    required TResult orElse(),
+  }) {
+    if (toRoutesWithoutReload != null) {
+      return toRoutesWithoutReload(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ToRoutesWithoutReload implements ViewEvent {
+  const factory _ToRoutesWithoutReload() = _$_ToRoutesWithoutReload;
 }
 
 /// @nodoc
@@ -764,25 +1513,25 @@ class _$ViewStateTearOff {
     return const _Countries();
   }
 
-  _Areas areas(Country? country) {
+  _Areas areas(Country country) {
     return _Areas(
       country,
     );
   }
 
-  _Subareas subareas(Area? area) {
+  _Subareas subareas(Area area) {
     return _Subareas(
       area,
     );
   }
 
-  _Rocks rocks(Subarea? subarea) {
+  _Rocks rocks(Subarea subarea) {
     return _Rocks(
       subarea,
     );
   }
 
-  _Routes routes(Rock? rock) {
+  _Routes routes(Rock rock) {
     return _Routes(
       rock,
     );
@@ -797,19 +1546,19 @@ mixin _$ViewState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() countries,
-    required TResult Function(Country? country) areas,
-    required TResult Function(Area? area) subareas,
-    required TResult Function(Subarea? subarea) rocks,
-    required TResult Function(Rock? rock) routes,
+    required TResult Function(Country country) areas,
+    required TResult Function(Area area) subareas,
+    required TResult Function(Subarea subarea) rocks,
+    required TResult Function(Rock rock) routes,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? countries,
-    TResult Function(Country? country)? areas,
-    TResult Function(Area? area)? subareas,
-    TResult Function(Subarea? subarea)? rocks,
-    TResult Function(Rock? rock)? routes,
+    TResult Function(Country country)? areas,
+    TResult Function(Area area)? subareas,
+    TResult Function(Subarea subarea)? rocks,
+    TResult Function(Rock rock)? routes,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -888,10 +1637,10 @@ class _$_Countries implements _Countries {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() countries,
-    required TResult Function(Country? country) areas,
-    required TResult Function(Area? area) subareas,
-    required TResult Function(Subarea? subarea) rocks,
-    required TResult Function(Rock? rock) routes,
+    required TResult Function(Country country) areas,
+    required TResult Function(Area area) subareas,
+    required TResult Function(Subarea subarea) rocks,
+    required TResult Function(Rock rock) routes,
   }) {
     return countries();
   }
@@ -900,10 +1649,10 @@ class _$_Countries implements _Countries {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? countries,
-    TResult Function(Country? country)? areas,
-    TResult Function(Area? area)? subareas,
-    TResult Function(Subarea? subarea)? rocks,
-    TResult Function(Rock? rock)? routes,
+    TResult Function(Country country)? areas,
+    TResult Function(Area area)? subareas,
+    TResult Function(Subarea subarea)? rocks,
+    TResult Function(Rock rock)? routes,
     required TResult orElse(),
   }) {
     if (countries != null) {
@@ -949,9 +1698,9 @@ abstract class _Countries implements ViewState {
 abstract class _$AreasCopyWith<$Res> {
   factory _$AreasCopyWith(_Areas value, $Res Function(_Areas) then) =
       __$AreasCopyWithImpl<$Res>;
-  $Res call({Country? country});
+  $Res call({Country country});
 
-  $CountryCopyWith<$Res>? get country;
+  $CountryCopyWith<$Res> get country;
 }
 
 /// @nodoc
@@ -971,17 +1720,13 @@ class __$AreasCopyWithImpl<$Res> extends _$ViewStateCopyWithImpl<$Res>
       country == freezed
           ? _value.country
           : country // ignore: cast_nullable_to_non_nullable
-              as Country?,
+              as Country,
     ));
   }
 
   @override
-  $CountryCopyWith<$Res>? get country {
-    if (_value.country == null) {
-      return null;
-    }
-
-    return $CountryCopyWith<$Res>(_value.country!, (value) {
+  $CountryCopyWith<$Res> get country {
+    return $CountryCopyWith<$Res>(_value.country, (value) {
       return _then(_value.copyWith(country: value));
     });
   }
@@ -993,7 +1738,7 @@ class _$_Areas implements _Areas {
   const _$_Areas(this.country);
 
   @override
-  final Country? country;
+  final Country country;
 
   @override
   String toString() {
@@ -1021,10 +1766,10 @@ class _$_Areas implements _Areas {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() countries,
-    required TResult Function(Country? country) areas,
-    required TResult Function(Area? area) subareas,
-    required TResult Function(Subarea? subarea) rocks,
-    required TResult Function(Rock? rock) routes,
+    required TResult Function(Country country) areas,
+    required TResult Function(Area area) subareas,
+    required TResult Function(Subarea subarea) rocks,
+    required TResult Function(Rock rock) routes,
   }) {
     return areas(country);
   }
@@ -1033,10 +1778,10 @@ class _$_Areas implements _Areas {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? countries,
-    TResult Function(Country? country)? areas,
-    TResult Function(Area? area)? subareas,
-    TResult Function(Subarea? subarea)? rocks,
-    TResult Function(Rock? rock)? routes,
+    TResult Function(Country country)? areas,
+    TResult Function(Area area)? subareas,
+    TResult Function(Subarea subarea)? rocks,
+    TResult Function(Rock rock)? routes,
     required TResult orElse(),
   }) {
     if (areas != null) {
@@ -1075,9 +1820,9 @@ class _$_Areas implements _Areas {
 }
 
 abstract class _Areas implements ViewState {
-  const factory _Areas(Country? country) = _$_Areas;
+  const factory _Areas(Country country) = _$_Areas;
 
-  Country? get country => throw _privateConstructorUsedError;
+  Country get country => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$AreasCopyWith<_Areas> get copyWith => throw _privateConstructorUsedError;
 }
@@ -1086,9 +1831,9 @@ abstract class _Areas implements ViewState {
 abstract class _$SubareasCopyWith<$Res> {
   factory _$SubareasCopyWith(_Subareas value, $Res Function(_Subareas) then) =
       __$SubareasCopyWithImpl<$Res>;
-  $Res call({Area? area});
+  $Res call({Area area});
 
-  $AreaCopyWith<$Res>? get area;
+  $AreaCopyWith<$Res> get area;
 }
 
 /// @nodoc
@@ -1108,17 +1853,13 @@ class __$SubareasCopyWithImpl<$Res> extends _$ViewStateCopyWithImpl<$Res>
       area == freezed
           ? _value.area
           : area // ignore: cast_nullable_to_non_nullable
-              as Area?,
+              as Area,
     ));
   }
 
   @override
-  $AreaCopyWith<$Res>? get area {
-    if (_value.area == null) {
-      return null;
-    }
-
-    return $AreaCopyWith<$Res>(_value.area!, (value) {
+  $AreaCopyWith<$Res> get area {
+    return $AreaCopyWith<$Res>(_value.area, (value) {
       return _then(_value.copyWith(area: value));
     });
   }
@@ -1130,7 +1871,7 @@ class _$_Subareas implements _Subareas {
   const _$_Subareas(this.area);
 
   @override
-  final Area? area;
+  final Area area;
 
   @override
   String toString() {
@@ -1158,10 +1899,10 @@ class _$_Subareas implements _Subareas {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() countries,
-    required TResult Function(Country? country) areas,
-    required TResult Function(Area? area) subareas,
-    required TResult Function(Subarea? subarea) rocks,
-    required TResult Function(Rock? rock) routes,
+    required TResult Function(Country country) areas,
+    required TResult Function(Area area) subareas,
+    required TResult Function(Subarea subarea) rocks,
+    required TResult Function(Rock rock) routes,
   }) {
     return subareas(area);
   }
@@ -1170,10 +1911,10 @@ class _$_Subareas implements _Subareas {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? countries,
-    TResult Function(Country? country)? areas,
-    TResult Function(Area? area)? subareas,
-    TResult Function(Subarea? subarea)? rocks,
-    TResult Function(Rock? rock)? routes,
+    TResult Function(Country country)? areas,
+    TResult Function(Area area)? subareas,
+    TResult Function(Subarea subarea)? rocks,
+    TResult Function(Rock rock)? routes,
     required TResult orElse(),
   }) {
     if (subareas != null) {
@@ -1212,9 +1953,9 @@ class _$_Subareas implements _Subareas {
 }
 
 abstract class _Subareas implements ViewState {
-  const factory _Subareas(Area? area) = _$_Subareas;
+  const factory _Subareas(Area area) = _$_Subareas;
 
-  Area? get area => throw _privateConstructorUsedError;
+  Area get area => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$SubareasCopyWith<_Subareas> get copyWith =>
       throw _privateConstructorUsedError;
@@ -1224,9 +1965,9 @@ abstract class _Subareas implements ViewState {
 abstract class _$RocksCopyWith<$Res> {
   factory _$RocksCopyWith(_Rocks value, $Res Function(_Rocks) then) =
       __$RocksCopyWithImpl<$Res>;
-  $Res call({Subarea? subarea});
+  $Res call({Subarea subarea});
 
-  $SubareaCopyWith<$Res>? get subarea;
+  $SubareaCopyWith<$Res> get subarea;
 }
 
 /// @nodoc
@@ -1246,17 +1987,13 @@ class __$RocksCopyWithImpl<$Res> extends _$ViewStateCopyWithImpl<$Res>
       subarea == freezed
           ? _value.subarea
           : subarea // ignore: cast_nullable_to_non_nullable
-              as Subarea?,
+              as Subarea,
     ));
   }
 
   @override
-  $SubareaCopyWith<$Res>? get subarea {
-    if (_value.subarea == null) {
-      return null;
-    }
-
-    return $SubareaCopyWith<$Res>(_value.subarea!, (value) {
+  $SubareaCopyWith<$Res> get subarea {
+    return $SubareaCopyWith<$Res>(_value.subarea, (value) {
       return _then(_value.copyWith(subarea: value));
     });
   }
@@ -1268,7 +2005,7 @@ class _$_Rocks implements _Rocks {
   const _$_Rocks(this.subarea);
 
   @override
-  final Subarea? subarea;
+  final Subarea subarea;
 
   @override
   String toString() {
@@ -1296,10 +2033,10 @@ class _$_Rocks implements _Rocks {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() countries,
-    required TResult Function(Country? country) areas,
-    required TResult Function(Area? area) subareas,
-    required TResult Function(Subarea? subarea) rocks,
-    required TResult Function(Rock? rock) routes,
+    required TResult Function(Country country) areas,
+    required TResult Function(Area area) subareas,
+    required TResult Function(Subarea subarea) rocks,
+    required TResult Function(Rock rock) routes,
   }) {
     return rocks(subarea);
   }
@@ -1308,10 +2045,10 @@ class _$_Rocks implements _Rocks {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? countries,
-    TResult Function(Country? country)? areas,
-    TResult Function(Area? area)? subareas,
-    TResult Function(Subarea? subarea)? rocks,
-    TResult Function(Rock? rock)? routes,
+    TResult Function(Country country)? areas,
+    TResult Function(Area area)? subareas,
+    TResult Function(Subarea subarea)? rocks,
+    TResult Function(Rock rock)? routes,
     required TResult orElse(),
   }) {
     if (rocks != null) {
@@ -1350,9 +2087,9 @@ class _$_Rocks implements _Rocks {
 }
 
 abstract class _Rocks implements ViewState {
-  const factory _Rocks(Subarea? subarea) = _$_Rocks;
+  const factory _Rocks(Subarea subarea) = _$_Rocks;
 
-  Subarea? get subarea => throw _privateConstructorUsedError;
+  Subarea get subarea => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$RocksCopyWith<_Rocks> get copyWith => throw _privateConstructorUsedError;
 }
@@ -1361,9 +2098,9 @@ abstract class _Rocks implements ViewState {
 abstract class _$RoutesCopyWith<$Res> {
   factory _$RoutesCopyWith(_Routes value, $Res Function(_Routes) then) =
       __$RoutesCopyWithImpl<$Res>;
-  $Res call({Rock? rock});
+  $Res call({Rock rock});
 
-  $RockCopyWith<$Res>? get rock;
+  $RockCopyWith<$Res> get rock;
 }
 
 /// @nodoc
@@ -1383,17 +2120,13 @@ class __$RoutesCopyWithImpl<$Res> extends _$ViewStateCopyWithImpl<$Res>
       rock == freezed
           ? _value.rock
           : rock // ignore: cast_nullable_to_non_nullable
-              as Rock?,
+              as Rock,
     ));
   }
 
   @override
-  $RockCopyWith<$Res>? get rock {
-    if (_value.rock == null) {
-      return null;
-    }
-
-    return $RockCopyWith<$Res>(_value.rock!, (value) {
+  $RockCopyWith<$Res> get rock {
+    return $RockCopyWith<$Res>(_value.rock, (value) {
       return _then(_value.copyWith(rock: value));
     });
   }
@@ -1405,7 +2138,7 @@ class _$_Routes implements _Routes {
   const _$_Routes(this.rock);
 
   @override
-  final Rock? rock;
+  final Rock rock;
 
   @override
   String toString() {
@@ -1433,10 +2166,10 @@ class _$_Routes implements _Routes {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() countries,
-    required TResult Function(Country? country) areas,
-    required TResult Function(Area? area) subareas,
-    required TResult Function(Subarea? subarea) rocks,
-    required TResult Function(Rock? rock) routes,
+    required TResult Function(Country country) areas,
+    required TResult Function(Area area) subareas,
+    required TResult Function(Subarea subarea) rocks,
+    required TResult Function(Rock rock) routes,
   }) {
     return routes(rock);
   }
@@ -1445,10 +2178,10 @@ class _$_Routes implements _Routes {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? countries,
-    TResult Function(Country? country)? areas,
-    TResult Function(Area? area)? subareas,
-    TResult Function(Subarea? subarea)? rocks,
-    TResult Function(Rock? rock)? routes,
+    TResult Function(Country country)? areas,
+    TResult Function(Area area)? subareas,
+    TResult Function(Subarea subarea)? rocks,
+    TResult Function(Rock rock)? routes,
     required TResult orElse(),
   }) {
     if (routes != null) {
@@ -1487,9 +2220,9 @@ class _$_Routes implements _Routes {
 }
 
 abstract class _Routes implements ViewState {
-  const factory _Routes(Rock? rock) = _$_Routes;
+  const factory _Routes(Rock rock) = _$_Routes;
 
-  Rock? get rock => throw _privateConstructorUsedError;
+  Rock get rock => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$RoutesCopyWith<_Routes> get copyWith => throw _privateConstructorUsedError;
 }

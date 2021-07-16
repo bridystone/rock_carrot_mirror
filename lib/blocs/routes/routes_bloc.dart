@@ -21,7 +21,7 @@ class RoutesBloc extends Bloc<RoutesEvent, RoutesState> {
   ) async {
     try {
       emit(RoutesState.inProgress());
-      final sqlResults = await SqlHandler().queryRoutes(event.rock.gipfelId);
+      final sqlResults = await SqlHandler().queryRoutes(event.rock.id);
       final routes =
           sqlResults.map((sqlRow) => Route.fromJson(sqlRow)).toList();
 
@@ -31,4 +31,9 @@ class RoutesBloc extends Bloc<RoutesEvent, RoutesState> {
       emit(RoutesState.routesReceived(event.rock, []));
     }
   }
+
+  Rock? get getRockOrNull => state.maybeWhen(
+        routesReceived: (rock, routes) => rock,
+        orElse: () => null,
+      );
 }

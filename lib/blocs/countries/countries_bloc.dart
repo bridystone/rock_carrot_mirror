@@ -56,4 +56,15 @@ class CountriesBloc extends Bloc<CountriesEvent, CountriesState> {
     await SqlHandler().deleteCountries();
     return SqlHandler().insertJsonData(SqlHandler.countriesTablename, jsonData);
   }
+
+  /// return state for filitered Bloc
+  bool get isLoading => state is! _CountriesReceived;
+
+  /// return state for filitered Bloc
+  bool get isLoaded => state is _CountriesReceived;
+
+  /// return countries for FilteredBloc
+  List<Country> get countries => (state is _CountriesReceived)
+      ? (state as _CountriesReceived).countries
+      : [];
 }

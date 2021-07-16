@@ -6,13 +6,13 @@ part 'area.g.dart';
 @freezed
 class Area with _$Area {
   factory Area(
-    @JsonKey(name: 'gebiet_ID') int gebietid,
-    @JsonKey(name: 'gebiet') String gebiet,
-    @JsonKey(name: 'land') String land,
-    @JsonKey(name: 'sprache2') String sprache2,
-    @JsonKey(name: 'gdefaultanzeige') String gdefaultanzeige,
-    @JsonKey(name: 'schwskala') String schwskala,
-    @JsonKey(name: 'subarea_count') int childCount,
+    @JsonKey(name: 'gebiet_ID') int id,
+    @JsonKey(name: 'gebiet') String name,
+    //@JsonKey(name: 'land') String land,
+    //@JsonKey(name: 'sprache2') String sprache2,
+    //@JsonKey(name: 'gdefaultanzeige') String gdefaultanzeige,
+    //@JsonKey(name: 'schwskala') String schwskala,
+    //@JsonKey(name: 'subarea_count') int childCount,
     @JsonKey(name: 'komment_count') int commentCount,
     @JsonKey(name: 'insert_timestamp') DateTime lastUpdated,
   ) = _Area;

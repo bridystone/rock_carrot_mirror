@@ -21,21 +21,17 @@ class _$SubareaTearOff {
   const _$SubareaTearOff();
 
   _Subarea call(
-      @JsonKey(name: 'sektor_ID') int sektorid,
-      @JsonKey(name: 'gebietid') int gebietid,
-      @JsonKey(name: 'sektornr') String sektornr,
-      @JsonKey(name: 'sektorname_d') String sektornameD,
-      @JsonKey(name: 'sektorname_cz') String sektornameCZ,
-      @JsonKey(name: 'gipfel_count') int childCount,
+      @JsonKey(name: 'sektor_ID') int id,
+      @DoubleConverter() @JsonKey(name: 'sektornr') double? nr,
+      @JsonKey(name: 'sektorname_d') String name,
+      @JsonKey(name: 'sektorname_cz') String secondLanguageName,
       @JsonKey(name: 'komment_count') int commentCount,
       @JsonKey(name: 'insert_timestamp') DateTime lastUpdated) {
     return _Subarea(
-      sektorid,
-      gebietid,
-      sektornr,
-      sektornameD,
-      sektornameCZ,
-      childCount,
+      id,
+      nr,
+      name,
+      secondLanguageName,
       commentCount,
       lastUpdated,
     );
@@ -52,17 +48,16 @@ const $Subarea = _$SubareaTearOff();
 /// @nodoc
 mixin _$Subarea {
   @JsonKey(name: 'sektor_ID')
-  int get sektorid => throw _privateConstructorUsedError;
-  @JsonKey(name: 'gebietid')
-  int get gebietid => throw _privateConstructorUsedError;
+  int get id =>
+      throw _privateConstructorUsedError; // @JsonKey(name: 'gebietid') int gebietid,
+  @DoubleConverter()
   @JsonKey(name: 'sektornr')
-  String get sektornr => throw _privateConstructorUsedError;
+  double? get nr => throw _privateConstructorUsedError;
   @JsonKey(name: 'sektorname_d')
-  String get sektornameD => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
   @JsonKey(name: 'sektorname_cz')
-  String get sektornameCZ => throw _privateConstructorUsedError;
-  @JsonKey(name: 'gipfel_count')
-  int get childCount => throw _privateConstructorUsedError;
+  String get secondLanguageName =>
+      throw _privateConstructorUsedError; // @JsonKey(name: 'gipfel_count') int childCount,
   @JsonKey(name: 'komment_count')
   int get commentCount => throw _privateConstructorUsedError;
   @JsonKey(name: 'insert_timestamp')
@@ -78,12 +73,10 @@ abstract class $SubareaCopyWith<$Res> {
   factory $SubareaCopyWith(Subarea value, $Res Function(Subarea) then) =
       _$SubareaCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(name: 'sektor_ID') int sektorid,
-      @JsonKey(name: 'gebietid') int gebietid,
-      @JsonKey(name: 'sektornr') String sektornr,
-      @JsonKey(name: 'sektorname_d') String sektornameD,
-      @JsonKey(name: 'sektorname_cz') String sektornameCZ,
-      @JsonKey(name: 'gipfel_count') int childCount,
+      {@JsonKey(name: 'sektor_ID') int id,
+      @DoubleConverter() @JsonKey(name: 'sektornr') double? nr,
+      @JsonKey(name: 'sektorname_d') String name,
+      @JsonKey(name: 'sektorname_cz') String secondLanguageName,
       @JsonKey(name: 'komment_count') int commentCount,
       @JsonKey(name: 'insert_timestamp') DateTime lastUpdated});
 }
@@ -98,40 +91,30 @@ class _$SubareaCopyWithImpl<$Res> implements $SubareaCopyWith<$Res> {
 
   @override
   $Res call({
-    Object? sektorid = freezed,
-    Object? gebietid = freezed,
-    Object? sektornr = freezed,
-    Object? sektornameD = freezed,
-    Object? sektornameCZ = freezed,
-    Object? childCount = freezed,
+    Object? id = freezed,
+    Object? nr = freezed,
+    Object? name = freezed,
+    Object? secondLanguageName = freezed,
     Object? commentCount = freezed,
     Object? lastUpdated = freezed,
   }) {
     return _then(_value.copyWith(
-      sektorid: sektorid == freezed
-          ? _value.sektorid
-          : sektorid // ignore: cast_nullable_to_non_nullable
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as int,
-      gebietid: gebietid == freezed
-          ? _value.gebietid
-          : gebietid // ignore: cast_nullable_to_non_nullable
-              as int,
-      sektornr: sektornr == freezed
-          ? _value.sektornr
-          : sektornr // ignore: cast_nullable_to_non_nullable
+      nr: nr == freezed
+          ? _value.nr
+          : nr // ignore: cast_nullable_to_non_nullable
+              as double?,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String,
-      sektornameD: sektornameD == freezed
-          ? _value.sektornameD
-          : sektornameD // ignore: cast_nullable_to_non_nullable
+      secondLanguageName: secondLanguageName == freezed
+          ? _value.secondLanguageName
+          : secondLanguageName // ignore: cast_nullable_to_non_nullable
               as String,
-      sektornameCZ: sektornameCZ == freezed
-          ? _value.sektornameCZ
-          : sektornameCZ // ignore: cast_nullable_to_non_nullable
-              as String,
-      childCount: childCount == freezed
-          ? _value.childCount
-          : childCount // ignore: cast_nullable_to_non_nullable
-              as int,
       commentCount: commentCount == freezed
           ? _value.commentCount
           : commentCount // ignore: cast_nullable_to_non_nullable
@@ -150,12 +133,10 @@ abstract class _$SubareaCopyWith<$Res> implements $SubareaCopyWith<$Res> {
       __$SubareaCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(name: 'sektor_ID') int sektorid,
-      @JsonKey(name: 'gebietid') int gebietid,
-      @JsonKey(name: 'sektornr') String sektornr,
-      @JsonKey(name: 'sektorname_d') String sektornameD,
-      @JsonKey(name: 'sektorname_cz') String sektornameCZ,
-      @JsonKey(name: 'gipfel_count') int childCount,
+      {@JsonKey(name: 'sektor_ID') int id,
+      @DoubleConverter() @JsonKey(name: 'sektornr') double? nr,
+      @JsonKey(name: 'sektorname_d') String name,
+      @JsonKey(name: 'sektorname_cz') String secondLanguageName,
       @JsonKey(name: 'komment_count') int commentCount,
       @JsonKey(name: 'insert_timestamp') DateTime lastUpdated});
 }
@@ -171,40 +152,30 @@ class __$SubareaCopyWithImpl<$Res> extends _$SubareaCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? sektorid = freezed,
-    Object? gebietid = freezed,
-    Object? sektornr = freezed,
-    Object? sektornameD = freezed,
-    Object? sektornameCZ = freezed,
-    Object? childCount = freezed,
+    Object? id = freezed,
+    Object? nr = freezed,
+    Object? name = freezed,
+    Object? secondLanguageName = freezed,
     Object? commentCount = freezed,
     Object? lastUpdated = freezed,
   }) {
     return _then(_Subarea(
-      sektorid == freezed
-          ? _value.sektorid
-          : sektorid // ignore: cast_nullable_to_non_nullable
+      id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as int,
-      gebietid == freezed
-          ? _value.gebietid
-          : gebietid // ignore: cast_nullable_to_non_nullable
-              as int,
-      sektornr == freezed
-          ? _value.sektornr
-          : sektornr // ignore: cast_nullable_to_non_nullable
+      nr == freezed
+          ? _value.nr
+          : nr // ignore: cast_nullable_to_non_nullable
+              as double?,
+      name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String,
-      sektornameD == freezed
-          ? _value.sektornameD
-          : sektornameD // ignore: cast_nullable_to_non_nullable
+      secondLanguageName == freezed
+          ? _value.secondLanguageName
+          : secondLanguageName // ignore: cast_nullable_to_non_nullable
               as String,
-      sektornameCZ == freezed
-          ? _value.sektornameCZ
-          : sektornameCZ // ignore: cast_nullable_to_non_nullable
-              as String,
-      childCount == freezed
-          ? _value.childCount
-          : childCount // ignore: cast_nullable_to_non_nullable
-              as int,
       commentCount == freezed
           ? _value.commentCount
           : commentCount // ignore: cast_nullable_to_non_nullable
@@ -219,39 +190,33 @@ class __$SubareaCopyWithImpl<$Res> extends _$SubareaCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Subarea implements _Subarea {
+class _$_Subarea extends _Subarea {
   _$_Subarea(
-      @JsonKey(name: 'sektor_ID') this.sektorid,
-      @JsonKey(name: 'gebietid') this.gebietid,
-      @JsonKey(name: 'sektornr') this.sektornr,
-      @JsonKey(name: 'sektorname_d') this.sektornameD,
-      @JsonKey(name: 'sektorname_cz') this.sektornameCZ,
-      @JsonKey(name: 'gipfel_count') this.childCount,
+      @JsonKey(name: 'sektor_ID') this.id,
+      @DoubleConverter() @JsonKey(name: 'sektornr') this.nr,
+      @JsonKey(name: 'sektorname_d') this.name,
+      @JsonKey(name: 'sektorname_cz') this.secondLanguageName,
       @JsonKey(name: 'komment_count') this.commentCount,
-      @JsonKey(name: 'insert_timestamp') this.lastUpdated);
+      @JsonKey(name: 'insert_timestamp') this.lastUpdated)
+      : super._();
 
   factory _$_Subarea.fromJson(Map<String, dynamic> json) =>
       _$_$_SubareaFromJson(json);
 
   @override
   @JsonKey(name: 'sektor_ID')
-  final int sektorid;
-  @override
-  @JsonKey(name: 'gebietid')
-  final int gebietid;
-  @override
+  final int id;
+  @override // @JsonKey(name: 'gebietid') int gebietid,
+  @DoubleConverter()
   @JsonKey(name: 'sektornr')
-  final String sektornr;
+  final double? nr;
   @override
   @JsonKey(name: 'sektorname_d')
-  final String sektornameD;
+  final String name;
   @override
   @JsonKey(name: 'sektorname_cz')
-  final String sektornameCZ;
-  @override
-  @JsonKey(name: 'gipfel_count')
-  final int childCount;
-  @override
+  final String secondLanguageName;
+  @override // @JsonKey(name: 'gipfel_count') int childCount,
   @JsonKey(name: 'komment_count')
   final int commentCount;
   @override
@@ -260,31 +225,22 @@ class _$_Subarea implements _Subarea {
 
   @override
   String toString() {
-    return 'Subarea(sektorid: $sektorid, gebietid: $gebietid, sektornr: $sektornr, sektornameD: $sektornameD, sektornameCZ: $sektornameCZ, childCount: $childCount, commentCount: $commentCount, lastUpdated: $lastUpdated)';
+    return 'Subarea(id: $id, nr: $nr, name: $name, secondLanguageName: $secondLanguageName, commentCount: $commentCount, lastUpdated: $lastUpdated)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _Subarea &&
-            (identical(other.sektorid, sektorid) ||
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.nr, nr) ||
+                const DeepCollectionEquality().equals(other.nr, nr)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.secondLanguageName, secondLanguageName) ||
                 const DeepCollectionEquality()
-                    .equals(other.sektorid, sektorid)) &&
-            (identical(other.gebietid, gebietid) ||
-                const DeepCollectionEquality()
-                    .equals(other.gebietid, gebietid)) &&
-            (identical(other.sektornr, sektornr) ||
-                const DeepCollectionEquality()
-                    .equals(other.sektornr, sektornr)) &&
-            (identical(other.sektornameD, sektornameD) ||
-                const DeepCollectionEquality()
-                    .equals(other.sektornameD, sektornameD)) &&
-            (identical(other.sektornameCZ, sektornameCZ) ||
-                const DeepCollectionEquality()
-                    .equals(other.sektornameCZ, sektornameCZ)) &&
-            (identical(other.childCount, childCount) ||
-                const DeepCollectionEquality()
-                    .equals(other.childCount, childCount)) &&
+                    .equals(other.secondLanguageName, secondLanguageName)) &&
             (identical(other.commentCount, commentCount) ||
                 const DeepCollectionEquality()
                     .equals(other.commentCount, commentCount)) &&
@@ -296,12 +252,10 @@ class _$_Subarea implements _Subarea {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(sektorid) ^
-      const DeepCollectionEquality().hash(gebietid) ^
-      const DeepCollectionEquality().hash(sektornr) ^
-      const DeepCollectionEquality().hash(sektornameD) ^
-      const DeepCollectionEquality().hash(sektornameCZ) ^
-      const DeepCollectionEquality().hash(childCount) ^
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(nr) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(secondLanguageName) ^
       const DeepCollectionEquality().hash(commentCount) ^
       const DeepCollectionEquality().hash(lastUpdated);
 
@@ -316,38 +270,32 @@ class _$_Subarea implements _Subarea {
   }
 }
 
-abstract class _Subarea implements Subarea {
+abstract class _Subarea extends Subarea {
   factory _Subarea(
-      @JsonKey(name: 'sektor_ID') int sektorid,
-      @JsonKey(name: 'gebietid') int gebietid,
-      @JsonKey(name: 'sektornr') String sektornr,
-      @JsonKey(name: 'sektorname_d') String sektornameD,
-      @JsonKey(name: 'sektorname_cz') String sektornameCZ,
-      @JsonKey(name: 'gipfel_count') int childCount,
+      @JsonKey(name: 'sektor_ID') int id,
+      @DoubleConverter() @JsonKey(name: 'sektornr') double? nr,
+      @JsonKey(name: 'sektorname_d') String name,
+      @JsonKey(name: 'sektorname_cz') String secondLanguageName,
       @JsonKey(name: 'komment_count') int commentCount,
       @JsonKey(name: 'insert_timestamp') DateTime lastUpdated) = _$_Subarea;
+  _Subarea._() : super._();
 
   factory _Subarea.fromJson(Map<String, dynamic> json) = _$_Subarea.fromJson;
 
   @override
   @JsonKey(name: 'sektor_ID')
-  int get sektorid => throw _privateConstructorUsedError;
-  @override
-  @JsonKey(name: 'gebietid')
-  int get gebietid => throw _privateConstructorUsedError;
-  @override
+  int get id => throw _privateConstructorUsedError;
+  @override // @JsonKey(name: 'gebietid') int gebietid,
+  @DoubleConverter()
   @JsonKey(name: 'sektornr')
-  String get sektornr => throw _privateConstructorUsedError;
+  double? get nr => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'sektorname_d')
-  String get sektornameD => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'sektorname_cz')
-  String get sektornameCZ => throw _privateConstructorUsedError;
-  @override
-  @JsonKey(name: 'gipfel_count')
-  int get childCount => throw _privateConstructorUsedError;
-  @override
+  String get secondLanguageName => throw _privateConstructorUsedError;
+  @override // @JsonKey(name: 'gipfel_count') int childCount,
   @JsonKey(name: 'komment_count')
   int get commentCount => throw _privateConstructorUsedError;
   @override

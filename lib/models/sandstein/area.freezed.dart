@@ -21,23 +21,13 @@ class _$AreaTearOff {
   const _$AreaTearOff();
 
   _Area call(
-      @JsonKey(name: 'gebiet_ID') int gebietid,
-      @JsonKey(name: 'gebiet') String gebiet,
-      @JsonKey(name: 'land') String land,
-      @JsonKey(name: 'sprache2') String sprache2,
-      @JsonKey(name: 'gdefaultanzeige') String gdefaultanzeige,
-      @JsonKey(name: 'schwskala') String schwskala,
-      @JsonKey(name: 'subarea_count') int childCount,
+      @JsonKey(name: 'gebiet_ID') int id,
+      @JsonKey(name: 'gebiet') String name,
       @JsonKey(name: 'komment_count') int commentCount,
       @JsonKey(name: 'insert_timestamp') DateTime lastUpdated) {
     return _Area(
-      gebietid,
-      gebiet,
-      land,
-      sprache2,
-      gdefaultanzeige,
-      schwskala,
-      childCount,
+      id,
+      name,
       commentCount,
       lastUpdated,
     );
@@ -54,19 +44,14 @@ const $Area = _$AreaTearOff();
 /// @nodoc
 mixin _$Area {
   @JsonKey(name: 'gebiet_ID')
-  int get gebietid => throw _privateConstructorUsedError;
+  int get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'gebiet')
-  String get gebiet => throw _privateConstructorUsedError;
-  @JsonKey(name: 'land')
-  String get land => throw _privateConstructorUsedError;
-  @JsonKey(name: 'sprache2')
-  String get sprache2 => throw _privateConstructorUsedError;
-  @JsonKey(name: 'gdefaultanzeige')
-  String get gdefaultanzeige => throw _privateConstructorUsedError;
-  @JsonKey(name: 'schwskala')
-  String get schwskala => throw _privateConstructorUsedError;
-  @JsonKey(name: 'subarea_count')
-  int get childCount => throw _privateConstructorUsedError;
+  String get name =>
+      throw _privateConstructorUsedError; //@JsonKey(name: 'land') String land,
+//@JsonKey(name: 'sprache2') String sprache2,
+//@JsonKey(name: 'gdefaultanzeige') String gdefaultanzeige,
+//@JsonKey(name: 'schwskala') String schwskala,
+//@JsonKey(name: 'subarea_count') int childCount,
   @JsonKey(name: 'komment_count')
   int get commentCount => throw _privateConstructorUsedError;
   @JsonKey(name: 'insert_timestamp')
@@ -82,13 +67,8 @@ abstract class $AreaCopyWith<$Res> {
   factory $AreaCopyWith(Area value, $Res Function(Area) then) =
       _$AreaCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(name: 'gebiet_ID') int gebietid,
-      @JsonKey(name: 'gebiet') String gebiet,
-      @JsonKey(name: 'land') String land,
-      @JsonKey(name: 'sprache2') String sprache2,
-      @JsonKey(name: 'gdefaultanzeige') String gdefaultanzeige,
-      @JsonKey(name: 'schwskala') String schwskala,
-      @JsonKey(name: 'subarea_count') int childCount,
+      {@JsonKey(name: 'gebiet_ID') int id,
+      @JsonKey(name: 'gebiet') String name,
       @JsonKey(name: 'komment_count') int commentCount,
       @JsonKey(name: 'insert_timestamp') DateTime lastUpdated});
 }
@@ -103,45 +83,20 @@ class _$AreaCopyWithImpl<$Res> implements $AreaCopyWith<$Res> {
 
   @override
   $Res call({
-    Object? gebietid = freezed,
-    Object? gebiet = freezed,
-    Object? land = freezed,
-    Object? sprache2 = freezed,
-    Object? gdefaultanzeige = freezed,
-    Object? schwskala = freezed,
-    Object? childCount = freezed,
+    Object? id = freezed,
+    Object? name = freezed,
     Object? commentCount = freezed,
     Object? lastUpdated = freezed,
   }) {
     return _then(_value.copyWith(
-      gebietid: gebietid == freezed
-          ? _value.gebietid
-          : gebietid // ignore: cast_nullable_to_non_nullable
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as int,
-      gebiet: gebiet == freezed
-          ? _value.gebiet
-          : gebiet // ignore: cast_nullable_to_non_nullable
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String,
-      land: land == freezed
-          ? _value.land
-          : land // ignore: cast_nullable_to_non_nullable
-              as String,
-      sprache2: sprache2 == freezed
-          ? _value.sprache2
-          : sprache2 // ignore: cast_nullable_to_non_nullable
-              as String,
-      gdefaultanzeige: gdefaultanzeige == freezed
-          ? _value.gdefaultanzeige
-          : gdefaultanzeige // ignore: cast_nullable_to_non_nullable
-              as String,
-      schwskala: schwskala == freezed
-          ? _value.schwskala
-          : schwskala // ignore: cast_nullable_to_non_nullable
-              as String,
-      childCount: childCount == freezed
-          ? _value.childCount
-          : childCount // ignore: cast_nullable_to_non_nullable
-              as int,
       commentCount: commentCount == freezed
           ? _value.commentCount
           : commentCount // ignore: cast_nullable_to_non_nullable
@@ -160,13 +115,8 @@ abstract class _$AreaCopyWith<$Res> implements $AreaCopyWith<$Res> {
       __$AreaCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(name: 'gebiet_ID') int gebietid,
-      @JsonKey(name: 'gebiet') String gebiet,
-      @JsonKey(name: 'land') String land,
-      @JsonKey(name: 'sprache2') String sprache2,
-      @JsonKey(name: 'gdefaultanzeige') String gdefaultanzeige,
-      @JsonKey(name: 'schwskala') String schwskala,
-      @JsonKey(name: 'subarea_count') int childCount,
+      {@JsonKey(name: 'gebiet_ID') int id,
+      @JsonKey(name: 'gebiet') String name,
       @JsonKey(name: 'komment_count') int commentCount,
       @JsonKey(name: 'insert_timestamp') DateTime lastUpdated});
 }
@@ -182,45 +132,20 @@ class __$AreaCopyWithImpl<$Res> extends _$AreaCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? gebietid = freezed,
-    Object? gebiet = freezed,
-    Object? land = freezed,
-    Object? sprache2 = freezed,
-    Object? gdefaultanzeige = freezed,
-    Object? schwskala = freezed,
-    Object? childCount = freezed,
+    Object? id = freezed,
+    Object? name = freezed,
     Object? commentCount = freezed,
     Object? lastUpdated = freezed,
   }) {
     return _then(_Area(
-      gebietid == freezed
-          ? _value.gebietid
-          : gebietid // ignore: cast_nullable_to_non_nullable
+      id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as int,
-      gebiet == freezed
-          ? _value.gebiet
-          : gebiet // ignore: cast_nullable_to_non_nullable
+      name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String,
-      land == freezed
-          ? _value.land
-          : land // ignore: cast_nullable_to_non_nullable
-              as String,
-      sprache2 == freezed
-          ? _value.sprache2
-          : sprache2 // ignore: cast_nullable_to_non_nullable
-              as String,
-      gdefaultanzeige == freezed
-          ? _value.gdefaultanzeige
-          : gdefaultanzeige // ignore: cast_nullable_to_non_nullable
-              as String,
-      schwskala == freezed
-          ? _value.schwskala
-          : schwskala // ignore: cast_nullable_to_non_nullable
-              as String,
-      childCount == freezed
-          ? _value.childCount
-          : childCount // ignore: cast_nullable_to_non_nullable
-              as int,
       commentCount == freezed
           ? _value.commentCount
           : commentCount // ignore: cast_nullable_to_non_nullable
@@ -237,13 +162,8 @@ class __$AreaCopyWithImpl<$Res> extends _$AreaCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_Area implements _Area {
   _$_Area(
-      @JsonKey(name: 'gebiet_ID') this.gebietid,
-      @JsonKey(name: 'gebiet') this.gebiet,
-      @JsonKey(name: 'land') this.land,
-      @JsonKey(name: 'sprache2') this.sprache2,
-      @JsonKey(name: 'gdefaultanzeige') this.gdefaultanzeige,
-      @JsonKey(name: 'schwskala') this.schwskala,
-      @JsonKey(name: 'subarea_count') this.childCount,
+      @JsonKey(name: 'gebiet_ID') this.id,
+      @JsonKey(name: 'gebiet') this.name,
       @JsonKey(name: 'komment_count') this.commentCount,
       @JsonKey(name: 'insert_timestamp') this.lastUpdated);
 
@@ -252,26 +172,15 @@ class _$_Area implements _Area {
 
   @override
   @JsonKey(name: 'gebiet_ID')
-  final int gebietid;
+  final int id;
   @override
   @JsonKey(name: 'gebiet')
-  final String gebiet;
-  @override
-  @JsonKey(name: 'land')
-  final String land;
-  @override
-  @JsonKey(name: 'sprache2')
-  final String sprache2;
-  @override
-  @JsonKey(name: 'gdefaultanzeige')
-  final String gdefaultanzeige;
-  @override
-  @JsonKey(name: 'schwskala')
-  final String schwskala;
-  @override
-  @JsonKey(name: 'subarea_count')
-  final int childCount;
-  @override
+  final String name;
+  @override //@JsonKey(name: 'land') String land,
+//@JsonKey(name: 'sprache2') String sprache2,
+//@JsonKey(name: 'gdefaultanzeige') String gdefaultanzeige,
+//@JsonKey(name: 'schwskala') String schwskala,
+//@JsonKey(name: 'subarea_count') int childCount,
   @JsonKey(name: 'komment_count')
   final int commentCount;
   @override
@@ -280,32 +189,17 @@ class _$_Area implements _Area {
 
   @override
   String toString() {
-    return 'Area(gebietid: $gebietid, gebiet: $gebiet, land: $land, sprache2: $sprache2, gdefaultanzeige: $gdefaultanzeige, schwskala: $schwskala, childCount: $childCount, commentCount: $commentCount, lastUpdated: $lastUpdated)';
+    return 'Area(id: $id, name: $name, commentCount: $commentCount, lastUpdated: $lastUpdated)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _Area &&
-            (identical(other.gebietid, gebietid) ||
-                const DeepCollectionEquality()
-                    .equals(other.gebietid, gebietid)) &&
-            (identical(other.gebiet, gebiet) ||
-                const DeepCollectionEquality().equals(other.gebiet, gebiet)) &&
-            (identical(other.land, land) ||
-                const DeepCollectionEquality().equals(other.land, land)) &&
-            (identical(other.sprache2, sprache2) ||
-                const DeepCollectionEquality()
-                    .equals(other.sprache2, sprache2)) &&
-            (identical(other.gdefaultanzeige, gdefaultanzeige) ||
-                const DeepCollectionEquality()
-                    .equals(other.gdefaultanzeige, gdefaultanzeige)) &&
-            (identical(other.schwskala, schwskala) ||
-                const DeepCollectionEquality()
-                    .equals(other.schwskala, schwskala)) &&
-            (identical(other.childCount, childCount) ||
-                const DeepCollectionEquality()
-                    .equals(other.childCount, childCount)) &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.commentCount, commentCount) ||
                 const DeepCollectionEquality()
                     .equals(other.commentCount, commentCount)) &&
@@ -317,13 +211,8 @@ class _$_Area implements _Area {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(gebietid) ^
-      const DeepCollectionEquality().hash(gebiet) ^
-      const DeepCollectionEquality().hash(land) ^
-      const DeepCollectionEquality().hash(sprache2) ^
-      const DeepCollectionEquality().hash(gdefaultanzeige) ^
-      const DeepCollectionEquality().hash(schwskala) ^
-      const DeepCollectionEquality().hash(childCount) ^
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(commentCount) ^
       const DeepCollectionEquality().hash(lastUpdated);
 
@@ -340,13 +229,8 @@ class _$_Area implements _Area {
 
 abstract class _Area implements Area {
   factory _Area(
-      @JsonKey(name: 'gebiet_ID') int gebietid,
-      @JsonKey(name: 'gebiet') String gebiet,
-      @JsonKey(name: 'land') String land,
-      @JsonKey(name: 'sprache2') String sprache2,
-      @JsonKey(name: 'gdefaultanzeige') String gdefaultanzeige,
-      @JsonKey(name: 'schwskala') String schwskala,
-      @JsonKey(name: 'subarea_count') int childCount,
+      @JsonKey(name: 'gebiet_ID') int id,
+      @JsonKey(name: 'gebiet') String name,
       @JsonKey(name: 'komment_count') int commentCount,
       @JsonKey(name: 'insert_timestamp') DateTime lastUpdated) = _$_Area;
 
@@ -354,26 +238,15 @@ abstract class _Area implements Area {
 
   @override
   @JsonKey(name: 'gebiet_ID')
-  int get gebietid => throw _privateConstructorUsedError;
+  int get id => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'gebiet')
-  String get gebiet => throw _privateConstructorUsedError;
-  @override
-  @JsonKey(name: 'land')
-  String get land => throw _privateConstructorUsedError;
-  @override
-  @JsonKey(name: 'sprache2')
-  String get sprache2 => throw _privateConstructorUsedError;
-  @override
-  @JsonKey(name: 'gdefaultanzeige')
-  String get gdefaultanzeige => throw _privateConstructorUsedError;
-  @override
-  @JsonKey(name: 'schwskala')
-  String get schwskala => throw _privateConstructorUsedError;
-  @override
-  @JsonKey(name: 'subarea_count')
-  int get childCount => throw _privateConstructorUsedError;
-  @override
+  String get name => throw _privateConstructorUsedError;
+  @override //@JsonKey(name: 'land') String land,
+//@JsonKey(name: 'sprache2') String sprache2,
+//@JsonKey(name: 'gdefaultanzeige') String gdefaultanzeige,
+//@JsonKey(name: 'schwskala') String schwskala,
+//@JsonKey(name: 'subarea_count') int childCount,
   @JsonKey(name: 'komment_count')
   int get commentCount => throw _privateConstructorUsedError;
   @override

@@ -1,32 +1,4 @@
-import 'dart:async';
-import 'package:pool/pool.dart';
-
-import 'package:http/http.dart' as http;
-import 'package:rock_carrot/models/subareas.dart';
-import 'package:rock_carrot/models/update_stati.dart';
-import 'package:rock_carrot/database/sql.dart';
-import 'package:rock_carrot/database/sql_teufelsturm.dart';
-import 'package:rock_carrot/material/progress_notifier.dart';
-import 'package:rock_carrot/web/teufelsturm_scraper.dart';
-import 'package:rock_carrot/web/web_helper.dart';
-import 'package:semaphore/semaphore.dart';
-
-/// mapping of teufelsturm Area names to id
-const Map<String, int> sandsteinNameTeufelsturmAreaIdMap = {
-  'Gebiet der Steine': 1,
-  'Bielatal': 2,
-  'Schrammsteine': 3,
-  'Schmilka': 4,
-  'Rathen': 5,
-  'Wehlen': 6,
-  'Brand': 7,
-  'Kleiner Zschand': 8,
-  'Großer Zschand': 9,
-  'Affensteine': 10,
-  'Erzgebirgsgrenzgebiet': 11,
-  'Wildensteiner Gebiet': 12,
-  'Hinterhermsdorf': 13,
-};
+import 'package:html/parser.dart';
 
 /// mapping of teufelsturm Area names to id
 const Map<int, int> sandsteinIdTeufelsturmAreaIdMap = {
@@ -45,262 +17,304 @@ const Map<int, int> sandsteinIdTeufelsturmAreaIdMap = {
   127: 13, //Hinterhermsdorf
 };
 
-const List<int> teufelsturmAreaIdSandsteinSubareaIdMap = [
-  0, // nothing
-  133, //1
-  124,
-  132,
-  131,
-  130,
-  134,
-  128,
-  129,
-  126,
-  123,
-  125,
-  135,
-  127, //13
-];
-
-/// receive data from Teufelsturm via Web scraping
-class Teufelsturm with WebHelper, TeufelsturmScraper {
-  static final _singleton = Teufelsturm._();
-  Teufelsturm._();
-
-  factory Teufelsturm() {
-    return _singleton;
-  }
-
-  /// get document data for all Rocksfrom Teufelsturm
-  Future<String> fetchRocksByArea(int teufelsturmAreaId) async {
-    final uri = Uri.http('teufelsturm.de', 'gipfel/suche.php');
-    final response = await http.post(uri, body: {
-      'anzahl': 'Alle', // all items in one page
-      'gebietnr': teufelsturmAreaId.toString(),
-    });
-    if (isResponseValid(response)) {
-      return response.body;
-    } else {
-      throw Exception('failed this receice data');
-    }
-  }
-
-  /// update data from Sandsteinklettern
+/// class implementing all the parsing/scraping
+class Teufelsturm {
+  /// parse rocks using DOM
   ///
-  /// fetch the data, then delete records, finally insert new data
-  Future<int> updateTTComments(
-      Subarea subarea, ProgressNotifier progress) async {
-    final ttAreaId = sandsteinNameTeufelsturmAreaIdMap[subarea.name]!;
+  /// return in json format
+  Future<List<dynamic>> parseRocks(
+    String responseRocks, {
+    int areaId = -1,
+  }) async {
+    var allRocks = <dynamic>[];
 
-    /// stream that holds the requested items
-    final webRequestDataControllerRoutes = StreamController<Map<String, int>>();
-    final webRequestDataControllerComments =
-        StreamController<Map<String, int>>();
+    // build DOM
+    final docRocks = parse(responseRocks);
+    // select the table that contains all data
+    final tableRocks = docRocks.querySelector(
+        'html>body>table>tbody>tr>td>table>tbody>tr>td>div>table>tbody');
 
-    /// pool that limites the request
-    final pool = Pool(50, timeout: Duration(seconds: 30));
+    // iterate through each row
+    final allRockRows = tableRocks?.querySelectorAll('tr');
+    allRockRows?.forEach((rockRow) {
+      // retrieve elements with data
+      // th is without font
+      final rockElements = rockRow.querySelectorAll('td>font');
+      // first row is header
+      if (rockElements.isNotEmpty) {
+        final rockName = formatElement(rockElements.elementAt(1).text);
+        final rockNr = rockElements.elementAt(2).text;
+        final rockArea = rockElements.elementAt(3).text;
+        final rockId = rockElements
+            .elementAt(4)
+            .firstChild
+            ?.attributes['href']
+            ?.substring(25);
 
-    /// semaphore that signals the finish line :)
-    final semaphoreRoutes = LocalSemaphore(1);
+        // generate List for export
+        allRocks.add({
+          'id': rockId,
+          'nr': rockNr,
+          'name': rockName,
+          'areaid': areaId,
+          'areaName': rockArea,
+        });
+      }
+    });
+    return allRocks;
+  }
 
-    progress.startProgress('Rocks');
-    // get Rocks of Areas ID;
-    final rockResponse = await fetchRocksByArea(ttAreaId);
+  /// parse routes using DOM
+  ///
+  /// return in json format
+  Future<List<dynamic>> parseRoutes(
+    String responseRoutes, {
+    int rockId = -1,
+    int areaId = -1,
+  }) async {
+    var allRoutes = <dynamic>[];
 
-    progress.updatePercentage(33);
+    // build DOM
+    final docRoutes = parse(responseRoutes);
 
-    final jsonData = parseRocks(rockResponse, areaId: ttAreaId);
+    // select the table that contains all data
+    final tableRoutes = docRoutes.querySelector(
+        'html>body>table>tbody>tr>td>table>tbody>tr>td>div>table>tbody');
 
-    progress.updatePercentage(66);
+    // iterate through each row
+    final allRouteRows = tableRoutes?.querySelectorAll('tr');
+    allRouteRows?.forEach((routeRow) {
+      // retrieve elements with data
+      // th is without font
+      final routeElements = routeRow.querySelectorAll('td>font');
+      // first row is header
+      if (routeElements.isNotEmpty) {
+        var rockName = formatElement(routeElements.elementAt(1).text);
+        var routeName = formatElement(routeElements.elementAt(2).text);
+        var routeQuality = routeElements
+            .elementAt(3)
+            .firstChild
+            ?.attributes['src']
+            ?.substring(19);
+        var routeDifficulty = routeElements.elementAt(4).text;
+        var area = routeElements.elementAt(5).text;
+        var routeId = routeElements
+            .elementAt(6)
+            .firstChild
+            ?.attributes['href']
+            ?.substring(36);
 
-    await SqlHandler().deleteTTRocks(ttAreaId);
-    final rockCount = SqlHandler().insertJsonData(
-      SqlHandler.ttRocksTablename,
-      jsonData,
+        // generate List for export
+        allRoutes.add({
+          'id': routeId,
+          'name': routeName.trim(),
+          'average_quality': routeQuality,
+          'difficulty': routeDifficulty,
+          'rockid': rockId,
+          'rockName': rockName,
+          'areaid': areaId,
+          'areaName': area,
+        });
+      }
+    });
+    return allRoutes;
+  }
+
+  /// parse routes using DOM
+  ///
+  /// return in json format
+  Future<List<dynamic>> parseRoutesRegEx(
+    String responseRoutes, {
+    int rockId = -1,
+    int areaId = -1,
+  }) async {
+    var allRoutes = <dynamic>[];
+
+    // match table with routes
+    final regexTable = RegExp(
+      r'<table border="0" width="100%" cellpadding="1" cellspacing="0" bgcolor="#1A3C64">'
+      r'.*?<tr>.*?<td>.*?<div.*?'
+      r'<table'
+      r'(.*?)</table>',
+      multiLine: true,
+      dotAll: true,
     );
 
-    progress.finishProgress();
+    final matchTable = regexTable.firstMatch(responseRoutes);
 
-    progress.startProgress('Routes');
+    // match all rows the contain the routes
+    final tableRoutes = matchTable?.group(1);
+    final tableRoutesRows = RegExp(
+      '<tr>(.*?)</tr>',
+      multiLine: true,
+      dotAll: true,
+    ).allMatches(tableRoutes ?? '');
 
-    ///
-    /// ROUTES
-    ///
-    // get all Routes by RockID
-    // remove old Routes
-    await SqlHandler().deleteTTRoutesbyArea(ttAreaId);
-    // iterate through all Rocks and receive routes
-    final sqlRockIds = await SqlHandler().queryRockIdsByArea(ttAreaId);
-    // prepare sql batch
-    final batchRoutes = await SqlHandler().prepareInsertJsonData();
-
-    // prepare waiting
-    await semaphoreRoutes.acquire();
-
-    /// add fetched ids to the StreamController
-    for (var sqlRockId in sqlRockIds.toList()) {
-      webRequestDataControllerRoutes.add({
-        'id': int.tryParse(sqlRockId.values.elementAt(0).toString()) ?? -1,
-        'retries': 5,
-      });
-    }
-    // counter variable to release Semaphore
-    var numberOfIds = sqlRockIds.length;
-
-    // implementing the subscription to the Request Stream
-    webRequestDataControllerRoutes.stream.listen((Map<String, int> data) async {
-      final retries = data['retries'] ?? 0;
-      final id = data['id'] ?? 0;
-      http.Response? response;
-      try {
-        response = await pool.withResource(
-          () => http.post(
-            Uri.http(
-              'teufelsturm.de',
-              'wege/suche.php',
-            ),
-            body: {'gipfelnr': id.toString()},
-          ).timeout(Duration(seconds: 5)),
-        );
-      } catch (e) {
-        print('$id: $e');
+    // iterate through all rows
+    tableRoutesRows.forEach((routeRow) {
+      // parse the routes
+      final routeElements = RegExp(
+        r'<td.*?<font.*?>(?<id>.*?)</font>.*?'
+        r'<td.*?<font.*?>\s*(?<rockName>.*?)\s*</font>.*?'
+        r'<td.*?<font.*?<a href=.*?(?<routeId>\d+).*?>\s*(?<routeName>.*?)\s*</a>.*?'
+        r'<td.*?<font.*?<img.*?/(?<quality>.*?)\.gif.*?</font>.*?'
+        r'<td.*?<font.*?>\s*(?<difficulty>.*?)\s*</font>.*?'
+        r'<td.*?<font.*?>\s*(?<areaName>.*?)\s*</font>.*?'
+        r'<td.*?<font.*?>\s*(?<status>.*?)\s*</font>.*?',
+        dotAll: true,
+        multiLine: true,
+      ).allMatches(routeRow.group(1).toString());
+      // first line (Header) will not match
+      if (routeElements.isNotEmpty) {
+        // generate List for export
+        allRoutes.add({
+          'id': routeElements.first.namedGroup('routeId') ?? '',
+          'name': routeElements.first.namedGroup('routeName') ?? '',
+          'average_quality': routeElements.first.namedGroup('quality') ?? '',
+          'difficulty': routeElements.first.namedGroup('difficulty') ?? '',
+          'rockid': rockId,
+          'rockName': routeElements.first.namedGroup('rockName') ?? '',
+          'areaid': areaId,
+          'areaName': routeElements.first.namedGroup('areaName') ?? '',
+        });
       }
-      if (response == null || response.statusCode != 200) {
-        if (retries > 0) {
-          data['retries'] = retries - 1;
-          webRequestDataControllerRoutes.sink.add(data);
-          print('$id readded');
-        }
-      } else {
-        /// response is valid ==> perform actions
-        final jsonRoutes = parseRoutesRegEx(
-          response.body,
-          rockId: id,
-          areaId: ttAreaId,
-        );
-        final routesCount = SqlHandler().enqueueInsertJsonData(
-          batchRoutes,
-          SqlHandler.ttRoutesTablename,
-          jsonRoutes,
-        );
+    });
+    return allRoutes;
+  }
 
-        // update progress
-        final percent =
-            (sqlRockIds.length - numberOfIds) * 100 ~/ sqlRockIds.length;
-        progress.updatePercentage(percent);
+  /// parse comments using DOM
+  ///
+  /// return in json format
+  Future<List<dynamic>> parseComments(
+    String responseComments, {
+    int routeId = -1,
+    int rockId = -1,
+    int areaId = -1,
+  }) async {
+    var allComments = <dynamic>[];
 
-        /// count ids for semaphore to be released
-        if (--numberOfIds == 0) {
-          semaphoreRoutes.release();
-        }
+    // build DOM
+    final docComments = parse(responseComments);
+
+    // select the table that contains all data
+    final tableComments = docComments.querySelector(
+        'html>body>table>tbody>tr>td>table>tbody>tr>td>table>tbody');
+
+    // iterate through each row
+    final allCommentRows = tableComments?.querySelectorAll('tr');
+    allCommentRows?.forEach((commentRow) {
+      // retrieve elements with data
+      // th is without font
+      // use font[size="2"] to exclude "zuletzt bearbeitet"
+      final commentElements = commentRow.querySelectorAll('td>font[size="2"]');
+      // first row is header
+      if (commentElements.isNotEmpty) {
+        final commentUser = commentElements.elementAt(0).text;
+        var commentDate = commentElements.elementAt(0).nextElementSibling?.text;
+
+        final regex = RegExp(r'(\d+\.\d+\.\d+)\s*(\d+\:\d+)');
+        final match = regex.firstMatch(commentDate!);
+        commentDate = match!.group(1)! + ' ' + match.group(2)!;
+        final comment = commentElements.elementAt(1).text.trim();
+        final commentQual = commentElements.elementAt(2).text;
+
+        // generate List for export
+        allComments.add({
+          'routeid': routeId,
+          'rockid': rockId,
+          'areaid': areaId,
+          'user': commentUser,
+          'date': commentDate,
+          'comment': comment,
+          'quality': commentQual,
+        });
+      }
+    });
+    return allComments;
+  }
+
+  /// parse comments without using DOM
+  ///
+  /// return in json format
+  Future<List<dynamic>> parseCommentsRegEx(
+    String responseComments, {
+    int routeId = -1,
+    int rockId = -1,
+    int areaId = -1,
+  }) async {
+    var allComments = <dynamic>[];
+
+    // match table with comments
+    final regexTable = RegExp(
+      r'<table border="0" width="100%" cellpadding="1" cellspacing="0" bgcolor="#1A3C64">'
+      r'.*?<tr>.*?<td>.*?'
+      r'<table border="0" width="100%" cellpadding="4" cellspacing="1">'
+      r'(.*?)</table>',
+      multiLine: true,
+      dotAll: true,
+    );
+    final matchTable = regexTable.firstMatch(responseComments);
+
+    // match all rows the contain the comments
+    final tableComments = matchTable?.group(1);
+    final tableCommentsRows = RegExp(
+      '<tr>(.*?)</tr>',
+      multiLine: true,
+      dotAll: true,
+    ).allMatches(tableComments ?? '');
+
+    // iterate through all rows
+    tableCommentsRows.forEach((commentRow) {
+      // parse the comments
+      final elements = RegExp(
+        r'<td.*?<font.*?><b>\s*(?<user>.*?)\s*</font>.*?'
+        r'(?<dateDay>\d+)\.(?<dateMonth>\d+)\.(?<dateYear>\d+).*?(?<time>\d+\:\d+).*?'
+        r'<td.*?<font.*?>\s*(?<comment>.*?)\s*</font>.*?'
+        r'<td.*?<font.*?>\s*(?<quality>.*?)\s*</font>.*?',
+        dotAll: true,
+        multiLine: true,
+      ).allMatches(commentRow.group(1).toString());
+
+      // first line (Header) will not match
+      if (elements.isNotEmpty) {
+        // put date in international format - to be readable by Dart
+        var datetime = (elements.first.namedGroup('dateYear') ?? '') +
+            '-' +
+            (elements.first.namedGroup('dateMonth') ?? '') +
+            '-' +
+            (elements.first.namedGroup('dateDay') ?? '') +
+            ' ' +
+            (elements.first.namedGroup('time') ?? '') +
+            ':00';
+        // add data to jsons map
+        allComments.add({
+          'routeid': routeId,
+          'rockId': rockId,
+          'areaid': areaId,
+          'user': elements.first.namedGroup('user') ?? '',
+          // 'date': elements.first.namedGroup('date') ??
+          //     '' ' ' + (elements.first.namedGroup('time') ?? ''),
+          'date': datetime,
+          'comment': elements.first.namedGroup('comment') ?? '',
+          'quality': elements.first.namedGroup('quality') ?? '',
+        });
       }
     });
 
-    //wait for requests to finish
-    await semaphoreRoutes.acquire();
-    semaphoreRoutes.release();
+    return allComments;
+  }
 
-    progress.finishProgress();
-    // perform commit
-    await SqlHandler().commitInsertJsonData(batchRoutes);
-
-    progress.startProgress('Comments');
-
-    ///
-    ///COMMENTS
-    ///
-    // first remove old comments
-    await SqlHandler().deleteTTCommentsbyArea(ttAreaId);
-
-    // iterate through all Routes and receive comments
-    final sqlRoutes = await SqlHandler().queryRouteIdsByArea(ttAreaId);
-    // prepare sql batch
-    final batchComments = await SqlHandler().prepareInsertJsonData();
-
-    final semaphoreComments = LocalSemaphore(1);
-    //wait for requests to finish
-    await semaphoreComments.acquire();
-
-    /// add fetched ids to the StreamController
-    for (var sqlRoutesId in sqlRoutes.toList()) {
-      webRequestDataControllerComments.add({
-        'routeid':
-            int.tryParse(sqlRoutesId.values.elementAt(0).toString()) ?? -1,
-        'rockid':
-            int.tryParse(sqlRoutesId.values.elementAt(1).toString()) ?? -1,
-        'retries': 5,
-      });
+  /// Format Element correctly
+  ///
+  /// get rid of unnecessary white spaces
+  /// if there is a Comma inside - replace names without comma
+  String formatElement(String element) {
+    element = element.replaceAll(RegExp(r'\s+'), r' ');
+    // process Comma stuff
+    final split = element.split(', ');
+    if (split.length > 1) {
+      element = split.last.trim() + ' ' + split.first.trim();
     }
-    // counter variable to release Semaphore
-    var numberOfCommentIds = sqlRoutes.length;
-
-    // implementing the subscription to the Request Stream
-    webRequestDataControllerComments.stream
-        .listen((Map<String, int> data) async {
-      final retries = data['retries'] ?? 0;
-      final id = data['routeid'] ?? -1;
-      final rockId = data['rockid'] ?? -1;
-      http.Response? response;
-      try {
-        response = await pool.withResource(
-          () => http.post(
-            Uri.http(
-              'teufelsturm.de',
-              'wege/bewertungen/anzeige.php',
-            ),
-            body: {'wegnr': id.toString()},
-          ).timeout(Duration(seconds: 5)),
-        );
-      } catch (e) {
-        print('$id: $e');
-      }
-      if (response == null || response.statusCode != 200) {
-        if (retries > 0) {
-          data['retries'] = retries - 1;
-          webRequestDataControllerComments.sink.add(data);
-          print('$id readded');
-        }
-      } else {
-        /// response is valid ==> perform actions
-        final jsonComments = parseCommentsRegEx(
-          response.body,
-          routeId: id,
-          rockId: rockId,
-          areaId: ttAreaId,
-        );
-        final routesCount = SqlHandler().enqueueInsertJsonData(
-          batchComments,
-          SqlHandler.ttCommentsTablename,
-          jsonComments,
-        );
-
-        final percent =
-            (sqlRoutes.length - numberOfCommentIds) * 100 ~/ sqlRoutes.length;
-        progress.updatePercentage(percent);
-
-        /// count ids for semaphore to be released
-        if (--numberOfCommentIds == 0) {
-          semaphoreComments.release();
-        }
-      }
-    });
-
-    //wait for requests to finish
-    await semaphoreComments.acquire();
-    semaphoreComments.release();
-
-    progress.finishProgress();
-    // perform commit
-    await SqlHandler().commitInsertJsonData(batchComments);
-
-    progress.startProgress('Caching');
-    // now perform the cache of mapping tables
-    await SqlHandler().cacheTTMapping(ttAreaId);
-    progress.finishProgress();
-
-    // store update time in json
-    (await UpdateStati.getInstance()).setNewData(subarea, true);
-
-    return rockCount;
+    return element;
   }
 }

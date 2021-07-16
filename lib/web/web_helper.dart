@@ -2,7 +2,7 @@ import 'package:http/http.dart' as http;
 
 class WebHelper {
   /// handle bad answers from http response
-  bool isResponseValid(http.Response response) {
+  static bool isResponseValid(http.Response response) {
     if (response.body.isEmpty) {
       throw Exception('Empty data container' + response.request.toString());
     }

@@ -1,58 +1,103 @@
 import 'package:flutter/material.dart';
-import 'package:rock_carrot/models/rocks.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:rock_carrot/blocs/routes/routes_bloc.dart';
+import 'package:rock_carrot/blocs/view/view_bloc.dart';
+import 'package:rock_carrot/models/sandstein/rock.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class RockTile extends StatefulWidget {
-  final Rock _rock;
-  RockTile(this._rock);
-  @override
-  _RockTileState createState() => _RockTileState(_rock);
-}
+class RockTile extends StatelessWidget {
+  final Rock rock;
 
-class _RockTileState extends State<RockTile> {
-  final Rock _rock;
-  _RockTileState(this._rock);
+  const RockTile({
+    Key? key,
+    required this.rock,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    if (_rock.nr == 9999 || _rock.nr == 9998) {
-      //don't show special places like parking lots etc.
-      return Container();
-    }
-    return Column(children: [
-      ListTile(
-        tileColor: (_rock.status == '[X]' || _rock.status == '[E]')
-            ? Colors.grey
-            : null, // grey backgroud color for prohibited or collapsed peaks
-        title: _rock.nr != 0
-            ? // if there is a reference number for the rock
-            Text(_rock.nr.toString() +
-                    ' ' +
-                    _rock.name + // number and rock name
-                    (_rock.type != '[G]'
-                        ? ' ' + _rock.type
-                        : '') + // if it's anything else than natural a peak, ie cliff or boulder, show type
-                    (_rock.status != '[]'
-                        ? ' ' + _rock.status
-                        : '') // show status if non-empty, X,Z,T,E
-                )
-            : //concat number and name
-            Text(_rock.name), // else show only name
-        subtitle:
-            _rock.hasSecondLanguageName ? Text(_rock.secondLanguageName) : null,
-        trailing: Text(_rock.childCount),
-        onTap: () {
-          Navigator.pushNamed(
-            //navigate to Routes
-            context,
-            '/' + _rock.runtimeType.toString(),
-            arguments: _rock,
-          );
-        },
+    return Slidable(
+      actionPane: SlidableDrawerActionPane(),
+      actions: [
+        IconSlideAction(
+          caption: 'Pin',
+          color: Colors.amber,
+          icon: Icons.pin_drop,
+          // TODO: PIN ACTION
+          onTap: () => null,
+        )
+      ], //todo primarySlideActions
+      secondaryActions: [], //secondarySlideActions,
+      child: _rockTileTap(context),
+    );
+  }
+
+  /// makeing the custom tile tapable
+  Widget _rockTileTap(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        BlocProvider.of<ViewBloc>(context).add(ViewEvent.toRoutes(rock));
+      },
+      child: _rockTileContent(context),
+    );
+  }
+
+  /// the actual Content of the Tile
+  Widget _rockTileContent(BuildContext context) {
+    return ListTile(
+      tileColor: // grey backgroud color for prohibited or collapsed peaks
+          ((rock.state == RockState.Demolished) ||
+                  (rock.state == RockState.FullyRestricted))
+              ? Colors.grey
+              : null,
+      title: Row(
+        children: [
+          if (rock.nr != 0) ...[Text('${rock.nr} ')],
+          // TODO: use getter / when fixed
+          Text(rock.getName()),
+          // TODO: better marking here - possibly Icons
+          if (rock.state == RockState.PartlyRestricted) ...[
+            Text('[T]'),
+          ],
+          if (rock.state == RockState.Demolished) ...[
+            Text('[E]'),
+          ],
+          if (rock.state == RockState.FullyRestricted) ...[
+            Text('[X]'),
+          ],
+          if (rock.state == RockState.TimelyRestricted) ...[
+            Text('[Z]'),
+          ]
+        ],
       ),
-      Divider(
-        height: 1,
-        thickness: 1,
+      // TODO: use getter / when fixed
+      subtitle: rock.getSecondLanguageName().isNotEmpty
+          ? Text(rock.getSecondLanguageName())
+          : null,
+      trailing: BlocBuilder<RoutesBloc, RoutesState>(
+        builder: (context, state) => state.maybeWhen(
+          routesReceived: (rock, routes) {
+            // identify easiest Route on the Rock
+            // ternary operation: ensure that missing difficulty (==0) are handled
+            routes.sort((a, b) => (b.difficulty.sortableDifficulty > 0)
+                ? a.difficulty.sortableDifficulty -
+                    b.difficulty.sortableDifficulty
+                : -1);
+            return Container(
+              width: 60,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text('${routes.length}'),
+                  if (routes.isNotEmpty) ...[
+                    Text(routes.first.difficulty.DifficultyFull ?? '')
+                  ],
+                ],
+              ),
+            );
+          },
+          orElse: () => Text(''),
+        ),
       ),
-    ]);
+    );
   }
 }

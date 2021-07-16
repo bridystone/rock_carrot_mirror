@@ -7,12 +7,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:rock_carrot/main_material.dart';
+import 'package:rock_carrot/rock_carrot_app.dart';
 
 void main() {
   // dummy test
   testWidgets('Does it run', (WidgetTester tester) async {
-    await tester.pumpWidget(RockCarrotMaterial());
+    await tester.pumpWidget(RockCarrotApp());
     final textFinder = find.byType(MaterialApp);
 
     expect(textFinder, findsOneWidget);

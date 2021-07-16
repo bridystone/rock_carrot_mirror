@@ -9,18 +9,10 @@ part of 'country.dart';
 _$_Country _$_$_CountryFromJson(Map<String, dynamic> json) {
   return _$_Country(
     json['land'] as String,
-    json['ISO3166'] as String,
-    json['KFZ'] as String,
-    json['count'] as int,
-    DateTime.parse(json['insert_timestamp'] as String),
   );
 }
 
 Map<String, dynamic> _$_$_CountryToJson(_$_Country instance) =>
     <String, dynamic>{
-      'land': instance.land,
-      'ISO3166': instance.iso3166,
-      'KFZ': instance.kfz,
-      'count': instance.childCount,
-      'insert_timestamp': instance.lastUpdated.toIso8601String(),
+      'land': instance.name,
     };

@@ -21,38 +21,22 @@ class _$CommentTearOff {
   const _$CommentTearOff();
 
   _Comment call(
-      int kommentId,
-      String userid,
-      String datum,
-      String adatum,
-      int wegid,
-      int sektorid,
-      int gebietid,
-      String qual,
-      @RouteSafetyConverter() @JsonKey(name: 'sicher') String safetyRouteIcon,
-      String nass,
-      String kommentar,
-      int gipfelid,
-      String schwer,
-      String geklettert,
-      String begehung,
-      String source) {
+      @JsonKey(name: 'userid') String user,
+      @JsonKey(name: 'datum') DateTime date,
+      @IntConverter() @JsonKey(name: 'qual') int? quality,
+      @RouteSafetyConverter() @JsonKey(name: 'sicher') IconData? safetyIcon,
+      @RouteWetnessConverter() @JsonKey(name: 'nass') IconData? wetnessIcon,
+      @JsonKey(name: 'kommentar') String comment,
+      @RouteDifficultyConverter() @JsonKey(name: 'schwer') String? difficulty,
+      @CommentSourceConverter() @JsonKey(name: 'source') CommentSource source) {
     return _Comment(
-      kommentId,
-      userid,
-      datum,
-      adatum,
-      wegid,
-      sektorid,
-      gebietid,
-      qual,
-      safetyRouteIcon,
-      nass,
-      kommentar,
-      gipfelid,
-      schwer,
-      geklettert,
-      begehung,
+      user,
+      date,
+      quality,
+      safetyIcon,
+      wetnessIcon,
+      comment,
+      difficulty,
       source,
     );
   }
@@ -67,24 +51,35 @@ const $Comment = _$CommentTearOff();
 
 /// @nodoc
 mixin _$Comment {
-  int get kommentId => throw _privateConstructorUsedError;
-  String get userid => throw _privateConstructorUsedError;
-  String get datum => throw _privateConstructorUsedError;
-  String get adatum => throw _privateConstructorUsedError;
-  int get wegid => throw _privateConstructorUsedError;
-  int get sektorid => throw _privateConstructorUsedError;
-  int get gebietid => throw _privateConstructorUsedError;
-  String get qual => throw _privateConstructorUsedError;
+// @JsonKey(name: 'komment_ID') int kommentId,
+  @JsonKey(name: 'userid')
+  String get user => throw _privateConstructorUsedError;
+  @JsonKey(name: 'datum')
+  DateTime get date =>
+      throw _privateConstructorUsedError; // @JsonKey(name: 'adatum') String adatum,
+// @JsonKey(name: 'wegid') int wegid,
+// @JsonKey(name: 'sektorid') int sektorid,
+// @JsonKey(name: 'gebietid') int gebietid,
+  @IntConverter()
+  @JsonKey(name: 'qual')
+  int? get quality => throw _privateConstructorUsedError;
   @RouteSafetyConverter()
   @JsonKey(name: 'sicher')
-  String get safetyRouteIcon => throw _privateConstructorUsedError;
-  String get nass => throw _privateConstructorUsedError;
-  String get kommentar => throw _privateConstructorUsedError;
-  int get gipfelid => throw _privateConstructorUsedError;
-  String get schwer => throw _privateConstructorUsedError;
-  String get geklettert => throw _privateConstructorUsedError;
-  String get begehung => throw _privateConstructorUsedError;
-  String get source => throw _privateConstructorUsedError;
+  IconData? get safetyIcon => throw _privateConstructorUsedError;
+  @RouteWetnessConverter()
+  @JsonKey(name: 'nass')
+  IconData? get wetnessIcon => throw _privateConstructorUsedError;
+  @JsonKey(name: 'kommentar')
+  String get comment =>
+      throw _privateConstructorUsedError; // @JsonKey(name: 'gipfelid') int gipfelid,
+  @RouteDifficultyConverter()
+  @JsonKey(name: 'schwer')
+  String? get difficulty =>
+      throw _privateConstructorUsedError; // @JsonKey(name: 'geklettert') String geklettert,
+// @JsonKey(name: 'begehung') String begehung,
+  @CommentSourceConverter()
+  @JsonKey(name: 'source')
+  CommentSource get source => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -96,22 +91,14 @@ abstract class $CommentCopyWith<$Res> {
   factory $CommentCopyWith(Comment value, $Res Function(Comment) then) =
       _$CommentCopyWithImpl<$Res>;
   $Res call(
-      {int kommentId,
-      String userid,
-      String datum,
-      String adatum,
-      int wegid,
-      int sektorid,
-      int gebietid,
-      String qual,
-      @RouteSafetyConverter() @JsonKey(name: 'sicher') String safetyRouteIcon,
-      String nass,
-      String kommentar,
-      int gipfelid,
-      String schwer,
-      String geklettert,
-      String begehung,
-      String source});
+      {@JsonKey(name: 'userid') String user,
+      @JsonKey(name: 'datum') DateTime date,
+      @IntConverter() @JsonKey(name: 'qual') int? quality,
+      @RouteSafetyConverter() @JsonKey(name: 'sicher') IconData? safetyIcon,
+      @RouteWetnessConverter() @JsonKey(name: 'nass') IconData? wetnessIcon,
+      @JsonKey(name: 'kommentar') String comment,
+      @RouteDifficultyConverter() @JsonKey(name: 'schwer') String? difficulty,
+      @CommentSourceConverter() @JsonKey(name: 'source') CommentSource source});
 }
 
 /// @nodoc
@@ -124,88 +111,48 @@ class _$CommentCopyWithImpl<$Res> implements $CommentCopyWith<$Res> {
 
   @override
   $Res call({
-    Object? kommentId = freezed,
-    Object? userid = freezed,
-    Object? datum = freezed,
-    Object? adatum = freezed,
-    Object? wegid = freezed,
-    Object? sektorid = freezed,
-    Object? gebietid = freezed,
-    Object? qual = freezed,
-    Object? safetyRouteIcon = freezed,
-    Object? nass = freezed,
-    Object? kommentar = freezed,
-    Object? gipfelid = freezed,
-    Object? schwer = freezed,
-    Object? geklettert = freezed,
-    Object? begehung = freezed,
+    Object? user = freezed,
+    Object? date = freezed,
+    Object? quality = freezed,
+    Object? safetyIcon = freezed,
+    Object? wetnessIcon = freezed,
+    Object? comment = freezed,
+    Object? difficulty = freezed,
     Object? source = freezed,
   }) {
     return _then(_value.copyWith(
-      kommentId: kommentId == freezed
-          ? _value.kommentId
-          : kommentId // ignore: cast_nullable_to_non_nullable
-              as int,
-      userid: userid == freezed
-          ? _value.userid
-          : userid // ignore: cast_nullable_to_non_nullable
+      user: user == freezed
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
               as String,
-      datum: datum == freezed
-          ? _value.datum
-          : datum // ignore: cast_nullable_to_non_nullable
+      date: date == freezed
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      quality: quality == freezed
+          ? _value.quality
+          : quality // ignore: cast_nullable_to_non_nullable
+              as int?,
+      safetyIcon: safetyIcon == freezed
+          ? _value.safetyIcon
+          : safetyIcon // ignore: cast_nullable_to_non_nullable
+              as IconData?,
+      wetnessIcon: wetnessIcon == freezed
+          ? _value.wetnessIcon
+          : wetnessIcon // ignore: cast_nullable_to_non_nullable
+              as IconData?,
+      comment: comment == freezed
+          ? _value.comment
+          : comment // ignore: cast_nullable_to_non_nullable
               as String,
-      adatum: adatum == freezed
-          ? _value.adatum
-          : adatum // ignore: cast_nullable_to_non_nullable
-              as String,
-      wegid: wegid == freezed
-          ? _value.wegid
-          : wegid // ignore: cast_nullable_to_non_nullable
-              as int,
-      sektorid: sektorid == freezed
-          ? _value.sektorid
-          : sektorid // ignore: cast_nullable_to_non_nullable
-              as int,
-      gebietid: gebietid == freezed
-          ? _value.gebietid
-          : gebietid // ignore: cast_nullable_to_non_nullable
-              as int,
-      qual: qual == freezed
-          ? _value.qual
-          : qual // ignore: cast_nullable_to_non_nullable
-              as String,
-      safetyRouteIcon: safetyRouteIcon == freezed
-          ? _value.safetyRouteIcon
-          : safetyRouteIcon // ignore: cast_nullable_to_non_nullable
-              as String,
-      nass: nass == freezed
-          ? _value.nass
-          : nass // ignore: cast_nullable_to_non_nullable
-              as String,
-      kommentar: kommentar == freezed
-          ? _value.kommentar
-          : kommentar // ignore: cast_nullable_to_non_nullable
-              as String,
-      gipfelid: gipfelid == freezed
-          ? _value.gipfelid
-          : gipfelid // ignore: cast_nullable_to_non_nullable
-              as int,
-      schwer: schwer == freezed
-          ? _value.schwer
-          : schwer // ignore: cast_nullable_to_non_nullable
-              as String,
-      geklettert: geklettert == freezed
-          ? _value.geklettert
-          : geklettert // ignore: cast_nullable_to_non_nullable
-              as String,
-      begehung: begehung == freezed
-          ? _value.begehung
-          : begehung // ignore: cast_nullable_to_non_nullable
-              as String,
+      difficulty: difficulty == freezed
+          ? _value.difficulty
+          : difficulty // ignore: cast_nullable_to_non_nullable
+              as String?,
       source: source == freezed
           ? _value.source
           : source // ignore: cast_nullable_to_non_nullable
-              as String,
+              as CommentSource,
     ));
   }
 }
@@ -216,22 +163,14 @@ abstract class _$CommentCopyWith<$Res> implements $CommentCopyWith<$Res> {
       __$CommentCopyWithImpl<$Res>;
   @override
   $Res call(
-      {int kommentId,
-      String userid,
-      String datum,
-      String adatum,
-      int wegid,
-      int sektorid,
-      int gebietid,
-      String qual,
-      @RouteSafetyConverter() @JsonKey(name: 'sicher') String safetyRouteIcon,
-      String nass,
-      String kommentar,
-      int gipfelid,
-      String schwer,
-      String geklettert,
-      String begehung,
-      String source});
+      {@JsonKey(name: 'userid') String user,
+      @JsonKey(name: 'datum') DateTime date,
+      @IntConverter() @JsonKey(name: 'qual') int? quality,
+      @RouteSafetyConverter() @JsonKey(name: 'sicher') IconData? safetyIcon,
+      @RouteWetnessConverter() @JsonKey(name: 'nass') IconData? wetnessIcon,
+      @JsonKey(name: 'kommentar') String comment,
+      @RouteDifficultyConverter() @JsonKey(name: 'schwer') String? difficulty,
+      @CommentSourceConverter() @JsonKey(name: 'source') CommentSource source});
 }
 
 /// @nodoc
@@ -245,88 +184,48 @@ class __$CommentCopyWithImpl<$Res> extends _$CommentCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? kommentId = freezed,
-    Object? userid = freezed,
-    Object? datum = freezed,
-    Object? adatum = freezed,
-    Object? wegid = freezed,
-    Object? sektorid = freezed,
-    Object? gebietid = freezed,
-    Object? qual = freezed,
-    Object? safetyRouteIcon = freezed,
-    Object? nass = freezed,
-    Object? kommentar = freezed,
-    Object? gipfelid = freezed,
-    Object? schwer = freezed,
-    Object? geklettert = freezed,
-    Object? begehung = freezed,
+    Object? user = freezed,
+    Object? date = freezed,
+    Object? quality = freezed,
+    Object? safetyIcon = freezed,
+    Object? wetnessIcon = freezed,
+    Object? comment = freezed,
+    Object? difficulty = freezed,
     Object? source = freezed,
   }) {
     return _then(_Comment(
-      kommentId == freezed
-          ? _value.kommentId
-          : kommentId // ignore: cast_nullable_to_non_nullable
-              as int,
-      userid == freezed
-          ? _value.userid
-          : userid // ignore: cast_nullable_to_non_nullable
+      user == freezed
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
               as String,
-      datum == freezed
-          ? _value.datum
-          : datum // ignore: cast_nullable_to_non_nullable
+      date == freezed
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      quality == freezed
+          ? _value.quality
+          : quality // ignore: cast_nullable_to_non_nullable
+              as int?,
+      safetyIcon == freezed
+          ? _value.safetyIcon
+          : safetyIcon // ignore: cast_nullable_to_non_nullable
+              as IconData?,
+      wetnessIcon == freezed
+          ? _value.wetnessIcon
+          : wetnessIcon // ignore: cast_nullable_to_non_nullable
+              as IconData?,
+      comment == freezed
+          ? _value.comment
+          : comment // ignore: cast_nullable_to_non_nullable
               as String,
-      adatum == freezed
-          ? _value.adatum
-          : adatum // ignore: cast_nullable_to_non_nullable
-              as String,
-      wegid == freezed
-          ? _value.wegid
-          : wegid // ignore: cast_nullable_to_non_nullable
-              as int,
-      sektorid == freezed
-          ? _value.sektorid
-          : sektorid // ignore: cast_nullable_to_non_nullable
-              as int,
-      gebietid == freezed
-          ? _value.gebietid
-          : gebietid // ignore: cast_nullable_to_non_nullable
-              as int,
-      qual == freezed
-          ? _value.qual
-          : qual // ignore: cast_nullable_to_non_nullable
-              as String,
-      safetyRouteIcon == freezed
-          ? _value.safetyRouteIcon
-          : safetyRouteIcon // ignore: cast_nullable_to_non_nullable
-              as String,
-      nass == freezed
-          ? _value.nass
-          : nass // ignore: cast_nullable_to_non_nullable
-              as String,
-      kommentar == freezed
-          ? _value.kommentar
-          : kommentar // ignore: cast_nullable_to_non_nullable
-              as String,
-      gipfelid == freezed
-          ? _value.gipfelid
-          : gipfelid // ignore: cast_nullable_to_non_nullable
-              as int,
-      schwer == freezed
-          ? _value.schwer
-          : schwer // ignore: cast_nullable_to_non_nullable
-              as String,
-      geklettert == freezed
-          ? _value.geklettert
-          : geklettert // ignore: cast_nullable_to_non_nullable
-              as String,
-      begehung == freezed
-          ? _value.begehung
-          : begehung // ignore: cast_nullable_to_non_nullable
-              as String,
+      difficulty == freezed
+          ? _value.difficulty
+          : difficulty // ignore: cast_nullable_to_non_nullable
+              as String?,
       source == freezed
           ? _value.source
           : source // ignore: cast_nullable_to_non_nullable
-              as String,
+              as CommentSource,
     ));
   }
 }
@@ -335,108 +234,80 @@ class __$CommentCopyWithImpl<$Res> extends _$CommentCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_Comment implements _Comment {
   _$_Comment(
-      this.kommentId,
-      this.userid,
-      this.datum,
-      this.adatum,
-      this.wegid,
-      this.sektorid,
-      this.gebietid,
-      this.qual,
-      @RouteSafetyConverter() @JsonKey(name: 'sicher') this.safetyRouteIcon,
-      this.nass,
-      this.kommentar,
-      this.gipfelid,
-      this.schwer,
-      this.geklettert,
-      this.begehung,
-      this.source);
+      @JsonKey(name: 'userid') this.user,
+      @JsonKey(name: 'datum') this.date,
+      @IntConverter() @JsonKey(name: 'qual') this.quality,
+      @RouteSafetyConverter() @JsonKey(name: 'sicher') this.safetyIcon,
+      @RouteWetnessConverter() @JsonKey(name: 'nass') this.wetnessIcon,
+      @JsonKey(name: 'kommentar') this.comment,
+      @RouteDifficultyConverter() @JsonKey(name: 'schwer') this.difficulty,
+      @CommentSourceConverter() @JsonKey(name: 'source') this.source);
 
   factory _$_Comment.fromJson(Map<String, dynamic> json) =>
       _$_$_CommentFromJson(json);
 
+  @override // @JsonKey(name: 'komment_ID') int kommentId,
+  @JsonKey(name: 'userid')
+  final String user;
   @override
-  final int kommentId;
-  @override
-  final String userid;
-  @override
-  final String datum;
-  @override
-  final String adatum;
-  @override
-  final int wegid;
-  @override
-  final int sektorid;
-  @override
-  final int gebietid;
-  @override
-  final String qual;
+  @JsonKey(name: 'datum')
+  final DateTime date;
+  @override // @JsonKey(name: 'adatum') String adatum,
+// @JsonKey(name: 'wegid') int wegid,
+// @JsonKey(name: 'sektorid') int sektorid,
+// @JsonKey(name: 'gebietid') int gebietid,
+  @IntConverter()
+  @JsonKey(name: 'qual')
+  final int? quality;
   @override
   @RouteSafetyConverter()
   @JsonKey(name: 'sicher')
-  final String safetyRouteIcon;
+  final IconData? safetyIcon;
   @override
-  final String nass;
+  @RouteWetnessConverter()
+  @JsonKey(name: 'nass')
+  final IconData? wetnessIcon;
   @override
-  final String kommentar;
-  @override
-  final int gipfelid;
-  @override
-  final String schwer;
-  @override
-  final String geklettert;
-  @override
-  final String begehung;
-  @override
-  final String source;
+  @JsonKey(name: 'kommentar')
+  final String comment;
+  @override // @JsonKey(name: 'gipfelid') int gipfelid,
+  @RouteDifficultyConverter()
+  @JsonKey(name: 'schwer')
+  final String? difficulty;
+  @override // @JsonKey(name: 'geklettert') String geklettert,
+// @JsonKey(name: 'begehung') String begehung,
+  @CommentSourceConverter()
+  @JsonKey(name: 'source')
+  final CommentSource source;
 
   @override
   String toString() {
-    return 'Comment(kommentId: $kommentId, userid: $userid, datum: $datum, adatum: $adatum, wegid: $wegid, sektorid: $sektorid, gebietid: $gebietid, qual: $qual, safetyRouteIcon: $safetyRouteIcon, nass: $nass, kommentar: $kommentar, gipfelid: $gipfelid, schwer: $schwer, geklettert: $geklettert, begehung: $begehung, source: $source)';
+    return 'Comment(user: $user, date: $date, quality: $quality, safetyIcon: $safetyIcon, wetnessIcon: $wetnessIcon, comment: $comment, difficulty: $difficulty, source: $source)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _Comment &&
-            (identical(other.kommentId, kommentId) ||
+            (identical(other.user, user) ||
+                const DeepCollectionEquality().equals(other.user, user)) &&
+            (identical(other.date, date) ||
+                const DeepCollectionEquality().equals(other.date, date)) &&
+            (identical(other.quality, quality) ||
                 const DeepCollectionEquality()
-                    .equals(other.kommentId, kommentId)) &&
-            (identical(other.userid, userid) ||
-                const DeepCollectionEquality().equals(other.userid, userid)) &&
-            (identical(other.datum, datum) ||
-                const DeepCollectionEquality().equals(other.datum, datum)) &&
-            (identical(other.adatum, adatum) ||
-                const DeepCollectionEquality().equals(other.adatum, adatum)) &&
-            (identical(other.wegid, wegid) ||
-                const DeepCollectionEquality().equals(other.wegid, wegid)) &&
-            (identical(other.sektorid, sektorid) ||
+                    .equals(other.quality, quality)) &&
+            (identical(other.safetyIcon, safetyIcon) ||
                 const DeepCollectionEquality()
-                    .equals(other.sektorid, sektorid)) &&
-            (identical(other.gebietid, gebietid) ||
+                    .equals(other.safetyIcon, safetyIcon)) &&
+            (identical(other.wetnessIcon, wetnessIcon) ||
                 const DeepCollectionEquality()
-                    .equals(other.gebietid, gebietid)) &&
-            (identical(other.qual, qual) ||
-                const DeepCollectionEquality().equals(other.qual, qual)) &&
-            (identical(other.safetyRouteIcon, safetyRouteIcon) ||
+                    .equals(other.wetnessIcon, wetnessIcon)) &&
+            (identical(other.comment, comment) ||
                 const DeepCollectionEquality()
-                    .equals(other.safetyRouteIcon, safetyRouteIcon)) &&
-            (identical(other.nass, nass) ||
-                const DeepCollectionEquality().equals(other.nass, nass)) &&
-            (identical(other.kommentar, kommentar) ||
+                    .equals(other.comment, comment)) &&
+            (identical(other.difficulty, difficulty) ||
                 const DeepCollectionEquality()
-                    .equals(other.kommentar, kommentar)) &&
-            (identical(other.gipfelid, gipfelid) ||
-                const DeepCollectionEquality()
-                    .equals(other.gipfelid, gipfelid)) &&
-            (identical(other.schwer, schwer) ||
-                const DeepCollectionEquality().equals(other.schwer, schwer)) &&
-            (identical(other.geklettert, geklettert) ||
-                const DeepCollectionEquality()
-                    .equals(other.geklettert, geklettert)) &&
-            (identical(other.begehung, begehung) ||
-                const DeepCollectionEquality()
-                    .equals(other.begehung, begehung)) &&
+                    .equals(other.difficulty, difficulty)) &&
             (identical(other.source, source) ||
                 const DeepCollectionEquality().equals(other.source, source)));
   }
@@ -444,21 +315,13 @@ class _$_Comment implements _Comment {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(kommentId) ^
-      const DeepCollectionEquality().hash(userid) ^
-      const DeepCollectionEquality().hash(datum) ^
-      const DeepCollectionEquality().hash(adatum) ^
-      const DeepCollectionEquality().hash(wegid) ^
-      const DeepCollectionEquality().hash(sektorid) ^
-      const DeepCollectionEquality().hash(gebietid) ^
-      const DeepCollectionEquality().hash(qual) ^
-      const DeepCollectionEquality().hash(safetyRouteIcon) ^
-      const DeepCollectionEquality().hash(nass) ^
-      const DeepCollectionEquality().hash(kommentar) ^
-      const DeepCollectionEquality().hash(gipfelid) ^
-      const DeepCollectionEquality().hash(schwer) ^
-      const DeepCollectionEquality().hash(geklettert) ^
-      const DeepCollectionEquality().hash(begehung) ^
+      const DeepCollectionEquality().hash(user) ^
+      const DeepCollectionEquality().hash(date) ^
+      const DeepCollectionEquality().hash(quality) ^
+      const DeepCollectionEquality().hash(safetyIcon) ^
+      const DeepCollectionEquality().hash(wetnessIcon) ^
+      const DeepCollectionEquality().hash(comment) ^
+      const DeepCollectionEquality().hash(difficulty) ^
       const DeepCollectionEquality().hash(source);
 
   @JsonKey(ignore: true)
@@ -474,59 +337,63 @@ class _$_Comment implements _Comment {
 
 abstract class _Comment implements Comment {
   factory _Comment(
-      int kommentId,
-      String userid,
-      String datum,
-      String adatum,
-      int wegid,
-      int sektorid,
-      int gebietid,
-      String qual,
-      @RouteSafetyConverter() @JsonKey(name: 'sicher') String safetyRouteIcon,
-      String nass,
-      String kommentar,
-      int gipfelid,
-      String schwer,
-      String geklettert,
-      String begehung,
-      String source) = _$_Comment;
+      @JsonKey(name: 'userid')
+          String user,
+      @JsonKey(name: 'datum')
+          DateTime date,
+      @IntConverter()
+      @JsonKey(name: 'qual')
+          int? quality,
+      @RouteSafetyConverter()
+      @JsonKey(name: 'sicher')
+          IconData? safetyIcon,
+      @RouteWetnessConverter()
+      @JsonKey(name: 'nass')
+          IconData? wetnessIcon,
+      @JsonKey(name: 'kommentar')
+          String comment,
+      @RouteDifficultyConverter()
+      @JsonKey(name: 'schwer')
+          String? difficulty,
+      @CommentSourceConverter()
+      @JsonKey(name: 'source')
+          CommentSource source) = _$_Comment;
 
   factory _Comment.fromJson(Map<String, dynamic> json) = _$_Comment.fromJson;
 
+  @override // @JsonKey(name: 'komment_ID') int kommentId,
+  @JsonKey(name: 'userid')
+  String get user => throw _privateConstructorUsedError;
   @override
-  int get kommentId => throw _privateConstructorUsedError;
-  @override
-  String get userid => throw _privateConstructorUsedError;
-  @override
-  String get datum => throw _privateConstructorUsedError;
-  @override
-  String get adatum => throw _privateConstructorUsedError;
-  @override
-  int get wegid => throw _privateConstructorUsedError;
-  @override
-  int get sektorid => throw _privateConstructorUsedError;
-  @override
-  int get gebietid => throw _privateConstructorUsedError;
-  @override
-  String get qual => throw _privateConstructorUsedError;
+  @JsonKey(name: 'datum')
+  DateTime get date => throw _privateConstructorUsedError;
+  @override // @JsonKey(name: 'adatum') String adatum,
+// @JsonKey(name: 'wegid') int wegid,
+// @JsonKey(name: 'sektorid') int sektorid,
+// @JsonKey(name: 'gebietid') int gebietid,
+  @IntConverter()
+  @JsonKey(name: 'qual')
+  int? get quality => throw _privateConstructorUsedError;
   @override
   @RouteSafetyConverter()
   @JsonKey(name: 'sicher')
-  String get safetyRouteIcon => throw _privateConstructorUsedError;
+  IconData? get safetyIcon => throw _privateConstructorUsedError;
   @override
-  String get nass => throw _privateConstructorUsedError;
+  @RouteWetnessConverter()
+  @JsonKey(name: 'nass')
+  IconData? get wetnessIcon => throw _privateConstructorUsedError;
   @override
-  String get kommentar => throw _privateConstructorUsedError;
-  @override
-  int get gipfelid => throw _privateConstructorUsedError;
-  @override
-  String get schwer => throw _privateConstructorUsedError;
-  @override
-  String get geklettert => throw _privateConstructorUsedError;
-  @override
-  String get begehung => throw _privateConstructorUsedError;
-  @override
-  String get source => throw _privateConstructorUsedError;
+  @JsonKey(name: 'kommentar')
+  String get comment => throw _privateConstructorUsedError;
+  @override // @JsonKey(name: 'gipfelid') int gipfelid,
+  @RouteDifficultyConverter()
+  @JsonKey(name: 'schwer')
+  String? get difficulty => throw _privateConstructorUsedError;
+  @override // @JsonKey(name: 'geklettert') String geklettert,
+// @JsonKey(name: 'begehung') String begehung,
+  @CommentSourceConverter()
+  @JsonKey(name: 'source')
+  CommentSource get source => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$CommentCopyWith<_Comment> get copyWith =>

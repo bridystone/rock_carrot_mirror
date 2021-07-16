@@ -11,7 +11,7 @@ import 'package:rock_carrot/models/sandstein/rock.dart';
 import 'package:rock_carrot/models/sandstein/subarea.dart';
 import 'package:rock_carrot/web/sandstein.dart';
 import 'package:rock_carrot/web/teufelsturm.dart';
-import 'package:rock_carrot/web/teufelsturm_scraper.dart';
+import 'package:rock_carrot/web/web_helper.dart';
 import 'package:semaphore/semaphore.dart';
 
 part 'rocks_event.dart';
@@ -33,7 +33,7 @@ class RocksBloc extends Bloc<RocksEvent, RocksState> {
   ) async {
     try {
       emit(RocksState.inProgress());
-      final sqlResults = await SqlHandler().queryRocks(event.subarea.sektorid);
+      final sqlResults = await SqlHandler().queryRocks(event.subarea.id);
       final rocks = sqlResults.map((sqlRow) => Rock.fromJson(sqlRow)).toList();
 
       emit(RocksState.rocksReceived(event.subarea, rocks));
@@ -92,12 +92,12 @@ class RocksBloc extends Bloc<RocksEvent, RocksState> {
   /// fetch the data, then delete records, finally insert new data
   static Future<int> updateRocksIncludingSubitems(Subarea subarea) async {
     // delete all data
-    await SqlHandler().deleteRocksIncludingSubitems(subarea.sektorid);
+    await SqlHandler().deleteRocksIncludingSubitems(subarea.id);
 
     final jsonDataRocks = Sandstein().fetchJsonFromWeb(
       Sandstein.rocksWebTarget,
       Sandstein.rocksWebQuery,
-      subarea.sektorid.toString(),
+      subarea.id.toString(),
     );
     final count = await SqlHandler()
         .insertJsonData(SqlHandler.rocksTablename, jsonDataRocks);
@@ -105,7 +105,7 @@ class RocksBloc extends Bloc<RocksEvent, RocksState> {
     final jsonDataRoutes = Sandstein().fetchJsonFromWeb(
       Sandstein.routesWebTarget,
       Sandstein.routesWebQuery,
-      subarea.sektorid.toString(),
+      subarea.id.toString(),
     );
     await SqlHandler()
         .insertJsonData(SqlHandler.routesTablename, jsonDataRoutes);
@@ -113,7 +113,7 @@ class RocksBloc extends Bloc<RocksEvent, RocksState> {
     final jsonDataComments = Sandstein().fetchJsonFromWeb(
       Sandstein.commentsWebTarget,
       Sandstein.commentsWebQueryRocks,
-      subarea.sektorid.toString(),
+      subarea.id.toString(),
     );
 
     // insert new data
@@ -131,7 +131,7 @@ class RocksBloc extends Bloc<RocksEvent, RocksState> {
     Subarea subarea,
     Emit<RocksState> emit,
   ) async {
-    final ttAreaId = sandsteinIdTeufelsturmAreaIdMap[subarea.sektorid]!;
+    final ttAreaId = sandsteinIdTeufelsturmAreaIdMap[subarea.id]!;
 
     /// stream that holds the requested items
     final webRequestDataControllerRoutes = StreamController<Map<String, int>>();
@@ -147,7 +147,7 @@ class RocksBloc extends Bloc<RocksEvent, RocksState> {
     emit(RocksState.updateInProgress('Rocks', 0));
 
     // get Rocks of Areas ID;
-    final rockResponse = await Teufelsturm().fetchRocksByArea(ttAreaId);
+    final rockResponse = await fetchRocksByArea(ttAreaId);
 
     emit(RocksState.updateInProgress('Rocks', 33));
 
@@ -217,7 +217,7 @@ class RocksBloc extends Bloc<RocksEvent, RocksState> {
         }
       } else {
         /// response is valid ==> perform actions
-        final jsonRoutes = TeufelsturmScraper().parseRoutesRegEx(
+        final jsonRoutes = Teufelsturm().parseRoutesRegEx(
           response.body,
           rockId: id,
           areaId: ttAreaId,
@@ -309,7 +309,7 @@ class RocksBloc extends Bloc<RocksEvent, RocksState> {
         }
       } else {
         /// response is valid ==> perform actions
-        final jsonComments = TeufelsturmScraper().parseCommentsRegEx(
+        final jsonComments = Teufelsturm().parseCommentsRegEx(
           response.body,
           routeId: id,
           rockId: rockId,
@@ -348,4 +348,23 @@ class RocksBloc extends Bloc<RocksEvent, RocksState> {
 
     return rockCount;
   }
+
+  /// get document data for all Rocksfrom Teufelsturm
+  Future<String> fetchRocksByArea(int teufelsturmAreaId) async {
+    final uri = Uri.http('teufelsturm.de', 'gipfel/suche.php');
+    final response = await http.post(uri, body: {
+      'anzahl': 'Alle', // all items in one page
+      'gebietnr': teufelsturmAreaId.toString(),
+    });
+    if (WebHelper.isResponseValid(response)) {
+      return response.body;
+    } else {
+      throw Exception('failed this receice data');
+    }
+  }
+
+  Subarea? get getSubareaOrNull => state.maybeWhen(
+        rocksReceived: (subarea, rocks) => subarea,
+        orElse: () => null,
+      );
 }

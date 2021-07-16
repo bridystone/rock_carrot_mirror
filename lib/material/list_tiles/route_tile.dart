@@ -1,80 +1,123 @@
 import 'package:flutter/material.dart' hide Route;
-import 'package:rock_carrot/models/routes.dart';
-import 'package:rock_carrot/material/comments_sheet.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:intl/intl.dart';
+import 'package:rock_carrot/blocs/comments/comments_bloc.dart';
+import 'package:rock_carrot/material/comments_bottom_sheet.dart';
+import 'package:rock_carrot/material/snackbar.dart';
+import 'package:rock_carrot/models/sandstein/route.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class RouteTile extends StatefulWidget {
-  final Route _route;
-  RouteTile(this._route);
-  @override
-  _RouteTileState createState() => _RouteTileState(_route);
-}
+class RouteTile extends StatelessWidget {
+  final Route route;
 
-class _RouteTileState extends State<RouteTile> {
-  final Route _route;
-  _RouteTileState(this._route);
+  const RouteTile({
+    Key? key,
+    required this.route,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      ExpansionTile(
-        tilePadding: EdgeInsets.only(left: 5),
-        title: ListTile(
-          //Title of ExpansionTile is a ListTile
-          title: Text.rich(
-            // use rich text to combine Text and Icon and NOT overflow on long route names
-            TextSpan(
-              children: [
-                TextSpan(
-                  text: _route.nr.toString() + ' ' + _route.name,
-                ),
-                WidgetSpan(
-                  child: (_route.commentCountInt! > 0)
-                      ? Icon(
-                          Icons.comment,
-                          size: 15,
-                        )
-                      : Container(),
-                ),
-              ],
-            ),
-          ),
+    return Slidable(
+      actionPane: SlidableDrawerActionPane(),
+      actions: [
+        IconSlideAction(
+          caption: 'Pin',
+          color: Colors.amber,
+          icon: Icons.pin_drop,
+          // TODO: PIN ACTION
+          onTap: () => null,
+        )
+      ],
+      secondaryActions: [], //secondarySlideActions,
+      child: _routeTileTap(context),
+    );
+  }
 
-          subtitle: _route.hasSecondLanguageName
-              ? Text(_route.secondLanguageName)
-              : null,
-          trailing: Text(_route.grade), //show grade
+  /// makeing the custom tile tapable
+  Widget _routeTileTap(BuildContext context) {
+    return BlocProvider(
+      create: (context) => CommentsBloc(),
+      child: ExpansionTile(
+        title: _routeTileContent(context),
+        children: _routeTileExpansion(context),
+      ),
+    );
+  }
+
+  /// the actual Content of the Tile
+  Widget _routeTileContent(BuildContext context) {
+    return ListTile(
+      title: Text.rich(
+        // use rich text to combine Text and Icon and NOT overflow on long route names
+        TextSpan(
+          children: [
+            TextSpan(
+              text: route.nr.toString() + ' ' + route.getName(),
+            ),
+            WidgetSpan(
+              child: (route.commentCount > 0)
+                  ? Icon(
+                      Icons.comment,
+                      size: 15,
+                    )
+                  : Container(),
+            ),
+          ],
         ),
-        children: [
-          ListTile(
+      ),
+
+      // TODO: use getter / when fixed
+      subtitle: route.getSecondLanguageName().isNotEmpty
+          ? Text(route.getSecondLanguageName())
+          : null,
+      trailing: Text('${route.difficulty.DifficultyFull ?? ''}'), //show grade
+    );
+  }
+
+  /// the actual Content of the Tile
+  List<Widget> _routeTileExpansion(BuildContext context) {
+    return [
+      BlocConsumer<CommentsBloc, CommentsState>(
+        //listenWhen: (prevState, nextState) => true,
+        listener: (context, state) {
+          state.maybeWhen(
+            commentsReceived: (comments) => comments.isEmpty
+                ? ScaffoldMessenger.of(context)
+                    .showSnackBar(InfoSnack('no Comments available'))
+                : CommentsBottomSheet().showCommentsSheet(context, comments),
+            orElse: () {},
+          );
+        },
+        builder: (context, state) {
+          return ListTile(
             trailing: Text(
-              _route.rings,
+              (route.rings ?? 0).toString(),
               style: TextStyle(fontSize: 10),
             ),
             title: Text(
-              _route.climbingStyle != ''
-                  ? _route.climbingStyle + '\n' + _route.description
-                  : _route.description,
+              route.climbingStyle.isNotEmpty
+                  ? route.climbingStyle + '\n' + route.getDescription()
+                  : route.getDescription(),
               style: TextStyle(fontSize: 12),
             ),
             subtitle: Text(
               // concat string for first ascent
-              _route.firstAscentLead +
-                  (_route.firstAscentLead != '' ? ', ' : '') +
-                  _route.firstAscentPartners +
-                  (_route.firstAscentPartners != '' ? ', ' : '') +
-                  _route.firstAscentDate,
+              route.firstAscentLead +
+                  (route.firstAscentLead.isNotEmpty ? ', ' : '') +
+                  route.firstAscentPartners +
+                  (route.firstAscentPartners.isNotEmpty ? ', ' : '') +
+                  ((route.firstAscentDate != null)
+                      ? DateFormat('dd.MM.yy').format(route.firstAscentDate!)
+                      : ''),
               style: TextStyle(fontSize: 12),
             ),
-            onTap: () {
-              CommentsSheet().showCommentsSheet(context, _route);
+            onTap: () async {
+              BlocProvider.of<CommentsBloc>(context).add(
+                  CommentsEvent.requestComments(CommentType.Route, route.id));
             },
-          )
-        ],
+          );
+        },
       ),
-      Divider(
-        height: 1,
-        thickness: 1,
-      )
-    ]);
+    ];
   }
 }
