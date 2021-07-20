@@ -15,6 +15,8 @@ class RockTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<RoutesBloc>(context).add(RoutesEvent.requestRoutes(rock));
+
     return Slidable(
       actionPane: SlidableDrawerActionPane(),
       actions: [
@@ -52,8 +54,7 @@ class RockTile extends StatelessWidget {
       title: Row(
         children: [
           if (rock.nr != 0) ...[Text('${rock.nr} ')],
-          // TODO: use getter / when fixed
-          Text(rock.getName()),
+          Text(rock.name),
           // TODO: better marking here - possibly Icons
           if (rock.state == RockState.PartlyRestricted) ...[
             Text('[T]'),
@@ -69,9 +70,8 @@ class RockTile extends StatelessWidget {
           ]
         ],
       ),
-      // TODO: use getter / when fixed
-      subtitle: rock.getSecondLanguageName().isNotEmpty
-          ? Text(rock.getSecondLanguageName())
+      subtitle: rock.secondLanguageName.isNotEmpty
+          ? Text(rock.secondLanguageName)
           : null,
       trailing: BlocBuilder<RoutesBloc, RoutesState>(
         builder: (context, state) => state.maybeWhen(

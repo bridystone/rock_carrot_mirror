@@ -44,8 +44,7 @@ class RocksListView extends StatelessWidget {
                 BlocProvider(
                   // create temporary Bloc provider for each subitem, to gain relevant data
                   // add event to retrieve data
-                  create: (context) =>
-                      RoutesBloc()..add(RoutesEvent.requestRoutes(rock)),
+                  create: (context) => RoutesBloc(),
                   child: RockTile(rock: rock),
                 ),
                 Divider(

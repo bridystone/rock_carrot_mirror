@@ -52,7 +52,7 @@ class RouteTile extends StatelessWidget {
         TextSpan(
           children: [
             TextSpan(
-              text: route.nr.toString() + ' ' + route.getName(),
+              text: route.nr.toString() + ' ' + route.name,
             ),
             WidgetSpan(
               child: (route.commentCount > 0)
@@ -66,9 +66,8 @@ class RouteTile extends StatelessWidget {
         ),
       ),
 
-      // TODO: use getter / when fixed
-      subtitle: route.getSecondLanguageName().isNotEmpty
-          ? Text(route.getSecondLanguageName())
+      subtitle: route.secondLanguageName.isNotEmpty
+          ? Text(route.secondLanguageName)
           : null,
       trailing: Text('${route.difficulty.DifficultyFull ?? ''}'), //show grade
     );
@@ -96,8 +95,8 @@ class RouteTile extends StatelessWidget {
             ),
             title: Text(
               route.climbingStyle.isNotEmpty
-                  ? route.climbingStyle + '\n' + route.getDescription()
-                  : route.getDescription(),
+                  ? route.climbingStyle + '\n' + route.description
+                  : route.description,
               style: TextStyle(fontSize: 12),
             ),
             subtitle: Text(

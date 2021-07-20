@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
-part of 'filtered_countries_bloc.dart';
+part of 'filtered_rocks_bloc.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -13,8 +13,8 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-class _$FilteredCountriesEventTearOff {
-  const _$FilteredCountriesEventTearOff();
+class _$FilteredRocksEventTearOff {
+  const _$FilteredRocksEventTearOff();
 
   _FilterUpdated filterUpdated(String? newFilter) {
     return _FilterUpdated(
@@ -22,36 +22,36 @@ class _$FilteredCountriesEventTearOff {
     );
   }
 
-  _SortingUpdated sortingUpdated(CountriesSorting newSorting) {
+  _SortingUpdated sortingUpdated(RocksSorting newSorting) {
     return _SortingUpdated(
       newSorting,
     );
   }
 
-  _CountriesUpdated countriesUpdated(List<Country> countries) {
-    return _CountriesUpdated(
-      countries,
+  _RocksUpdated rocksUpdated(List<Rock> rocks) {
+    return _RocksUpdated(
+      rocks,
     );
   }
 }
 
 /// @nodoc
-const $FilteredCountriesEvent = _$FilteredCountriesEventTearOff();
+const $FilteredRocksEvent = _$FilteredRocksEventTearOff();
 
 /// @nodoc
-mixin _$FilteredCountriesEvent {
+mixin _$FilteredRocksEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String? newFilter) filterUpdated,
-    required TResult Function(CountriesSorting newSorting) sortingUpdated,
-    required TResult Function(List<Country> countries) countriesUpdated,
+    required TResult Function(RocksSorting newSorting) sortingUpdated,
+    required TResult Function(List<Rock> rocks) rocksUpdated,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String? newFilter)? filterUpdated,
-    TResult Function(CountriesSorting newSorting)? sortingUpdated,
-    TResult Function(List<Country> countries)? countriesUpdated,
+    TResult Function(RocksSorting newSorting)? sortingUpdated,
+    TResult Function(List<Rock> rocks)? rocksUpdated,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -59,34 +59,34 @@ mixin _$FilteredCountriesEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_FilterUpdated value) filterUpdated,
     required TResult Function(_SortingUpdated value) sortingUpdated,
-    required TResult Function(_CountriesUpdated value) countriesUpdated,
+    required TResult Function(_RocksUpdated value) rocksUpdated,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_FilterUpdated value)? filterUpdated,
     TResult Function(_SortingUpdated value)? sortingUpdated,
-    TResult Function(_CountriesUpdated value)? countriesUpdated,
+    TResult Function(_RocksUpdated value)? rocksUpdated,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $FilteredCountriesEventCopyWith<$Res> {
-  factory $FilteredCountriesEventCopyWith(FilteredCountriesEvent value,
-          $Res Function(FilteredCountriesEvent) then) =
-      _$FilteredCountriesEventCopyWithImpl<$Res>;
+abstract class $FilteredRocksEventCopyWith<$Res> {
+  factory $FilteredRocksEventCopyWith(
+          FilteredRocksEvent value, $Res Function(FilteredRocksEvent) then) =
+      _$FilteredRocksEventCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$FilteredCountriesEventCopyWithImpl<$Res>
-    implements $FilteredCountriesEventCopyWith<$Res> {
-  _$FilteredCountriesEventCopyWithImpl(this._value, this._then);
+class _$FilteredRocksEventCopyWithImpl<$Res>
+    implements $FilteredRocksEventCopyWith<$Res> {
+  _$FilteredRocksEventCopyWithImpl(this._value, this._then);
 
-  final FilteredCountriesEvent _value;
+  final FilteredRocksEvent _value;
   // ignore: unused_field
-  final $Res Function(FilteredCountriesEvent) _then;
+  final $Res Function(FilteredRocksEvent) _then;
 }
 
 /// @nodoc
@@ -99,7 +99,7 @@ abstract class _$FilterUpdatedCopyWith<$Res> {
 
 /// @nodoc
 class __$FilterUpdatedCopyWithImpl<$Res>
-    extends _$FilteredCountriesEventCopyWithImpl<$Res>
+    extends _$FilteredRocksEventCopyWithImpl<$Res>
     implements _$FilterUpdatedCopyWith<$Res> {
   __$FilterUpdatedCopyWithImpl(
       _FilterUpdated _value, $Res Function(_FilterUpdated) _then)
@@ -131,7 +131,7 @@ class _$_FilterUpdated implements _FilterUpdated {
 
   @override
   String toString() {
-    return 'FilteredCountriesEvent.filterUpdated(newFilter: $newFilter)';
+    return 'FilteredRocksEvent.filterUpdated(newFilter: $newFilter)';
   }
 
   @override
@@ -156,8 +156,8 @@ class _$_FilterUpdated implements _FilterUpdated {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String? newFilter) filterUpdated,
-    required TResult Function(CountriesSorting newSorting) sortingUpdated,
-    required TResult Function(List<Country> countries) countriesUpdated,
+    required TResult Function(RocksSorting newSorting) sortingUpdated,
+    required TResult Function(List<Rock> rocks) rocksUpdated,
   }) {
     return filterUpdated(newFilter);
   }
@@ -166,8 +166,8 @@ class _$_FilterUpdated implements _FilterUpdated {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String? newFilter)? filterUpdated,
-    TResult Function(CountriesSorting newSorting)? sortingUpdated,
-    TResult Function(List<Country> countries)? countriesUpdated,
+    TResult Function(RocksSorting newSorting)? sortingUpdated,
+    TResult Function(List<Rock> rocks)? rocksUpdated,
     required TResult orElse(),
   }) {
     if (filterUpdated != null) {
@@ -181,7 +181,7 @@ class _$_FilterUpdated implements _FilterUpdated {
   TResult map<TResult extends Object?>({
     required TResult Function(_FilterUpdated value) filterUpdated,
     required TResult Function(_SortingUpdated value) sortingUpdated,
-    required TResult Function(_CountriesUpdated value) countriesUpdated,
+    required TResult Function(_RocksUpdated value) rocksUpdated,
   }) {
     return filterUpdated(this);
   }
@@ -191,7 +191,7 @@ class _$_FilterUpdated implements _FilterUpdated {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_FilterUpdated value)? filterUpdated,
     TResult Function(_SortingUpdated value)? sortingUpdated,
-    TResult Function(_CountriesUpdated value)? countriesUpdated,
+    TResult Function(_RocksUpdated value)? rocksUpdated,
     required TResult orElse(),
   }) {
     if (filterUpdated != null) {
@@ -201,7 +201,7 @@ class _$_FilterUpdated implements _FilterUpdated {
   }
 }
 
-abstract class _FilterUpdated implements FilteredCountriesEvent {
+abstract class _FilterUpdated implements FilteredRocksEvent {
   const factory _FilterUpdated(String? newFilter) = _$_FilterUpdated;
 
   String? get newFilter => throw _privateConstructorUsedError;
@@ -215,12 +215,12 @@ abstract class _$SortingUpdatedCopyWith<$Res> {
   factory _$SortingUpdatedCopyWith(
           _SortingUpdated value, $Res Function(_SortingUpdated) then) =
       __$SortingUpdatedCopyWithImpl<$Res>;
-  $Res call({CountriesSorting newSorting});
+  $Res call({RocksSorting newSorting});
 }
 
 /// @nodoc
 class __$SortingUpdatedCopyWithImpl<$Res>
-    extends _$FilteredCountriesEventCopyWithImpl<$Res>
+    extends _$FilteredRocksEventCopyWithImpl<$Res>
     implements _$SortingUpdatedCopyWith<$Res> {
   __$SortingUpdatedCopyWithImpl(
       _SortingUpdated _value, $Res Function(_SortingUpdated) _then)
@@ -237,7 +237,7 @@ class __$SortingUpdatedCopyWithImpl<$Res>
       newSorting == freezed
           ? _value.newSorting
           : newSorting // ignore: cast_nullable_to_non_nullable
-              as CountriesSorting,
+              as RocksSorting,
     ));
   }
 }
@@ -248,11 +248,11 @@ class _$_SortingUpdated implements _SortingUpdated {
   const _$_SortingUpdated(this.newSorting);
 
   @override
-  final CountriesSorting newSorting;
+  final RocksSorting newSorting;
 
   @override
   String toString() {
-    return 'FilteredCountriesEvent.sortingUpdated(newSorting: $newSorting)';
+    return 'FilteredRocksEvent.sortingUpdated(newSorting: $newSorting)';
   }
 
   @override
@@ -277,8 +277,8 @@ class _$_SortingUpdated implements _SortingUpdated {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String? newFilter) filterUpdated,
-    required TResult Function(CountriesSorting newSorting) sortingUpdated,
-    required TResult Function(List<Country> countries) countriesUpdated,
+    required TResult Function(RocksSorting newSorting) sortingUpdated,
+    required TResult Function(List<Rock> rocks) rocksUpdated,
   }) {
     return sortingUpdated(newSorting);
   }
@@ -287,8 +287,8 @@ class _$_SortingUpdated implements _SortingUpdated {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String? newFilter)? filterUpdated,
-    TResult Function(CountriesSorting newSorting)? sortingUpdated,
-    TResult Function(List<Country> countries)? countriesUpdated,
+    TResult Function(RocksSorting newSorting)? sortingUpdated,
+    TResult Function(List<Rock> rocks)? rocksUpdated,
     required TResult orElse(),
   }) {
     if (sortingUpdated != null) {
@@ -302,7 +302,7 @@ class _$_SortingUpdated implements _SortingUpdated {
   TResult map<TResult extends Object?>({
     required TResult Function(_FilterUpdated value) filterUpdated,
     required TResult Function(_SortingUpdated value) sortingUpdated,
-    required TResult Function(_CountriesUpdated value) countriesUpdated,
+    required TResult Function(_RocksUpdated value) rocksUpdated,
   }) {
     return sortingUpdated(this);
   }
@@ -312,7 +312,7 @@ class _$_SortingUpdated implements _SortingUpdated {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_FilterUpdated value)? filterUpdated,
     TResult Function(_SortingUpdated value)? sortingUpdated,
-    TResult Function(_CountriesUpdated value)? countriesUpdated,
+    TResult Function(_RocksUpdated value)? rocksUpdated,
     required TResult orElse(),
   }) {
     if (sortingUpdated != null) {
@@ -322,99 +322,97 @@ class _$_SortingUpdated implements _SortingUpdated {
   }
 }
 
-abstract class _SortingUpdated implements FilteredCountriesEvent {
-  const factory _SortingUpdated(CountriesSorting newSorting) =
-      _$_SortingUpdated;
+abstract class _SortingUpdated implements FilteredRocksEvent {
+  const factory _SortingUpdated(RocksSorting newSorting) = _$_SortingUpdated;
 
-  CountriesSorting get newSorting => throw _privateConstructorUsedError;
+  RocksSorting get newSorting => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$SortingUpdatedCopyWith<_SortingUpdated> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$CountriesUpdatedCopyWith<$Res> {
-  factory _$CountriesUpdatedCopyWith(
-          _CountriesUpdated value, $Res Function(_CountriesUpdated) then) =
-      __$CountriesUpdatedCopyWithImpl<$Res>;
-  $Res call({List<Country> countries});
+abstract class _$RocksUpdatedCopyWith<$Res> {
+  factory _$RocksUpdatedCopyWith(
+          _RocksUpdated value, $Res Function(_RocksUpdated) then) =
+      __$RocksUpdatedCopyWithImpl<$Res>;
+  $Res call({List<Rock> rocks});
 }
 
 /// @nodoc
-class __$CountriesUpdatedCopyWithImpl<$Res>
-    extends _$FilteredCountriesEventCopyWithImpl<$Res>
-    implements _$CountriesUpdatedCopyWith<$Res> {
-  __$CountriesUpdatedCopyWithImpl(
-      _CountriesUpdated _value, $Res Function(_CountriesUpdated) _then)
-      : super(_value, (v) => _then(v as _CountriesUpdated));
+class __$RocksUpdatedCopyWithImpl<$Res>
+    extends _$FilteredRocksEventCopyWithImpl<$Res>
+    implements _$RocksUpdatedCopyWith<$Res> {
+  __$RocksUpdatedCopyWithImpl(
+      _RocksUpdated _value, $Res Function(_RocksUpdated) _then)
+      : super(_value, (v) => _then(v as _RocksUpdated));
 
   @override
-  _CountriesUpdated get _value => super._value as _CountriesUpdated;
+  _RocksUpdated get _value => super._value as _RocksUpdated;
 
   @override
   $Res call({
-    Object? countries = freezed,
+    Object? rocks = freezed,
   }) {
-    return _then(_CountriesUpdated(
-      countries == freezed
-          ? _value.countries
-          : countries // ignore: cast_nullable_to_non_nullable
-              as List<Country>,
+    return _then(_RocksUpdated(
+      rocks == freezed
+          ? _value.rocks
+          : rocks // ignore: cast_nullable_to_non_nullable
+              as List<Rock>,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_CountriesUpdated implements _CountriesUpdated {
-  const _$_CountriesUpdated(this.countries);
+class _$_RocksUpdated implements _RocksUpdated {
+  const _$_RocksUpdated(this.rocks);
 
   @override
-  final List<Country> countries;
+  final List<Rock> rocks;
 
   @override
   String toString() {
-    return 'FilteredCountriesEvent.countriesUpdated(countries: $countries)';
+    return 'FilteredRocksEvent.rocksUpdated(rocks: $rocks)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _CountriesUpdated &&
-            (identical(other.countries, countries) ||
-                const DeepCollectionEquality()
-                    .equals(other.countries, countries)));
+        (other is _RocksUpdated &&
+            (identical(other.rocks, rocks) ||
+                const DeepCollectionEquality().equals(other.rocks, rocks)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(countries);
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(rocks);
 
   @JsonKey(ignore: true)
   @override
-  _$CountriesUpdatedCopyWith<_CountriesUpdated> get copyWith =>
-      __$CountriesUpdatedCopyWithImpl<_CountriesUpdated>(this, _$identity);
+  _$RocksUpdatedCopyWith<_RocksUpdated> get copyWith =>
+      __$RocksUpdatedCopyWithImpl<_RocksUpdated>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String? newFilter) filterUpdated,
-    required TResult Function(CountriesSorting newSorting) sortingUpdated,
-    required TResult Function(List<Country> countries) countriesUpdated,
+    required TResult Function(RocksSorting newSorting) sortingUpdated,
+    required TResult Function(List<Rock> rocks) rocksUpdated,
   }) {
-    return countriesUpdated(countries);
+    return rocksUpdated(rocks);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String? newFilter)? filterUpdated,
-    TResult Function(CountriesSorting newSorting)? sortingUpdated,
-    TResult Function(List<Country> countries)? countriesUpdated,
+    TResult Function(RocksSorting newSorting)? sortingUpdated,
+    TResult Function(List<Rock> rocks)? rocksUpdated,
     required TResult orElse(),
   }) {
-    if (countriesUpdated != null) {
-      return countriesUpdated(countries);
+    if (rocksUpdated != null) {
+      return rocksUpdated(rocks);
     }
     return orElse();
   }
@@ -424,9 +422,9 @@ class _$_CountriesUpdated implements _CountriesUpdated {
   TResult map<TResult extends Object?>({
     required TResult Function(_FilterUpdated value) filterUpdated,
     required TResult Function(_SortingUpdated value) sortingUpdated,
-    required TResult Function(_CountriesUpdated value) countriesUpdated,
+    required TResult Function(_RocksUpdated value) rocksUpdated,
   }) {
-    return countriesUpdated(this);
+    return rocksUpdated(this);
   }
 
   @override
@@ -434,38 +432,37 @@ class _$_CountriesUpdated implements _CountriesUpdated {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_FilterUpdated value)? filterUpdated,
     TResult Function(_SortingUpdated value)? sortingUpdated,
-    TResult Function(_CountriesUpdated value)? countriesUpdated,
+    TResult Function(_RocksUpdated value)? rocksUpdated,
     required TResult orElse(),
   }) {
-    if (countriesUpdated != null) {
-      return countriesUpdated(this);
+    if (rocksUpdated != null) {
+      return rocksUpdated(this);
     }
     return orElse();
   }
 }
 
-abstract class _CountriesUpdated implements FilteredCountriesEvent {
-  const factory _CountriesUpdated(List<Country> countries) =
-      _$_CountriesUpdated;
+abstract class _RocksUpdated implements FilteredRocksEvent {
+  const factory _RocksUpdated(List<Rock> rocks) = _$_RocksUpdated;
 
-  List<Country> get countries => throw _privateConstructorUsedError;
+  List<Rock> get rocks => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  _$CountriesUpdatedCopyWith<_CountriesUpdated> get copyWith =>
+  _$RocksUpdatedCopyWith<_RocksUpdated> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-class _$FilteredCountriesStateTearOff {
-  const _$FilteredCountriesStateTearOff();
+class _$FilteredRocksStateTearOff {
+  const _$FilteredRocksStateTearOff();
 
   _Initial initial() {
     return const _Initial();
   }
 
-  _ReadyForUI readyForUI(List<Country> filteredTodos, String? activeFilter,
-      CountriesSorting activeSorting) {
+  _ReadyForUI readyForUI(List<Rock> filteredRocks, String? activeFilter,
+      RocksSorting activeSorting) {
     return _ReadyForUI(
-      filteredTodos,
+      filteredRocks,
       activeFilter,
       activeSorting,
     );
@@ -473,23 +470,23 @@ class _$FilteredCountriesStateTearOff {
 }
 
 /// @nodoc
-const $FilteredCountriesState = _$FilteredCountriesStateTearOff();
+const $FilteredRocksState = _$FilteredRocksStateTearOff();
 
 /// @nodoc
-mixin _$FilteredCountriesState {
+mixin _$FilteredRocksState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<Country> filteredTodos, String? activeFilter,
-            CountriesSorting activeSorting)
+    required TResult Function(List<Rock> filteredRocks, String? activeFilter,
+            RocksSorting activeSorting)
         readyForUI,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<Country> filteredTodos, String? activeFilter,
-            CountriesSorting activeSorting)?
+    TResult Function(List<Rock> filteredRocks, String? activeFilter,
+            RocksSorting activeSorting)?
         readyForUI,
     required TResult orElse(),
   }) =>
@@ -510,20 +507,20 @@ mixin _$FilteredCountriesState {
 }
 
 /// @nodoc
-abstract class $FilteredCountriesStateCopyWith<$Res> {
-  factory $FilteredCountriesStateCopyWith(FilteredCountriesState value,
-          $Res Function(FilteredCountriesState) then) =
-      _$FilteredCountriesStateCopyWithImpl<$Res>;
+abstract class $FilteredRocksStateCopyWith<$Res> {
+  factory $FilteredRocksStateCopyWith(
+          FilteredRocksState value, $Res Function(FilteredRocksState) then) =
+      _$FilteredRocksStateCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$FilteredCountriesStateCopyWithImpl<$Res>
-    implements $FilteredCountriesStateCopyWith<$Res> {
-  _$FilteredCountriesStateCopyWithImpl(this._value, this._then);
+class _$FilteredRocksStateCopyWithImpl<$Res>
+    implements $FilteredRocksStateCopyWith<$Res> {
+  _$FilteredRocksStateCopyWithImpl(this._value, this._then);
 
-  final FilteredCountriesState _value;
+  final FilteredRocksState _value;
   // ignore: unused_field
-  final $Res Function(FilteredCountriesState) _then;
+  final $Res Function(FilteredRocksState) _then;
 }
 
 /// @nodoc
@@ -534,7 +531,7 @@ abstract class _$InitialCopyWith<$Res> {
 
 /// @nodoc
 class __$InitialCopyWithImpl<$Res>
-    extends _$FilteredCountriesStateCopyWithImpl<$Res>
+    extends _$FilteredRocksStateCopyWithImpl<$Res>
     implements _$InitialCopyWith<$Res> {
   __$InitialCopyWithImpl(_Initial _value, $Res Function(_Initial) _then)
       : super(_value, (v) => _then(v as _Initial));
@@ -550,7 +547,7 @@ class _$_Initial implements _Initial {
 
   @override
   String toString() {
-    return 'FilteredCountriesState.initial()';
+    return 'FilteredRocksState.initial()';
   }
 
   @override
@@ -565,8 +562,8 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<Country> filteredTodos, String? activeFilter,
-            CountriesSorting activeSorting)
+    required TResult Function(List<Rock> filteredRocks, String? activeFilter,
+            RocksSorting activeSorting)
         readyForUI,
   }) {
     return initial();
@@ -576,8 +573,8 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<Country> filteredTodos, String? activeFilter,
-            CountriesSorting activeSorting)?
+    TResult Function(List<Rock> filteredRocks, String? activeFilter,
+            RocksSorting activeSorting)?
         readyForUI,
     required TResult orElse(),
   }) {
@@ -610,7 +607,7 @@ class _$_Initial implements _Initial {
   }
 }
 
-abstract class _Initial implements FilteredCountriesState {
+abstract class _Initial implements FilteredRocksState {
   const factory _Initial() = _$_Initial;
 }
 
@@ -620,14 +617,14 @@ abstract class _$ReadyForUICopyWith<$Res> {
           _ReadyForUI value, $Res Function(_ReadyForUI) then) =
       __$ReadyForUICopyWithImpl<$Res>;
   $Res call(
-      {List<Country> filteredTodos,
+      {List<Rock> filteredRocks,
       String? activeFilter,
-      CountriesSorting activeSorting});
+      RocksSorting activeSorting});
 }
 
 /// @nodoc
 class __$ReadyForUICopyWithImpl<$Res>
-    extends _$FilteredCountriesStateCopyWithImpl<$Res>
+    extends _$FilteredRocksStateCopyWithImpl<$Res>
     implements _$ReadyForUICopyWith<$Res> {
   __$ReadyForUICopyWithImpl(
       _ReadyForUI _value, $Res Function(_ReadyForUI) _then)
@@ -638,15 +635,15 @@ class __$ReadyForUICopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? filteredTodos = freezed,
+    Object? filteredRocks = freezed,
     Object? activeFilter = freezed,
     Object? activeSorting = freezed,
   }) {
     return _then(_ReadyForUI(
-      filteredTodos == freezed
-          ? _value.filteredTodos
-          : filteredTodos // ignore: cast_nullable_to_non_nullable
-              as List<Country>,
+      filteredRocks == freezed
+          ? _value.filteredRocks
+          : filteredRocks // ignore: cast_nullable_to_non_nullable
+              as List<Rock>,
       activeFilter == freezed
           ? _value.activeFilter
           : activeFilter // ignore: cast_nullable_to_non_nullable
@@ -654,7 +651,7 @@ class __$ReadyForUICopyWithImpl<$Res>
       activeSorting == freezed
           ? _value.activeSorting
           : activeSorting // ignore: cast_nullable_to_non_nullable
-              as CountriesSorting,
+              as RocksSorting,
     ));
   }
 }
@@ -663,27 +660,27 @@ class __$ReadyForUICopyWithImpl<$Res>
 
 class _$_ReadyForUI implements _ReadyForUI {
   const _$_ReadyForUI(
-      this.filteredTodos, this.activeFilter, this.activeSorting);
+      this.filteredRocks, this.activeFilter, this.activeSorting);
 
   @override
-  final List<Country> filteredTodos;
+  final List<Rock> filteredRocks;
   @override
   final String? activeFilter;
   @override
-  final CountriesSorting activeSorting;
+  final RocksSorting activeSorting;
 
   @override
   String toString() {
-    return 'FilteredCountriesState.readyForUI(filteredTodos: $filteredTodos, activeFilter: $activeFilter, activeSorting: $activeSorting)';
+    return 'FilteredRocksState.readyForUI(filteredRocks: $filteredRocks, activeFilter: $activeFilter, activeSorting: $activeSorting)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _ReadyForUI &&
-            (identical(other.filteredTodos, filteredTodos) ||
+            (identical(other.filteredRocks, filteredRocks) ||
                 const DeepCollectionEquality()
-                    .equals(other.filteredTodos, filteredTodos)) &&
+                    .equals(other.filteredRocks, filteredRocks)) &&
             (identical(other.activeFilter, activeFilter) ||
                 const DeepCollectionEquality()
                     .equals(other.activeFilter, activeFilter)) &&
@@ -695,7 +692,7 @@ class _$_ReadyForUI implements _ReadyForUI {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(filteredTodos) ^
+      const DeepCollectionEquality().hash(filteredRocks) ^
       const DeepCollectionEquality().hash(activeFilter) ^
       const DeepCollectionEquality().hash(activeSorting);
 
@@ -708,24 +705,24 @@ class _$_ReadyForUI implements _ReadyForUI {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<Country> filteredTodos, String? activeFilter,
-            CountriesSorting activeSorting)
+    required TResult Function(List<Rock> filteredRocks, String? activeFilter,
+            RocksSorting activeSorting)
         readyForUI,
   }) {
-    return readyForUI(filteredTodos, activeFilter, activeSorting);
+    return readyForUI(filteredRocks, activeFilter, activeSorting);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<Country> filteredTodos, String? activeFilter,
-            CountriesSorting activeSorting)?
+    TResult Function(List<Rock> filteredRocks, String? activeFilter,
+            RocksSorting activeSorting)?
         readyForUI,
     required TResult orElse(),
   }) {
     if (readyForUI != null) {
-      return readyForUI(filteredTodos, activeFilter, activeSorting);
+      return readyForUI(filteredRocks, activeFilter, activeSorting);
     }
     return orElse();
   }
@@ -753,13 +750,13 @@ class _$_ReadyForUI implements _ReadyForUI {
   }
 }
 
-abstract class _ReadyForUI implements FilteredCountriesState {
-  const factory _ReadyForUI(List<Country> filteredTodos, String? activeFilter,
-      CountriesSorting activeSorting) = _$_ReadyForUI;
+abstract class _ReadyForUI implements FilteredRocksState {
+  const factory _ReadyForUI(List<Rock> filteredRocks, String? activeFilter,
+      RocksSorting activeSorting) = _$_ReadyForUI;
 
-  List<Country> get filteredTodos => throw _privateConstructorUsedError;
+  List<Rock> get filteredRocks => throw _privateConstructorUsedError;
   String? get activeFilter => throw _privateConstructorUsedError;
-  CountriesSorting get activeSorting => throw _privateConstructorUsedError;
+  RocksSorting get activeSorting => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$ReadyForUICopyWith<_ReadyForUI> get copyWith =>
       throw _privateConstructorUsedError;

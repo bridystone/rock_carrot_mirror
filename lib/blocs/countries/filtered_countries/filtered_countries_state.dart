@@ -4,7 +4,7 @@ part of 'filtered_countries_bloc.dart';
 class FilteredCountriesState with _$FilteredCountriesState {
   const factory FilteredCountriesState.initial() = _Initial;
   const factory FilteredCountriesState.readyForUI(
-    List<Country> filteredTodos,
+    List<Country> filteredCountries,
     String? activeFilter,
     CountriesSorting activeSorting,
   ) = _ReadyForUI;

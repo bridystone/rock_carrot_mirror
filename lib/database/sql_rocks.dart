@@ -59,17 +59,25 @@ extension SqlHandlerRocks on SqlHandler {
     int sektorid,
   ) {
     return database.then((db) => db.rawQuery(
-          'SELECT'
-          ' gipfel.*,'
-          ' COUNT(DISTINCT wege.weg_id) as wege_count,'
-          ' COUNT(DISTINCT komment.komment_id) as komment_count'
-          ' FROM gipfel'
-          '   LEFT OUTER JOIN wege' // counting wege
-          '   ON gipfel.gipfel_ID = wege.gipfelid'
-          ' LEFT JOIN komment' // counting comments
-          ' ON gipfel.gipfel_id = komment.gipfelid'
-          ' WHERE gipfel.sektorid = ?'
-          ' GROUP BY gipfel.gipfel_id',
+          '''
+          SELECT 
+            gipfel.*, 
+            COUNT(DISTINCT wege.weg_id) as wege_count, 
+            COUNT(DISTINCT komment.komment_id) as komment_count,
+            MAX(tt_rocks.insert_timestamp) as tt_insert_timestamp
+          FROM gipfel 
+            LEFT OUTER JOIN wege              -- counting wege
+            ON gipfel.gipfel_ID = wege.gipfelid 
+            LEFT JOIN komment                 -- counting comments
+            ON gipfel.gipfel_id = komment.gipfelid 
+            LEFT JOIN tt_mapping_areas        -- fetching TT updates
+            ON tt_mapping_areas.sandstein_areaid = gipfel.sektorid
+            LEFT JOIN tt_rocks 
+            ON tt_rocks.areaid = tt_mapping_areas.tt_areaid
+          WHERE gipfel.sektorid = ?
+          GROUP BY gipfel.gipfel_id
+
+          ''',
           [sektorid],
         ));
   }

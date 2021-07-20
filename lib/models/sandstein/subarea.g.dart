@@ -21,8 +21,8 @@ Map<String, dynamic> _$_$_SubareaToJson(_$_Subarea instance) =>
     <String, dynamic>{
       'sektor_ID': instance.id,
       'sektornr': const DoubleConverter().toJson(instance.nr),
-      'sektorname_d': instance.name,
-      'sektorname_cz': instance.secondLanguageName,
+      'sektorname_d': instance.name_internal,
+      'sektorname_cz': instance.secondLanguageName_internal,
       'komment_count': instance.commentCount,
       'insert_timestamp': instance.lastUpdated.toIso8601String(),
     };

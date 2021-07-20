@@ -145,4 +145,14 @@ class SubareasBloc extends Bloc<SubareasEvent, SubareasState> {
         subareasReceived: (area, subareas) => area,
         orElse: () => null,
       );
+
+  /// return state for filitered Bloc
+  bool get isLoading => state is! _SubareasReceived;
+
+  /// return state for filitered Bloc
+  bool get isLoaded => state is _SubareasReceived;
+
+  /// return countries for FilteredBloc
+  List<Subarea> get subareas =>
+      (state is _SubareasReceived) ? (state as _SubareasReceived).subareas : [];
 }

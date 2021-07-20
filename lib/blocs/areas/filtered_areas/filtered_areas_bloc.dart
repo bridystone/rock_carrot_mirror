@@ -26,7 +26,7 @@ class FilteredAreasBloc extends Bloc<FilteredAreasEvent, FilteredAreasState> {
     areasSubscription = areasBloc.stream.listen((state) {
       // listen to areas received state in areas bloc
       state.maybeWhen(
-        areasReceived: (area, areas) {
+        areasReceived: (country, areas) {
           add(
             FilteredAreasEvent.areasUpdated(areas),
           );

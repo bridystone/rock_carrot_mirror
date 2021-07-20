@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:rock_carrot/blocs/countries/countries_bloc.dart';
-import 'package:rock_carrot/blocs/countries/filtered_countries_bloc.dart';
+import 'package:rock_carrot/blocs/countries/filtered_countries/filtered_countries_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rock_carrot/material/rock_carrot_app_bar.dart';
 import 'package:rock_carrot/material/lists/countries_list.dart';
 import 'package:rock_carrot/material/homescreen_bottom_navigation_bar.dart';
 
@@ -20,33 +21,14 @@ class CountriesScreen extends StatelessWidget {
     final filteredCountriesBloc =
         BlocProvider.of<FilteredCountriesBloc>(context);
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Text('Countries'),
-            SizedBox(
-              width: 100,
-              height: 10,
-              child: TextFormField(
-                maxLines: 1,
-                initialValue: filteredCountriesBloc.currentFilter,
-                onChanged: (filterText) => filteredCountriesBloc
-                    .add(FilteredCountriesEvent.filterUpdated(filterText)),
-              ),
-            ),
-            IconButton(
-                onPressed: () => filteredCountriesBloc.add(
-                      FilteredCountriesEvent.sortingUpdated(
-                        filteredCountriesBloc.currentSorting ==
-                                CountriesSorting.ascending
-                            ? CountriesSorting.descending
-                            : CountriesSorting.ascending,
-                      ),
-                    ),
-                icon: Icon(Icons.sort)),
-          ],
+      appBar: RockCarrotAppBar(
+        headline: 'Countries',
+        initialFilterValue: filteredCountriesBloc.currentFilter,
+        onFilterChanged: (filterText) => filteredCountriesBloc
+            .add(FilteredCountriesEvent.filterUpdated(filterText)),
+        selectedValue: filteredCountriesBloc.currentSorting,
+        onSortingChanged: (selectedSorting) => filteredCountriesBloc.add(
+          FilteredCountriesEvent.sortingUpdated(selectedSorting),
         ),
       ),
       body: RefreshIndicator(

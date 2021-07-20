@@ -36,15 +36,15 @@ class _$RouteTearOff {
       @JsonKey(name: 'ringzahl')
           int? rings,
       @JsonKey(name: 'wegbeschr_d')
-          String description,
+          String description_internal,
       @JsonKey(name: 'wegbeschr_cz')
-          String secondLanguageDescription,
+          String secondLanguageDescription_internal,
       @JsonKey(name: 'kletterei')
           String climbingStyle,
       @JsonKey(name: 'wegname_d')
-          String name,
+          String name_internal,
       @JsonKey(name: 'wegname_cz')
-          String secondLanguageName,
+          String secondLanguageName_internal,
       @IntConverter()
       @JsonKey(name: 'wegstatus')
           int? state,
@@ -62,11 +62,11 @@ class _$RouteTearOff {
       firstAscentPartners,
       firstAscentDate,
       rings,
-      description,
-      secondLanguageDescription,
+      description_internal,
+      secondLanguageDescription_internal,
       climbingStyle,
-      name,
-      secondLanguageName,
+      name_internal,
+      secondLanguageName_internal,
       state,
       nr,
       commentCount,
@@ -100,15 +100,16 @@ mixin _$Route {
   @JsonKey(name: 'ringzahl')
   int? get rings => throw _privateConstructorUsedError;
   @JsonKey(name: 'wegbeschr_d')
-  String get description => throw _privateConstructorUsedError;
+  String get description_internal => throw _privateConstructorUsedError;
   @JsonKey(name: 'wegbeschr_cz')
-  String get secondLanguageDescription => throw _privateConstructorUsedError;
+  String get secondLanguageDescription_internal =>
+      throw _privateConstructorUsedError;
   @JsonKey(name: 'kletterei')
   String get climbingStyle => throw _privateConstructorUsedError;
   @JsonKey(name: 'wegname_d')
-  String get name => throw _privateConstructorUsedError;
+  String get name_internal => throw _privateConstructorUsedError;
   @JsonKey(name: 'wegname_cz')
-  String get secondLanguageName => throw _privateConstructorUsedError;
+  String get secondLanguageName_internal => throw _privateConstructorUsedError;
   @IntConverter()
   @JsonKey(name: 'wegstatus')
   int? get state => throw _privateConstructorUsedError;
@@ -145,15 +146,15 @@ abstract class $RouteCopyWith<$Res> {
       @JsonKey(name: 'ringzahl')
           int? rings,
       @JsonKey(name: 'wegbeschr_d')
-          String description,
+          String description_internal,
       @JsonKey(name: 'wegbeschr_cz')
-          String secondLanguageDescription,
+          String secondLanguageDescription_internal,
       @JsonKey(name: 'kletterei')
           String climbingStyle,
       @JsonKey(name: 'wegname_d')
-          String name,
+          String name_internal,
       @JsonKey(name: 'wegname_cz')
-          String secondLanguageName,
+          String secondLanguageName_internal,
       @IntConverter()
       @JsonKey(name: 'wegstatus')
           int? state,
@@ -184,11 +185,11 @@ class _$RouteCopyWithImpl<$Res> implements $RouteCopyWith<$Res> {
     Object? firstAscentPartners = freezed,
     Object? firstAscentDate = freezed,
     Object? rings = freezed,
-    Object? description = freezed,
-    Object? secondLanguageDescription = freezed,
+    Object? description_internal = freezed,
+    Object? secondLanguageDescription_internal = freezed,
     Object? climbingStyle = freezed,
-    Object? name = freezed,
-    Object? secondLanguageName = freezed,
+    Object? name_internal = freezed,
+    Object? secondLanguageName_internal = freezed,
     Object? state = freezed,
     Object? nr = freezed,
     Object? commentCount = freezed,
@@ -219,25 +220,26 @@ class _$RouteCopyWithImpl<$Res> implements $RouteCopyWith<$Res> {
           ? _value.rings
           : rings // ignore: cast_nullable_to_non_nullable
               as int?,
-      description: description == freezed
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
+      description_internal: description_internal == freezed
+          ? _value.description_internal
+          : description_internal // ignore: cast_nullable_to_non_nullable
               as String,
-      secondLanguageDescription: secondLanguageDescription == freezed
-          ? _value.secondLanguageDescription
-          : secondLanguageDescription // ignore: cast_nullable_to_non_nullable
+      secondLanguageDescription_internal: secondLanguageDescription_internal ==
+              freezed
+          ? _value.secondLanguageDescription_internal
+          : secondLanguageDescription_internal // ignore: cast_nullable_to_non_nullable
               as String,
       climbingStyle: climbingStyle == freezed
           ? _value.climbingStyle
           : climbingStyle // ignore: cast_nullable_to_non_nullable
               as String,
-      name: name == freezed
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+      name_internal: name_internal == freezed
+          ? _value.name_internal
+          : name_internal // ignore: cast_nullable_to_non_nullable
               as String,
-      secondLanguageName: secondLanguageName == freezed
-          ? _value.secondLanguageName
-          : secondLanguageName // ignore: cast_nullable_to_non_nullable
+      secondLanguageName_internal: secondLanguageName_internal == freezed
+          ? _value.secondLanguageName_internal
+          : secondLanguageName_internal // ignore: cast_nullable_to_non_nullable
               as String,
       state: state == freezed
           ? _value.state
@@ -287,15 +289,15 @@ abstract class _$RouteCopyWith<$Res> implements $RouteCopyWith<$Res> {
       @JsonKey(name: 'ringzahl')
           int? rings,
       @JsonKey(name: 'wegbeschr_d')
-          String description,
+          String description_internal,
       @JsonKey(name: 'wegbeschr_cz')
-          String secondLanguageDescription,
+          String secondLanguageDescription_internal,
       @JsonKey(name: 'kletterei')
           String climbingStyle,
       @JsonKey(name: 'wegname_d')
-          String name,
+          String name_internal,
       @JsonKey(name: 'wegname_cz')
-          String secondLanguageName,
+          String secondLanguageName_internal,
       @IntConverter()
       @JsonKey(name: 'wegstatus')
           int? state,
@@ -328,11 +330,11 @@ class __$RouteCopyWithImpl<$Res> extends _$RouteCopyWithImpl<$Res>
     Object? firstAscentPartners = freezed,
     Object? firstAscentDate = freezed,
     Object? rings = freezed,
-    Object? description = freezed,
-    Object? secondLanguageDescription = freezed,
+    Object? description_internal = freezed,
+    Object? secondLanguageDescription_internal = freezed,
     Object? climbingStyle = freezed,
-    Object? name = freezed,
-    Object? secondLanguageName = freezed,
+    Object? name_internal = freezed,
+    Object? secondLanguageName_internal = freezed,
     Object? state = freezed,
     Object? nr = freezed,
     Object? commentCount = freezed,
@@ -363,25 +365,25 @@ class __$RouteCopyWithImpl<$Res> extends _$RouteCopyWithImpl<$Res>
           ? _value.rings
           : rings // ignore: cast_nullable_to_non_nullable
               as int?,
-      description == freezed
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
+      description_internal == freezed
+          ? _value.description_internal
+          : description_internal // ignore: cast_nullable_to_non_nullable
               as String,
-      secondLanguageDescription == freezed
-          ? _value.secondLanguageDescription
-          : secondLanguageDescription // ignore: cast_nullable_to_non_nullable
+      secondLanguageDescription_internal == freezed
+          ? _value.secondLanguageDescription_internal
+          : secondLanguageDescription_internal // ignore: cast_nullable_to_non_nullable
               as String,
       climbingStyle == freezed
           ? _value.climbingStyle
           : climbingStyle // ignore: cast_nullable_to_non_nullable
               as String,
-      name == freezed
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+      name_internal == freezed
+          ? _value.name_internal
+          : name_internal // ignore: cast_nullable_to_non_nullable
               as String,
-      secondLanguageName == freezed
-          ? _value.secondLanguageName
-          : secondLanguageName // ignore: cast_nullable_to_non_nullable
+      secondLanguageName_internal == freezed
+          ? _value.secondLanguageName_internal
+          : secondLanguageName_internal // ignore: cast_nullable_to_non_nullable
               as String,
       state == freezed
           ? _value.state
@@ -422,15 +424,15 @@ class _$_Route extends _Route {
       @JsonKey(name: 'ringzahl')
           this.rings,
       @JsonKey(name: 'wegbeschr_d')
-          this.description,
+          this.description_internal,
       @JsonKey(name: 'wegbeschr_cz')
-          this.secondLanguageDescription,
+          this.secondLanguageDescription_internal,
       @JsonKey(name: 'kletterei')
           this.climbingStyle,
       @JsonKey(name: 'wegname_d')
-          this.name,
+          this.name_internal,
       @JsonKey(name: 'wegname_cz')
-          this.secondLanguageName,
+          this.secondLanguageName_internal,
       @IntConverter()
       @JsonKey(name: 'wegstatus')
           this.state,
@@ -468,19 +470,19 @@ class _$_Route extends _Route {
   final int? rings;
   @override
   @JsonKey(name: 'wegbeschr_d')
-  final String description;
+  final String description_internal;
   @override
   @JsonKey(name: 'wegbeschr_cz')
-  final String secondLanguageDescription;
+  final String secondLanguageDescription_internal;
   @override
   @JsonKey(name: 'kletterei')
   final String climbingStyle;
   @override
   @JsonKey(name: 'wegname_d')
-  final String name;
+  final String name_internal;
   @override
   @JsonKey(name: 'wegname_cz')
-  final String secondLanguageName;
+  final String secondLanguageName_internal;
   @override
   @IntConverter()
   @JsonKey(name: 'wegstatus')
@@ -498,7 +500,7 @@ class _$_Route extends _Route {
 
   @override
   String toString() {
-    return 'Route(id: $id, difficulty: $difficulty, firstAscentLead: $firstAscentLead, firstAscentPartners: $firstAscentPartners, firstAscentDate: $firstAscentDate, rings: $rings, description: $description, secondLanguageDescription: $secondLanguageDescription, climbingStyle: $climbingStyle, name: $name, secondLanguageName: $secondLanguageName, state: $state, nr: $nr, commentCount: $commentCount, lastUpdated: $lastUpdated)';
+    return 'Route(id: $id, difficulty: $difficulty, firstAscentLead: $firstAscentLead, firstAscentPartners: $firstAscentPartners, firstAscentDate: $firstAscentDate, rings: $rings, description_internal: $description_internal, secondLanguageDescription_internal: $secondLanguageDescription_internal, climbingStyle: $climbingStyle, name_internal: $name_internal, secondLanguageName_internal: $secondLanguageName_internal, state: $state, nr: $nr, commentCount: $commentCount, lastUpdated: $lastUpdated)';
   }
 
   @override
@@ -521,22 +523,25 @@ class _$_Route extends _Route {
                     .equals(other.firstAscentDate, firstAscentDate)) &&
             (identical(other.rings, rings) ||
                 const DeepCollectionEquality().equals(other.rings, rings)) &&
-            (identical(other.description, description) ||
-                const DeepCollectionEquality()
-                    .equals(other.description, description)) &&
-            (identical(other.secondLanguageDescription,
-                    secondLanguageDescription) ||
+            (identical(other.description_internal, description_internal) ||
                 const DeepCollectionEquality().equals(
-                    other.secondLanguageDescription,
-                    secondLanguageDescription)) &&
+                    other.description_internal, description_internal)) &&
+            (identical(other.secondLanguageDescription_internal,
+                    secondLanguageDescription_internal) ||
+                const DeepCollectionEquality().equals(
+                    other.secondLanguageDescription_internal,
+                    secondLanguageDescription_internal)) &&
             (identical(other.climbingStyle, climbingStyle) ||
                 const DeepCollectionEquality()
                     .equals(other.climbingStyle, climbingStyle)) &&
-            (identical(other.name, name) ||
-                const DeepCollectionEquality().equals(other.name, name)) &&
-            (identical(other.secondLanguageName, secondLanguageName) ||
+            (identical(other.name_internal, name_internal) ||
                 const DeepCollectionEquality()
-                    .equals(other.secondLanguageName, secondLanguageName)) &&
+                    .equals(other.name_internal, name_internal)) &&
+            (identical(other.secondLanguageName_internal,
+                    secondLanguageName_internal) ||
+                const DeepCollectionEquality().equals(
+                    other.secondLanguageName_internal,
+                    secondLanguageName_internal)) &&
             (identical(other.state, state) ||
                 const DeepCollectionEquality().equals(other.state, state)) &&
             (identical(other.nr, nr) ||
@@ -558,11 +563,11 @@ class _$_Route extends _Route {
       const DeepCollectionEquality().hash(firstAscentPartners) ^
       const DeepCollectionEquality().hash(firstAscentDate) ^
       const DeepCollectionEquality().hash(rings) ^
-      const DeepCollectionEquality().hash(description) ^
-      const DeepCollectionEquality().hash(secondLanguageDescription) ^
+      const DeepCollectionEquality().hash(description_internal) ^
+      const DeepCollectionEquality().hash(secondLanguageDescription_internal) ^
       const DeepCollectionEquality().hash(climbingStyle) ^
-      const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(secondLanguageName) ^
+      const DeepCollectionEquality().hash(name_internal) ^
+      const DeepCollectionEquality().hash(secondLanguageName_internal) ^
       const DeepCollectionEquality().hash(state) ^
       const DeepCollectionEquality().hash(nr) ^
       const DeepCollectionEquality().hash(commentCount) ^
@@ -596,15 +601,15 @@ abstract class _Route extends Route {
       @JsonKey(name: 'ringzahl')
           int? rings,
       @JsonKey(name: 'wegbeschr_d')
-          String description,
+          String description_internal,
       @JsonKey(name: 'wegbeschr_cz')
-          String secondLanguageDescription,
+          String secondLanguageDescription_internal,
       @JsonKey(name: 'kletterei')
           String climbingStyle,
       @JsonKey(name: 'wegname_d')
-          String name,
+          String name_internal,
       @JsonKey(name: 'wegname_cz')
-          String secondLanguageName,
+          String secondLanguageName_internal,
       @IntConverter()
       @JsonKey(name: 'wegstatus')
           int? state,
@@ -641,19 +646,20 @@ abstract class _Route extends Route {
   int? get rings => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'wegbeschr_d')
-  String get description => throw _privateConstructorUsedError;
+  String get description_internal => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'wegbeschr_cz')
-  String get secondLanguageDescription => throw _privateConstructorUsedError;
+  String get secondLanguageDescription_internal =>
+      throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'kletterei')
   String get climbingStyle => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'wegname_d')
-  String get name => throw _privateConstructorUsedError;
+  String get name_internal => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'wegname_cz')
-  String get secondLanguageName => throw _privateConstructorUsedError;
+  String get secondLanguageName_internal => throw _privateConstructorUsedError;
   @override
   @IntConverter()
   @JsonKey(name: 'wegstatus')

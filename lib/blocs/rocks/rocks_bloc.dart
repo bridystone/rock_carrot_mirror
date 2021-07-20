@@ -367,4 +367,14 @@ class RocksBloc extends Bloc<RocksEvent, RocksState> {
         rocksReceived: (subarea, rocks) => subarea,
         orElse: () => null,
       );
+
+  /// return state for filitered Bloc
+  bool get isLoading => state is! _RocksReceived;
+
+  /// return state for filitered Bloc
+  bool get isLoaded => state is _RocksReceived;
+
+  /// return countries for FilteredBloc
+  List<Rock> get rocks =>
+      (state is _RocksReceived) ? (state as _RocksReceived).rocks : [];
 }

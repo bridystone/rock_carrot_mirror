@@ -16,8 +16,8 @@ class Subarea with _$Subarea {
     @JsonKey(name: 'sektor_ID') int id,
     // @JsonKey(name: 'gebietid') int gebietid,
     @DoubleConverter() @JsonKey(name: 'sektornr') double? nr,
-    @JsonKey(name: 'sektorname_d') String name,
-    @JsonKey(name: 'sektorname_cz') String secondLanguageName,
+    @JsonKey(name: 'sektorname_d') String name_internal,
+    @JsonKey(name: 'sektorname_cz') String secondLanguageName_internal,
     // @JsonKey(name: 'gipfel_count') int childCount,
     @JsonKey(name: 'komment_count') int commentCount,
     @JsonKey(name: 'insert_timestamp') DateTime lastUpdated,
@@ -28,16 +28,16 @@ class Subarea with _$Subarea {
 
   // ensure that empty 1st names work correctly, by defining overriding getters
   // i.e. in China
-  String getName() => name.isEmpty ? secondLanguageName : name;
-  String getSecondLanguageName() => name.isEmpty ? '' : secondLanguageName;
-
-  // TODO: getter/setter won't work :( -> issue?!?!
-  // issue: https://github.com/rrousselGit/freezed/issues/136 ?!?
-  @override
-  @Deprecated('not working - use getName()')
-  String get name => super.name.isEmpty ? super.secondLanguageName : super.name;
-  @override
-  @Deprecated('not working - use getSecondLanguageName()')
+  // some names do not even have both (i.e. http://db-sandsteinklettern.gipfelbuch.de/weg.php?gipfelid=17766)
+  // TODO: monitor private field usage
+  // https://github.com/rrousselGit/freezed/issues/298
+  // overridded members do not seem to work
+  String get name => name_internal.isNotEmpty
+      ? name_internal
+      : secondLanguageName_internal.isNotEmpty
+          ? secondLanguageName_internal
+          : '[unknown name]';
+  // remove 2nd Language for 2ndLanguage, if already transfered to name
   String get secondLanguageName =>
-      super.name.isEmpty ? '' : super.secondLanguageName;
+      name_internal.isEmpty ? '' : secondLanguageName_internal;
 }

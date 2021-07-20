@@ -36,4 +36,14 @@ class RoutesBloc extends Bloc<RoutesEvent, RoutesState> {
         routesReceived: (rock, routes) => rock,
         orElse: () => null,
       );
+
+  /// return state for filitered Bloc
+  bool get isLoading => state is! _RoutesReceived;
+
+  /// return state for filitered Bloc
+  bool get isLoaded => state is _RoutesReceived;
+
+  /// return countries for FilteredBloc
+  List<Route> get routes =>
+      (state is _RoutesReceived) ? (state as _RoutesReceived).routes : [];
 }

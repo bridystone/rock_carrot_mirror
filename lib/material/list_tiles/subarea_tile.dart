@@ -17,6 +17,8 @@ class SubareaTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<RocksBloc>(context).add(RocksEvent.requestRocks(subarea));
+
     return Slidable(
       actionPane: SlidableDrawerActionPane(),
       actions: [
@@ -68,13 +70,11 @@ class SubareaTile extends StatelessWidget {
         title: Row(
           children: [
             if (subarea.nr != 0) ...[Text('${subarea.nr} ')],
-            // TODO: use getter / when fixed
-            Text(subarea.getName()),
+            Text(subarea.name),
           ],
         ),
-        // TODO: use getter / when fixed
-        subtitle: subarea.getSecondLanguageName().isNotEmpty
-            ? Text(subarea.getSecondLanguageName())
+        subtitle: subarea.secondLanguageName.isNotEmpty
+            ? Text(subarea.secondLanguageName)
             : null,
         trailing: BlocBuilder<RocksBloc, RocksState>(
           builder: (context, state) => state.maybeWhen(
@@ -98,7 +98,17 @@ class SubareaTile extends StatelessWidget {
                       DateFormat('dd.MM.yy').format(rocks.first.lastUpdated),
                       textScaleFactor: 0.7,
                     )
-                  ]
+                  ],
+                  if (rocks.isNotEmpty &&
+                      rocks.first.lastUpdatedTT != null) ...[
+                    Text(
+                      '[' +
+                          DateFormat('dd.MM.yy')
+                              .format(rocks.first.lastUpdatedTT!) +
+                          ']',
+                      textScaleFactor: 0.7,
+                    )
+                  ],
                 ],
               ),
             ),

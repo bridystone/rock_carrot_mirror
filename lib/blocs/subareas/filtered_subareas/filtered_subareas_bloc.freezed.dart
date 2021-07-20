@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
-part of 'filtered_areas_bloc.dart';
+part of 'filtered_subareas_bloc.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -13,8 +13,8 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-class _$FilteredAreasEventTearOff {
-  const _$FilteredAreasEventTearOff();
+class _$FilteredSubareasEventTearOff {
+  const _$FilteredSubareasEventTearOff();
 
   _FilterUpdated filterUpdated(String? newFilter) {
     return _FilterUpdated(
@@ -22,36 +22,36 @@ class _$FilteredAreasEventTearOff {
     );
   }
 
-  _SortingUpdated sortingUpdated(AreasSorting newSorting) {
+  _SortingUpdated sortingUpdated(SubareasSorting newSorting) {
     return _SortingUpdated(
       newSorting,
     );
   }
 
-  _AreasUpdated areasUpdated(List<Area> areas) {
-    return _AreasUpdated(
-      areas,
+  _SubareasUpdated subareasUpdated(List<Subarea> subareas) {
+    return _SubareasUpdated(
+      subareas,
     );
   }
 }
 
 /// @nodoc
-const $FilteredAreasEvent = _$FilteredAreasEventTearOff();
+const $FilteredSubareasEvent = _$FilteredSubareasEventTearOff();
 
 /// @nodoc
-mixin _$FilteredAreasEvent {
+mixin _$FilteredSubareasEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String? newFilter) filterUpdated,
-    required TResult Function(AreasSorting newSorting) sortingUpdated,
-    required TResult Function(List<Area> areas) areasUpdated,
+    required TResult Function(SubareasSorting newSorting) sortingUpdated,
+    required TResult Function(List<Subarea> subareas) subareasUpdated,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String? newFilter)? filterUpdated,
-    TResult Function(AreasSorting newSorting)? sortingUpdated,
-    TResult Function(List<Area> areas)? areasUpdated,
+    TResult Function(SubareasSorting newSorting)? sortingUpdated,
+    TResult Function(List<Subarea> subareas)? subareasUpdated,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -59,34 +59,34 @@ mixin _$FilteredAreasEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_FilterUpdated value) filterUpdated,
     required TResult Function(_SortingUpdated value) sortingUpdated,
-    required TResult Function(_AreasUpdated value) areasUpdated,
+    required TResult Function(_SubareasUpdated value) subareasUpdated,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_FilterUpdated value)? filterUpdated,
     TResult Function(_SortingUpdated value)? sortingUpdated,
-    TResult Function(_AreasUpdated value)? areasUpdated,
+    TResult Function(_SubareasUpdated value)? subareasUpdated,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $FilteredAreasEventCopyWith<$Res> {
-  factory $FilteredAreasEventCopyWith(
-          FilteredAreasEvent value, $Res Function(FilteredAreasEvent) then) =
-      _$FilteredAreasEventCopyWithImpl<$Res>;
+abstract class $FilteredSubareasEventCopyWith<$Res> {
+  factory $FilteredSubareasEventCopyWith(FilteredSubareasEvent value,
+          $Res Function(FilteredSubareasEvent) then) =
+      _$FilteredSubareasEventCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$FilteredAreasEventCopyWithImpl<$Res>
-    implements $FilteredAreasEventCopyWith<$Res> {
-  _$FilteredAreasEventCopyWithImpl(this._value, this._then);
+class _$FilteredSubareasEventCopyWithImpl<$Res>
+    implements $FilteredSubareasEventCopyWith<$Res> {
+  _$FilteredSubareasEventCopyWithImpl(this._value, this._then);
 
-  final FilteredAreasEvent _value;
+  final FilteredSubareasEvent _value;
   // ignore: unused_field
-  final $Res Function(FilteredAreasEvent) _then;
+  final $Res Function(FilteredSubareasEvent) _then;
 }
 
 /// @nodoc
@@ -99,7 +99,7 @@ abstract class _$FilterUpdatedCopyWith<$Res> {
 
 /// @nodoc
 class __$FilterUpdatedCopyWithImpl<$Res>
-    extends _$FilteredAreasEventCopyWithImpl<$Res>
+    extends _$FilteredSubareasEventCopyWithImpl<$Res>
     implements _$FilterUpdatedCopyWith<$Res> {
   __$FilterUpdatedCopyWithImpl(
       _FilterUpdated _value, $Res Function(_FilterUpdated) _then)
@@ -131,7 +131,7 @@ class _$_FilterUpdated implements _FilterUpdated {
 
   @override
   String toString() {
-    return 'FilteredAreasEvent.filterUpdated(newFilter: $newFilter)';
+    return 'FilteredSubareasEvent.filterUpdated(newFilter: $newFilter)';
   }
 
   @override
@@ -156,8 +156,8 @@ class _$_FilterUpdated implements _FilterUpdated {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String? newFilter) filterUpdated,
-    required TResult Function(AreasSorting newSorting) sortingUpdated,
-    required TResult Function(List<Area> areas) areasUpdated,
+    required TResult Function(SubareasSorting newSorting) sortingUpdated,
+    required TResult Function(List<Subarea> subareas) subareasUpdated,
   }) {
     return filterUpdated(newFilter);
   }
@@ -166,8 +166,8 @@ class _$_FilterUpdated implements _FilterUpdated {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String? newFilter)? filterUpdated,
-    TResult Function(AreasSorting newSorting)? sortingUpdated,
-    TResult Function(List<Area> areas)? areasUpdated,
+    TResult Function(SubareasSorting newSorting)? sortingUpdated,
+    TResult Function(List<Subarea> subareas)? subareasUpdated,
     required TResult orElse(),
   }) {
     if (filterUpdated != null) {
@@ -181,7 +181,7 @@ class _$_FilterUpdated implements _FilterUpdated {
   TResult map<TResult extends Object?>({
     required TResult Function(_FilterUpdated value) filterUpdated,
     required TResult Function(_SortingUpdated value) sortingUpdated,
-    required TResult Function(_AreasUpdated value) areasUpdated,
+    required TResult Function(_SubareasUpdated value) subareasUpdated,
   }) {
     return filterUpdated(this);
   }
@@ -191,7 +191,7 @@ class _$_FilterUpdated implements _FilterUpdated {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_FilterUpdated value)? filterUpdated,
     TResult Function(_SortingUpdated value)? sortingUpdated,
-    TResult Function(_AreasUpdated value)? areasUpdated,
+    TResult Function(_SubareasUpdated value)? subareasUpdated,
     required TResult orElse(),
   }) {
     if (filterUpdated != null) {
@@ -201,7 +201,7 @@ class _$_FilterUpdated implements _FilterUpdated {
   }
 }
 
-abstract class _FilterUpdated implements FilteredAreasEvent {
+abstract class _FilterUpdated implements FilteredSubareasEvent {
   const factory _FilterUpdated(String? newFilter) = _$_FilterUpdated;
 
   String? get newFilter => throw _privateConstructorUsedError;
@@ -215,12 +215,12 @@ abstract class _$SortingUpdatedCopyWith<$Res> {
   factory _$SortingUpdatedCopyWith(
           _SortingUpdated value, $Res Function(_SortingUpdated) then) =
       __$SortingUpdatedCopyWithImpl<$Res>;
-  $Res call({AreasSorting newSorting});
+  $Res call({SubareasSorting newSorting});
 }
 
 /// @nodoc
 class __$SortingUpdatedCopyWithImpl<$Res>
-    extends _$FilteredAreasEventCopyWithImpl<$Res>
+    extends _$FilteredSubareasEventCopyWithImpl<$Res>
     implements _$SortingUpdatedCopyWith<$Res> {
   __$SortingUpdatedCopyWithImpl(
       _SortingUpdated _value, $Res Function(_SortingUpdated) _then)
@@ -237,7 +237,7 @@ class __$SortingUpdatedCopyWithImpl<$Res>
       newSorting == freezed
           ? _value.newSorting
           : newSorting // ignore: cast_nullable_to_non_nullable
-              as AreasSorting,
+              as SubareasSorting,
     ));
   }
 }
@@ -248,11 +248,11 @@ class _$_SortingUpdated implements _SortingUpdated {
   const _$_SortingUpdated(this.newSorting);
 
   @override
-  final AreasSorting newSorting;
+  final SubareasSorting newSorting;
 
   @override
   String toString() {
-    return 'FilteredAreasEvent.sortingUpdated(newSorting: $newSorting)';
+    return 'FilteredSubareasEvent.sortingUpdated(newSorting: $newSorting)';
   }
 
   @override
@@ -277,8 +277,8 @@ class _$_SortingUpdated implements _SortingUpdated {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String? newFilter) filterUpdated,
-    required TResult Function(AreasSorting newSorting) sortingUpdated,
-    required TResult Function(List<Area> areas) areasUpdated,
+    required TResult Function(SubareasSorting newSorting) sortingUpdated,
+    required TResult Function(List<Subarea> subareas) subareasUpdated,
   }) {
     return sortingUpdated(newSorting);
   }
@@ -287,8 +287,8 @@ class _$_SortingUpdated implements _SortingUpdated {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String? newFilter)? filterUpdated,
-    TResult Function(AreasSorting newSorting)? sortingUpdated,
-    TResult Function(List<Area> areas)? areasUpdated,
+    TResult Function(SubareasSorting newSorting)? sortingUpdated,
+    TResult Function(List<Subarea> subareas)? subareasUpdated,
     required TResult orElse(),
   }) {
     if (sortingUpdated != null) {
@@ -302,7 +302,7 @@ class _$_SortingUpdated implements _SortingUpdated {
   TResult map<TResult extends Object?>({
     required TResult Function(_FilterUpdated value) filterUpdated,
     required TResult Function(_SortingUpdated value) sortingUpdated,
-    required TResult Function(_AreasUpdated value) areasUpdated,
+    required TResult Function(_SubareasUpdated value) subareasUpdated,
   }) {
     return sortingUpdated(this);
   }
@@ -312,7 +312,7 @@ class _$_SortingUpdated implements _SortingUpdated {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_FilterUpdated value)? filterUpdated,
     TResult Function(_SortingUpdated value)? sortingUpdated,
-    TResult Function(_AreasUpdated value)? areasUpdated,
+    TResult Function(_SubareasUpdated value)? subareasUpdated,
     required TResult orElse(),
   }) {
     if (sortingUpdated != null) {
@@ -322,97 +322,98 @@ class _$_SortingUpdated implements _SortingUpdated {
   }
 }
 
-abstract class _SortingUpdated implements FilteredAreasEvent {
-  const factory _SortingUpdated(AreasSorting newSorting) = _$_SortingUpdated;
+abstract class _SortingUpdated implements FilteredSubareasEvent {
+  const factory _SortingUpdated(SubareasSorting newSorting) = _$_SortingUpdated;
 
-  AreasSorting get newSorting => throw _privateConstructorUsedError;
+  SubareasSorting get newSorting => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$SortingUpdatedCopyWith<_SortingUpdated> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$AreasUpdatedCopyWith<$Res> {
-  factory _$AreasUpdatedCopyWith(
-          _AreasUpdated value, $Res Function(_AreasUpdated) then) =
-      __$AreasUpdatedCopyWithImpl<$Res>;
-  $Res call({List<Area> areas});
+abstract class _$SubareasUpdatedCopyWith<$Res> {
+  factory _$SubareasUpdatedCopyWith(
+          _SubareasUpdated value, $Res Function(_SubareasUpdated) then) =
+      __$SubareasUpdatedCopyWithImpl<$Res>;
+  $Res call({List<Subarea> subareas});
 }
 
 /// @nodoc
-class __$AreasUpdatedCopyWithImpl<$Res>
-    extends _$FilteredAreasEventCopyWithImpl<$Res>
-    implements _$AreasUpdatedCopyWith<$Res> {
-  __$AreasUpdatedCopyWithImpl(
-      _AreasUpdated _value, $Res Function(_AreasUpdated) _then)
-      : super(_value, (v) => _then(v as _AreasUpdated));
+class __$SubareasUpdatedCopyWithImpl<$Res>
+    extends _$FilteredSubareasEventCopyWithImpl<$Res>
+    implements _$SubareasUpdatedCopyWith<$Res> {
+  __$SubareasUpdatedCopyWithImpl(
+      _SubareasUpdated _value, $Res Function(_SubareasUpdated) _then)
+      : super(_value, (v) => _then(v as _SubareasUpdated));
 
   @override
-  _AreasUpdated get _value => super._value as _AreasUpdated;
+  _SubareasUpdated get _value => super._value as _SubareasUpdated;
 
   @override
   $Res call({
-    Object? areas = freezed,
+    Object? subareas = freezed,
   }) {
-    return _then(_AreasUpdated(
-      areas == freezed
-          ? _value.areas
-          : areas // ignore: cast_nullable_to_non_nullable
-              as List<Area>,
+    return _then(_SubareasUpdated(
+      subareas == freezed
+          ? _value.subareas
+          : subareas // ignore: cast_nullable_to_non_nullable
+              as List<Subarea>,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_AreasUpdated implements _AreasUpdated {
-  const _$_AreasUpdated(this.areas);
+class _$_SubareasUpdated implements _SubareasUpdated {
+  const _$_SubareasUpdated(this.subareas);
 
   @override
-  final List<Area> areas;
+  final List<Subarea> subareas;
 
   @override
   String toString() {
-    return 'FilteredAreasEvent.areasUpdated(areas: $areas)';
+    return 'FilteredSubareasEvent.subareasUpdated(subareas: $subareas)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _AreasUpdated &&
-            (identical(other.areas, areas) ||
-                const DeepCollectionEquality().equals(other.areas, areas)));
+        (other is _SubareasUpdated &&
+            (identical(other.subareas, subareas) ||
+                const DeepCollectionEquality()
+                    .equals(other.subareas, subareas)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(areas);
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(subareas);
 
   @JsonKey(ignore: true)
   @override
-  _$AreasUpdatedCopyWith<_AreasUpdated> get copyWith =>
-      __$AreasUpdatedCopyWithImpl<_AreasUpdated>(this, _$identity);
+  _$SubareasUpdatedCopyWith<_SubareasUpdated> get copyWith =>
+      __$SubareasUpdatedCopyWithImpl<_SubareasUpdated>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String? newFilter) filterUpdated,
-    required TResult Function(AreasSorting newSorting) sortingUpdated,
-    required TResult Function(List<Area> areas) areasUpdated,
+    required TResult Function(SubareasSorting newSorting) sortingUpdated,
+    required TResult Function(List<Subarea> subareas) subareasUpdated,
   }) {
-    return areasUpdated(areas);
+    return subareasUpdated(subareas);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String? newFilter)? filterUpdated,
-    TResult Function(AreasSorting newSorting)? sortingUpdated,
-    TResult Function(List<Area> areas)? areasUpdated,
+    TResult Function(SubareasSorting newSorting)? sortingUpdated,
+    TResult Function(List<Subarea> subareas)? subareasUpdated,
     required TResult orElse(),
   }) {
-    if (areasUpdated != null) {
-      return areasUpdated(areas);
+    if (subareasUpdated != null) {
+      return subareasUpdated(subareas);
     }
     return orElse();
   }
@@ -422,9 +423,9 @@ class _$_AreasUpdated implements _AreasUpdated {
   TResult map<TResult extends Object?>({
     required TResult Function(_FilterUpdated value) filterUpdated,
     required TResult Function(_SortingUpdated value) sortingUpdated,
-    required TResult Function(_AreasUpdated value) areasUpdated,
+    required TResult Function(_SubareasUpdated value) subareasUpdated,
   }) {
-    return areasUpdated(this);
+    return subareasUpdated(this);
   }
 
   @override
@@ -432,37 +433,37 @@ class _$_AreasUpdated implements _AreasUpdated {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_FilterUpdated value)? filterUpdated,
     TResult Function(_SortingUpdated value)? sortingUpdated,
-    TResult Function(_AreasUpdated value)? areasUpdated,
+    TResult Function(_SubareasUpdated value)? subareasUpdated,
     required TResult orElse(),
   }) {
-    if (areasUpdated != null) {
-      return areasUpdated(this);
+    if (subareasUpdated != null) {
+      return subareasUpdated(this);
     }
     return orElse();
   }
 }
 
-abstract class _AreasUpdated implements FilteredAreasEvent {
-  const factory _AreasUpdated(List<Area> areas) = _$_AreasUpdated;
+abstract class _SubareasUpdated implements FilteredSubareasEvent {
+  const factory _SubareasUpdated(List<Subarea> subareas) = _$_SubareasUpdated;
 
-  List<Area> get areas => throw _privateConstructorUsedError;
+  List<Subarea> get subareas => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  _$AreasUpdatedCopyWith<_AreasUpdated> get copyWith =>
+  _$SubareasUpdatedCopyWith<_SubareasUpdated> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-class _$FilteredAreasStateTearOff {
-  const _$FilteredAreasStateTearOff();
+class _$FilteredSubareasStateTearOff {
+  const _$FilteredSubareasStateTearOff();
 
   _Initial initial() {
     return const _Initial();
   }
 
-  _ReadyForUI readyForUI(List<Area> filteredAreas, String? activeFilter,
-      AreasSorting activeSorting) {
+  _ReadyForUI readyForUI(List<Subarea> filteredSubareas, String? activeFilter,
+      SubareasSorting activeSorting) {
     return _ReadyForUI(
-      filteredAreas,
+      filteredSubareas,
       activeFilter,
       activeSorting,
     );
@@ -470,23 +471,23 @@ class _$FilteredAreasStateTearOff {
 }
 
 /// @nodoc
-const $FilteredAreasState = _$FilteredAreasStateTearOff();
+const $FilteredSubareasState = _$FilteredSubareasStateTearOff();
 
 /// @nodoc
-mixin _$FilteredAreasState {
+mixin _$FilteredSubareasState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<Area> filteredAreas, String? activeFilter,
-            AreasSorting activeSorting)
+    required TResult Function(List<Subarea> filteredSubareas,
+            String? activeFilter, SubareasSorting activeSorting)
         readyForUI,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<Area> filteredAreas, String? activeFilter,
-            AreasSorting activeSorting)?
+    TResult Function(List<Subarea> filteredSubareas, String? activeFilter,
+            SubareasSorting activeSorting)?
         readyForUI,
     required TResult orElse(),
   }) =>
@@ -507,20 +508,20 @@ mixin _$FilteredAreasState {
 }
 
 /// @nodoc
-abstract class $FilteredAreasStateCopyWith<$Res> {
-  factory $FilteredAreasStateCopyWith(
-          FilteredAreasState value, $Res Function(FilteredAreasState) then) =
-      _$FilteredAreasStateCopyWithImpl<$Res>;
+abstract class $FilteredSubareasStateCopyWith<$Res> {
+  factory $FilteredSubareasStateCopyWith(FilteredSubareasState value,
+          $Res Function(FilteredSubareasState) then) =
+      _$FilteredSubareasStateCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$FilteredAreasStateCopyWithImpl<$Res>
-    implements $FilteredAreasStateCopyWith<$Res> {
-  _$FilteredAreasStateCopyWithImpl(this._value, this._then);
+class _$FilteredSubareasStateCopyWithImpl<$Res>
+    implements $FilteredSubareasStateCopyWith<$Res> {
+  _$FilteredSubareasStateCopyWithImpl(this._value, this._then);
 
-  final FilteredAreasState _value;
+  final FilteredSubareasState _value;
   // ignore: unused_field
-  final $Res Function(FilteredAreasState) _then;
+  final $Res Function(FilteredSubareasState) _then;
 }
 
 /// @nodoc
@@ -531,7 +532,7 @@ abstract class _$InitialCopyWith<$Res> {
 
 /// @nodoc
 class __$InitialCopyWithImpl<$Res>
-    extends _$FilteredAreasStateCopyWithImpl<$Res>
+    extends _$FilteredSubareasStateCopyWithImpl<$Res>
     implements _$InitialCopyWith<$Res> {
   __$InitialCopyWithImpl(_Initial _value, $Res Function(_Initial) _then)
       : super(_value, (v) => _then(v as _Initial));
@@ -547,7 +548,7 @@ class _$_Initial implements _Initial {
 
   @override
   String toString() {
-    return 'FilteredAreasState.initial()';
+    return 'FilteredSubareasState.initial()';
   }
 
   @override
@@ -562,8 +563,8 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<Area> filteredAreas, String? activeFilter,
-            AreasSorting activeSorting)
+    required TResult Function(List<Subarea> filteredSubareas,
+            String? activeFilter, SubareasSorting activeSorting)
         readyForUI,
   }) {
     return initial();
@@ -573,8 +574,8 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<Area> filteredAreas, String? activeFilter,
-            AreasSorting activeSorting)?
+    TResult Function(List<Subarea> filteredSubareas, String? activeFilter,
+            SubareasSorting activeSorting)?
         readyForUI,
     required TResult orElse(),
   }) {
@@ -607,7 +608,7 @@ class _$_Initial implements _Initial {
   }
 }
 
-abstract class _Initial implements FilteredAreasState {
+abstract class _Initial implements FilteredSubareasState {
   const factory _Initial() = _$_Initial;
 }
 
@@ -617,14 +618,14 @@ abstract class _$ReadyForUICopyWith<$Res> {
           _ReadyForUI value, $Res Function(_ReadyForUI) then) =
       __$ReadyForUICopyWithImpl<$Res>;
   $Res call(
-      {List<Area> filteredAreas,
+      {List<Subarea> filteredSubareas,
       String? activeFilter,
-      AreasSorting activeSorting});
+      SubareasSorting activeSorting});
 }
 
 /// @nodoc
 class __$ReadyForUICopyWithImpl<$Res>
-    extends _$FilteredAreasStateCopyWithImpl<$Res>
+    extends _$FilteredSubareasStateCopyWithImpl<$Res>
     implements _$ReadyForUICopyWith<$Res> {
   __$ReadyForUICopyWithImpl(
       _ReadyForUI _value, $Res Function(_ReadyForUI) _then)
@@ -635,15 +636,15 @@ class __$ReadyForUICopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? filteredAreas = freezed,
+    Object? filteredSubareas = freezed,
     Object? activeFilter = freezed,
     Object? activeSorting = freezed,
   }) {
     return _then(_ReadyForUI(
-      filteredAreas == freezed
-          ? _value.filteredAreas
-          : filteredAreas // ignore: cast_nullable_to_non_nullable
-              as List<Area>,
+      filteredSubareas == freezed
+          ? _value.filteredSubareas
+          : filteredSubareas // ignore: cast_nullable_to_non_nullable
+              as List<Subarea>,
       activeFilter == freezed
           ? _value.activeFilter
           : activeFilter // ignore: cast_nullable_to_non_nullable
@@ -651,7 +652,7 @@ class __$ReadyForUICopyWithImpl<$Res>
       activeSorting == freezed
           ? _value.activeSorting
           : activeSorting // ignore: cast_nullable_to_non_nullable
-              as AreasSorting,
+              as SubareasSorting,
     ));
   }
 }
@@ -660,27 +661,27 @@ class __$ReadyForUICopyWithImpl<$Res>
 
 class _$_ReadyForUI implements _ReadyForUI {
   const _$_ReadyForUI(
-      this.filteredAreas, this.activeFilter, this.activeSorting);
+      this.filteredSubareas, this.activeFilter, this.activeSorting);
 
   @override
-  final List<Area> filteredAreas;
+  final List<Subarea> filteredSubareas;
   @override
   final String? activeFilter;
   @override
-  final AreasSorting activeSorting;
+  final SubareasSorting activeSorting;
 
   @override
   String toString() {
-    return 'FilteredAreasState.readyForUI(filteredAreas: $filteredAreas, activeFilter: $activeFilter, activeSorting: $activeSorting)';
+    return 'FilteredSubareasState.readyForUI(filteredSubareas: $filteredSubareas, activeFilter: $activeFilter, activeSorting: $activeSorting)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _ReadyForUI &&
-            (identical(other.filteredAreas, filteredAreas) ||
+            (identical(other.filteredSubareas, filteredSubareas) ||
                 const DeepCollectionEquality()
-                    .equals(other.filteredAreas, filteredAreas)) &&
+                    .equals(other.filteredSubareas, filteredSubareas)) &&
             (identical(other.activeFilter, activeFilter) ||
                 const DeepCollectionEquality()
                     .equals(other.activeFilter, activeFilter)) &&
@@ -692,7 +693,7 @@ class _$_ReadyForUI implements _ReadyForUI {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(filteredAreas) ^
+      const DeepCollectionEquality().hash(filteredSubareas) ^
       const DeepCollectionEquality().hash(activeFilter) ^
       const DeepCollectionEquality().hash(activeSorting);
 
@@ -705,24 +706,24 @@ class _$_ReadyForUI implements _ReadyForUI {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<Area> filteredAreas, String? activeFilter,
-            AreasSorting activeSorting)
+    required TResult Function(List<Subarea> filteredSubareas,
+            String? activeFilter, SubareasSorting activeSorting)
         readyForUI,
   }) {
-    return readyForUI(filteredAreas, activeFilter, activeSorting);
+    return readyForUI(filteredSubareas, activeFilter, activeSorting);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<Area> filteredAreas, String? activeFilter,
-            AreasSorting activeSorting)?
+    TResult Function(List<Subarea> filteredSubareas, String? activeFilter,
+            SubareasSorting activeSorting)?
         readyForUI,
     required TResult orElse(),
   }) {
     if (readyForUI != null) {
-      return readyForUI(filteredAreas, activeFilter, activeSorting);
+      return readyForUI(filteredSubareas, activeFilter, activeSorting);
     }
     return orElse();
   }
@@ -750,13 +751,13 @@ class _$_ReadyForUI implements _ReadyForUI {
   }
 }
 
-abstract class _ReadyForUI implements FilteredAreasState {
-  const factory _ReadyForUI(List<Area> filteredAreas, String? activeFilter,
-      AreasSorting activeSorting) = _$_ReadyForUI;
+abstract class _ReadyForUI implements FilteredSubareasState {
+  const factory _ReadyForUI(List<Subarea> filteredSubareas,
+      String? activeFilter, SubareasSorting activeSorting) = _$_ReadyForUI;
 
-  List<Area> get filteredAreas => throw _privateConstructorUsedError;
+  List<Subarea> get filteredSubareas => throw _privateConstructorUsedError;
   String? get activeFilter => throw _privateConstructorUsedError;
-  AreasSorting get activeSorting => throw _privateConstructorUsedError;
+  SubareasSorting get activeSorting => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$ReadyForUICopyWith<_ReadyForUI> get copyWith =>
       throw _privateConstructorUsedError;

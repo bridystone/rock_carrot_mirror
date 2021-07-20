@@ -39,8 +39,7 @@ class SubareasListView extends StatelessWidget {
                 BlocProvider(
                   // create temporary Bloc provider for each subitem, to gain relevant data
                   // add event to retrieve data
-                  create: (context) =>
-                      RocksBloc()..add(RocksEvent.requestRocks(subarea)),
+                  create: (context) => RocksBloc(),
                   child: SubareaTile(subarea: subarea),
                 ),
                 Divider(

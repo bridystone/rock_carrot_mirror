@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:rock_carrot/blocs/comments/comments_bloc.dart';
+import 'package:rock_carrot/blocs/rocks/filtered_rocks/filtered_rocks_bloc.dart';
 import 'package:rock_carrot/blocs/rocks/rocks_bloc.dart';
 import 'package:rock_carrot/material/comments_icon.dart';
 import 'package:rock_carrot/material/lists/rocks_list.dart';
 import 'package:rock_carrot/material/homescreen_bottom_navigation_bar.dart';
+import 'package:rock_carrot/material/rock_carrot_app_bar.dart';
 import 'package:rock_carrot/models/sandstein/subarea.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -21,25 +23,24 @@ class RocksScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final filteredRocksBloc = BlocProvider.of<FilteredRocksBloc>(context);
+
     return BlocProvider(
       create: (context) => CommentsBloc(),
       child: Scaffold(
-          appBar: AppBar(
-            title: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Text(subarea.getName()),
-                // comment icon
-                CommentsIcon(
-                  commentType: CommentType.Subarea,
-                  id: subarea.id,
-                  enabled: subarea.commentCount > 0,
-                ),
-
-                TextFormField(
-                  initialValue: 'Filter',
-                ),
-              ],
+          appBar: RockCarrotAppBar(
+            headline: subarea.name,
+            initialFilterValue: filteredRocksBloc.currentFilter,
+            onFilterChanged: (filterText) => filteredRocksBloc
+                .add(FilteredRocksEvent.filterUpdated(filterText)),
+            selectedValue: filteredRocksBloc.currentSorting,
+            onSortingChanged: (selectedSorting) => filteredRocksBloc.add(
+              FilteredRocksEvent.sortingUpdated(selectedSorting),
+            ),
+            commentsIcon: CommentsIcon(
+              commentType: CommentType.Subarea,
+              id: subarea.id,
+              enabled: subarea.commentCount > 0,
             ),
           ),
           bottomNavigationBar: bottomNavigationBar,
@@ -49,13 +50,19 @@ class RocksScreen extends StatelessWidget {
             child: BlocBuilder<RocksBloc, RocksState>(
               builder: (context, state) => state.when(
                 inProgress: () => CircularProgressIndicator(),
-                rocksReceived: (subarea, rocks) => RocksListView(
-                  rocks: rocks,
-                  scrollController: scrollController,
-                  // use key to ensure that scroll position is stored per subarea
-                  key: Key('ListviewRocks' +
-                      subarea.getName() +
-                      subarea.id.toString()),
+                rocksReceived: (subarea, rocks) =>
+                    BlocBuilder<FilteredRocksBloc, FilteredRocksState>(
+                  builder: (context, state) {
+                    return state.when(
+                        initial: () => Text(''),
+                        readyForUI: (rocks, filter, sorting) => RocksListView(
+                            rocks: rocks,
+                            scrollController: scrollController,
+                            // use key to ensure that scroll position is stored per subarea
+                            key: Key('ListviewRocks' +
+                                subarea.name +
+                                subarea.id.toString())));
+                  },
                 ),
                 failure: (dynamic e) => Text('Snackbar'),
                 initial: () => Text('should not happen: '),

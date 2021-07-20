@@ -5,10 +5,6 @@ import 'package:rock_carrot/models/route_difficulty.dart';
 part 'route.freezed.dart';
 part 'route.g.dart';
 
-// TODO: do it via static method (DifficultySortConverter)
-// possibly also doable with
-// https://github.com/google/json_serializable.dart/issues/292
-
 // TODO: Wegstatus ==> converter - Projekt etc
 @freezed
 class Route with _$Route {
@@ -24,11 +20,11 @@ class Route with _$Route {
     @JsonKey(name: 'erstbegnachstieg') String firstAscentPartners,
     @JsonKey(name: 'erstbegdatum') DateTime? firstAscentDate,
     @IntConverter() @JsonKey(name: 'ringzahl') int? rings,
-    @JsonKey(name: 'wegbeschr_d') String description,
-    @JsonKey(name: 'wegbeschr_cz') String secondLanguageDescription,
+    @JsonKey(name: 'wegbeschr_d') String description_internal,
+    @JsonKey(name: 'wegbeschr_cz') String secondLanguageDescription_internal,
     @JsonKey(name: 'kletterei') String climbingStyle,
-    @JsonKey(name: 'wegname_d') String name,
-    @JsonKey(name: 'wegname_cz') String secondLanguageName,
+    @JsonKey(name: 'wegname_d') String name_internal,
+    @JsonKey(name: 'wegname_cz') String secondLanguageName_internal,
     @IntConverter() @JsonKey(name: 'wegstatus') int? state,
     @DoubleConverter() @JsonKey(name: 'wegnr') double? nr,
     @JsonKey(name: 'comment_count') int commentCount,
@@ -39,35 +35,25 @@ class Route with _$Route {
 
   // ensure that empty 1st names work correctly, by defining overriding getters
   // i.e. in China
-  String getName() => name.isEmpty ? secondLanguageName : name;
-  String getSecondLanguageName() => name.isEmpty ? '' : secondLanguageName;
-
-  // TODO: getter/setter won't work :( -> issue?!?!
-  // issue: https://github.com/rrousselGit/freezed/issues/136 ?!?
-  @override
-  @Deprecated('not working - use getName()')
-  String get name => super.name.isEmpty ? super.secondLanguageName : super.name;
-  @override
-  @Deprecated('not working - use getSecondLanguageName()')
+  // some names do not even have both (i.e. http://db-sandsteinklettern.gipfelbuch.de/weg.php?gipfelid=17766)
+  // TODO: monitor private field usage
+  // https://github.com/rrousselGit/freezed/issues/298
+  // overridded members do not seem to work
+  String get name => name_internal.isNotEmpty
+      ? name_internal
+      : secondLanguageName_internal.isNotEmpty
+          ? secondLanguageName_internal
+          : '[unknown name]';
+  // remove 2nd Language for 2ndLanguage, if already transfered to name
   String get secondLanguageName =>
-      super.name.isEmpty ? '' : super.secondLanguageName;
+      name_internal.isEmpty ? '' : secondLanguageName_internal;
 
-  // ensure that empty 1st names work correctly, by defining overriding getters
-  // i.e. in China
-  String getDescription() =>
-      description.isEmpty ? secondLanguageDescription : description;
-  String getSecondLanguageDescription() =>
-      description.isEmpty ? '' : secondLanguageDescription;
-
-  // TODO: getter/setter won't work :( -> issue?!?!
-  // issue: https://github.com/rrousselGit/freezed/issues/136 ?!?
-  @override
-  @Deprecated('not working - use getDescription()')
-  String get description => super.description.isEmpty
-      ? super.secondLanguageDescription
-      : super.description;
-  @override
-  @Deprecated('not working - use getSecondLanguageDescription()')
+  String get description => description_internal.isNotEmpty
+      ? description_internal
+      : secondLanguageDescription_internal.isNotEmpty
+          ? secondLanguageDescription_internal
+          : '[unknown description]';
+  // remove 2nd Language for 2ndLanguage, if already transfered to description
   String get secondLanguageDescription =>
-      super.description.isEmpty ? '' : super.secondLanguageDescription;
+      description_internal.isEmpty ? '' : secondLanguageDescription_internal;
 }

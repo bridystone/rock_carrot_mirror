@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
-part of 'filtered_areas_bloc.dart';
+part of 'filtered_routes_bloc.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -13,8 +13,8 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-class _$FilteredAreasEventTearOff {
-  const _$FilteredAreasEventTearOff();
+class _$FilteredRoutesEventTearOff {
+  const _$FilteredRoutesEventTearOff();
 
   _FilterUpdated filterUpdated(String? newFilter) {
     return _FilterUpdated(
@@ -22,36 +22,36 @@ class _$FilteredAreasEventTearOff {
     );
   }
 
-  _SortingUpdated sortingUpdated(AreasSorting newSorting) {
+  _SortingUpdated sortingUpdated(RoutesSorting newSorting) {
     return _SortingUpdated(
       newSorting,
     );
   }
 
-  _AreasUpdated areasUpdated(List<Area> areas) {
-    return _AreasUpdated(
-      areas,
+  _RoutesUpdated routesUpdated(List<Route> routes) {
+    return _RoutesUpdated(
+      routes,
     );
   }
 }
 
 /// @nodoc
-const $FilteredAreasEvent = _$FilteredAreasEventTearOff();
+const $FilteredRoutesEvent = _$FilteredRoutesEventTearOff();
 
 /// @nodoc
-mixin _$FilteredAreasEvent {
+mixin _$FilteredRoutesEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String? newFilter) filterUpdated,
-    required TResult Function(AreasSorting newSorting) sortingUpdated,
-    required TResult Function(List<Area> areas) areasUpdated,
+    required TResult Function(RoutesSorting newSorting) sortingUpdated,
+    required TResult Function(List<Route> routes) routesUpdated,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String? newFilter)? filterUpdated,
-    TResult Function(AreasSorting newSorting)? sortingUpdated,
-    TResult Function(List<Area> areas)? areasUpdated,
+    TResult Function(RoutesSorting newSorting)? sortingUpdated,
+    TResult Function(List<Route> routes)? routesUpdated,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -59,34 +59,34 @@ mixin _$FilteredAreasEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_FilterUpdated value) filterUpdated,
     required TResult Function(_SortingUpdated value) sortingUpdated,
-    required TResult Function(_AreasUpdated value) areasUpdated,
+    required TResult Function(_RoutesUpdated value) routesUpdated,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_FilterUpdated value)? filterUpdated,
     TResult Function(_SortingUpdated value)? sortingUpdated,
-    TResult Function(_AreasUpdated value)? areasUpdated,
+    TResult Function(_RoutesUpdated value)? routesUpdated,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $FilteredAreasEventCopyWith<$Res> {
-  factory $FilteredAreasEventCopyWith(
-          FilteredAreasEvent value, $Res Function(FilteredAreasEvent) then) =
-      _$FilteredAreasEventCopyWithImpl<$Res>;
+abstract class $FilteredRoutesEventCopyWith<$Res> {
+  factory $FilteredRoutesEventCopyWith(
+          FilteredRoutesEvent value, $Res Function(FilteredRoutesEvent) then) =
+      _$FilteredRoutesEventCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$FilteredAreasEventCopyWithImpl<$Res>
-    implements $FilteredAreasEventCopyWith<$Res> {
-  _$FilteredAreasEventCopyWithImpl(this._value, this._then);
+class _$FilteredRoutesEventCopyWithImpl<$Res>
+    implements $FilteredRoutesEventCopyWith<$Res> {
+  _$FilteredRoutesEventCopyWithImpl(this._value, this._then);
 
-  final FilteredAreasEvent _value;
+  final FilteredRoutesEvent _value;
   // ignore: unused_field
-  final $Res Function(FilteredAreasEvent) _then;
+  final $Res Function(FilteredRoutesEvent) _then;
 }
 
 /// @nodoc
@@ -99,7 +99,7 @@ abstract class _$FilterUpdatedCopyWith<$Res> {
 
 /// @nodoc
 class __$FilterUpdatedCopyWithImpl<$Res>
-    extends _$FilteredAreasEventCopyWithImpl<$Res>
+    extends _$FilteredRoutesEventCopyWithImpl<$Res>
     implements _$FilterUpdatedCopyWith<$Res> {
   __$FilterUpdatedCopyWithImpl(
       _FilterUpdated _value, $Res Function(_FilterUpdated) _then)
@@ -131,7 +131,7 @@ class _$_FilterUpdated implements _FilterUpdated {
 
   @override
   String toString() {
-    return 'FilteredAreasEvent.filterUpdated(newFilter: $newFilter)';
+    return 'FilteredRoutesEvent.filterUpdated(newFilter: $newFilter)';
   }
 
   @override
@@ -156,8 +156,8 @@ class _$_FilterUpdated implements _FilterUpdated {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String? newFilter) filterUpdated,
-    required TResult Function(AreasSorting newSorting) sortingUpdated,
-    required TResult Function(List<Area> areas) areasUpdated,
+    required TResult Function(RoutesSorting newSorting) sortingUpdated,
+    required TResult Function(List<Route> routes) routesUpdated,
   }) {
     return filterUpdated(newFilter);
   }
@@ -166,8 +166,8 @@ class _$_FilterUpdated implements _FilterUpdated {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String? newFilter)? filterUpdated,
-    TResult Function(AreasSorting newSorting)? sortingUpdated,
-    TResult Function(List<Area> areas)? areasUpdated,
+    TResult Function(RoutesSorting newSorting)? sortingUpdated,
+    TResult Function(List<Route> routes)? routesUpdated,
     required TResult orElse(),
   }) {
     if (filterUpdated != null) {
@@ -181,7 +181,7 @@ class _$_FilterUpdated implements _FilterUpdated {
   TResult map<TResult extends Object?>({
     required TResult Function(_FilterUpdated value) filterUpdated,
     required TResult Function(_SortingUpdated value) sortingUpdated,
-    required TResult Function(_AreasUpdated value) areasUpdated,
+    required TResult Function(_RoutesUpdated value) routesUpdated,
   }) {
     return filterUpdated(this);
   }
@@ -191,7 +191,7 @@ class _$_FilterUpdated implements _FilterUpdated {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_FilterUpdated value)? filterUpdated,
     TResult Function(_SortingUpdated value)? sortingUpdated,
-    TResult Function(_AreasUpdated value)? areasUpdated,
+    TResult Function(_RoutesUpdated value)? routesUpdated,
     required TResult orElse(),
   }) {
     if (filterUpdated != null) {
@@ -201,7 +201,7 @@ class _$_FilterUpdated implements _FilterUpdated {
   }
 }
 
-abstract class _FilterUpdated implements FilteredAreasEvent {
+abstract class _FilterUpdated implements FilteredRoutesEvent {
   const factory _FilterUpdated(String? newFilter) = _$_FilterUpdated;
 
   String? get newFilter => throw _privateConstructorUsedError;
@@ -215,12 +215,12 @@ abstract class _$SortingUpdatedCopyWith<$Res> {
   factory _$SortingUpdatedCopyWith(
           _SortingUpdated value, $Res Function(_SortingUpdated) then) =
       __$SortingUpdatedCopyWithImpl<$Res>;
-  $Res call({AreasSorting newSorting});
+  $Res call({RoutesSorting newSorting});
 }
 
 /// @nodoc
 class __$SortingUpdatedCopyWithImpl<$Res>
-    extends _$FilteredAreasEventCopyWithImpl<$Res>
+    extends _$FilteredRoutesEventCopyWithImpl<$Res>
     implements _$SortingUpdatedCopyWith<$Res> {
   __$SortingUpdatedCopyWithImpl(
       _SortingUpdated _value, $Res Function(_SortingUpdated) _then)
@@ -237,7 +237,7 @@ class __$SortingUpdatedCopyWithImpl<$Res>
       newSorting == freezed
           ? _value.newSorting
           : newSorting // ignore: cast_nullable_to_non_nullable
-              as AreasSorting,
+              as RoutesSorting,
     ));
   }
 }
@@ -248,11 +248,11 @@ class _$_SortingUpdated implements _SortingUpdated {
   const _$_SortingUpdated(this.newSorting);
 
   @override
-  final AreasSorting newSorting;
+  final RoutesSorting newSorting;
 
   @override
   String toString() {
-    return 'FilteredAreasEvent.sortingUpdated(newSorting: $newSorting)';
+    return 'FilteredRoutesEvent.sortingUpdated(newSorting: $newSorting)';
   }
 
   @override
@@ -277,8 +277,8 @@ class _$_SortingUpdated implements _SortingUpdated {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String? newFilter) filterUpdated,
-    required TResult Function(AreasSorting newSorting) sortingUpdated,
-    required TResult Function(List<Area> areas) areasUpdated,
+    required TResult Function(RoutesSorting newSorting) sortingUpdated,
+    required TResult Function(List<Route> routes) routesUpdated,
   }) {
     return sortingUpdated(newSorting);
   }
@@ -287,8 +287,8 @@ class _$_SortingUpdated implements _SortingUpdated {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String? newFilter)? filterUpdated,
-    TResult Function(AreasSorting newSorting)? sortingUpdated,
-    TResult Function(List<Area> areas)? areasUpdated,
+    TResult Function(RoutesSorting newSorting)? sortingUpdated,
+    TResult Function(List<Route> routes)? routesUpdated,
     required TResult orElse(),
   }) {
     if (sortingUpdated != null) {
@@ -302,7 +302,7 @@ class _$_SortingUpdated implements _SortingUpdated {
   TResult map<TResult extends Object?>({
     required TResult Function(_FilterUpdated value) filterUpdated,
     required TResult Function(_SortingUpdated value) sortingUpdated,
-    required TResult Function(_AreasUpdated value) areasUpdated,
+    required TResult Function(_RoutesUpdated value) routesUpdated,
   }) {
     return sortingUpdated(this);
   }
@@ -312,7 +312,7 @@ class _$_SortingUpdated implements _SortingUpdated {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_FilterUpdated value)? filterUpdated,
     TResult Function(_SortingUpdated value)? sortingUpdated,
-    TResult Function(_AreasUpdated value)? areasUpdated,
+    TResult Function(_RoutesUpdated value)? routesUpdated,
     required TResult orElse(),
   }) {
     if (sortingUpdated != null) {
@@ -322,97 +322,97 @@ class _$_SortingUpdated implements _SortingUpdated {
   }
 }
 
-abstract class _SortingUpdated implements FilteredAreasEvent {
-  const factory _SortingUpdated(AreasSorting newSorting) = _$_SortingUpdated;
+abstract class _SortingUpdated implements FilteredRoutesEvent {
+  const factory _SortingUpdated(RoutesSorting newSorting) = _$_SortingUpdated;
 
-  AreasSorting get newSorting => throw _privateConstructorUsedError;
+  RoutesSorting get newSorting => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$SortingUpdatedCopyWith<_SortingUpdated> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$AreasUpdatedCopyWith<$Res> {
-  factory _$AreasUpdatedCopyWith(
-          _AreasUpdated value, $Res Function(_AreasUpdated) then) =
-      __$AreasUpdatedCopyWithImpl<$Res>;
-  $Res call({List<Area> areas});
+abstract class _$RoutesUpdatedCopyWith<$Res> {
+  factory _$RoutesUpdatedCopyWith(
+          _RoutesUpdated value, $Res Function(_RoutesUpdated) then) =
+      __$RoutesUpdatedCopyWithImpl<$Res>;
+  $Res call({List<Route> routes});
 }
 
 /// @nodoc
-class __$AreasUpdatedCopyWithImpl<$Res>
-    extends _$FilteredAreasEventCopyWithImpl<$Res>
-    implements _$AreasUpdatedCopyWith<$Res> {
-  __$AreasUpdatedCopyWithImpl(
-      _AreasUpdated _value, $Res Function(_AreasUpdated) _then)
-      : super(_value, (v) => _then(v as _AreasUpdated));
+class __$RoutesUpdatedCopyWithImpl<$Res>
+    extends _$FilteredRoutesEventCopyWithImpl<$Res>
+    implements _$RoutesUpdatedCopyWith<$Res> {
+  __$RoutesUpdatedCopyWithImpl(
+      _RoutesUpdated _value, $Res Function(_RoutesUpdated) _then)
+      : super(_value, (v) => _then(v as _RoutesUpdated));
 
   @override
-  _AreasUpdated get _value => super._value as _AreasUpdated;
+  _RoutesUpdated get _value => super._value as _RoutesUpdated;
 
   @override
   $Res call({
-    Object? areas = freezed,
+    Object? routes = freezed,
   }) {
-    return _then(_AreasUpdated(
-      areas == freezed
-          ? _value.areas
-          : areas // ignore: cast_nullable_to_non_nullable
-              as List<Area>,
+    return _then(_RoutesUpdated(
+      routes == freezed
+          ? _value.routes
+          : routes // ignore: cast_nullable_to_non_nullable
+              as List<Route>,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_AreasUpdated implements _AreasUpdated {
-  const _$_AreasUpdated(this.areas);
+class _$_RoutesUpdated implements _RoutesUpdated {
+  const _$_RoutesUpdated(this.routes);
 
   @override
-  final List<Area> areas;
+  final List<Route> routes;
 
   @override
   String toString() {
-    return 'FilteredAreasEvent.areasUpdated(areas: $areas)';
+    return 'FilteredRoutesEvent.routesUpdated(routes: $routes)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _AreasUpdated &&
-            (identical(other.areas, areas) ||
-                const DeepCollectionEquality().equals(other.areas, areas)));
+        (other is _RoutesUpdated &&
+            (identical(other.routes, routes) ||
+                const DeepCollectionEquality().equals(other.routes, routes)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(areas);
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(routes);
 
   @JsonKey(ignore: true)
   @override
-  _$AreasUpdatedCopyWith<_AreasUpdated> get copyWith =>
-      __$AreasUpdatedCopyWithImpl<_AreasUpdated>(this, _$identity);
+  _$RoutesUpdatedCopyWith<_RoutesUpdated> get copyWith =>
+      __$RoutesUpdatedCopyWithImpl<_RoutesUpdated>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String? newFilter) filterUpdated,
-    required TResult Function(AreasSorting newSorting) sortingUpdated,
-    required TResult Function(List<Area> areas) areasUpdated,
+    required TResult Function(RoutesSorting newSorting) sortingUpdated,
+    required TResult Function(List<Route> routes) routesUpdated,
   }) {
-    return areasUpdated(areas);
+    return routesUpdated(routes);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String? newFilter)? filterUpdated,
-    TResult Function(AreasSorting newSorting)? sortingUpdated,
-    TResult Function(List<Area> areas)? areasUpdated,
+    TResult Function(RoutesSorting newSorting)? sortingUpdated,
+    TResult Function(List<Route> routes)? routesUpdated,
     required TResult orElse(),
   }) {
-    if (areasUpdated != null) {
-      return areasUpdated(areas);
+    if (routesUpdated != null) {
+      return routesUpdated(routes);
     }
     return orElse();
   }
@@ -422,9 +422,9 @@ class _$_AreasUpdated implements _AreasUpdated {
   TResult map<TResult extends Object?>({
     required TResult Function(_FilterUpdated value) filterUpdated,
     required TResult Function(_SortingUpdated value) sortingUpdated,
-    required TResult Function(_AreasUpdated value) areasUpdated,
+    required TResult Function(_RoutesUpdated value) routesUpdated,
   }) {
-    return areasUpdated(this);
+    return routesUpdated(this);
   }
 
   @override
@@ -432,37 +432,37 @@ class _$_AreasUpdated implements _AreasUpdated {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_FilterUpdated value)? filterUpdated,
     TResult Function(_SortingUpdated value)? sortingUpdated,
-    TResult Function(_AreasUpdated value)? areasUpdated,
+    TResult Function(_RoutesUpdated value)? routesUpdated,
     required TResult orElse(),
   }) {
-    if (areasUpdated != null) {
-      return areasUpdated(this);
+    if (routesUpdated != null) {
+      return routesUpdated(this);
     }
     return orElse();
   }
 }
 
-abstract class _AreasUpdated implements FilteredAreasEvent {
-  const factory _AreasUpdated(List<Area> areas) = _$_AreasUpdated;
+abstract class _RoutesUpdated implements FilteredRoutesEvent {
+  const factory _RoutesUpdated(List<Route> routes) = _$_RoutesUpdated;
 
-  List<Area> get areas => throw _privateConstructorUsedError;
+  List<Route> get routes => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  _$AreasUpdatedCopyWith<_AreasUpdated> get copyWith =>
+  _$RoutesUpdatedCopyWith<_RoutesUpdated> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-class _$FilteredAreasStateTearOff {
-  const _$FilteredAreasStateTearOff();
+class _$FilteredRoutesStateTearOff {
+  const _$FilteredRoutesStateTearOff();
 
   _Initial initial() {
     return const _Initial();
   }
 
-  _ReadyForUI readyForUI(List<Area> filteredAreas, String? activeFilter,
-      AreasSorting activeSorting) {
+  _ReadyForUI readyForUI(List<Route> filteredRoutes, String? activeFilter,
+      RoutesSorting activeSorting) {
     return _ReadyForUI(
-      filteredAreas,
+      filteredRoutes,
       activeFilter,
       activeSorting,
     );
@@ -470,23 +470,23 @@ class _$FilteredAreasStateTearOff {
 }
 
 /// @nodoc
-const $FilteredAreasState = _$FilteredAreasStateTearOff();
+const $FilteredRoutesState = _$FilteredRoutesStateTearOff();
 
 /// @nodoc
-mixin _$FilteredAreasState {
+mixin _$FilteredRoutesState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<Area> filteredAreas, String? activeFilter,
-            AreasSorting activeSorting)
+    required TResult Function(List<Route> filteredRoutes, String? activeFilter,
+            RoutesSorting activeSorting)
         readyForUI,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<Area> filteredAreas, String? activeFilter,
-            AreasSorting activeSorting)?
+    TResult Function(List<Route> filteredRoutes, String? activeFilter,
+            RoutesSorting activeSorting)?
         readyForUI,
     required TResult orElse(),
   }) =>
@@ -507,20 +507,20 @@ mixin _$FilteredAreasState {
 }
 
 /// @nodoc
-abstract class $FilteredAreasStateCopyWith<$Res> {
-  factory $FilteredAreasStateCopyWith(
-          FilteredAreasState value, $Res Function(FilteredAreasState) then) =
-      _$FilteredAreasStateCopyWithImpl<$Res>;
+abstract class $FilteredRoutesStateCopyWith<$Res> {
+  factory $FilteredRoutesStateCopyWith(
+          FilteredRoutesState value, $Res Function(FilteredRoutesState) then) =
+      _$FilteredRoutesStateCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$FilteredAreasStateCopyWithImpl<$Res>
-    implements $FilteredAreasStateCopyWith<$Res> {
-  _$FilteredAreasStateCopyWithImpl(this._value, this._then);
+class _$FilteredRoutesStateCopyWithImpl<$Res>
+    implements $FilteredRoutesStateCopyWith<$Res> {
+  _$FilteredRoutesStateCopyWithImpl(this._value, this._then);
 
-  final FilteredAreasState _value;
+  final FilteredRoutesState _value;
   // ignore: unused_field
-  final $Res Function(FilteredAreasState) _then;
+  final $Res Function(FilteredRoutesState) _then;
 }
 
 /// @nodoc
@@ -531,7 +531,7 @@ abstract class _$InitialCopyWith<$Res> {
 
 /// @nodoc
 class __$InitialCopyWithImpl<$Res>
-    extends _$FilteredAreasStateCopyWithImpl<$Res>
+    extends _$FilteredRoutesStateCopyWithImpl<$Res>
     implements _$InitialCopyWith<$Res> {
   __$InitialCopyWithImpl(_Initial _value, $Res Function(_Initial) _then)
       : super(_value, (v) => _then(v as _Initial));
@@ -547,7 +547,7 @@ class _$_Initial implements _Initial {
 
   @override
   String toString() {
-    return 'FilteredAreasState.initial()';
+    return 'FilteredRoutesState.initial()';
   }
 
   @override
@@ -562,8 +562,8 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<Area> filteredAreas, String? activeFilter,
-            AreasSorting activeSorting)
+    required TResult Function(List<Route> filteredRoutes, String? activeFilter,
+            RoutesSorting activeSorting)
         readyForUI,
   }) {
     return initial();
@@ -573,8 +573,8 @@ class _$_Initial implements _Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<Area> filteredAreas, String? activeFilter,
-            AreasSorting activeSorting)?
+    TResult Function(List<Route> filteredRoutes, String? activeFilter,
+            RoutesSorting activeSorting)?
         readyForUI,
     required TResult orElse(),
   }) {
@@ -607,7 +607,7 @@ class _$_Initial implements _Initial {
   }
 }
 
-abstract class _Initial implements FilteredAreasState {
+abstract class _Initial implements FilteredRoutesState {
   const factory _Initial() = _$_Initial;
 }
 
@@ -617,14 +617,14 @@ abstract class _$ReadyForUICopyWith<$Res> {
           _ReadyForUI value, $Res Function(_ReadyForUI) then) =
       __$ReadyForUICopyWithImpl<$Res>;
   $Res call(
-      {List<Area> filteredAreas,
+      {List<Route> filteredRoutes,
       String? activeFilter,
-      AreasSorting activeSorting});
+      RoutesSorting activeSorting});
 }
 
 /// @nodoc
 class __$ReadyForUICopyWithImpl<$Res>
-    extends _$FilteredAreasStateCopyWithImpl<$Res>
+    extends _$FilteredRoutesStateCopyWithImpl<$Res>
     implements _$ReadyForUICopyWith<$Res> {
   __$ReadyForUICopyWithImpl(
       _ReadyForUI _value, $Res Function(_ReadyForUI) _then)
@@ -635,15 +635,15 @@ class __$ReadyForUICopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? filteredAreas = freezed,
+    Object? filteredRoutes = freezed,
     Object? activeFilter = freezed,
     Object? activeSorting = freezed,
   }) {
     return _then(_ReadyForUI(
-      filteredAreas == freezed
-          ? _value.filteredAreas
-          : filteredAreas // ignore: cast_nullable_to_non_nullable
-              as List<Area>,
+      filteredRoutes == freezed
+          ? _value.filteredRoutes
+          : filteredRoutes // ignore: cast_nullable_to_non_nullable
+              as List<Route>,
       activeFilter == freezed
           ? _value.activeFilter
           : activeFilter // ignore: cast_nullable_to_non_nullable
@@ -651,7 +651,7 @@ class __$ReadyForUICopyWithImpl<$Res>
       activeSorting == freezed
           ? _value.activeSorting
           : activeSorting // ignore: cast_nullable_to_non_nullable
-              as AreasSorting,
+              as RoutesSorting,
     ));
   }
 }
@@ -660,27 +660,27 @@ class __$ReadyForUICopyWithImpl<$Res>
 
 class _$_ReadyForUI implements _ReadyForUI {
   const _$_ReadyForUI(
-      this.filteredAreas, this.activeFilter, this.activeSorting);
+      this.filteredRoutes, this.activeFilter, this.activeSorting);
 
   @override
-  final List<Area> filteredAreas;
+  final List<Route> filteredRoutes;
   @override
   final String? activeFilter;
   @override
-  final AreasSorting activeSorting;
+  final RoutesSorting activeSorting;
 
   @override
   String toString() {
-    return 'FilteredAreasState.readyForUI(filteredAreas: $filteredAreas, activeFilter: $activeFilter, activeSorting: $activeSorting)';
+    return 'FilteredRoutesState.readyForUI(filteredRoutes: $filteredRoutes, activeFilter: $activeFilter, activeSorting: $activeSorting)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _ReadyForUI &&
-            (identical(other.filteredAreas, filteredAreas) ||
+            (identical(other.filteredRoutes, filteredRoutes) ||
                 const DeepCollectionEquality()
-                    .equals(other.filteredAreas, filteredAreas)) &&
+                    .equals(other.filteredRoutes, filteredRoutes)) &&
             (identical(other.activeFilter, activeFilter) ||
                 const DeepCollectionEquality()
                     .equals(other.activeFilter, activeFilter)) &&
@@ -692,7 +692,7 @@ class _$_ReadyForUI implements _ReadyForUI {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(filteredAreas) ^
+      const DeepCollectionEquality().hash(filteredRoutes) ^
       const DeepCollectionEquality().hash(activeFilter) ^
       const DeepCollectionEquality().hash(activeSorting);
 
@@ -705,24 +705,24 @@ class _$_ReadyForUI implements _ReadyForUI {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<Area> filteredAreas, String? activeFilter,
-            AreasSorting activeSorting)
+    required TResult Function(List<Route> filteredRoutes, String? activeFilter,
+            RoutesSorting activeSorting)
         readyForUI,
   }) {
-    return readyForUI(filteredAreas, activeFilter, activeSorting);
+    return readyForUI(filteredRoutes, activeFilter, activeSorting);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<Area> filteredAreas, String? activeFilter,
-            AreasSorting activeSorting)?
+    TResult Function(List<Route> filteredRoutes, String? activeFilter,
+            RoutesSorting activeSorting)?
         readyForUI,
     required TResult orElse(),
   }) {
     if (readyForUI != null) {
-      return readyForUI(filteredAreas, activeFilter, activeSorting);
+      return readyForUI(filteredRoutes, activeFilter, activeSorting);
     }
     return orElse();
   }
@@ -750,13 +750,13 @@ class _$_ReadyForUI implements _ReadyForUI {
   }
 }
 
-abstract class _ReadyForUI implements FilteredAreasState {
-  const factory _ReadyForUI(List<Area> filteredAreas, String? activeFilter,
-      AreasSorting activeSorting) = _$_ReadyForUI;
+abstract class _ReadyForUI implements FilteredRoutesState {
+  const factory _ReadyForUI(List<Route> filteredRoutes, String? activeFilter,
+      RoutesSorting activeSorting) = _$_ReadyForUI;
 
-  List<Area> get filteredAreas => throw _privateConstructorUsedError;
+  List<Route> get filteredRoutes => throw _privateConstructorUsedError;
   String? get activeFilter => throw _privateConstructorUsedError;
-  AreasSorting get activeSorting => throw _privateConstructorUsedError;
+  RoutesSorting get activeSorting => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$ReadyForUICopyWith<_ReadyForUI> get copyWith =>
       throw _privateConstructorUsedError;

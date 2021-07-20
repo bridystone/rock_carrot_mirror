@@ -23,29 +23,31 @@ class _$RockTearOff {
   _Rock call(
       @JsonKey(name: 'gipfel_ID') int id,
       @DoubleConverter() @JsonKey(name: 'gipfelnr') double? nr,
-      @JsonKey(name: 'gipfelname_d') String name,
-      @JsonKey(name: 'gipfelname_cz') String secondLanguageName,
+      @JsonKey(name: 'gipfelname_d') String name_internal,
+      @JsonKey(name: 'gipfelname_cz') String secondLanguageName_internal,
       @RockStateConverter() @JsonKey(name: 'status') RockState state,
       @RockTypeConverter() @JsonKey(name: 'typ') RockType type,
-      @DoubleConverter() @JsonKey(name: 'vgrd') double? vgrd,
-      @DoubleConverter() @JsonKey(name: 'ngrd') double? ngrd,
+      @DoubleConverter() @JsonKey(name: 'vgrd') double? longitude,
+      @DoubleConverter() @JsonKey(name: 'ngrd') double? latitude,
       @IntConverter() @JsonKey(name: 'schartenhoehe') int? upperHeight,
       @IntConverter() @JsonKey(name: 'talhoehe') int? lowerHeight,
       @JsonKey(name: 'komment_count') int commentCount,
-      @JsonKey(name: 'insert_timestamp') DateTime lastUpdated) {
+      @JsonKey(name: 'insert_timestamp') DateTime lastUpdated,
+      @JsonKey(name: 'tt_insert_timestamp') DateTime? lastUpdatedTT) {
     return _Rock(
       id,
       nr,
-      name,
-      secondLanguageName,
+      name_internal,
+      secondLanguageName_internal,
       state,
       type,
-      vgrd,
-      ngrd,
+      longitude,
+      latitude,
       upperHeight,
       lowerHeight,
       commentCount,
       lastUpdated,
+      lastUpdatedTT,
     );
   }
 
@@ -65,9 +67,9 @@ mixin _$Rock {
   @JsonKey(name: 'gipfelnr')
   double? get nr => throw _privateConstructorUsedError;
   @JsonKey(name: 'gipfelname_d')
-  String get name => throw _privateConstructorUsedError;
+  String get name_internal => throw _privateConstructorUsedError;
   @JsonKey(name: 'gipfelname_cz')
-  String get secondLanguageName => throw _privateConstructorUsedError;
+  String get secondLanguageName_internal => throw _privateConstructorUsedError;
   @RockStateConverter()
   @JsonKey(name: 'status')
   RockState get state => throw _privateConstructorUsedError;
@@ -76,10 +78,10 @@ mixin _$Rock {
   RockType get type => throw _privateConstructorUsedError;
   @DoubleConverter()
   @JsonKey(name: 'vgrd')
-  double? get vgrd => throw _privateConstructorUsedError;
+  double? get longitude => throw _privateConstructorUsedError;
   @DoubleConverter()
   @JsonKey(name: 'ngrd')
-  double? get ngrd =>
+  double? get latitude =>
       throw _privateConstructorUsedError; // @JsonKey(name: 'posfehler') int posfehler,
   @IntConverter()
   @JsonKey(name: 'schartenhoehe')
@@ -93,6 +95,8 @@ mixin _$Rock {
   int get commentCount => throw _privateConstructorUsedError;
   @JsonKey(name: 'insert_timestamp')
   DateTime get lastUpdated => throw _privateConstructorUsedError;
+  @JsonKey(name: 'tt_insert_timestamp')
+  DateTime? get lastUpdatedTT => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -106,16 +110,17 @@ abstract class $RockCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'gipfel_ID') int id,
       @DoubleConverter() @JsonKey(name: 'gipfelnr') double? nr,
-      @JsonKey(name: 'gipfelname_d') String name,
-      @JsonKey(name: 'gipfelname_cz') String secondLanguageName,
+      @JsonKey(name: 'gipfelname_d') String name_internal,
+      @JsonKey(name: 'gipfelname_cz') String secondLanguageName_internal,
       @RockStateConverter() @JsonKey(name: 'status') RockState state,
       @RockTypeConverter() @JsonKey(name: 'typ') RockType type,
-      @DoubleConverter() @JsonKey(name: 'vgrd') double? vgrd,
-      @DoubleConverter() @JsonKey(name: 'ngrd') double? ngrd,
+      @DoubleConverter() @JsonKey(name: 'vgrd') double? longitude,
+      @DoubleConverter() @JsonKey(name: 'ngrd') double? latitude,
       @IntConverter() @JsonKey(name: 'schartenhoehe') int? upperHeight,
       @IntConverter() @JsonKey(name: 'talhoehe') int? lowerHeight,
       @JsonKey(name: 'komment_count') int commentCount,
-      @JsonKey(name: 'insert_timestamp') DateTime lastUpdated});
+      @JsonKey(name: 'insert_timestamp') DateTime lastUpdated,
+      @JsonKey(name: 'tt_insert_timestamp') DateTime? lastUpdatedTT});
 }
 
 /// @nodoc
@@ -130,16 +135,17 @@ class _$RockCopyWithImpl<$Res> implements $RockCopyWith<$Res> {
   $Res call({
     Object? id = freezed,
     Object? nr = freezed,
-    Object? name = freezed,
-    Object? secondLanguageName = freezed,
+    Object? name_internal = freezed,
+    Object? secondLanguageName_internal = freezed,
     Object? state = freezed,
     Object? type = freezed,
-    Object? vgrd = freezed,
-    Object? ngrd = freezed,
+    Object? longitude = freezed,
+    Object? latitude = freezed,
     Object? upperHeight = freezed,
     Object? lowerHeight = freezed,
     Object? commentCount = freezed,
     Object? lastUpdated = freezed,
+    Object? lastUpdatedTT = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -150,13 +156,13 @@ class _$RockCopyWithImpl<$Res> implements $RockCopyWith<$Res> {
           ? _value.nr
           : nr // ignore: cast_nullable_to_non_nullable
               as double?,
-      name: name == freezed
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+      name_internal: name_internal == freezed
+          ? _value.name_internal
+          : name_internal // ignore: cast_nullable_to_non_nullable
               as String,
-      secondLanguageName: secondLanguageName == freezed
-          ? _value.secondLanguageName
-          : secondLanguageName // ignore: cast_nullable_to_non_nullable
+      secondLanguageName_internal: secondLanguageName_internal == freezed
+          ? _value.secondLanguageName_internal
+          : secondLanguageName_internal // ignore: cast_nullable_to_non_nullable
               as String,
       state: state == freezed
           ? _value.state
@@ -166,13 +172,13 @@ class _$RockCopyWithImpl<$Res> implements $RockCopyWith<$Res> {
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as RockType,
-      vgrd: vgrd == freezed
-          ? _value.vgrd
-          : vgrd // ignore: cast_nullable_to_non_nullable
+      longitude: longitude == freezed
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
               as double?,
-      ngrd: ngrd == freezed
-          ? _value.ngrd
-          : ngrd // ignore: cast_nullable_to_non_nullable
+      latitude: latitude == freezed
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
               as double?,
       upperHeight: upperHeight == freezed
           ? _value.upperHeight
@@ -190,6 +196,10 @@ class _$RockCopyWithImpl<$Res> implements $RockCopyWith<$Res> {
           ? _value.lastUpdated
           : lastUpdated // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      lastUpdatedTT: lastUpdatedTT == freezed
+          ? _value.lastUpdatedTT
+          : lastUpdatedTT // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
@@ -202,16 +212,17 @@ abstract class _$RockCopyWith<$Res> implements $RockCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'gipfel_ID') int id,
       @DoubleConverter() @JsonKey(name: 'gipfelnr') double? nr,
-      @JsonKey(name: 'gipfelname_d') String name,
-      @JsonKey(name: 'gipfelname_cz') String secondLanguageName,
+      @JsonKey(name: 'gipfelname_d') String name_internal,
+      @JsonKey(name: 'gipfelname_cz') String secondLanguageName_internal,
       @RockStateConverter() @JsonKey(name: 'status') RockState state,
       @RockTypeConverter() @JsonKey(name: 'typ') RockType type,
-      @DoubleConverter() @JsonKey(name: 'vgrd') double? vgrd,
-      @DoubleConverter() @JsonKey(name: 'ngrd') double? ngrd,
+      @DoubleConverter() @JsonKey(name: 'vgrd') double? longitude,
+      @DoubleConverter() @JsonKey(name: 'ngrd') double? latitude,
       @IntConverter() @JsonKey(name: 'schartenhoehe') int? upperHeight,
       @IntConverter() @JsonKey(name: 'talhoehe') int? lowerHeight,
       @JsonKey(name: 'komment_count') int commentCount,
-      @JsonKey(name: 'insert_timestamp') DateTime lastUpdated});
+      @JsonKey(name: 'insert_timestamp') DateTime lastUpdated,
+      @JsonKey(name: 'tt_insert_timestamp') DateTime? lastUpdatedTT});
 }
 
 /// @nodoc
@@ -227,16 +238,17 @@ class __$RockCopyWithImpl<$Res> extends _$RockCopyWithImpl<$Res>
   $Res call({
     Object? id = freezed,
     Object? nr = freezed,
-    Object? name = freezed,
-    Object? secondLanguageName = freezed,
+    Object? name_internal = freezed,
+    Object? secondLanguageName_internal = freezed,
     Object? state = freezed,
     Object? type = freezed,
-    Object? vgrd = freezed,
-    Object? ngrd = freezed,
+    Object? longitude = freezed,
+    Object? latitude = freezed,
     Object? upperHeight = freezed,
     Object? lowerHeight = freezed,
     Object? commentCount = freezed,
     Object? lastUpdated = freezed,
+    Object? lastUpdatedTT = freezed,
   }) {
     return _then(_Rock(
       id == freezed
@@ -247,13 +259,13 @@ class __$RockCopyWithImpl<$Res> extends _$RockCopyWithImpl<$Res>
           ? _value.nr
           : nr // ignore: cast_nullable_to_non_nullable
               as double?,
-      name == freezed
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+      name_internal == freezed
+          ? _value.name_internal
+          : name_internal // ignore: cast_nullable_to_non_nullable
               as String,
-      secondLanguageName == freezed
-          ? _value.secondLanguageName
-          : secondLanguageName // ignore: cast_nullable_to_non_nullable
+      secondLanguageName_internal == freezed
+          ? _value.secondLanguageName_internal
+          : secondLanguageName_internal // ignore: cast_nullable_to_non_nullable
               as String,
       state == freezed
           ? _value.state
@@ -263,13 +275,13 @@ class __$RockCopyWithImpl<$Res> extends _$RockCopyWithImpl<$Res>
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as RockType,
-      vgrd == freezed
-          ? _value.vgrd
-          : vgrd // ignore: cast_nullable_to_non_nullable
+      longitude == freezed
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
               as double?,
-      ngrd == freezed
-          ? _value.ngrd
-          : ngrd // ignore: cast_nullable_to_non_nullable
+      latitude == freezed
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
               as double?,
       upperHeight == freezed
           ? _value.upperHeight
@@ -287,6 +299,10 @@ class __$RockCopyWithImpl<$Res> extends _$RockCopyWithImpl<$Res>
           ? _value.lastUpdated
           : lastUpdated // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      lastUpdatedTT == freezed
+          ? _value.lastUpdatedTT
+          : lastUpdatedTT // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
@@ -297,16 +313,17 @@ class _$_Rock extends _Rock {
   _$_Rock(
       @JsonKey(name: 'gipfel_ID') this.id,
       @DoubleConverter() @JsonKey(name: 'gipfelnr') this.nr,
-      @JsonKey(name: 'gipfelname_d') this.name,
-      @JsonKey(name: 'gipfelname_cz') this.secondLanguageName,
+      @JsonKey(name: 'gipfelname_d') this.name_internal,
+      @JsonKey(name: 'gipfelname_cz') this.secondLanguageName_internal,
       @RockStateConverter() @JsonKey(name: 'status') this.state,
       @RockTypeConverter() @JsonKey(name: 'typ') this.type,
-      @DoubleConverter() @JsonKey(name: 'vgrd') this.vgrd,
-      @DoubleConverter() @JsonKey(name: 'ngrd') this.ngrd,
+      @DoubleConverter() @JsonKey(name: 'vgrd') this.longitude,
+      @DoubleConverter() @JsonKey(name: 'ngrd') this.latitude,
       @IntConverter() @JsonKey(name: 'schartenhoehe') this.upperHeight,
       @IntConverter() @JsonKey(name: 'talhoehe') this.lowerHeight,
       @JsonKey(name: 'komment_count') this.commentCount,
-      @JsonKey(name: 'insert_timestamp') this.lastUpdated)
+      @JsonKey(name: 'insert_timestamp') this.lastUpdated,
+      @JsonKey(name: 'tt_insert_timestamp') this.lastUpdatedTT)
       : super._();
 
   factory _$_Rock.fromJson(Map<String, dynamic> json) =>
@@ -321,10 +338,10 @@ class _$_Rock extends _Rock {
   final double? nr;
   @override
   @JsonKey(name: 'gipfelname_d')
-  final String name;
+  final String name_internal;
   @override
   @JsonKey(name: 'gipfelname_cz')
-  final String secondLanguageName;
+  final String secondLanguageName_internal;
   @override
   @RockStateConverter()
   @JsonKey(name: 'status')
@@ -336,11 +353,11 @@ class _$_Rock extends _Rock {
   @override
   @DoubleConverter()
   @JsonKey(name: 'vgrd')
-  final double? vgrd;
+  final double? longitude;
   @override
   @DoubleConverter()
   @JsonKey(name: 'ngrd')
-  final double? ngrd;
+  final double? latitude;
   @override // @JsonKey(name: 'posfehler') int posfehler,
   @IntConverter()
   @JsonKey(name: 'schartenhoehe')
@@ -356,10 +373,13 @@ class _$_Rock extends _Rock {
   @override
   @JsonKey(name: 'insert_timestamp')
   final DateTime lastUpdated;
+  @override
+  @JsonKey(name: 'tt_insert_timestamp')
+  final DateTime? lastUpdatedTT;
 
   @override
   String toString() {
-    return 'Rock(id: $id, nr: $nr, name: $name, secondLanguageName: $secondLanguageName, state: $state, type: $type, vgrd: $vgrd, ngrd: $ngrd, upperHeight: $upperHeight, lowerHeight: $lowerHeight, commentCount: $commentCount, lastUpdated: $lastUpdated)';
+    return 'Rock(id: $id, nr: $nr, name_internal: $name_internal, secondLanguageName_internal: $secondLanguageName_internal, state: $state, type: $type, longitude: $longitude, latitude: $latitude, upperHeight: $upperHeight, lowerHeight: $lowerHeight, commentCount: $commentCount, lastUpdated: $lastUpdated, lastUpdatedTT: $lastUpdatedTT)';
   }
 
   @override
@@ -370,19 +390,24 @@ class _$_Rock extends _Rock {
                 const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.nr, nr) ||
                 const DeepCollectionEquality().equals(other.nr, nr)) &&
-            (identical(other.name, name) ||
-                const DeepCollectionEquality().equals(other.name, name)) &&
-            (identical(other.secondLanguageName, secondLanguageName) ||
+            (identical(other.name_internal, name_internal) ||
                 const DeepCollectionEquality()
-                    .equals(other.secondLanguageName, secondLanguageName)) &&
+                    .equals(other.name_internal, name_internal)) &&
+            (identical(other.secondLanguageName_internal,
+                    secondLanguageName_internal) ||
+                const DeepCollectionEquality().equals(
+                    other.secondLanguageName_internal,
+                    secondLanguageName_internal)) &&
             (identical(other.state, state) ||
                 const DeepCollectionEquality().equals(other.state, state)) &&
             (identical(other.type, type) ||
                 const DeepCollectionEquality().equals(other.type, type)) &&
-            (identical(other.vgrd, vgrd) ||
-                const DeepCollectionEquality().equals(other.vgrd, vgrd)) &&
-            (identical(other.ngrd, ngrd) ||
-                const DeepCollectionEquality().equals(other.ngrd, ngrd)) &&
+            (identical(other.longitude, longitude) ||
+                const DeepCollectionEquality()
+                    .equals(other.longitude, longitude)) &&
+            (identical(other.latitude, latitude) ||
+                const DeepCollectionEquality()
+                    .equals(other.latitude, latitude)) &&
             (identical(other.upperHeight, upperHeight) ||
                 const DeepCollectionEquality()
                     .equals(other.upperHeight, upperHeight)) &&
@@ -394,7 +419,10 @@ class _$_Rock extends _Rock {
                     .equals(other.commentCount, commentCount)) &&
             (identical(other.lastUpdated, lastUpdated) ||
                 const DeepCollectionEquality()
-                    .equals(other.lastUpdated, lastUpdated)));
+                    .equals(other.lastUpdated, lastUpdated)) &&
+            (identical(other.lastUpdatedTT, lastUpdatedTT) ||
+                const DeepCollectionEquality()
+                    .equals(other.lastUpdatedTT, lastUpdatedTT)));
   }
 
   @override
@@ -402,16 +430,17 @@ class _$_Rock extends _Rock {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(nr) ^
-      const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(secondLanguageName) ^
+      const DeepCollectionEquality().hash(name_internal) ^
+      const DeepCollectionEquality().hash(secondLanguageName_internal) ^
       const DeepCollectionEquality().hash(state) ^
       const DeepCollectionEquality().hash(type) ^
-      const DeepCollectionEquality().hash(vgrd) ^
-      const DeepCollectionEquality().hash(ngrd) ^
+      const DeepCollectionEquality().hash(longitude) ^
+      const DeepCollectionEquality().hash(latitude) ^
       const DeepCollectionEquality().hash(upperHeight) ^
       const DeepCollectionEquality().hash(lowerHeight) ^
       const DeepCollectionEquality().hash(commentCount) ^
-      const DeepCollectionEquality().hash(lastUpdated);
+      const DeepCollectionEquality().hash(lastUpdated) ^
+      const DeepCollectionEquality().hash(lastUpdatedTT);
 
   @JsonKey(ignore: true)
   @override
@@ -428,16 +457,17 @@ abstract class _Rock extends Rock {
   factory _Rock(
       @JsonKey(name: 'gipfel_ID') int id,
       @DoubleConverter() @JsonKey(name: 'gipfelnr') double? nr,
-      @JsonKey(name: 'gipfelname_d') String name,
-      @JsonKey(name: 'gipfelname_cz') String secondLanguageName,
+      @JsonKey(name: 'gipfelname_d') String name_internal,
+      @JsonKey(name: 'gipfelname_cz') String secondLanguageName_internal,
       @RockStateConverter() @JsonKey(name: 'status') RockState state,
       @RockTypeConverter() @JsonKey(name: 'typ') RockType type,
-      @DoubleConverter() @JsonKey(name: 'vgrd') double? vgrd,
-      @DoubleConverter() @JsonKey(name: 'ngrd') double? ngrd,
+      @DoubleConverter() @JsonKey(name: 'vgrd') double? longitude,
+      @DoubleConverter() @JsonKey(name: 'ngrd') double? latitude,
       @IntConverter() @JsonKey(name: 'schartenhoehe') int? upperHeight,
       @IntConverter() @JsonKey(name: 'talhoehe') int? lowerHeight,
       @JsonKey(name: 'komment_count') int commentCount,
-      @JsonKey(name: 'insert_timestamp') DateTime lastUpdated) = _$_Rock;
+      @JsonKey(name: 'insert_timestamp') DateTime lastUpdated,
+      @JsonKey(name: 'tt_insert_timestamp') DateTime? lastUpdatedTT) = _$_Rock;
   _Rock._() : super._();
 
   factory _Rock.fromJson(Map<String, dynamic> json) = _$_Rock.fromJson;
@@ -451,10 +481,10 @@ abstract class _Rock extends Rock {
   double? get nr => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'gipfelname_d')
-  String get name => throw _privateConstructorUsedError;
+  String get name_internal => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'gipfelname_cz')
-  String get secondLanguageName => throw _privateConstructorUsedError;
+  String get secondLanguageName_internal => throw _privateConstructorUsedError;
   @override
   @RockStateConverter()
   @JsonKey(name: 'status')
@@ -466,11 +496,11 @@ abstract class _Rock extends Rock {
   @override
   @DoubleConverter()
   @JsonKey(name: 'vgrd')
-  double? get vgrd => throw _privateConstructorUsedError;
+  double? get longitude => throw _privateConstructorUsedError;
   @override
   @DoubleConverter()
   @JsonKey(name: 'ngrd')
-  double? get ngrd => throw _privateConstructorUsedError;
+  double? get latitude => throw _privateConstructorUsedError;
   @override // @JsonKey(name: 'posfehler') int posfehler,
   @IntConverter()
   @JsonKey(name: 'schartenhoehe')
@@ -486,6 +516,9 @@ abstract class _Rock extends Rock {
   @override
   @JsonKey(name: 'insert_timestamp')
   DateTime get lastUpdated => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'tt_insert_timestamp')
+  DateTime? get lastUpdatedTT => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$RockCopyWith<_Rock> get copyWith => throw _privateConstructorUsedError;
