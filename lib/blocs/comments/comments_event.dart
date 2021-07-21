@@ -1,11 +1,16 @@
 part of 'comments_bloc.dart';
 
-enum CommentType { Area, Subarea, Rock, Route }
+abstract class CommentsEvent extends Equatable {
+  const CommentsEvent();
 
-@freezed
-class CommentsEvent with _$CommentsEvent {
-  const factory CommentsEvent.requestComments(
-    CommentType type,
-    int id,
-  ) = _RequestComments;
+  @override
+  List<Object> get props => [];
+}
+
+class CommentsEventRequestComments extends CommentsEvent {
+  final Baseitem baseitem;
+  const CommentsEventRequestComments(this.baseitem);
+
+  @override
+  List<Object> get props => [baseitem];
 }

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:rock_carrot/blocs/areas/areas_bloc.dart';
-import 'package:rock_carrot/blocs/countries/countries_bloc.dart';
-import 'package:rock_carrot/blocs/rocks/rocks_bloc.dart';
-import 'package:rock_carrot/blocs/routes/routes_bloc.dart';
-import 'package:rock_carrot/blocs/subareas/subareas_bloc.dart';
+import 'package:rock_carrot/blocs/areas_bloc.dart';
+import 'package:rock_carrot/blocs/countries_bloc.dart';
+import 'package:rock_carrot/blocs/rocks_bloc.dart';
+import 'package:rock_carrot/blocs/routes_bloc.dart';
+import 'package:rock_carrot/blocs/subareas_bloc.dart';
 import 'package:rock_carrot/blocs/view/view_bloc.dart';
 import 'package:rock_carrot/material/screens/homescreen.dart';
 import 'package:rock_carrot/rock_carrot_theme.dart';

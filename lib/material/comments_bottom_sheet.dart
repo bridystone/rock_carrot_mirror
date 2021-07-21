@@ -6,6 +6,7 @@ class CommentsBottomSheet {
   void showCommentsSheet(
     BuildContext context,
     List<Comment> comments,
+    CommentType commentType,
   ) =>
       showModalBottomSheet(
         context: context,
@@ -35,7 +36,10 @@ class CommentsBottomSheet {
                     padding: EdgeInsets.zero,
                     itemCount: comments.length,
                     itemBuilder: (context, i) {
-                      return _commentsItemTile(comments[i]);
+                      return _commentsItemTile(
+                        comments[i],
+                        commentType,
+                      );
                     },
                   ),
                 ),
@@ -48,7 +52,7 @@ class CommentsBottomSheet {
   /// comment tile
   ///
   /// How each comment should look like
-  Widget _commentsItemTile(Comment comment) {
+  Widget _commentsItemTile(Comment comment, CommentType commentType) {
     return Column(children: [
       // status row top
       Row(
@@ -79,17 +83,38 @@ class CommentsBottomSheet {
       // statusrow bottom
       Column(children: [
         Row(children: [
-          // TODO: proper Icon for quality!
-          if (comment.quality != null) ...[
+          if (commentType == CommentType.Area &&
+              comment.qualityIcons.areaIcon != null) ...[
             Text('quality:'),
-            Text('${comment.quality}'),
+            Icon(
+              comment.qualityIcons.areaIcon,
+              size: 15,
+            ),
           ],
-          /*
-          Icon(
-                  comment.qualityRouteIcon ?? Icons.minimize,
-                  size: 15,
-                )
-                */
+          if (commentType == CommentType.Subarea &&
+              comment.qualityIcons.subareaIcon != null) ...[
+            Text('quality:'),
+            Icon(
+              comment.qualityIcons.subareaIcon,
+              size: 15,
+            ),
+          ],
+          if (commentType == CommentType.Rock &&
+              comment.qualityIcons.rockIcon != null) ...[
+            Text('quality:'),
+            Icon(
+              comment.qualityIcons.rockIcon,
+              size: 15,
+            ),
+          ],
+          if (commentType == CommentType.Route &&
+              comment.qualityIcons.routeIcon != null) ...[
+            Text('quality:'),
+            Icon(
+              comment.qualityIcons.routeIcon,
+              size: 15,
+            ),
+          ],
           if (comment.safetyIcon != null) ...[
             Text(' | safety:'),
             Icon(
@@ -105,7 +130,7 @@ class CommentsBottomSheet {
             ),
           ],
           if (comment.difficulty != null) ...[
-            Text(' | grade: ${comment.difficulty}'),
+            Text(' | grade: ${comment.difficulty!.Difficulty}'),
           ]
         ]),
       ]),

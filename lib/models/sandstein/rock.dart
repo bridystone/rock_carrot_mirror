@@ -1,7 +1,8 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
+import 'package:rock_carrot/models/sandstein/baseitem.dart';
+
 import 'package:rock_carrot/models/json_converters.dart';
 
-part 'rock.freezed.dart';
 part 'rock.g.dart';
 
 enum RockType {
@@ -30,28 +31,60 @@ enum RockState {
   Demolished,
 }
 
-@freezed
-class Rock with _$Rock {
-  Rock._();
+@JsonSerializable(createToJson: false)
+class Rock extends Baseitem {
+  @JsonKey(name: 'gipfel_ID')
+  final int id;
+  @DoubleConverter()
+  @JsonKey(name: 'gipfelnr')
+  final double? nr;
+  @JsonKey(name: 'gipfelname_d')
+  final String name_internal;
+  @JsonKey(name: 'gipfelname_cz')
+  final String secondLanguageName_internal;
+  @RockStateConverter()
+  @JsonKey(name: 'status')
+  final RockState state;
+  @RockTypeConverter()
+  @JsonKey(name: 'typ')
+  final RockType type;
+  @DoubleConverter()
+  @JsonKey(name: 'vgrd')
+  final double? longitude;
+  @DoubleConverter()
+  @JsonKey(name: 'ngrd')
+  final double? latitude;
+  // @JsonKey(name: 'posfehler') int posfehler;
+  @IntConverter()
+  @JsonKey(name: 'schartenhoehe')
+  final int? upperHeight;
+  @IntConverter()
+  @JsonKey(name: 'talhoehe')
+  final int? lowerHeight;
+  //@JsonKey(name: 'sektorid') int sektorid;
+  //@JsonKey(name: 'wege_count') int childCount;
+  @JsonKey(name: 'komment_count')
+  final int commentCount;
+  @JsonKey(name: 'insert_timestamp')
+  final DateTime lastUpdated;
+  @JsonKey(name: 'tt_insert_timestamp')
+  final DateTime? lastUpdatedTT;
 
-  factory Rock(
-    @JsonKey(name: 'gipfel_ID') int id,
-    @DoubleConverter() @JsonKey(name: 'gipfelnr') double? nr,
-    @JsonKey(name: 'gipfelname_d') String name_internal,
-    @JsonKey(name: 'gipfelname_cz') String secondLanguageName_internal,
-    @RockStateConverter() @JsonKey(name: 'status') RockState state,
-    @RockTypeConverter() @JsonKey(name: 'typ') RockType type,
-    @DoubleConverter() @JsonKey(name: 'vgrd') double? longitude,
-    @DoubleConverter() @JsonKey(name: 'ngrd') double? latitude,
-    // @JsonKey(name: 'posfehler') int posfehler,
-    @IntConverter() @JsonKey(name: 'schartenhoehe') int? upperHeight,
-    @IntConverter() @JsonKey(name: 'talhoehe') int? lowerHeight,
-    //@JsonKey(name: 'sektorid') int sektorid,
-    //@JsonKey(name: 'wege_count') int childCount,
-    @JsonKey(name: 'komment_count') int commentCount,
-    @JsonKey(name: 'insert_timestamp') DateTime lastUpdated,
-    @JsonKey(name: 'tt_insert_timestamp') DateTime? lastUpdatedTT,
-  ) = _Rock;
+  const Rock({
+    required this.id,
+    this.nr,
+    required this.name_internal,
+    required this.secondLanguageName_internal,
+    required this.state,
+    required this.type,
+    this.longitude,
+    this.latitude,
+    this.upperHeight,
+    this.lowerHeight,
+    required this.commentCount,
+    required this.lastUpdated,
+    this.lastUpdatedTT,
+  });
 
   factory Rock.fromJson(Map<String, dynamic> json) => _$RockFromJson(json);
 
@@ -60,6 +93,7 @@ class Rock with _$Rock {
   // some names do not even have both (i.e. http://db-sandsteinklettern.gipfelbuch.de/weg.php?gipfelid=17766)
   // TODO: monitor private field usage
   // https://github.com/rrousselGit/freezed/issues/298
+  // TODO: is this a problem of Freezed-only or Json Serializable
   // overridded members do not seem to work
   String get name => name_internal.isNotEmpty
       ? name_internal

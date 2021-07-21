@@ -29,33 +29,65 @@ class RockCarrotAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       key: key,
-      backgroundColor: Colors.black,
+      //backgroundColor: Colors.black,
       title: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SizedBox(
-            width: 120,
-            child: Text(
-              headline,
-              style: Theme.of(context).textTheme.headline6,
-              maxLines: 2,
-            ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: 170,
+                child: Text(
+                  headline,
+                  style: Theme.of(context).textTheme.headline2,
+                  maxLines: 2,
+                ),
+              ),
+              SizedBox(
+                width: 170,
+                height: 20,
+                child: TextFormField(
+                  maxLines: 1,
+                  initialValue: initialFilterValue,
+                  onChanged: onFilterChanged,
+                ),
+              ),
+            ],
           ),
-          SizedBox(
-            width: 60,
-            height: 20,
-            child: TextFormField(
-              maxLines: 1,
-              initialValue: initialFilterValue,
-              onChanged: onFilterChanged,
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              if (mapsIcon != null) ...[
+                Transform.translate(
+                    offset: Offset(0, 0),
+                    child: SizedBox(
+                      width: 30,
+                      child: mapsIcon!,
+                    ))
+              ],
+              if (commentsIcon != null) ...[
+                Transform.translate(
+                    offset: Offset(0, 0),
+                    child: SizedBox(
+                      width: 30,
+                      child: commentsIcon!,
+                    )),
+              ],
+              Transform.translate(
+                offset: Offset(0, 0),
+                child: SizedBox(
+                  width: 30,
+                  child: SortIcon(
+                      visible: true,
+                      onSelected: onSortingChanged,
+                      selectedSorting: selectedValue),
+                ),
+              ),
+            ],
           ),
-          SortIcon(
-              visible: true,
-              onSelected: onSortingChanged,
-              selectedSorting: selectedValue),
-          if (mapsIcon != null) ...[mapsIcon!],
-          if (commentsIcon != null) ...[commentsIcon!],
         ],
       ),
     );

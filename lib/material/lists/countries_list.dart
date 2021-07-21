@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rock_carrot/blocs/areas/areas_bloc.dart';
+import 'package:rock_carrot/blocs/areas_bloc.dart';
 import 'package:rock_carrot/material/list_tiles/country_tile.dart';
 import 'package:rock_carrot/models/sandstein/country.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:rock_carrot/blocs/countries/countries_bloc.dart';
-import 'package:rock_carrot/blocs/countries/filtered_countries/filtered_countries_bloc.dart';
+import 'package:rock_carrot/blocs/base/base_bloc.dart';
+import 'package:rock_carrot/blocs/countries_bloc.dart';
+import 'package:rock_carrot/blocs/filtered/filtered_countries_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rock_carrot/blocs/filtered_base/filtered_base_bloc.dart';
 import 'package:rock_carrot/material/rock_carrot_app_bar.dart';
 import 'package:rock_carrot/material/lists/countries_list.dart';
 import 'package:rock_carrot/material/homescreen_bottom_navigation_bar.dart';
+import 'package:rock_carrot/models/sandstein/country.dart';
 
 class CountriesScreen extends StatelessWidget {
   final ScrollController scrollController;
@@ -25,36 +28,35 @@ class CountriesScreen extends StatelessWidget {
         headline: 'Countries',
         initialFilterValue: filteredCountriesBloc.currentFilter,
         onFilterChanged: (filterText) => filteredCountriesBloc
-            .add(FilteredCountriesEvent.filterUpdated(filterText)),
+            .add(FilteredBaseEventFilterUpdated(filterText)),
         selectedValue: filteredCountriesBloc.currentSorting,
         onSortingChanged: (selectedSorting) => filteredCountriesBloc.add(
-          FilteredCountriesEvent.sortingUpdated(selectedSorting),
+          FilteredBaseEventSortingUpdated(selectedSorting),
         ),
       ),
       body: RefreshIndicator(
-        onRefresh: () async => BlocProvider.of<CountriesBloc>(context)
-            .add(CountriesEvent.updateCountries()),
-        child: BlocBuilder<CountriesBloc, CountriesState>(
-          builder: (context, state) => state.when(
-            inProgress: () => CircularProgressIndicator(),
-            updateInProgress: (step, percentage) => Text('$step: $percentage'),
-            updateFinished: (result) => Text('Finished: $result'),
-            countriesReceived: (countries) =>
-                BlocBuilder<FilteredCountriesBloc, FilteredCountriesState>(
+        onRefresh: () async =>
+            BlocProvider.of<CountriesBloc>(context).add(BaseEventUpdateData()),
+        child: BlocBuilder<CountriesBloc, BaseState>(builder: (context, state) {
+          if (state is BaseStateInProgress) {
+            return CircularProgressIndicator();
+          }
+          if (state is BaseStateDataReceived) {
+            return BlocBuilder<FilteredCountriesBloc, FilteredBaseState>(
               builder: (context, state) {
-                return state.when(
-                    initial: () => Text(''),
-                    readyForUI: (countries, filter, sorting) =>
-                        CountriesListView(
-                          countries: countries,
-                          scrollController: scrollController,
-                        ));
+                if (state is FilteredBaseStateReadyForUI) {
+                  return CountriesListView(
+                    countries: state.filteredItems as List<Country>,
+                    scrollController: scrollController,
+                  );
+                }
+                return Text('');
               },
-            ),
-            failure: (dynamic e) => Text('Snackbar'),
-            initial: () => Text('should not happen: $state'),
-          ),
-        ),
+            );
+          }
+          return Text('');
+          // TODO: other stated
+        }),
       ),
       bottomNavigationBar: bottomNavigationBar,
     );

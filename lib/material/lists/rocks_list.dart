@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rock_carrot/blocs/routes/routes_bloc.dart';
+import 'package:rock_carrot/blocs/routes_bloc.dart';
 import 'package:rock_carrot/material/list_tiles/rock_tile.dart';
 import 'package:rock_carrot/models/sandstein/rock.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,7 +17,12 @@ class RocksListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return rocks.isEmpty
-        ? Center(child: Text('No Rocks '))
+        ? ListView.builder(
+            itemCount: 1,
+            itemBuilder: (context, i) {
+              return Center(child: Text('Scroll down to update'));
+            },
+          )
         : ListView.builder(
             // next two items are for storing the scroll position
             controller: scrollController,

@@ -1,11 +1,30 @@
 part of 'comments_bloc.dart';
 
-@freezed
-class CommentsState with _$CommentsState {
-  const factory CommentsState.initial() = _Initial;
-  const factory CommentsState.inProgress() = _InProgress;
-  const factory CommentsState.commentsReceived(
-    List<Comment> comments,
-  ) = _CommentsReceived;
-  const factory CommentsState.failure(dynamic exception) = _Failure;
+abstract class CommentsState extends Equatable {
+  const CommentsState();
+
+  @override
+  List<Object> get props => [];
+}
+
+class CommentsStateInitial extends CommentsState {}
+
+class CommentsStateInProgress extends CommentsState {}
+
+class CommentsStateCommentsReceived extends CommentsState {
+  final List<Comment> comments;
+  const CommentsStateCommentsReceived(this.comments);
+
+  @override
+  // TODO: implement props
+  List<Object> get props => [comments];
+}
+
+class CommentsStateFailure extends CommentsState {
+  final dynamic exception;
+  const CommentsStateFailure(this.exception);
+
+  @override
+  // TODO: implement props
+  List<Object> get props => [exception];
 }

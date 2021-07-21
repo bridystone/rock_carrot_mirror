@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:rock_carrot/blocs/areas/filtered_areas/filtered_areas_bloc.dart';
-import 'package:rock_carrot/blocs/countries/filtered_countries/filtered_countries_bloc.dart';
-import 'package:rock_carrot/blocs/rocks/filtered_rocks/filtered_rocks_bloc.dart';
-import 'package:rock_carrot/blocs/routes/filtered_routes/filtered_routes_bloc.dart';
-import 'package:rock_carrot/blocs/subareas/filtered_subareas/filtered_subareas_bloc.dart';
+import 'package:rock_carrot/blocs/filtered/filtered_rocks_bloc.dart';
+import 'package:rock_carrot/blocs/filtered/filtered_routes_bloc.dart';
+import 'package:rock_carrot/blocs/filtered/filtered_subareas_bloc.dart';
+import 'package:rock_carrot/blocs/filtered_base/filtered_base_bloc.dart';
 
 class SortIcon extends StatelessWidget {
   final bool visible;
@@ -64,6 +63,21 @@ class _Button extends StatelessWidget {
     return PopupMenuButton(
       tooltip: 'Sorting',
       onSelected: onSelected,
+      itemBuilder: (BuildContext context) => ((selectedSorting is BaseSorting)
+              ? BaseSorting.values
+              : (selectedSorting is SubareaSorting)
+                  ? SubareaSorting.values
+                  : (selectedSorting is RockSorting)
+                      ? RockSorting.values
+                      : RouteSorting.values)
+          .map<PopupMenuItem>((sorting) => PopupMenuItem(
+              value: sorting,
+              child: Text(
+                sorting.toString(),
+                style: selectedSorting == sorting ? activeStyle : defaultStyle,
+              )))
+          .toList(),
+      /*
       itemBuilder: (BuildContext context) => selectedSorting is CountriesSorting
           ? CountriesSorting.values
               .map<PopupMenuItem<CountriesSorting>>(
@@ -125,7 +139,11 @@ class _Button extends StatelessWidget {
                                       )))
                               .toList()
                           : throw UnimplementedError(),
-      icon: Icon(Icons.sort_by_alpha_outlined),
+
+                          */
+      icon: Icon(
+        Icons.sort_by_alpha_outlined,
+      ),
     );
   }
 }

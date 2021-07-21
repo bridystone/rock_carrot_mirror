@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:rock_carrot/blocs/comments/comments_bloc.dart';
 import 'package:rock_carrot/material/comments_bottom_sheet.dart';
 import 'package:rock_carrot/material/snackbar.dart';
+import 'package:rock_carrot/models/sandstein/comment.dart';
 import 'package:rock_carrot/models/sandstein/route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -52,7 +53,8 @@ class RouteTile extends StatelessWidget {
         TextSpan(
           children: [
             TextSpan(
-              text: route.nr.toString() + ' ' + route.name,
+              text: route.nr.toString() + ' ' + route.name + ' ',
+              style: Theme.of(context).textTheme.headline4,
             ),
             WidgetSpan(
               child: (route.commentCount > 0)
@@ -69,7 +71,10 @@ class RouteTile extends StatelessWidget {
       subtitle: route.secondLanguageName.isNotEmpty
           ? Text(route.secondLanguageName)
           : null,
-      trailing: Text('${route.difficulty.DifficultyFull ?? ''}'), //show grade
+      trailing: Text(
+        '${route.difficulty.DifficultyFull ?? ''}',
+        style: Theme.of(context).textTheme.headline4,
+      ), //show grade
     );
   }
 
@@ -79,13 +84,16 @@ class RouteTile extends StatelessWidget {
       BlocConsumer<CommentsBloc, CommentsState>(
         //listenWhen: (prevState, nextState) => true,
         listener: (context, state) {
-          state.maybeWhen(
-            commentsReceived: (comments) => comments.isEmpty
+          if (state is CommentsStateCommentsReceived) {
+            state.comments.isEmpty
                 ? ScaffoldMessenger.of(context)
                     .showSnackBar(InfoSnack('no Comments available'))
-                : CommentsBottomSheet().showCommentsSheet(context, comments),
-            orElse: () {},
-          );
+                : CommentsBottomSheet().showCommentsSheet(
+                    context,
+                    state.comments,
+                    CommentType.Route,
+                  );
+          }
         },
         builder: (context, state) {
           return ListTile(
@@ -111,8 +119,8 @@ class RouteTile extends StatelessWidget {
               style: TextStyle(fontSize: 12),
             ),
             onTap: () async {
-              BlocProvider.of<CommentsBloc>(context).add(
-                  CommentsEvent.requestComments(CommentType.Route, route.id));
+              BlocProvider.of<CommentsBloc>(context)
+                  .add(CommentsEventRequestComments(route));
             },
           );
         },

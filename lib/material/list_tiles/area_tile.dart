@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
-import 'package:rock_carrot/blocs/subareas/subareas_bloc.dart';
+import 'package:rock_carrot/blocs/base/base_bloc.dart';
+import 'package:rock_carrot/blocs/subareas_bloc.dart';
 import 'package:rock_carrot/blocs/view/view_bloc.dart';
 import 'package:rock_carrot/models/sandstein/area.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rock_carrot/models/sandstein/subarea.dart';
 
 class AreaTile extends StatelessWidget {
   final Area area;
@@ -16,8 +18,7 @@ class AreaTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<SubareasBloc>(context)
-        .add(SubareasEvent.requestSubareas(area));
+    BlocProvider.of<SubareasBloc>(context).add(BaseEventRequestData(area));
 
     return Slidable(
       actionPane: SlidableDrawerActionPane(),
@@ -37,7 +38,7 @@ class AreaTile extends StatelessWidget {
             icon: Icons.update,
             onTap: () async {
               BlocProvider.of<SubareasBloc>(context)
-                  .add(SubareasEvent.updateSubareas(area));
+                  .add(BaseEventUpdateData(area));
             }),
         IconSlideAction(
             caption: 'Update All',
@@ -45,7 +46,7 @@ class AreaTile extends StatelessWidget {
             icon: Icons.system_update,
             onTap: () async {
               BlocProvider.of<SubareasBloc>(context)
-                  .add(SubareasEvent.updateSubareasInklSubitems(area));
+                  .add(BaseEventUpdateDataIntensive(area));
             }),
       ], //secondarySlideActions,
       child: _areaTileTap(context),
@@ -65,35 +66,46 @@ class AreaTile extends StatelessWidget {
   /// the actual Content of the Tile
   Widget _areaTileContent(BuildContext context) {
     return ListTile(
-        title: Text(area.name),
-        trailing: BlocBuilder<SubareasBloc, SubareasState>(
-          builder: (context, state) => state.maybeWhen(
-            updateInProgress: (step, percent) => Column(
+        title: Text(
+          area.name,
+          style: Theme.of(context).textTheme.headline4,
+        ),
+        trailing:
+            BlocBuilder<SubareasBloc, BaseState>(builder: (context, state) {
+          if (state is BaseStateUpdateInProgress) {
+            return Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
-                  '$step: $percent',
+                  '${state.step}: ${state.percent}',
                   textScaleFactor: 0.7,
                 ),
               ],
-            ),
-            subareasReceived: (area, subareas) => Container(
+            );
+          }
+          if (state is BaseStateDataReceived) {
+            return Container(
               width: 60,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text('${subareas.length}'),
-                  if (subareas.isNotEmpty) ...[
+                  Text(
+                    '${state.items.length}',
+                    style: Theme.of(context).textTheme.headline4,
+                  ),
+                  if (state.items.isNotEmpty) ...[
                     Text(
-                      DateFormat('dd.MM.yy').format(subareas.first.lastUpdated),
+                      DateFormat('dd.MM.yy').format(
+                          (state.items as List<Subarea>).first.lastUpdated),
                       textScaleFactor: 0.7,
+                      style: Theme.of(context).textTheme.headline4,
                     )
                   ]
                 ],
               ),
-            ),
-            orElse: () => Text(''),
-          ),
-        ));
+            );
+          }
+          return Text('');
+        }));
   }
 }

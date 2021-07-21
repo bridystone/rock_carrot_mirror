@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:rock_carrot/artwork/dbsandstein_icons.dart';
-import 'package:rock_carrot/models/route_difficulty.dart';
+import 'package:rock_carrot/models/sandstein/route.dart';
 import 'package:rock_carrot/models/sandstein/comment.dart';
 import 'package:rock_carrot/models/sandstein/rock.dart';
 
@@ -17,32 +17,32 @@ class EpochConverter implements JsonConverter<DateTime, int?> {
   int? toJson(DateTime? dateTime) => dateTime?.microsecondsSinceEpoch;
 }
 
-class DoubleConverter implements JsonConverter<double?, String> {
+class DoubleConverter implements JsonConverter<double?, String?> {
   const DoubleConverter();
 
   @override
-  double? fromJson(String data) => double.tryParse(data);
+  double? fromJson(String? data) => double.tryParse(data ?? '');
 
   @override
   String toJson(double? data) => data?.toString() ?? '';
 }
 
-class IntConverter implements JsonConverter<int?, String> {
+class IntConverter implements JsonConverter<int?, String?> {
   const IntConverter();
 
   @override
-  int? fromJson(String data) => int.tryParse(data);
+  int? fromJson(String? data) => int.tryParse(data ?? '');
 
   @override
   String toJson(int? data) => data?.toString() ?? '';
 }
 
-class RockTypeConverter implements JsonConverter<RockType, String> {
+class RockTypeConverter implements JsonConverter<RockType, String?> {
   const RockTypeConverter();
 
   @override
-  RockType fromJson(String data) {
-    switch (data.toUpperCase()) {
+  RockType fromJson(String? data) {
+    switch (data?.toUpperCase()) {
       case 'G':
         return RockType.Gipfel;
       case 'M':
@@ -82,10 +82,10 @@ class RockTypeConverter implements JsonConverter<RockType, String> {
   String toJson(RockType object) => throw UnimplementedError();
 }
 
-class RockStateConverter implements JsonConverter<RockState, String> {
+class RockStateConverter implements JsonConverter<RockState, String?> {
   const RockStateConverter();
   @override
-  RockState fromJson(String data) {
+  RockState fromJson(String? data) {
     switch (data) {
       case 'X':
         return RockState.FullyRestricted;
@@ -174,11 +174,37 @@ class RouteDifficultyConverter
     // try to parse Jumps or non-sächsische Skala
     difficultyInt ??= int.tryParse(difficultyStripped ?? '');
 
-    return RouteDifficulty(difficultyInt ?? 0, difficulty, difficultyStripped);
+    return RouteDifficulty(
+      sortableDifficulty: difficultyInt ?? 0,
+      DifficultyFull: difficulty,
+      Difficulty: difficultyStripped,
+    );
   }
 
   @override
   String? toJson(RouteDifficulty icon) => throw UnimplementedError();
+}
+
+class CommentDifficultyConverter
+    implements JsonConverter<RouteDifficulty?, String?> {
+  const CommentDifficultyConverter();
+
+  @override
+  RouteDifficulty? fromJson(String? difficulty) {
+    var difficultyInt = int.tryParse(difficulty ?? '');
+    final difficultyString = difficultymap[difficultyInt];
+
+    return difficultyInt != null
+        ? RouteDifficulty(
+            sortableDifficulty: difficultyInt,
+            DifficultyFull: difficultyString,
+            Difficulty: difficultyString,
+          )
+        : null;
+  }
+
+  @override
+  String? toJson(RouteDifficulty? icon) => throw UnimplementedError();
 }
 
 class CommentSourceConverter implements JsonConverter<CommentSource, String?> {
@@ -197,4 +223,93 @@ class CommentSourceConverter implements JsonConverter<CommentSource, String?> {
 
   @override
   String? toJson(CommentSource object) => throw UnimplementedError();
+}
+
+class CommentQualityConverter implements JsonConverter<QualityIcons, String?> {
+  const CommentQualityConverter();
+
+  @override
+  QualityIcons fromJson(String? quality) {
+    final routeIcon;
+
+    switch (quality) {
+      case '1':
+      case '+++ (Herausragend)':
+      case '++ (sehr gut)':
+        routeIcon = DBSandsteinIcons.top;
+        break;
+      case '2':
+      case '+ (gut)':
+        routeIcon = DBSandsteinIcons.smile;
+        break;
+      case '3':
+      case '(Normal)':
+        routeIcon = Icons.do_not_disturb_alt;
+        break;
+      case '4':
+      case '- (schlecht)':
+        routeIcon = DBSandsteinIcons.wink;
+        break;
+      case '5':
+      case '-- (sehr schlecht)':
+      case '--- (Kamikaze)':
+        routeIcon = DBSandsteinIcons.puke;
+        break;
+      default:
+        routeIcon = null;
+    }
+
+    final rockIcon;
+    switch (quality) {
+      case '1':
+        rockIcon = DBSandsteinIcons.gipfelgr;
+        break;
+      case '2':
+        rockIcon = DBSandsteinIcons.gipfelm;
+        break;
+      case '3':
+        rockIcon = DBSandsteinIcons.gipfeln;
+        break;
+      case '4':
+        rockIcon = DBSandsteinIcons.quacke;
+        break;
+      case '5':
+        rockIcon = DBSandsteinIcons.muell;
+        break;
+      default:
+        rockIcon = null;
+    }
+
+    final subareaIcon;
+    switch (quality) {
+      case '1':
+        subareaIcon = DBSandsteinIcons.top;
+        break;
+      case '2':
+        subareaIcon = DBSandsteinIcons.smile;
+        break;
+      case '3':
+        subareaIcon = Icons.do_not_disturb_alt;
+        break;
+      case '4':
+        subareaIcon = DBSandsteinIcons.wink;
+        break;
+      case '5':
+        subareaIcon = DBSandsteinIcons.puke;
+        break;
+      default:
+        subareaIcon = null;
+    }
+    final areaIcon = subareaIcon;
+
+    return QualityIcons(
+      areaIcon: areaIcon,
+      subareaIcon: subareaIcon,
+      rockIcon: rockIcon,
+      routeIcon: routeIcon,
+    );
+  }
+
+  @override
+  String? toJson(QualityIcons icon) => throw UnimplementedError();
 }

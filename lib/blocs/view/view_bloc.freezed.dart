@@ -273,8 +273,6 @@ abstract class _$ToAreasCopyWith<$Res> {
   factory _$ToAreasCopyWith(_ToAreas value, $Res Function(_ToAreas) then) =
       __$ToAreasCopyWithImpl<$Res>;
   $Res call({Country country});
-
-  $CountryCopyWith<$Res> get country;
 }
 
 /// @nodoc
@@ -296,13 +294,6 @@ class __$ToAreasCopyWithImpl<$Res> extends _$ViewEventCopyWithImpl<$Res>
           : country // ignore: cast_nullable_to_non_nullable
               as Country,
     ));
-  }
-
-  @override
-  $CountryCopyWith<$Res> get country {
-    return $CountryCopyWith<$Res>(_value.country, (value) {
-      return _then(_value.copyWith(country: value));
-    });
   }
 }
 
@@ -431,8 +422,6 @@ abstract class _$ToSubareasCopyWith<$Res> {
           _ToSubareas value, $Res Function(_ToSubareas) then) =
       __$ToSubareasCopyWithImpl<$Res>;
   $Res call({Area area});
-
-  $AreaCopyWith<$Res> get area;
 }
 
 /// @nodoc
@@ -455,13 +444,6 @@ class __$ToSubareasCopyWithImpl<$Res> extends _$ViewEventCopyWithImpl<$Res>
           : area // ignore: cast_nullable_to_non_nullable
               as Area,
     ));
-  }
-
-  @override
-  $AreaCopyWith<$Res> get area {
-    return $AreaCopyWith<$Res>(_value.area, (value) {
-      return _then(_value.copyWith(area: value));
-    });
   }
 }
 
@@ -589,8 +571,6 @@ abstract class _$ToRocksCopyWith<$Res> {
   factory _$ToRocksCopyWith(_ToRocks value, $Res Function(_ToRocks) then) =
       __$ToRocksCopyWithImpl<$Res>;
   $Res call({Subarea subarea});
-
-  $SubareaCopyWith<$Res> get subarea;
 }
 
 /// @nodoc
@@ -612,13 +592,6 @@ class __$ToRocksCopyWithImpl<$Res> extends _$ViewEventCopyWithImpl<$Res>
           : subarea // ignore: cast_nullable_to_non_nullable
               as Subarea,
     ));
-  }
-
-  @override
-  $SubareaCopyWith<$Res> get subarea {
-    return $SubareaCopyWith<$Res>(_value.subarea, (value) {
-      return _then(_value.copyWith(subarea: value));
-    });
   }
 }
 
@@ -746,8 +719,6 @@ abstract class _$ToRoutesCopyWith<$Res> {
   factory _$ToRoutesCopyWith(_ToRoutes value, $Res Function(_ToRoutes) then) =
       __$ToRoutesCopyWithImpl<$Res>;
   $Res call({Rock rock});
-
-  $RockCopyWith<$Res> get rock;
 }
 
 /// @nodoc
@@ -769,13 +740,6 @@ class __$ToRoutesCopyWithImpl<$Res> extends _$ViewEventCopyWithImpl<$Res>
           : rock // ignore: cast_nullable_to_non_nullable
               as Rock,
     ));
-  }
-
-  @override
-  $RockCopyWith<$Res> get rock {
-    return $RockCopyWith<$Res>(_value.rock, (value) {
-      return _then(_value.copyWith(rock: value));
-    });
   }
 }
 
@@ -1699,8 +1663,6 @@ abstract class _$AreasCopyWith<$Res> {
   factory _$AreasCopyWith(_Areas value, $Res Function(_Areas) then) =
       __$AreasCopyWithImpl<$Res>;
   $Res call({Country country});
-
-  $CountryCopyWith<$Res> get country;
 }
 
 /// @nodoc
@@ -1722,13 +1684,6 @@ class __$AreasCopyWithImpl<$Res> extends _$ViewStateCopyWithImpl<$Res>
           : country // ignore: cast_nullable_to_non_nullable
               as Country,
     ));
-  }
-
-  @override
-  $CountryCopyWith<$Res> get country {
-    return $CountryCopyWith<$Res>(_value.country, (value) {
-      return _then(_value.copyWith(country: value));
-    });
   }
 }
 
@@ -1832,8 +1787,6 @@ abstract class _$SubareasCopyWith<$Res> {
   factory _$SubareasCopyWith(_Subareas value, $Res Function(_Subareas) then) =
       __$SubareasCopyWithImpl<$Res>;
   $Res call({Area area});
-
-  $AreaCopyWith<$Res> get area;
 }
 
 /// @nodoc
@@ -1855,13 +1808,6 @@ class __$SubareasCopyWithImpl<$Res> extends _$ViewStateCopyWithImpl<$Res>
           : area // ignore: cast_nullable_to_non_nullable
               as Area,
     ));
-  }
-
-  @override
-  $AreaCopyWith<$Res> get area {
-    return $AreaCopyWith<$Res>(_value.area, (value) {
-      return _then(_value.copyWith(area: value));
-    });
   }
 }
 
@@ -1966,8 +1912,6 @@ abstract class _$RocksCopyWith<$Res> {
   factory _$RocksCopyWith(_Rocks value, $Res Function(_Rocks) then) =
       __$RocksCopyWithImpl<$Res>;
   $Res call({Subarea subarea});
-
-  $SubareaCopyWith<$Res> get subarea;
 }
 
 /// @nodoc
@@ -1989,13 +1933,6 @@ class __$RocksCopyWithImpl<$Res> extends _$ViewStateCopyWithImpl<$Res>
           : subarea // ignore: cast_nullable_to_non_nullable
               as Subarea,
     ));
-  }
-
-  @override
-  $SubareaCopyWith<$Res> get subarea {
-    return $SubareaCopyWith<$Res>(_value.subarea, (value) {
-      return _then(_value.copyWith(subarea: value));
-    });
   }
 }
 
@@ -2099,8 +2036,6 @@ abstract class _$RoutesCopyWith<$Res> {
   factory _$RoutesCopyWith(_Routes value, $Res Function(_Routes) then) =
       __$RoutesCopyWithImpl<$Res>;
   $Res call({Rock rock});
-
-  $RockCopyWith<$Res> get rock;
 }
 
 /// @nodoc
@@ -2122,13 +2057,6 @@ class __$RoutesCopyWithImpl<$Res> extends _$ViewStateCopyWithImpl<$Res>
           : rock // ignore: cast_nullable_to_non_nullable
               as Rock,
     ));
-  }
-
-  @override
-  $RockCopyWith<$Res> get rock {
-    return $RockCopyWith<$Res>(_value.rock, (value) {
-      return _then(_value.copyWith(rock: value));
-    });
   }
 }
 

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
-import 'package:rock_carrot/blocs/areas/areas_bloc.dart';
+import 'package:rock_carrot/blocs/areas_bloc.dart';
+import 'package:rock_carrot/blocs/base/base_bloc.dart';
 import 'package:rock_carrot/blocs/view/view_bloc.dart';
+import 'package:rock_carrot/models/sandstein/area.dart';
 import 'package:rock_carrot/models/sandstein/country.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,7 +18,7 @@ class CountryTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<AreasBloc>(context).add(AreasEvent.requestAreas(country));
+    BlocProvider.of<AreasBloc>(context).add(BaseEventRequestData(country));
     return Slidable(
       actionPane: SlidableDrawerActionPane(),
       actions: [
@@ -34,7 +36,7 @@ class CountryTile extends StatelessWidget {
           color: Colors.green,
           icon: Icons.update,
           onTap: () => BlocProvider.of<AreasBloc>(context)
-              .add(AreasEvent.updateAreas(country)),
+              .add(BaseEventUpdateData(country)),
         )
       ], //secondarySlideActions,
       child: _countryTileTap(context),
@@ -53,35 +55,46 @@ class CountryTile extends StatelessWidget {
   /// the actual Content of the Tile
   Widget _countryTileContent(BuildContext context) {
     return ListTile(
-        title: Text(country.name),
-        trailing: BlocBuilder<AreasBloc, AreasState>(
-          builder: (context, state) => state.maybeWhen(
-            updateInProgress: (step, percent) => Column(
+      title: Text(
+        country.name,
+        style: Theme.of(context).textTheme.headline4,
+      ),
+      trailing: BlocBuilder<AreasBloc, BaseState>(builder: (context, state) {
+        if (state is BaseStateUpdateInProgress) {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Text(
+                '${state.step}: ${state.percent}',
+                textScaleFactor: 0.7,
+              ),
+            ],
+          );
+        }
+        if (state is BaseStateDataReceived) {
+          return Container(
+            width: 60,
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
-                  '$step: $percent',
-                  textScaleFactor: 0.7,
+                  '${state.items.length}',
+                  style: Theme.of(context).textTheme.headline4,
                 ),
+                if (state.items.isNotEmpty) ...[
+                  Text(
+                    DateFormat('dd.MM.yy')
+                        .format((state.items as List<Area>).first.lastUpdated),
+                    textScaleFactor: 0.7,
+                    style: Theme.of(context).textTheme.headline4,
+                  )
+                ]
               ],
             ),
-            areasReceived: (country, areas) => Container(
-              width: 60,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text('${areas.length}'),
-                  if (areas.isNotEmpty) ...[
-                    Text(
-                      DateFormat('dd.MM.yy').format(areas.first.lastUpdated),
-                      textScaleFactor: 0.7,
-                    )
-                  ]
-                ],
-              ),
-            ),
-            orElse: () => Text(''),
-          ),
-        ));
+          );
+        }
+        return Text('');
+      }),
+    );
   }
 }

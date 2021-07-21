@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:rock_carrot/blocs/base/base_bloc.dart';
 import 'package:rock_carrot/blocs/comments/comments_bloc.dart';
-import 'package:rock_carrot/blocs/rocks/filtered_rocks/filtered_rocks_bloc.dart';
-import 'package:rock_carrot/blocs/rocks/rocks_bloc.dart';
+import 'package:rock_carrot/blocs/filtered/filtered_rocks_bloc.dart';
+import 'package:rock_carrot/blocs/filtered_base/filtered_base_bloc.dart';
+import 'package:rock_carrot/blocs/rocks_bloc.dart';
 import 'package:rock_carrot/material/comments_icon.dart';
 import 'package:rock_carrot/material/lists/rocks_list.dart';
 import 'package:rock_carrot/material/homescreen_bottom_navigation_bar.dart';
 import 'package:rock_carrot/material/rock_carrot_app_bar.dart';
+import 'package:rock_carrot/models/sandstein/rock.dart';
 import 'package:rock_carrot/models/sandstein/subarea.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -26,51 +29,48 @@ class RocksScreen extends StatelessWidget {
     final filteredRocksBloc = BlocProvider.of<FilteredRocksBloc>(context);
 
     return BlocProvider(
-      create: (context) => CommentsBloc(),
-      child: Scaffold(
+        create: (context) => CommentsBloc(),
+        child: Scaffold(
           appBar: RockCarrotAppBar(
             headline: subarea.name,
             initialFilterValue: filteredRocksBloc.currentFilter,
             onFilterChanged: (filterText) => filteredRocksBloc
-                .add(FilteredRocksEvent.filterUpdated(filterText)),
+                .add(FilteredBaseEventFilterUpdated(filterText)),
             selectedValue: filteredRocksBloc.currentSorting,
             onSortingChanged: (selectedSorting) => filteredRocksBloc.add(
-              FilteredRocksEvent.sortingUpdated(selectedSorting),
+              FilteredBaseEventSortingUpdated(selectedSorting),
             ),
             commentsIcon: CommentsIcon(
-              commentType: CommentType.Subarea,
-              id: subarea.id,
+              baseitem: subarea,
               enabled: subarea.commentCount > 0,
             ),
           ),
           bottomNavigationBar: bottomNavigationBar,
           body: RefreshIndicator(
             onRefresh: () async => BlocProvider.of<RocksBloc>(context)
-                .add(RocksEvent.updateRocks(subarea)),
-            child: BlocBuilder<RocksBloc, RocksState>(
-              builder: (context, state) => state.when(
-                inProgress: () => CircularProgressIndicator(),
-                rocksReceived: (subarea, rocks) =>
-                    BlocBuilder<FilteredRocksBloc, FilteredRocksState>(
+                .add(BaseEventUpdateData(subarea)),
+            child: BlocBuilder<RocksBloc, BaseState>(builder: (context, state) {
+              if (state is BaseStateInProgress) {
+                return CircularProgressIndicator();
+              }
+              if (state is BaseStateDataReceived) {
+                return BlocBuilder<FilteredRocksBloc, FilteredBaseState>(
                   builder: (context, state) {
-                    return state.when(
-                        initial: () => Text(''),
-                        readyForUI: (rocks, filter, sorting) => RocksListView(
-                            rocks: rocks,
-                            scrollController: scrollController,
-                            // use key to ensure that scroll position is stored per subarea
-                            key: Key('ListviewRocks' +
-                                subarea.name +
-                                subarea.id.toString())));
+                    if (state is FilteredBaseStateReadyForUI) {
+                      return RocksListView(
+                        rocks: state.filteredItems as List<Rock>,
+                        scrollController: scrollController,
+                        key: Key('ListviewRock' + subarea.name),
+                      );
+                    }
+                    return Text('');
                   },
-                ),
-                failure: (dynamic e) => Text('Snackbar'),
-                initial: () => Text('should not happen: '),
-                updateInProgress: (step, percentage) => Text(': '),
-                updateFinished: (result) => Text('Finished: '),
-              ),
-            ),
-          )),
-    );
+                );
+              }
+              return Text('');
+              // TODO: other stated
+            }),
+          ),
+        ));
   }
 }

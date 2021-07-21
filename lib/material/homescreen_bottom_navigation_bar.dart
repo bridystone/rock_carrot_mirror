@@ -13,6 +13,11 @@ class HomeScreenBottomNavigationBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final viewBloc = BlocProvider.of<ViewBloc>(context);
     return BottomNavigationBar(
+      showUnselectedLabels: true,
+      showSelectedLabels: true,
+      selectedIconTheme: Theme.of(context).iconTheme,
+      unselectedIconTheme: Theme.of(context).accentIconTheme,
+      backgroundColor: Theme.of(context).bottomAppBarColor,
       currentIndex: currentNavigationState,
       onTap: (index) {
         switch (index) {

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
-import 'package:rock_carrot/blocs/rocks/rocks_bloc.dart';
+import 'package:rock_carrot/blocs/base/base_bloc.dart';
+import 'package:rock_carrot/blocs/rocks_bloc.dart';
 import 'package:rock_carrot/blocs/view/view_bloc.dart';
+import 'package:rock_carrot/models/sandstein/rock.dart';
 import 'package:rock_carrot/models/sandstein/subarea.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rock_carrot/web/teufelsturm.dart';
@@ -17,7 +19,7 @@ class SubareaTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<RocksBloc>(context).add(RocksEvent.requestRocks(subarea));
+    BlocProvider.of<RocksBloc>(context).add(BaseEventRequestData(subarea));
 
     return Slidable(
       actionPane: SlidableDrawerActionPane(),
@@ -37,7 +39,7 @@ class SubareaTile extends StatelessWidget {
             icon: Icons.update,
             onTap: () async {
               BlocProvider.of<RocksBloc>(context)
-                  .add(RocksEvent.updateRocks(subarea));
+                  .add(BaseEventUpdateData(subarea));
             }),
         if (sandsteinIdTeufelsturmAreaIdMap.containsKey(subarea.id)) ...[
           IconSlideAction(
@@ -46,7 +48,7 @@ class SubareaTile extends StatelessWidget {
               icon: Icons.system_update,
               onTap: () async {
                 BlocProvider.of<RocksBloc>(context)
-                    .add(RocksEvent.updateRocksTT(subarea));
+                    .add(BaseEventUpdateDataIntensive(subarea));
               }),
         ],
       ], //secondarySlid, //secondarySlideActions,
@@ -69,34 +71,49 @@ class SubareaTile extends StatelessWidget {
     return ListTile(
         title: Row(
           children: [
-            if (subarea.nr != 0) ...[Text('${subarea.nr} ')],
-            Text(subarea.name),
+            if (subarea.nr != 0) ...[
+              Text(
+                '${subarea.nr} ',
+                style: Theme.of(context).textTheme.headline4,
+              )
+            ],
+            Text(
+              subarea.name,
+              style: Theme.of(context).textTheme.headline4,
+            ),
           ],
         ),
         subtitle: subarea.secondLanguageName.isNotEmpty
             ? Text(subarea.secondLanguageName)
             : null,
-        trailing: BlocBuilder<RocksBloc, RocksState>(
-          builder: (context, state) => state.maybeWhen(
-            updateInProgress: (step, percent) => Column(
+        trailing: BlocBuilder<RocksBloc, BaseState>(builder: (context, state) {
+          if (state is BaseStateUpdateInProgress) {
+            return Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
-                  '$step: $percent',
+                  '${state.step}: ${state.percent}',
                   textScaleFactor: 0.7,
                 ),
               ],
-            ),
-            rocksReceived: (subarea, rocks) => Container(
+            );
+          }
+          if (state is BaseStateDataReceived) {
+            final rocks = state.items as List<Rock>;
+            return Container(
               width: 60,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text('${rocks.length}'),
+                  Text(
+                    '${rocks.length}',
+                    style: Theme.of(context).textTheme.headline4,
+                  ),
                   if (rocks.isNotEmpty) ...[
                     Text(
                       DateFormat('dd.MM.yy').format(rocks.first.lastUpdated),
                       textScaleFactor: 0.7,
+                      style: Theme.of(context).textTheme.headline4,
                     )
                   ],
                   if (rocks.isNotEmpty &&
@@ -107,13 +124,14 @@ class SubareaTile extends StatelessWidget {
                               .format(rocks.first.lastUpdatedTT!) +
                           ']',
                       textScaleFactor: 0.7,
+                      style: Theme.of(context).textTheme.headline4,
                     )
                   ],
                 ],
               ),
-            ),
-            orElse: () => Text(''),
-          ),
-        ));
+            );
+          }
+          return Text('');
+        }));
   }
 }
