@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
 import 'package:rock_carrot/blocs/base/base_bloc.dart';
+import 'package:rock_carrot/blocs/filtered/filtered_areas_bloc.dart';
+import 'package:rock_carrot/blocs/filtered_base/filtered_base_bloc.dart';
 import 'package:rock_carrot/blocs/subareas_bloc.dart';
 import 'package:rock_carrot/blocs/view/view_bloc.dart';
 import 'package:rock_carrot/models/sandstein/area.dart';
@@ -27,8 +29,8 @@ class AreaTile extends StatelessWidget {
           caption: 'Pin',
           color: Colors.amber,
           icon: Icons.pin_drop,
-          // TODO: PIN ACTION
-          onTap: () => null,
+          onTap: () => BlocProvider.of<FilteredAreasBloc>(context)
+              .add(FilteredBaseEventPinItem(area)),
         )
       ],
       secondaryActions: [
@@ -66,6 +68,7 @@ class AreaTile extends StatelessWidget {
   /// the actual Content of the Tile
   Widget _areaTileContent(BuildContext context) {
     return ListTile(
+        tileColor: area.isPinned ? Theme.of(context).highlightColor : null,
         title: Text(
           area.name,
           style: Theme.of(context).textTheme.headline4,

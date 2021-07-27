@@ -3,6 +3,8 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
 import 'package:rock_carrot/blocs/areas_bloc.dart';
 import 'package:rock_carrot/blocs/base/base_bloc.dart';
+import 'package:rock_carrot/blocs/filtered/filtered_countries_bloc.dart';
+import 'package:rock_carrot/blocs/filtered_base/filtered_base_bloc.dart';
 import 'package:rock_carrot/blocs/view/view_bloc.dart';
 import 'package:rock_carrot/models/sandstein/area.dart';
 import 'package:rock_carrot/models/sandstein/country.dart';
@@ -26,8 +28,8 @@ class CountryTile extends StatelessWidget {
           caption: 'Pin',
           color: Colors.amber,
           icon: Icons.pin_drop,
-          // TODO: PIN ACTION
-          onTap: () => null,
+          onTap: () => BlocProvider.of<FilteredCountriesBloc>(context)
+              .add(FilteredBaseEventPinItem(country)),
         )
       ],
       secondaryActions: [
@@ -55,6 +57,7 @@ class CountryTile extends StatelessWidget {
   /// the actual Content of the Tile
   Widget _countryTileContent(BuildContext context) {
     return ListTile(
+      tileColor: country.isPinned ? Theme.of(context).highlightColor : null,
       title: Text(
         country.name,
         style: Theme.of(context).textTheme.headline4,

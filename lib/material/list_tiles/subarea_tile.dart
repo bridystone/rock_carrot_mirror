@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
 import 'package:rock_carrot/blocs/base/base_bloc.dart';
+import 'package:rock_carrot/blocs/filtered/filtered_subareas_bloc.dart';
+import 'package:rock_carrot/blocs/filtered_base/filtered_base_bloc.dart';
 import 'package:rock_carrot/blocs/rocks_bloc.dart';
 import 'package:rock_carrot/blocs/view/view_bloc.dart';
 import 'package:rock_carrot/models/sandstein/rock.dart';
@@ -28,8 +30,8 @@ class SubareaTile extends StatelessWidget {
           caption: 'Pin',
           color: Colors.amber,
           icon: Icons.pin_drop,
-          // TODO: PIN ACTION
-          onTap: () => null,
+          onTap: () => BlocProvider.of<FilteredSubareasBloc>(context)
+              .add(FilteredBaseEventPinItem(subarea)),
         )
       ], //todo primarySlideActions
       secondaryActions: [
@@ -69,6 +71,7 @@ class SubareaTile extends StatelessWidget {
   /// the actual Content of the Tile
   Widget _subareaTileContent(BuildContext context) {
     return ListTile(
+        tileColor: subarea.isPinned ? Theme.of(context).highlightColor : null,
         title: Row(
           children: [
             if (subarea.nr != 0) ...[

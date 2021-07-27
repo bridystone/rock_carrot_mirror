@@ -1,3 +1,4 @@
+import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:rock_carrot/models/sandstein/baseitem.dart';
 
@@ -10,6 +11,7 @@ part 'subarea.g.dart';
 // @JsonKey(name: 'sektornr') double? nr,
 
 @JsonSerializable(createToJson: false)
+@CopyWith()
 class Subarea extends Baseitem {
   @JsonKey(name: 'sektor_ID')
   final int id;
@@ -34,10 +36,22 @@ class Subarea extends Baseitem {
     required this.secondLanguageName_internal,
     required this.commentCount,
     required this.lastUpdated,
-  });
+    bool isPinned = false,
+  }) : super(isPinned: isPinned);
 
   factory Subarea.fromJson(Map<String, dynamic> json) =>
       _$SubareaFromJson(json);
+
+  @override
+  List<Object?> get props => [
+        id,
+        nr,
+        name_internal,
+        secondLanguageName_internal,
+        commentCount,
+        lastUpdated,
+        isPinned
+      ];
 
   // ensure that empty 1st names work correctly, by defining overriding getters
   // i.e. in China

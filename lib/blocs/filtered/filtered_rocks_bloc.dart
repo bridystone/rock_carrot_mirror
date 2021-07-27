@@ -1,6 +1,8 @@
 import 'package:rock_carrot/blocs/rocks_bloc.dart';
 import 'package:rock_carrot/blocs/filtered_base/filtered_base_bloc.dart';
+import 'package:rock_carrot/models/sandstein/baseitem.dart';
 import 'package:rock_carrot/models/sandstein/rock.dart';
+import 'package:rock_carrot/persistence/json_persistence.dart';
 
 enum RockSorting {
   unsorted,
@@ -17,11 +19,11 @@ class FilteredRocksBloc extends FilteredBaseBloc {
   }
 
   @override
-  List<Rock> getFilterAndSortTodos(
+  List<Rock> getFilterAndSortItems(
     String filter,
     dynamic sorting,
   ) {
-    var items = baseBloc.items as List<Rock>;
+    var items = List<Rock>.from(baseBloc.items);
 
     items = filter.isEmpty
         ? items
@@ -46,7 +48,41 @@ class FilteredRocksBloc extends FilteredBaseBloc {
 
       case RockSorting.unsorted:
     }
+
+    // split normal and pinned items
+    final pinnedAreas = _extractPinnedItems(items);
+    items = pinnedAreas + items;
     return items;
+  }
+
+  List<Rock> _extractPinnedItems(List<Rock> items) {
+    final jsonPersistence = JsonPersistence();
+
+    // gather pinned and copy with "isPinned"
+    final pinned = items
+        .where(
+            (item) => jsonPersistence.persistence.pinnedRocks.contains(item.id))
+        .map((item) => item.copyWith(isPinned: true))
+        .toList();
+
+    // remove from original list
+    items.removeWhere(
+        (item) => jsonPersistence.persistence.pinnedRocks.contains(item.id));
+
+    return pinned;
+  }
+
+  @override
+  void pinItem(Baseitem baseitem) {
+    final jsonPersistence = JsonPersistence();
+    if (baseitem is Rock) {
+      if (!jsonPersistence.persistence.pinnedRocks.remove(baseitem.id)) {
+        jsonPersistence.persistence.pinnedRocks.add(baseitem.id);
+      }
+      jsonPersistence.storePersistence();
+    } else {
+      throw UnsupportedError('not a $runtimeType: $baseitem');
+    }
   }
 
   @override

@@ -1,9 +1,11 @@
+import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:rock_carrot/models/sandstein/baseitem.dart';
 
 part 'area.g.dart';
 
 @JsonSerializable(createToJson: false)
+@CopyWith()
 class Area extends Baseitem {
   @JsonKey(name: 'gebiet_ID')
   final int id;
@@ -24,7 +26,17 @@ class Area extends Baseitem {
     required this.name,
     required this.commentCount,
     required this.lastUpdated,
-  });
+    bool isPinned = false,
+  }) : super(isPinned: isPinned);
 
   factory Area.fromJson(Map<String, dynamic> json) => _$AreaFromJson(json);
+
+  @override
+  List<Object?> get props => [
+        id,
+        name,
+        commentCount,
+        lastUpdated,
+        isPinned,
+      ];
 }

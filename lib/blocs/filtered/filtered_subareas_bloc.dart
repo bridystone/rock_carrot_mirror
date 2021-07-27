@@ -1,6 +1,8 @@
 import 'package:rock_carrot/blocs/subareas_bloc.dart';
 import 'package:rock_carrot/blocs/filtered_base/filtered_base_bloc.dart';
+import 'package:rock_carrot/models/sandstein/baseitem.dart';
 import 'package:rock_carrot/models/sandstein/subarea.dart';
+import 'package:rock_carrot/persistence/json_persistence.dart';
 
 enum SubareaSorting {
   unsorted,
@@ -17,11 +19,11 @@ class FilteredSubareasBloc extends FilteredBaseBloc {
   }
 
   @override
-  List<Subarea> getFilterAndSortTodos(
+  List<Subarea> getFilterAndSortItems(
     String filter,
     dynamic sorting,
   ) {
-    var items = baseBloc.items as List<Subarea>;
+    var items = List<Subarea>.from(baseBloc.items);
 
     items = filter.isEmpty
         ? items
@@ -45,7 +47,41 @@ class FilteredSubareasBloc extends FilteredBaseBloc {
         break;
       case SubareaSorting.unsorted:
     }
+
+    // split normal and pinned items
+    final pinnedAreas = _extractPinnedItems(items);
+    items = pinnedAreas + items;
     return items;
+  }
+
+  List<Subarea> _extractPinnedItems(List<Subarea> items) {
+    final jsonPersistence = JsonPersistence();
+
+    // gather pinned and copy with "isPinned"
+    final pinned = items
+        .where((item) =>
+            jsonPersistence.persistence.pinnedSubareas.contains(item.id))
+        .map((item) => item.copyWith(isPinned: true))
+        .toList();
+
+    // remove from original list
+    items.removeWhere(
+        (item) => jsonPersistence.persistence.pinnedSubareas.contains(item.id));
+
+    return pinned;
+  }
+
+  @override
+  void pinItem(Baseitem baseitem) {
+    final jsonPersistence = JsonPersistence();
+    if (baseitem is Subarea) {
+      if (!jsonPersistence.persistence.pinnedSubareas.remove(baseitem.id)) {
+        jsonPersistence.persistence.pinnedSubareas.add(baseitem.id);
+      }
+      jsonPersistence.storePersistence();
+    } else {
+      throw UnsupportedError('not a $runtimeType: $baseitem');
+    }
   }
 
   @override

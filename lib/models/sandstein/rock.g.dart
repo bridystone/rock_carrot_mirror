@@ -3,6 +3,47 @@
 part of 'rock.dart';
 
 // **************************************************************************
+// CopyWithGenerator
+// **************************************************************************
+
+extension RockCopyWith on Rock {
+  Rock copyWith({
+    int? commentCount,
+    int? id,
+    bool? isPinned,
+    DateTime? lastUpdated,
+    DateTime? lastUpdatedTT,
+    double? latitude,
+    double? longitude,
+    int? lowerHeight,
+    String? name_internal,
+    double? nr,
+    String? secondLanguageName_internal,
+    RockState? state,
+    RockType? type,
+    int? upperHeight,
+  }) {
+    return Rock(
+      commentCount: commentCount ?? this.commentCount,
+      id: id ?? this.id,
+      isPinned: isPinned ?? this.isPinned,
+      lastUpdated: lastUpdated ?? this.lastUpdated,
+      lastUpdatedTT: lastUpdatedTT ?? this.lastUpdatedTT,
+      latitude: latitude ?? this.latitude,
+      longitude: longitude ?? this.longitude,
+      lowerHeight: lowerHeight ?? this.lowerHeight,
+      name_internal: name_internal ?? this.name_internal,
+      nr: nr ?? this.nr,
+      secondLanguageName_internal:
+          secondLanguageName_internal ?? this.secondLanguageName_internal,
+      state: state ?? this.state,
+      type: type ?? this.type,
+      upperHeight: upperHeight ?? this.upperHeight,
+    );
+  }
+}
+
+// **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 

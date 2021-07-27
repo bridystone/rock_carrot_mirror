@@ -1,4 +1,4 @@
-import 'dart:io' show Platform;
+import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart'; // for runApp
 import 'package:flutter/foundation.dart';
@@ -17,6 +17,8 @@ import 'package:rock_carrot/blocs/subareas_bloc.dart';
 import 'package:rock_carrot/rock_carrot_app.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+/* GLOBAL VARIABLES - ASYNC WORKAROUND */
+Directory? globalApplicationSupportDirectory;
 void main() {
   if (kDebugMode) {
     Bloc.observer = SimpleBlocObserver();
@@ -25,6 +27,13 @@ void main() {
   try {
     // Platform is not working on Web
     if ((Platform.isAndroid) || (Platform.isIOS)) {
+      // TODO: use get getApplicationSupportDirectory() -> WHERE?!?!?! - Why does it crash?!?!
+      // final globalApplicationSupportDirectory = getApplicationSupportDirectory();
+      /*
+      globalApplicationSupportDirectoryPath = Platform.isAndroid
+          ? '/data/user/0/info.breidenstein.rock_carrot/files'
+          : '';
+*/
       runApp(MultiBlocProvider(
         providers: [
           BlocProvider<CountriesBloc>(
@@ -49,31 +58,26 @@ void main() {
               create: (context) => FilteredCountriesBloc(
                 BlocProvider.of<CountriesBloc>(context),
               ),
-              child: Container(),
             ),
             BlocProvider(
               create: (context) => FilteredAreasBloc(
                 BlocProvider.of<AreasBloc>(context),
               ),
-              child: Container(),
             ),
             BlocProvider(
               create: (context) => FilteredSubareasBloc(
                 BlocProvider.of<SubareasBloc>(context),
               ),
-              child: Container(),
             ),
             BlocProvider(
               create: (context) => FilteredRocksBloc(
                 BlocProvider.of<RocksBloc>(context),
               ),
-              child: Container(),
             ),
             BlocProvider(
               create: (context) => FilteredRoutesBloc(
                 BlocProvider.of<RoutesBloc>(context),
               ),
-              child: Container(),
             ),
           ],
           child: RockCarrotApp(),

@@ -1,11 +1,13 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:rock_carrot/blocs/areas_bloc.dart';
 import 'package:rock_carrot/blocs/base/base_bloc.dart';
 import 'package:rock_carrot/blocs/countries_bloc.dart';
 import 'package:rock_carrot/blocs/rocks_bloc.dart';
 import 'package:rock_carrot/blocs/routes_bloc.dart';
 import 'package:rock_carrot/blocs/subareas_bloc.dart';
+import 'package:rock_carrot/main.dart';
 import 'package:rock_carrot/models/sandstein/area.dart';
 import 'package:rock_carrot/models/sandstein/country.dart';
 import 'package:rock_carrot/models/sandstein/rock.dart';
@@ -58,6 +60,10 @@ class ViewBloc extends Bloc<ViewEvent, ViewState> {
     _ToCountries event,
     Emit<ViewState> emit,
   ) async {
+    // TODO: WORKAROUND for Application SupportDirectory (set Global Variable)
+    // This is the first async function making this possible
+    globalApplicationSupportDirectory ??=
+        await getApplicationSupportDirectory();
     countriesBloc.add(BaseEventRequestData());
     emit(ViewState.countries());
   }

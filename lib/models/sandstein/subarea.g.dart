@@ -3,6 +3,33 @@
 part of 'subarea.dart';
 
 // **************************************************************************
+// CopyWithGenerator
+// **************************************************************************
+
+extension SubareaCopyWith on Subarea {
+  Subarea copyWith({
+    int? commentCount,
+    int? id,
+    bool? isPinned,
+    DateTime? lastUpdated,
+    String? name_internal,
+    double? nr,
+    String? secondLanguageName_internal,
+  }) {
+    return Subarea(
+      commentCount: commentCount ?? this.commentCount,
+      id: id ?? this.id,
+      isPinned: isPinned ?? this.isPinned,
+      lastUpdated: lastUpdated ?? this.lastUpdated,
+      name_internal: name_internal ?? this.name_internal,
+      nr: nr ?? this.nr,
+      secondLanguageName_internal:
+          secondLanguageName_internal ?? this.secondLanguageName_internal,
+    );
+  }
+}
+
+// **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 

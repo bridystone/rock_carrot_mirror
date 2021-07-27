@@ -3,6 +3,52 @@
 part of 'route.dart';
 
 // **************************************************************************
+// CopyWithGenerator
+// **************************************************************************
+
+extension RouteCopyWith on Route {
+  Route copyWith({
+    String? climbingStyle,
+    int? commentCount,
+    String? description_internal,
+    RouteDifficulty? difficulty,
+    DateTime? firstAscentDate,
+    String? firstAscentLead,
+    String? firstAscentPartners,
+    int? id,
+    bool? isPinned,
+    DateTime? lastUpdated,
+    String? name_internal,
+    double? nr,
+    int? rings,
+    String? secondLanguageDescription_internal,
+    String? secondLanguageName_internal,
+    int? state,
+  }) {
+    return Route(
+      climbingStyle: climbingStyle ?? this.climbingStyle,
+      commentCount: commentCount ?? this.commentCount,
+      description_internal: description_internal ?? this.description_internal,
+      difficulty: difficulty ?? this.difficulty,
+      firstAscentDate: firstAscentDate ?? this.firstAscentDate,
+      firstAscentLead: firstAscentLead ?? this.firstAscentLead,
+      firstAscentPartners: firstAscentPartners ?? this.firstAscentPartners,
+      id: id ?? this.id,
+      isPinned: isPinned ?? this.isPinned,
+      lastUpdated: lastUpdated ?? this.lastUpdated,
+      name_internal: name_internal ?? this.name_internal,
+      nr: nr ?? this.nr,
+      rings: rings ?? this.rings,
+      secondLanguageDescription_internal: secondLanguageDescription_internal ??
+          this.secondLanguageDescription_internal,
+      secondLanguageName_internal:
+          secondLanguageName_internal ?? this.secondLanguageName_internal,
+      state: state ?? this.state,
+    );
+  }
+}
+
+// **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 

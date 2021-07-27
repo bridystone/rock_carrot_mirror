@@ -3,6 +3,28 @@
 part of 'area.dart';
 
 // **************************************************************************
+// CopyWithGenerator
+// **************************************************************************
+
+extension AreaCopyWith on Area {
+  Area copyWith({
+    int? commentCount,
+    int? id,
+    bool? isPinned,
+    DateTime? lastUpdated,
+    String? name,
+  }) {
+    return Area(
+      commentCount: commentCount ?? this.commentCount,
+      id: id ?? this.id,
+      isPinned: isPinned ?? this.isPinned,
+      lastUpdated: lastUpdated ?? this.lastUpdated,
+      name: name ?? this.name,
+    );
+  }
+}
+
+// **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 

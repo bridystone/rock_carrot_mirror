@@ -2,6 +2,8 @@ import 'package:flutter/material.dart' hide Route;
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
 import 'package:rock_carrot/blocs/comments/comments_bloc.dart';
+import 'package:rock_carrot/blocs/filtered/filtered_routes_bloc.dart';
+import 'package:rock_carrot/blocs/filtered_base/filtered_base_bloc.dart';
 import 'package:rock_carrot/material/comments_bottom_sheet.dart';
 import 'package:rock_carrot/material/snackbar.dart';
 import 'package:rock_carrot/models/sandstein/comment.dart';
@@ -25,8 +27,8 @@ class RouteTile extends StatelessWidget {
           caption: 'Pin',
           color: Colors.amber,
           icon: Icons.pin_drop,
-          // TODO: PIN ACTION
-          onTap: () => null,
+          onTap: () => BlocProvider.of<FilteredRoutesBloc>(context)
+              .add(FilteredBaseEventPinItem(route)),
         )
       ],
       secondaryActions: [], //secondarySlideActions,
@@ -48,6 +50,7 @@ class RouteTile extends StatelessWidget {
   /// the actual Content of the Tile
   Widget _routeTileContent(BuildContext context) {
     return ListTile(
+      tileColor: route.isPinned ? Theme.of(context).highlightColor : null,
       title: Text.rich(
         // use rich text to combine Text and Icon and NOT overflow on long route names
         TextSpan(

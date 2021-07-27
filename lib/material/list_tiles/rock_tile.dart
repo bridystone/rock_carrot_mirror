@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart' hide Route;
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:rock_carrot/blocs/base/base_bloc.dart';
+import 'package:rock_carrot/blocs/filtered/filtered_rocks_bloc.dart';
+import 'package:rock_carrot/blocs/filtered_base/filtered_base_bloc.dart';
 import 'package:rock_carrot/blocs/routes_bloc.dart';
 import 'package:rock_carrot/blocs/view/view_bloc.dart';
 import 'package:rock_carrot/models/sandstein/rock.dart';
@@ -26,8 +28,8 @@ class RockTile extends StatelessWidget {
           caption: 'Pin',
           color: Colors.amber,
           icon: Icons.pin_drop,
-          // TODO: PIN ACTION
-          onTap: () => null,
+          onTap: () => BlocProvider.of<FilteredRocksBloc>(context)
+              .add(FilteredBaseEventPinItem(rock)),
         )
       ], //todo primarySlideActions
       secondaryActions: [], //secondarySlideActions,
@@ -48,10 +50,11 @@ class RockTile extends StatelessWidget {
   /// the actual Content of the Tile
   Widget _rockTileContent(BuildContext context) {
     return ListTile(
-      tileColor: // grey backgroud color for prohibited or collapsed peaks
-          ((rock.state == RockState.Demolished) ||
+      tileColor: rock.isPinned
+          ? Theme.of(context).highlightColor
+          : ((rock.state == RockState.Demolished) ||
                   (rock.state == RockState.FullyRestricted))
-              ? Colors.grey
+              ? Theme.of(context).disabledColor
               : null,
       title: Row(
         children: [

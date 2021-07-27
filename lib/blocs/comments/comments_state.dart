@@ -16,7 +16,6 @@ class CommentsStateCommentsReceived extends CommentsState {
   const CommentsStateCommentsReceived(this.comments);
 
   @override
-  // TODO: implement props
   List<Object> get props => [comments];
 }
 
@@ -25,6 +24,5 @@ class CommentsStateFailure extends CommentsState {
   const CommentsStateFailure(this.exception);
 
   @override
-  // TODO: implement props
   List<Object> get props => [exception];
 }

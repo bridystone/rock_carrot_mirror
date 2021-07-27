@@ -14,13 +14,11 @@ class RoutesBloc extends BaseBloc {
 
   @override
   Future<int> updateData(Baseitem? baseitem) {
-    // TODO: implement updateData
     throw UnimplementedError();
   }
 
   @override
   Future<int> updateDataIntensive(Baseitem baseitem) {
-    // TODO: implement updateDataIntensive
     throw UnimplementedError();
   }
 }

@@ -33,6 +33,7 @@ abstract class FilteredBaseBloc
     on<FilteredBaseEventDataUpdated>(_onCountriesUpdated);
     on<FilteredBaseEventFilterUpdated>(_onFilterUpdated);
     on<FilteredBaseEventSortingUpdated>(_onSortingUpdated);
+    on<FilteredBaseEventPinItem>(_onPinItem);
   }
   @override
   Future<void> close() {
@@ -46,7 +47,7 @@ abstract class FilteredBaseBloc
   ) {
     if (baseBloc.isLoaded) {
       emit(FilteredBaseStateReadyForUI(
-        filteredItems: getFilterAndSortTodos(
+        filteredItems: getFilterAndSortItems(
           currentFilter,
           currentSorting,
         ),
@@ -62,7 +63,7 @@ abstract class FilteredBaseBloc
   ) {
     if (baseBloc.isLoaded) {
       emit(FilteredBaseStateReadyForUI(
-        filteredItems: getFilterAndSortTodos(
+        filteredItems: getFilterAndSortItems(
           event.newFilter,
           currentSorting,
         ),
@@ -78,7 +79,7 @@ abstract class FilteredBaseBloc
   ) {
     if (baseBloc.isLoaded) {
       emit(FilteredBaseStateReadyForUI(
-        filteredItems: getFilterAndSortTodos(
+        filteredItems: getFilterAndSortItems(
           currentFilter,
           event.newSorting,
         ),
@@ -88,97 +89,29 @@ abstract class FilteredBaseBloc
     }
   }
 
-  List<Baseitem> getFilterAndSortTodos(
+  void _onPinItem(
+    FilteredBaseEventPinItem event,
+    Emit<FilteredBaseState> emit,
+  ) async {
+    pinItem(event.pinBaseitem);
+
+    // refresh Sorting
+    add(FilteredBaseEventSortingUpdated(currentSorting));
+  }
+
+  /*
+  abstract functions
+  */
+  void pinItem(Baseitem baseitem);
+
+  List<Baseitem> getFilterAndSortItems(
     String filter,
     dynamic sorting,
   );
-  /* {
-    var items = baseBloc.items;
-    if (items is List<Country>) {
-      items = filter.isEmpty
-          ? items
-          : items
-              .where((item) =>
-                  item.name.toLowerCase().contains(filter.toLowerCase()))
-              .toList();
-      switch (sorting) {
-        case BaseSorting.nameAscending:
-          items.sort((a, b) => a.name.compareTo(b.name));
-          break;
-        case BaseSorting.nameDescending:
-          items.sort((a, b) => b.name.compareTo(a.name));
-          break;
-        case BaseSorting.unsorted:
-      }
-    } else if (items is List<Area>) {
-      items = filter.isEmpty
-          ? items
-          : items
-              .where((item) =>
-                  item.name.toLowerCase().contains(filter.toLowerCase()))
-              .toList();
-      switch (sorting) {
-        case BaseSorting.nameAscending:
-          items.sort((a, b) => a.name.compareTo(b.name));
-          break;
-        case BaseSorting.nameDescending:
-          items.sort((a, b) => b.name.compareTo(a.name));
-          break;
-        case BaseSorting.unsorted:
-      }
-    } else if (items is List<Subarea>) {
-      items = filter.isEmpty
-          ? items
-          : items
-              .where((item) =>
-                  item.name.toLowerCase().contains(filter.toLowerCase()))
-              .toList();
-      switch (sorting) {
-        case BaseSorting.nameAscending:
-          items.sort((a, b) => a.name.compareTo(b.name));
-          break;
-        case BaseSorting.nameDescending:
-          items.sort((a, b) => b.name.compareTo(a.name));
-          break;
-        case BaseSorting.unsorted:
-      }
-    } else if (items is List<Rock>) {
-      items = filter.isEmpty
-          ? items
-          : items
-              .where((item) =>
-                  item.name.toLowerCase().contains(filter.toLowerCase()))
-              .toList();
-      switch (sorting) {
-        case BaseSorting.nameAscending:
-          items.sort((a, b) => a.name.compareTo(b.name));
-          break;
-        case BaseSorting.nameDescending:
-          items.sort((a, b) => b.name.compareTo(a.name));
-          break;
-        case BaseSorting.unsorted:
-      }
-    } else if (items is List<Route>) {
-      items = filter.isEmpty
-          ? items
-          : items
-              .where((item) =>
-                  item.name.toLowerCase().contains(filter.toLowerCase()))
-              .toList();
-      switch (sorting) {
-        case BaseSorting.nameAscending:
-          items.sort((a, b) => a.name.compareTo(b.name));
-          break;
-        case BaseSorting.nameDescending:
-          items.sort((a, b) => b.name.compareTo(a.name));
-          break;
-        case BaseSorting.unsorted:
-      }
-    }
 
-    return items;
-  }*/
-
+  /*
+  SUPPORT methods
+  */
   String get currentFilter => (state is FilteredBaseStateReadyForUI)
       ? (state as FilteredBaseStateReadyForUI).activeFilter
       : '';

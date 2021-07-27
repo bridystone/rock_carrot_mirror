@@ -66,6 +66,18 @@ class Comment extends Baseitem {
 
   factory Comment.fromJson(Map<String, dynamic> json) =>
       _$CommentFromJson(json);
+
+  @override
+  List<Object?> get props => [
+        user,
+        date,
+        qualityIcons,
+        safetyIcon,
+        wetnessIcon,
+        comment,
+        difficulty,
+        source,
+      ];
 }
 
 @immutable

@@ -30,3 +30,11 @@ class FilteredBaseEventDataUpdated extends FilteredBaseEvent {
   @override
   List<Object> get props => [newItems];
 }
+
+class FilteredBaseEventPinItem extends FilteredBaseEvent {
+  final Baseitem pinBaseitem;
+  const FilteredBaseEventPinItem(this.pinBaseitem);
+
+  @override
+  List<Object> get props => [pinBaseitem];
+}

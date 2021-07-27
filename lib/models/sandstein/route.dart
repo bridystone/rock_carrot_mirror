@@ -1,3 +1,4 @@
+import 'package:copy_with_extension/copy_with_extension.dart';
 import 'package:meta/meta.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:rock_carrot/models/json_converters.dart';
@@ -7,6 +8,7 @@ part 'route.g.dart';
 
 // TODO: Wegstatus ==> converter - Projekt etc
 @JsonSerializable(createToJson: false)
+@CopyWith()
 class Route extends Baseitem {
   @JsonKey(name: 'weg_ID')
   final int id;
@@ -62,9 +64,30 @@ class Route extends Baseitem {
     this.nr,
     required this.commentCount,
     required this.lastUpdated,
-  });
+    bool isPinned = false,
+  }) : super(isPinned: isPinned);
 
   factory Route.fromJson(Map<String, dynamic> json) => _$RouteFromJson(json);
+
+  @override
+  List<Object?> get props => [
+        id,
+        difficulty,
+        firstAscentDate,
+        firstAscentLead,
+        firstAscentPartners,
+        rings,
+        description_internal,
+        secondLanguageDescription_internal,
+        climbingStyle,
+        name_internal,
+        secondLanguageName_internal,
+        state,
+        nr,
+        commentCount,
+        lastUpdated,
+        isPinned,
+      ];
 
   // ensure that empty 1st names work correctly, by defining overriding getters
   // i.e. in China
