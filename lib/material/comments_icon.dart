@@ -40,9 +40,10 @@ class CommentsIcon extends StatelessWidget {
                 ),
                 onPressed: () => BlocProvider.of<CommentsBloc>(context)
                     .add(CommentsEventRequestComments(baseitem)))
-            : Icon(
-                Icons.comment,
+            : IconButton(
+                icon: Icon(Icons.comment),
                 color: Colors.grey,
+                onPressed: () => null,
               );
       },
     );

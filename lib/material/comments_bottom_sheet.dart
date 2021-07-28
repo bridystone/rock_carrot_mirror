@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 import 'package:rock_carrot/models/sandstein/comment.dart';
 
@@ -22,7 +23,8 @@ class CommentsBottomSheet {
                 child: Padding(
                     padding: EdgeInsets.all(20.0),
                     child: Center(
-                      child: Text('no comments available'),
+                      child: Text(AppLocalizations.of(context)
+                          .statusNoCommentsAvailable),
                     )));
           }
           return Padding(
@@ -39,6 +41,7 @@ class CommentsBottomSheet {
                       return _commentsItemTile(
                         comments[i],
                         commentType,
+                        context,
                       );
                     },
                   ),
@@ -52,14 +55,19 @@ class CommentsBottomSheet {
   /// comment tile
   ///
   /// How each comment should look like
-  Widget _commentsItemTile(Comment comment, CommentType commentType) {
+  Widget _commentsItemTile(
+    Comment comment,
+    CommentType commentType,
+    BuildContext context,
+  ) {
+    final locale = AppLocalizations.of(context);
     return Column(children: [
       // status row top
       Row(
         children: [
           Text(
             DateFormat('dd.MM.yy').format(comment.date) +
-                ' UID:' +
+                ' ${locale.commentsUsername}:' +
                 comment.user,
             style: TextStyle(
               fontStyle: FontStyle.normal,
@@ -85,7 +93,7 @@ class CommentsBottomSheet {
         Row(children: [
           if (commentType == CommentType.Area &&
               comment.qualityIcons.areaIcon != null) ...[
-            Text('quality:'),
+            Text('${locale.commentsQuality}:'),
             Icon(
               comment.qualityIcons.areaIcon,
               size: 15,
@@ -93,7 +101,7 @@ class CommentsBottomSheet {
           ],
           if (commentType == CommentType.Subarea &&
               comment.qualityIcons.subareaIcon != null) ...[
-            Text('quality:'),
+            Text('${locale.commentsQuality}:'),
             Icon(
               comment.qualityIcons.subareaIcon,
               size: 15,
@@ -101,7 +109,7 @@ class CommentsBottomSheet {
           ],
           if (commentType == CommentType.Rock &&
               comment.qualityIcons.rockIcon != null) ...[
-            Text('quality:'),
+            Text('${locale.commentsQuality}:'),
             Icon(
               comment.qualityIcons.rockIcon,
               size: 15,
@@ -109,28 +117,29 @@ class CommentsBottomSheet {
           ],
           if (commentType == CommentType.Route &&
               comment.qualityIcons.routeIcon != null) ...[
-            Text('quality:'),
+            Text('${locale.commentsQuality}:'),
             Icon(
               comment.qualityIcons.routeIcon,
               size: 15,
             ),
           ],
           if (comment.safetyIcon != null) ...[
-            Text(' | safety:'),
+            Text(' | ${locale.commentsSafety}:'),
             Icon(
               comment.safetyIcon,
               size: 15,
             ),
           ],
           if (comment.wetnessIcon != null) ...[
-            Text(' | wet:'),
+            Text(' | ${locale.commentsWetness}:'),
             Icon(
               comment.wetnessIcon,
               size: 15,
             ),
           ],
           if (comment.difficulty != null) ...[
-            Text(' | grade: ${comment.difficulty!.Difficulty}'),
+            Text(
+                ' | ${locale.commentsGrade}: ${comment.difficulty!.Difficulty}'),
           ]
         ]),
       ]),

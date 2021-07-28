@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:rock_carrot/blocs/areas_bloc.dart';
 import 'package:rock_carrot/blocs/countries_bloc.dart';
 import 'package:rock_carrot/blocs/rocks_bloc.dart';
@@ -15,7 +17,7 @@ class RockCarrotApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'RockCarrot',
+      onGenerateTitle: (context) => AppLocalizations.of(context).appTitle,
       theme: RockCarrotTheme.theme,
       initialRoute: 'home',
       routes: {
@@ -34,6 +36,18 @@ class RockCarrotApp extends StatelessWidget {
               child: HomeScreen(),
             ),
       },
+      localizationsDelegates: [
+        // default localizations i.e. for date picker - provided by Flutter
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        // Application Localization
+        AppLocalizations.delegate,
+      ],
+      supportedLocales: [
+        const Locale('en'),
+        const Locale('de'),
+      ],
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:rock_carrot/blocs/filtered/filtered_rocks_bloc.dart';
 import 'package:rock_carrot/blocs/filtered/filtered_routes_bloc.dart';
 import 'package:rock_carrot/blocs/filtered/filtered_subareas_bloc.dart';
@@ -60,8 +61,40 @@ class _Button extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // localizationsmapping
+    final locale = AppLocalizations.of(context);
+    final sortingLocalizations = {
+      if (selectedSorting is BaseSorting) ...{
+        BaseSorting.unsorted: locale.sortingUnsorted,
+        BaseSorting.nameAscending: locale.sortingNameAscending,
+        BaseSorting.nameDescending: locale.sortingNameDescending,
+      },
+      if (selectedSorting is SubareaSorting) ...{
+        SubareaSorting.unsorted: locale.sortingUnsorted,
+        SubareaSorting.nameAscending: locale.sortingNameAscending,
+        SubareaSorting.nameDescending: locale.sortingNameDescending,
+        SubareaSorting.numberAscending: locale.sortingNumberAscending,
+        SubareaSorting.numberDescending: locale.sortingNumberDescending,
+      },
+      if (selectedSorting is RockSorting) ...{
+        RockSorting.unsorted: locale.sortingUnsorted,
+        RockSorting.nameAscending: locale.sortingNameAscending,
+        RockSorting.nameDescending: locale.sortingNameDescending,
+        RockSorting.numberAscending: locale.sortingNumberAscending,
+        RockSorting.numberDescending: locale.sortingNumberDescending,
+      },
+      if (selectedSorting is RouteSorting) ...{
+        RouteSorting.unsorted: locale.sortingUnsorted,
+        RouteSorting.nameAscending: locale.sortingNameAscending,
+        RouteSorting.nameDescending: locale.sortingNameDescending,
+        RouteSorting.numberAscending: locale.sortingNumberAscending,
+        RouteSorting.numberDescending: locale.sortingNumberDescending,
+        RouteSorting.difficultyAscending: locale.sortingDifficultyAscending,
+        RouteSorting.difficultyDescending: locale.sortingDifficultyDescending,
+      },
+    };
     return PopupMenuButton(
-      tooltip: 'Sorting',
+      tooltip: locale.sortingTooltip,
       onSelected: onSelected,
       itemBuilder: (BuildContext context) => ((selectedSorting is BaseSorting)
               ? BaseSorting.values
@@ -73,74 +106,11 @@ class _Button extends StatelessWidget {
           .map<PopupMenuItem>((sorting) => PopupMenuItem(
               value: sorting,
               child: Text(
-                sorting.toString(),
+                sortingLocalizations[sorting]!,
+                //sorting.toString(),
                 style: selectedSorting == sorting ? activeStyle : defaultStyle,
               )))
           .toList(),
-      /*
-      itemBuilder: (BuildContext context) => selectedSorting is CountriesSorting
-          ? CountriesSorting.values
-              .map<PopupMenuItem<CountriesSorting>>(
-                  (sorting) => PopupMenuItem<CountriesSorting>(
-                      value: sorting,
-                      child: Text(
-                        sorting.toString(),
-                        style: selectedSorting == sorting
-                            ? activeStyle
-                            : defaultStyle,
-                      )))
-              .toList()
-          : selectedSorting is AreasSorting
-              ? AreasSorting.values
-                  .map<PopupMenuItem<AreasSorting>>(
-                      (sorting) => PopupMenuItem<AreasSorting>(
-                          value: sorting,
-                          child: Text(
-                            sorting.toString(),
-                            style: selectedSorting == sorting
-                                ? activeStyle
-                                : defaultStyle,
-                          )))
-                  .toList()
-              : selectedSorting is SubareasSorting
-                  ? SubareasSorting.values
-                      .map<PopupMenuItem<SubareasSorting>>(
-                          (sorting) => PopupMenuItem<SubareasSorting>(
-                              value: sorting,
-                              child: Text(
-                                sorting.toString(),
-                                style: selectedSorting == sorting
-                                    ? activeStyle
-                                    : defaultStyle,
-                              )))
-                      .toList()
-                  : selectedSorting is RocksSorting
-                      ? RocksSorting.values
-                          .map<PopupMenuItem<RocksSorting>>(
-                              (sorting) => PopupMenuItem<RocksSorting>(
-                                  value: sorting,
-                                  child: Text(
-                                    sorting.toString(),
-                                    style: selectedSorting == sorting
-                                        ? activeStyle
-                                        : defaultStyle,
-                                  )))
-                          .toList()
-                      : selectedSorting is RoutesSorting
-                          ? RoutesSorting.values
-                              .map<PopupMenuItem<RoutesSorting>>(
-                                  (sorting) => PopupMenuItem<RoutesSorting>(
-                                      value: sorting,
-                                      child: Text(
-                                        sorting.toString(),
-                                        style: selectedSorting == sorting
-                                            ? activeStyle
-                                            : defaultStyle,
-                                      )))
-                              .toList()
-                          : throw UnimplementedError(),
-
-                          */
       icon: Icon(
         Icons.sort_by_alpha_outlined,
       ),

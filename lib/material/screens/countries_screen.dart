@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:rock_carrot/blocs/base/base_bloc.dart';
 import 'package:rock_carrot/blocs/countries_bloc.dart';
 import 'package:rock_carrot/blocs/filtered/filtered_countries_bloc.dart';
@@ -25,7 +26,7 @@ class CountriesScreen extends StatelessWidget {
         BlocProvider.of<FilteredCountriesBloc>(context);
     return Scaffold(
       appBar: RockCarrotAppBar(
-        headline: 'Countries',
+        headline: AppLocalizations.of(context).homeCountries,
         initialFilterValue: filteredCountriesBloc.currentFilter,
         onFilterChanged: (filterText) => filteredCountriesBloc
             .add(FilteredBaseEventFilterUpdated(filterText)),

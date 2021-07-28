@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:rock_carrot/blocs/view/view_bloc.dart';
 
 class HomeScreenBottomNavigationBar extends StatelessWidget {
@@ -12,6 +13,7 @@ class HomeScreenBottomNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewBloc = BlocProvider.of<ViewBloc>(context);
+    final locale = AppLocalizations.of(context);
     return BottomNavigationBar(
       showUnselectedLabels: true,
       showSelectedLabels: true,
@@ -44,23 +46,23 @@ class HomeScreenBottomNavigationBar extends StatelessWidget {
       items: [
         BottomNavigationBarItem(
           icon: Icon(Icons.list),
-          label: 'Country',
+          label: locale.homeBottomNavigationCountry,
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.list),
-          label: 'Area',
+          label: locale.homeBottomNavigationArea,
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.list),
-          label: 'Subarea',
+          label: locale.homeBottomNavigationSubarea,
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.list),
-          label: 'Rocks',
+          label: locale.homeBottomNavigationRock,
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.list),
-          label: 'Routes',
+          label: locale.homeBottomNavigationRoute,
         ),
       ],
     );

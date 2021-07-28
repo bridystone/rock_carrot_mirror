@@ -1,0 +1,29 @@
+{
+    "appTitle":"Rock Carrot",
+
+    "homeCountries":"Länder",
+
+
+    "homeBottomNavigationCountry":"Land",
+    "homeBottomNavigationArea":"Gebiet",
+    "homeBottomNavigationSubarea":"Sektor",
+    "homeBottomNavigationRock":"Felsen",
+    "homeBottomNavigationRoute":"Weg",
+
+    "statusNoCommentsAvailable":"keine Kommentare verfügbar",
+
+    "commentsUsername":"Benutzer",
+    "commentsQuality":"Qualität",
+    "commentsSafety":"Sicherheit",
+    "commentsWetness":"Nässe",
+    "commentsGrade":"Schwierigkeit",
+
+    "sortingTooltip":"Sortierung",
+    "sortingUnsorted":"unsortiert",
+    "sortingNameAscending":"Name ↓",
+    "sortingNameDescending":"Name ↑",
+    "sortingNumberAscending":"Nr ↓",
+    "sortingNumberDescending":"Nr ↑",
+    "sortingDifficultyAscending":"Schwierigkeit ↓",
+    "sortingDifficultyDescending":"Schwierigkeit ↑"
+}

@@ -61,31 +61,15 @@ class RockCarrotAppBar extends StatelessWidget implements PreferredSizeWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               if (mapsIcon != null) ...[
-                Transform.translate(
-                    offset: Offset(0, 0),
-                    child: SizedBox(
-                      width: 30,
-                      child: mapsIcon!,
-                    ))
+                mapsIcon!,
               ],
               if (commentsIcon != null) ...[
-                Transform.translate(
-                    offset: Offset(0, 0),
-                    child: SizedBox(
-                      width: 30,
-                      child: commentsIcon!,
-                    )),
+                commentsIcon!,
               ],
-              Transform.translate(
-                offset: Offset(0, 0),
-                child: SizedBox(
-                  width: 30,
-                  child: SortIcon(
-                      visible: true,
-                      onSelected: onSortingChanged,
-                      selectedSorting: selectedValue),
-                ),
-              ),
+              SortIcon(
+                  visible: true,
+                  onSelected: onSortingChanged,
+                  selectedSorting: selectedValue),
             ],
           ),
         ],

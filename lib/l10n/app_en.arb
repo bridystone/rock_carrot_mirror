@@ -1,0 +1,28 @@
+{
+    "appTitle":"Rock Carrot",
+
+    "homeCountries":"Countries",
+
+    "homeBottomNavigationCountry":"Country",
+    "homeBottomNavigationArea":"Area",
+    "homeBottomNavigationSubarea":"Subarea",
+    "homeBottomNavigationRock":"Rock",
+    "homeBottomNavigationRoute":"Route",
+
+    "statusNoCommentsAvailable":"no comments available",
+
+    "commentsUsername":"user",
+    "commentsQuality":"quality",
+    "commentsSafety":"safety",
+    "commentsWetness":"wet",
+    "commentsGrade":"grade",
+
+    "sortingTooltip":"sorting",
+    "sortingUnsorted":"Unsorted",
+    "sortingNameAscending":"Name ↓",
+    "sortingNameDescending":"Name ↑",
+    "sortingNumberAscending":"No ↓",
+    "sortingNumberDescending":"No ↑",
+    "sortingDifficultyAscending":"Grade ↓",
+    "sortingDifficultyDescending":"Grade ↑"
+}
