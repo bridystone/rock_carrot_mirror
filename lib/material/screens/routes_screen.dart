@@ -9,6 +9,7 @@ import 'package:rock_carrot/material/lists/routes_list.dart';
 import 'package:rock_carrot/material/homescreen_bottom_navigation_bar.dart';
 import 'package:rock_carrot/material/maps_icon.dart';
 import 'package:rock_carrot/material/rock_carrot_app_bar.dart';
+import 'package:rock_carrot/material/snackbar.dart';
 import 'package:rock_carrot/models/sandstein/rock.dart';
 import 'package:rock_carrot/models/sandstein/route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,50 +31,64 @@ class RoutesScreen extends StatelessWidget {
     final filteredRoutesBloc = BlocProvider.of<FilteredRoutesBloc>(context);
 
     return BlocProvider(
-        create: (context) => CommentsBloc(),
-        child: Scaffold(
-            appBar: RockCarrotAppBar(
-              headline: rock.name,
-              initialFilterValue: filteredRoutesBloc.currentFilter,
-              onFilterChanged: (filterText) => filteredRoutesBloc
-                  .add(FilteredBaseEventFilterUpdated(filterText)),
-              selectedValue: filteredRoutesBloc.currentSorting,
-              onSortingChanged: (selectedSorting) => filteredRoutesBloc.add(
-                FilteredBaseEventSortingUpdated(selectedSorting),
-              ),
-              commentsIcon: CommentsIcon(
-                baseitem: rock,
-                enabled: rock.commentCount > 0,
-              ),
-              mapsIcon: MapsIcon(
-                latitude: rock.latitude,
-                longitude: rock.longitude,
-                name: rock.name,
-              ),
-            ),
-            bottomNavigationBar: bottomNavigationBar,
-            body: BlocBuilder<RoutesBloc, BaseState>(builder: (context, state) {
-              if (state is BaseStateInProgress) {
-                return CircularProgressIndicator();
-              }
-              if (state is BaseStateDataReceived) {
-                return BlocBuilder<FilteredRoutesBloc, FilteredBaseState>(
-                  builder: (context, state) {
-                    if (state is FilteredBaseStateReadyForUI) {
-                      return RoutesListView(
-                          routes: state.filteredItems as List<Route>,
-                          scrollController: scrollController,
-                          // use key to ensure that scroll position is stored per route
-                          // TODO: put key generation in list.dart? - also for the other items?
-                          key: Key('ListviewRoutes' +
-                              rock.name +
-                              rock.id.toString()));
-                    }
-                    return Text('');
-                  },
-                );
-              }
-              return Text('');
-            })));
+      create: (context) => CommentsBloc(),
+      child: Scaffold(
+        appBar: RockCarrotAppBar(
+          headline: rock.name,
+          initialFilterValue: filteredRoutesBloc.currentFilter,
+          onFilterChanged: (filterText) => filteredRoutesBloc
+              .add(FilteredBaseEventFilterUpdated(filterText)),
+          selectedValue: filteredRoutesBloc.currentSorting,
+          onSortingChanged: (selectedSorting) => filteredRoutesBloc.add(
+            FilteredBaseEventSortingUpdated(selectedSorting),
+          ),
+          commentsIcon: CommentsIcon(
+            baseitem: rock,
+            enabled: rock.commentCount > 0,
+          ),
+          mapsIcon: MapsIcon(
+            latitude: rock.latitude,
+            longitude: rock.longitude,
+            name: rock.name,
+          ),
+        ),
+        bottomNavigationBar: bottomNavigationBar,
+        body: BlocConsumer<RoutesBloc, BaseState>(
+          builder: (context, state) {
+            if (state is BaseStateInProgress) {
+              return CircularProgressIndicator();
+            }
+            if (state is BaseStateDataReceived) {
+              return BlocBuilder<FilteredRoutesBloc, FilteredBaseState>(
+                builder: (context, state) {
+                  if (state is FilteredBaseStateReadyForUI) {
+                    return RoutesListView(
+                        routes: state.filteredItems as List<Route>,
+                        scrollController: scrollController,
+                        // use key to ensure that scroll position is stored per route
+                        // TODO: put key generation in list.dart? - also for the other items?
+                        key: Key(
+                            'ListviewRoutes' + rock.name + rock.id.toString()));
+                  }
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(UnhandledStateSnack(state));
+                  throw (UnimplementedError());
+                },
+              );
+            }
+            ScaffoldMessenger.of(context)
+                .showSnackBar(UnhandledStateSnack(state));
+            throw (UnimplementedError());
+          }, // listen on Failure Exceptions
+          listenWhen: (prev, next) => next is BaseStateFailure,
+          listener: (context, state) {
+            if (state is BaseStateFailure) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(ErrorSnack(state.exception.toString()));
+            }
+          },
+        ),
+      ),
+    );
   }
 }

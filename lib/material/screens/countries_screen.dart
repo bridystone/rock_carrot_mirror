@@ -8,6 +8,7 @@ import 'package:rock_carrot/blocs/filtered_base/filtered_base_bloc.dart';
 import 'package:rock_carrot/material/rock_carrot_app_bar.dart';
 import 'package:rock_carrot/material/lists/countries_list.dart';
 import 'package:rock_carrot/material/homescreen_bottom_navigation_bar.dart';
+import 'package:rock_carrot/material/snackbar.dart';
 import 'package:rock_carrot/models/sandstein/country.dart';
 
 class CountriesScreen extends StatelessWidget {
@@ -38,26 +39,39 @@ class CountriesScreen extends StatelessWidget {
       body: RefreshIndicator(
         onRefresh: () async =>
             BlocProvider.of<CountriesBloc>(context).add(BaseEventUpdateData()),
-        child: BlocBuilder<CountriesBloc, BaseState>(builder: (context, state) {
-          if (state is BaseStateInProgress) {
-            return CircularProgressIndicator();
-          }
-          if (state is BaseStateDataReceived) {
-            return BlocBuilder<FilteredCountriesBloc, FilteredBaseState>(
-              builder: (context, state) {
-                if (state is FilteredBaseStateReadyForUI) {
-                  return CountriesListView(
-                    countries: state.filteredItems as List<Country>,
-                    scrollController: scrollController,
-                  );
-                }
-                return Text('');
-              },
-            );
-          }
-          return Text('');
-          // TODO: other stated
-        }),
+        child: BlocConsumer<CountriesBloc, BaseState>(
+          builder: (context, state) {
+            if (state is BaseStateInProgress) {
+              return CircularProgressIndicator();
+            }
+            if (state is BaseStateDataReceived) {
+              return BlocBuilder<FilteredCountriesBloc, FilteredBaseState>(
+                builder: (context, state) {
+                  if (state is FilteredBaseStateReadyForUI) {
+                    return CountriesListView(
+                      countries: state.filteredItems as List<Country>,
+                      scrollController: scrollController,
+                    );
+                  }
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(UnhandledStateSnack(state));
+                  throw (UnimplementedError());
+                },
+              );
+            }
+            ScaffoldMessenger.of(context)
+                .showSnackBar(UnhandledStateSnack(state));
+            throw (UnimplementedError());
+          },
+          // listen on Failure Exceptions
+          listenWhen: (prev, next) => next is BaseStateFailure,
+          listener: (context, state) {
+            if (state is BaseStateFailure) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(ErrorSnack(state.exception.toString()));
+            }
+          },
+        ),
       ),
       bottomNavigationBar: bottomNavigationBar,
     );

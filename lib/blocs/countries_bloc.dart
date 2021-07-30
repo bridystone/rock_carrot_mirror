@@ -14,6 +14,7 @@ class CountriesBloc extends BaseBloc {
 
   @override
   Future<int> updateData(Baseitem? baseitem) async {
+    // TODO: json Fetch await - before deleting data
     var jsonData = Sandstein().fetchJsonFromWeb(Sandstein.countriesWebTarget);
     await SqlHandler().deleteCountries();
     return SqlHandler().insertJsonData(SqlHandler.countriesTablename, jsonData);

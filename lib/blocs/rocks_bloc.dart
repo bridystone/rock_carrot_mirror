@@ -163,7 +163,7 @@ class RocksBloc extends BaseBloc {
           rockId: id,
           areaId: ttAreaId,
         );
-        final routesCount = SqlHandler().enqueueInsertJsonData(
+        final /*routesCount*/ _ = SqlHandler().enqueueInsertJsonData(
           batchRoutes,
           SqlHandler.ttRoutesTablename,
           jsonRoutes,
@@ -256,7 +256,7 @@ class RocksBloc extends BaseBloc {
           rockId: rockId,
           areaId: ttAreaId,
         );
-        final routesCount = SqlHandler().enqueueInsertJsonData(
+        final /*routesCount*/ _ = SqlHandler().enqueueInsertJsonData(
           batchComments,
           SqlHandler.ttCommentsTablename,
           jsonComments,

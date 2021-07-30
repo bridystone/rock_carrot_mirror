@@ -7,6 +7,7 @@ import 'package:rock_carrot/blocs/filtered_base/filtered_base_bloc.dart';
 import 'package:rock_carrot/material/lists/areas_list.dart';
 import 'package:rock_carrot/material/homescreen_bottom_navigation_bar.dart';
 import 'package:rock_carrot/material/rock_carrot_app_bar.dart';
+import 'package:rock_carrot/material/snackbar.dart';
 import 'package:rock_carrot/models/sandstein/area.dart';
 import 'package:rock_carrot/models/sandstein/country.dart';
 
@@ -29,21 +30,22 @@ class AreasScreen extends StatelessWidget {
     final filteredAreasBloc = BlocProvider.of<FilteredAreasBloc>(context);
 
     return Scaffold(
-        appBar: RockCarrotAppBar(
-          headline: country.name,
-          initialFilterValue: filteredAreasBloc.currentFilter,
-          onFilterChanged: (filterText) =>
-              filteredAreasBloc.add(FilteredBaseEventFilterUpdated(filterText)),
-          selectedValue: filteredAreasBloc.currentSorting,
-          onSortingChanged: (selectedSorting) => filteredAreasBloc.add(
-            FilteredBaseEventSortingUpdated(selectedSorting),
-          ),
+      appBar: RockCarrotAppBar(
+        headline: country.name,
+        initialFilterValue: filteredAreasBloc.currentFilter,
+        onFilterChanged: (filterText) =>
+            filteredAreasBloc.add(FilteredBaseEventFilterUpdated(filterText)),
+        selectedValue: filteredAreasBloc.currentSorting,
+        onSortingChanged: (selectedSorting) => filteredAreasBloc.add(
+          FilteredBaseEventSortingUpdated(selectedSorting),
         ),
-        bottomNavigationBar: bottomNavigationBar,
-        body: RefreshIndicator(
-          onRefresh: () async => BlocProvider.of<AreasBloc>(context)
-              .add(BaseEventUpdateData(country)),
-          child: BlocBuilder<AreasBloc, BaseState>(builder: (context, state) {
+      ),
+      bottomNavigationBar: bottomNavigationBar,
+      body: RefreshIndicator(
+        onRefresh: () async => BlocProvider.of<AreasBloc>(context)
+            .add(BaseEventUpdateData(country)),
+        child: BlocConsumer<AreasBloc, BaseState>(
+          builder: (context, state) {
             if (state is BaseStateInProgress) {
               return CircularProgressIndicator();
             }
@@ -57,13 +59,26 @@ class AreasScreen extends StatelessWidget {
                       key: Key('ListviewArea' + country.name),
                     );
                   }
-                  return Text('');
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(UnhandledStateSnack(state));
+                  throw (UnimplementedError());
                 },
               );
             }
-            return Text('');
-            // TODO: other stated
-          }),
-        ));
+            ScaffoldMessenger.of(context)
+                .showSnackBar(UnhandledStateSnack(state));
+            throw (UnimplementedError());
+          },
+          // listen on Failure Exceptions
+          listenWhen: (prev, next) => next is BaseStateFailure,
+          listener: (context, state) {
+            if (state is BaseStateFailure) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(ErrorSnack(state.exception.toString()));
+            }
+          },
+        ),
+      ),
+    );
   }
 }

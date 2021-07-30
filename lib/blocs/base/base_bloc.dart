@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:rock_carrot/models/sandstein/baseitem.dart';
 
 part 'base_event.dart';
@@ -25,7 +26,7 @@ abstract class BaseBloc extends Bloc<BaseEvent, BaseState> {
       emit(BaseStateInProgress());
       final items = await requestData(event.baseitem);
       emit(BaseStateDataReceived(baseitem: event.baseitem, items: items));
-    } catch (exception) {
+    } on Exception catch (exception) {
       emit(BaseStateFailure(exception));
       emit(BaseStateDataReceived(baseitem: event.baseitem!, items: []));
     }
@@ -40,7 +41,7 @@ abstract class BaseBloc extends Bloc<BaseEvent, BaseState> {
       final result = await updateData(event.baseitem);
       emit(BaseStateUpdateInProgress(event.runtimeType.toString(), 100));
       emit(BaseStateUpdateFinished(result));
-    } catch (exception) {
+    } on Exception catch (exception) {
       emit(BaseStateFailure(exception));
     } finally {
       add(BaseEventRequestData(event.baseitem));
@@ -61,7 +62,7 @@ abstract class BaseBloc extends Bloc<BaseEvent, BaseState> {
       final result = await updateDataIntensive(event.baseitem!);
       emit(BaseStateUpdateInProgress(event.runtimeType.toString(), 100));
       emit(BaseStateUpdateFinished(result));
-    } catch (exception) {
+    } on Exception catch (exception) {
       emit(BaseStateFailure(exception));
     } finally {
       add(BaseEventRequestData(event.baseitem));

@@ -20,3 +20,11 @@ class InfoSnack extends SnackBar {
           backgroundColor: Colors.grey,
         );
 }
+
+class UnhandledStateSnack extends SnackBar {
+  UnhandledStateSnack(dynamic state)
+      : super(
+          content: Text(state.toString()),
+          backgroundColor: Colors.grey,
+        );
+}

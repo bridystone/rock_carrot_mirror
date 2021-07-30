@@ -1,5 +1,6 @@
 part of 'base_bloc.dart';
 
+@immutable
 abstract class BaseState extends Equatable {
   const BaseState();
 
@@ -41,7 +42,7 @@ class BaseStateUpdateFinished extends BaseState {
 }
 
 class BaseStateFailure extends BaseState {
-  final dynamic exception;
+  final Exception exception;
   const BaseStateFailure(this.exception);
 
   @override
