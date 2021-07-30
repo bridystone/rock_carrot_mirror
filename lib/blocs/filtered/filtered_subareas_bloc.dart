@@ -1,6 +1,7 @@
 import 'package:rock_carrot/blocs/subareas_bloc.dart';
 import 'package:rock_carrot/blocs/filtered_base/filtered_base_bloc.dart';
 import 'package:rock_carrot/models/sandstein/baseitem.dart';
+import 'package:rock_carrot/models/sandstein/baseitem_bloc.dart';
 import 'package:rock_carrot/models/sandstein/subarea.dart';
 import 'package:rock_carrot/persistence/json_persistence.dart';
 
@@ -19,31 +20,33 @@ class FilteredSubareasBloc extends FilteredBaseBloc {
   }
 
   @override
-  List<Subarea> getFilterAndSortItems(
+  List<SubareaBloc> getFilterAndSortItems(
     String filter,
     dynamic sorting,
   ) {
-    var items = List<Subarea>.from(baseBloc.items);
+    var items = List<SubareaBloc>.from(baseBloc.items);
 
     items = filter.isEmpty
         ? items
         : items
             .where((item) =>
-                item.name.toLowerCase().contains(filter.toLowerCase()))
+                item.item.name.toLowerCase().contains(filter.toLowerCase()))
             .toList();
 
     switch (sorting as SubareaSorting) {
       case SubareaSorting.nameAscending:
-        items.sort((a, b) => a.name.compareTo(b.name));
+        items.sort((a, b) => a.item.name.compareTo(b.item.name));
         break;
       case SubareaSorting.nameDescending:
-        items.sort((a, b) => b.name.compareTo(a.name));
+        items.sort((a, b) => b.item.name.compareTo(a.item.name));
         break;
       case SubareaSorting.numberAscending:
-        items.sort((a, b) => ((a.nr ?? 0) * 10 - (b.nr ?? 0) * 10).toInt());
+        items.sort(
+            (a, b) => ((a.item.nr ?? 0) * 10 - (b.item.nr ?? 0) * 10).toInt());
         break;
       case SubareaSorting.numberDescending:
-        items.sort((a, b) => ((b.nr ?? 0) * 10 - (a.nr ?? 0) * 10).toInt());
+        items.sort(
+            (a, b) => ((b.item.nr ?? 0) * 10 - (a.item.nr ?? 0) * 10).toInt());
         break;
       case SubareaSorting.unsorted:
     }
@@ -54,19 +57,19 @@ class FilteredSubareasBloc extends FilteredBaseBloc {
     return items;
   }
 
-  List<Subarea> _extractPinnedItems(List<Subarea> items) {
+  List<SubareaBloc> _extractPinnedItems(List<SubareaBloc> items) {
     final jsonPersistence = JsonPersistence();
 
     // gather pinned and copy with "isPinned"
     final pinned = items
         .where((item) =>
-            jsonPersistence.persistence.pinnedSubareas.contains(item.id))
-        .map((item) => item.copyWith(isPinned: true))
+            jsonPersistence.persistence.pinnedSubareas.contains(item.item.id))
+        .map((item) => item.copyWith(item: item.item.copyWith(isPinned: true)))
         .toList();
 
     // remove from original list
-    items.removeWhere(
-        (item) => jsonPersistence.persistence.pinnedSubareas.contains(item.id));
+    items.removeWhere((item) =>
+        jsonPersistence.persistence.pinnedSubareas.contains(item.item.id));
 
     return pinned;
   }

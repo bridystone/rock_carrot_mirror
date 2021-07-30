@@ -9,18 +9,17 @@ import 'package:rock_carrot/material/lists/subareas_list.dart';
 import 'package:rock_carrot/material/homescreen_bottom_navigation_bar.dart';
 import 'package:rock_carrot/material/rock_carrot_app_bar.dart';
 import 'package:rock_carrot/material/snackbar.dart';
-import 'package:rock_carrot/models/sandstein/area.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rock_carrot/models/sandstein/subarea.dart';
+import 'package:rock_carrot/models/sandstein/baseitem_bloc.dart';
 
 class SubareasScreen extends StatelessWidget {
   final ScrollController scrollController;
   final HomeScreenBottomNavigationBar bottomNavigationBar;
-  final Area area;
+  final AreaBloc areaBloc;
 
   const SubareasScreen({
     Key? key,
-    required this.area,
+    required this.areaBloc,
     required this.bottomNavigationBar,
     required this.scrollController,
   }) : super(key: key);
@@ -33,7 +32,7 @@ class SubareasScreen extends StatelessWidget {
       create: (context) => CommentsBloc(),
       child: Scaffold(
         appBar: RockCarrotAppBar(
-          headline: area.name,
+          headline: areaBloc.item.name,
           initialFilterValue: filteredSubareasBloc.currentFilter,
           onFilterChanged: (filterText) => filteredSubareasBloc
               .add(FilteredBaseEventFilterUpdated(filterText)),
@@ -42,14 +41,14 @@ class SubareasScreen extends StatelessWidget {
             FilteredBaseEventSortingUpdated(selectedSorting),
           ),
           commentsIcon: CommentsIcon(
-            baseitem: area,
-            enabled: area.commentCount > 0,
+            baseitem: areaBloc.item,
+            enabled: areaBloc.item.commentCount > 0,
           ),
         ),
         bottomNavigationBar: bottomNavigationBar,
         body: RefreshIndicator(
           onRefresh: () async => BlocProvider.of<SubareasBloc>(context)
-              .add(BaseEventUpdateData(area)),
+              .add(BaseEventUpdateData(areaBloc.item)),
           child: BlocConsumer<SubareasBloc, BaseState>(
             builder: (context, state) {
               if (state is BaseStateInProgress) {
@@ -60,9 +59,9 @@ class SubareasScreen extends StatelessWidget {
                   builder: (context, state) {
                     if (state is FilteredBaseStateReadyForUI) {
                       return SubareasListView(
-                        subareas: state.filteredItems as List<Subarea>,
+                        subareas: state.filteredItems as List<SubareaBloc>,
                         scrollController: scrollController,
-                        key: Key('ListviewSubarea' + area.name),
+                        key: Key('ListviewSubarea' + areaBloc.item.name),
                       );
                     }
                     ScaffoldMessenger.of(context)

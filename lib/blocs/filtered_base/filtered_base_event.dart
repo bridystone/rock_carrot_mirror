@@ -24,7 +24,7 @@ class FilteredBaseEventSortingUpdated extends FilteredBaseEvent {
 }
 
 class FilteredBaseEventDataUpdated extends FilteredBaseEvent {
-  final List<Baseitem> newItems;
+  final List<BaseitemBloc> newItems;
   const FilteredBaseEventDataUpdated(this.newItems);
 
   @override

@@ -10,18 +10,17 @@ import 'package:rock_carrot/material/homescreen_bottom_navigation_bar.dart';
 import 'package:rock_carrot/material/maps_icon.dart';
 import 'package:rock_carrot/material/rock_carrot_app_bar.dart';
 import 'package:rock_carrot/material/snackbar.dart';
-import 'package:rock_carrot/models/sandstein/rock.dart';
-import 'package:rock_carrot/models/sandstein/route.dart';
+import 'package:rock_carrot/models/sandstein/baseitem_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RoutesScreen extends StatelessWidget {
   final ScrollController scrollController;
   final HomeScreenBottomNavigationBar bottomNavigationBar;
-  final Rock rock;
+  final RockBloc rockBloc;
 
   const RoutesScreen({
     Key? key,
-    required this.rock,
+    required this.rockBloc,
     required this.bottomNavigationBar,
     required this.scrollController,
   }) : super(key: key);
@@ -34,7 +33,7 @@ class RoutesScreen extends StatelessWidget {
       create: (context) => CommentsBloc(),
       child: Scaffold(
         appBar: RockCarrotAppBar(
-          headline: rock.name,
+          headline: rockBloc.item.name,
           initialFilterValue: filteredRoutesBloc.currentFilter,
           onFilterChanged: (filterText) => filteredRoutesBloc
               .add(FilteredBaseEventFilterUpdated(filterText)),
@@ -43,13 +42,13 @@ class RoutesScreen extends StatelessWidget {
             FilteredBaseEventSortingUpdated(selectedSorting),
           ),
           commentsIcon: CommentsIcon(
-            baseitem: rock,
-            enabled: rock.commentCount > 0,
+            baseitem: rockBloc.item,
+            enabled: rockBloc.item.commentCount > 0,
           ),
           mapsIcon: MapsIcon(
-            latitude: rock.latitude,
-            longitude: rock.longitude,
-            name: rock.name,
+            latitude: rockBloc.item.latitude,
+            longitude: rockBloc.item.longitude,
+            name: rockBloc.item.name,
           ),
         ),
         bottomNavigationBar: bottomNavigationBar,
@@ -63,12 +62,13 @@ class RoutesScreen extends StatelessWidget {
                 builder: (context, state) {
                   if (state is FilteredBaseStateReadyForUI) {
                     return RoutesListView(
-                        routes: state.filteredItems as List<Route>,
+                        routes: state.filteredItems as List<RouteBloc>,
                         scrollController: scrollController,
                         // use key to ensure that scroll position is stored per route
                         // TODO: put key generation in list.dart? - also for the other items?
-                        key: Key(
-                            'ListviewRoutes' + rock.name + rock.id.toString()));
+                        key: Key('ListviewRoutes' +
+                            rockBloc.item.name +
+                            rockBloc.item.id.toString()));
                   }
                   ScaffoldMessenger.of(context)
                       .showSnackBar(UnhandledStateSnack(state));

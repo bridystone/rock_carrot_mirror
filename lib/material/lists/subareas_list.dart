@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:rock_carrot/blocs/rocks_bloc.dart';
 import 'package:rock_carrot/material/list_tiles/subarea_tile.dart';
-import 'package:rock_carrot/models/sandstein/subarea.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rock_carrot/models/sandstein/baseitem_bloc.dart';
 
 class SubareasListView extends StatelessWidget {
-  final List<Subarea> subareas;
+  final List<SubareaBloc> subareas;
   final ScrollController scrollController;
 
   const SubareasListView({
@@ -36,12 +34,7 @@ class SubareasListView extends StatelessWidget {
                 // only first time generate a divider
                 if (i == 0) ...[Divider(height: 1, thickness: 1)],
                 // Cubit for updating Timestamp
-                BlocProvider(
-                  // create temporary Bloc provider for each subitem, to gain relevant data
-                  // add event to retrieve data
-                  create: (context) => RocksBloc(),
-                  child: SubareaTile(subarea: subarea),
-                ),
+                SubareaTile(subareaBloc: subarea),
                 Divider(
                   height: 1,
                   thickness: 1,

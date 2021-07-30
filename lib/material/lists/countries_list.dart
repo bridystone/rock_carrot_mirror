@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:rock_carrot/blocs/areas_bloc.dart';
 import 'package:rock_carrot/material/list_tiles/country_tile.dart';
-import 'package:rock_carrot/models/sandstein/country.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rock_carrot/models/sandstein/baseitem_bloc.dart';
 
 class CountriesListView extends StatelessWidget {
-  final List<Country> countries;
+  final List<CountryBloc> countries;
   final ScrollController scrollController;
 
   const CountriesListView({
@@ -31,16 +29,11 @@ class CountriesListView extends StatelessWidget {
             padding: EdgeInsets.all(0),
             itemCount: countries.length,
             itemBuilder: (context, i) {
-              final country = countries[i];
+              final countryBloc = countries[i];
               return Column(children: [
                 // only first time generate a divider
                 if (i == 0) ...[Divider(height: 1, thickness: 1)],
-                // create temporary Bloc provider for each subitem, to gain relevant data
-                // add event to retrieve data
-                BlocProvider<AreasBloc>(
-                  create: (context) => AreasBloc(),
-                  child: CountryTile(country: country),
-                ),
+                CountryTile(countryBloc: countryBloc),
                 Divider(
                   height: 1,
                   thickness: 1,

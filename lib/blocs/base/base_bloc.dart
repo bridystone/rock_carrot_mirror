@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:rock_carrot/models/sandstein/baseitem.dart';
+import 'package:rock_carrot/models/sandstein/baseitem_bloc.dart';
 
 part 'base_event.dart';
 part 'base_state.dart';
@@ -9,7 +10,7 @@ part 'base_state.dart';
 abstract class BaseBloc extends Bloc<BaseEvent, BaseState> {
   BaseBloc() : super(BaseStateInitial()) {
     // request data from DB
-    on<BaseEventRequestData>(_onRequestData);
+    on<BaseEventRequestData>(onRequestData);
     // refresh data from Web
     on<BaseEventUpdateData>(_onUpdateData);
     // update all data or get from TT
@@ -18,10 +19,11 @@ abstract class BaseBloc extends Bloc<BaseEvent, BaseState> {
     on<BaseEventInvalidateData>((event, emit) => emit(BaseStateInitial()));
   }
 
-  void _onRequestData(
+  void onRequestData(
     BaseEventRequestData event,
     Emit<BaseState> emit,
-  ) async {
+  );
+  /* async {
     try {
       emit(BaseStateInProgress());
       final items = await requestData(event.baseitem);
@@ -31,7 +33,7 @@ abstract class BaseBloc extends Bloc<BaseEvent, BaseState> {
       emit(BaseStateDataReceived(baseitem: event.baseitem!, items: []));
     }
   }
-
+*/
   void _onUpdateData(
     BaseEventUpdateData event,
     Emit<BaseState> emit,
@@ -85,11 +87,11 @@ abstract class BaseBloc extends Bloc<BaseEvent, BaseState> {
   bool get isLoaded => state is BaseStateDataReceived;
 
   /// return countries for FilteredBloc
-  List<Baseitem> get items => (state is BaseStateDataReceived)
-      ? (state as BaseStateDataReceived).items
+  List<BaseitemBloc> get items => (state is BaseStateDataReceived)
+      ? (state as BaseStateDataReceived).blocedItems
       : [];
 
-  Baseitem? get getBaseitemOrNull => (state is BaseStateDataReceived)
+  BaseitemBloc? get getBaseitemOrNull => (state is BaseStateDataReceived)
       ? (state as BaseStateDataReceived).baseitem
       : null;
 }

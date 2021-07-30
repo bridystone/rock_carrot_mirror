@@ -9,18 +9,17 @@ import 'package:rock_carrot/material/lists/rocks_list.dart';
 import 'package:rock_carrot/material/homescreen_bottom_navigation_bar.dart';
 import 'package:rock_carrot/material/rock_carrot_app_bar.dart';
 import 'package:rock_carrot/material/snackbar.dart';
-import 'package:rock_carrot/models/sandstein/rock.dart';
-import 'package:rock_carrot/models/sandstein/subarea.dart';
+import 'package:rock_carrot/models/sandstein/baseitem_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RocksScreen extends StatelessWidget {
   final ScrollController scrollController;
   final HomeScreenBottomNavigationBar bottomNavigationBar;
-  final Subarea subarea;
+  final SubareaBloc subareaBloc;
 
   const RocksScreen({
     Key? key,
-    required this.subarea,
+    required this.subareaBloc,
     required this.bottomNavigationBar,
     required this.scrollController,
   }) : super(key: key);
@@ -33,7 +32,7 @@ class RocksScreen extends StatelessWidget {
         create: (context) => CommentsBloc(),
         child: Scaffold(
           appBar: RockCarrotAppBar(
-            headline: subarea.name,
+            headline: subareaBloc.item.name,
             initialFilterValue: filteredRocksBloc.currentFilter,
             onFilterChanged: (filterText) => filteredRocksBloc
                 .add(FilteredBaseEventFilterUpdated(filterText)),
@@ -42,14 +41,14 @@ class RocksScreen extends StatelessWidget {
               FilteredBaseEventSortingUpdated(selectedSorting),
             ),
             commentsIcon: CommentsIcon(
-              baseitem: subarea,
-              enabled: subarea.commentCount > 0,
+              baseitem: subareaBloc.item,
+              enabled: subareaBloc.item.commentCount > 0,
             ),
           ),
           bottomNavigationBar: bottomNavigationBar,
           body: RefreshIndicator(
             onRefresh: () async => BlocProvider.of<RocksBloc>(context)
-                .add(BaseEventUpdateData(subarea)),
+                .add(BaseEventUpdateData(subareaBloc.item)),
             child: BlocConsumer<RocksBloc, BaseState>(
               builder: (context, state) {
                 if (state is BaseStateInProgress) {
@@ -60,9 +59,9 @@ class RocksScreen extends StatelessWidget {
                     builder: (context, state) {
                       if (state is FilteredBaseStateReadyForUI) {
                         return RocksListView(
-                          rocks: state.filteredItems as List<Rock>,
+                          rocks: state.filteredItems as List<RockBloc>,
                           scrollController: scrollController,
-                          key: Key('ListviewRock' + subarea.name),
+                          key: Key('ListviewRock' + subareaBloc.item.name),
                         );
                       }
                       ScaffoldMessenger.of(context)

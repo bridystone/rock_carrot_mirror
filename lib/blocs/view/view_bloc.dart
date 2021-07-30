@@ -8,10 +8,7 @@ import 'package:rock_carrot/blocs/rocks_bloc.dart';
 import 'package:rock_carrot/blocs/routes_bloc.dart';
 import 'package:rock_carrot/blocs/subareas_bloc.dart';
 import 'package:rock_carrot/main.dart';
-import 'package:rock_carrot/models/sandstein/area.dart';
-import 'package:rock_carrot/models/sandstein/country.dart';
-import 'package:rock_carrot/models/sandstein/rock.dart';
-import 'package:rock_carrot/models/sandstein/subarea.dart';
+import 'package:rock_carrot/models/sandstein/baseitem_bloc.dart';
 
 part 'view_event.dart';
 part 'view_state.dart';
@@ -40,19 +37,20 @@ class ViewBloc extends Bloc<ViewEvent, ViewState> {
     on<_ToCountriesWithoutReload>((event, emit) => emit(ViewState.countries()));
     on<_ToAreasWithoutReload>((event, emit) =>
         areasBloc.getBaseitemOrNull != null
-            ? emit(ViewState.areas(areasBloc.getBaseitemOrNull as Country))
+            ? emit(ViewState.areas(areasBloc.getBaseitemOrNull as CountryBloc))
             : null);
-    on<_ToSubareasWithoutReload>((event, emit) =>
-        subareasBloc.getBaseitemOrNull != null
-            ? emit(ViewState.subareas(subareasBloc.getBaseitemOrNull as Area))
-            : null);
+    on<_ToSubareasWithoutReload>((event, emit) => subareasBloc
+                .getBaseitemOrNull !=
+            null
+        ? emit(ViewState.subareas(subareasBloc.getBaseitemOrNull as AreaBloc))
+        : null);
     on<_ToRocksWithoutReload>((event, emit) =>
         rocksBloc.getBaseitemOrNull != null
-            ? emit(ViewState.rocks(rocksBloc.getBaseitemOrNull as Subarea))
+            ? emit(ViewState.rocks(rocksBloc.getBaseitemOrNull as SubareaBloc))
             : null);
     on<_ToRoutesWithoutReload>((event, emit) =>
         routesBloc.getBaseitemOrNull != null
-            ? emit(ViewState.routes(routesBloc.getBaseitemOrNull as Rock))
+            ? emit(ViewState.routes(routesBloc.getBaseitemOrNull as RockBloc))
             : null);
   }
 
@@ -73,12 +71,12 @@ class ViewBloc extends Bloc<ViewEvent, ViewState> {
     Emit<ViewState> emit,
   ) async {
     // on new Area -> invalidate all subitems
-    if (getCountryOrNull?.name != event.country.name) {
+    if (getCountryOrNull?.item.name != event.country.item.name) {
       subareasBloc.add(BaseEventInvalidateData());
       rocksBloc.add(BaseEventInvalidateData());
       routesBloc.add(BaseEventInvalidateData());
     }
-    areasBloc.add(BaseEventRequestData(event.country));
+    areasBloc.add(BaseEventRequestData(event.country.item));
 
     emit(ViewState.areas(event.country));
   }
@@ -88,12 +86,12 @@ class ViewBloc extends Bloc<ViewEvent, ViewState> {
     Emit<ViewState> emit,
   ) async {
     // on new Subarea -> invalidate all subitems
-    if (getAreaOrNull?.id != event.area.id) {
+    if (getAreaOrNull?.item.id != event.area.item.id) {
       rocksBloc.add(BaseEventInvalidateData());
       routesBloc.add(BaseEventInvalidateData());
     }
 
-    subareasBloc.add(BaseEventRequestData(event.area));
+    subareasBloc.add(BaseEventRequestData(event.area.item));
 
     emit(ViewState.subareas(event.area));
   }
@@ -103,10 +101,10 @@ class ViewBloc extends Bloc<ViewEvent, ViewState> {
     Emit<ViewState> emit,
   ) async {
     // on new Rock -> invalidate all subitems
-    if (getSubareaOrNull?.id != event.subarea.id) {
+    if (getSubareaOrNull?.item.id != event.subarea.item.id) {
       routesBloc.add(BaseEventInvalidateData());
     }
-    rocksBloc.add(BaseEventRequestData(event.subarea));
+    rocksBloc.add(BaseEventRequestData(event.subarea.item));
 
     emit(ViewState.rocks(event.subarea));
   }
@@ -115,15 +113,17 @@ class ViewBloc extends Bloc<ViewEvent, ViewState> {
     _ToRoutes event,
     Emit<ViewState> emit,
   ) async {
-    routesBloc.add(BaseEventRequestData(event.rock));
+    routesBloc.add(BaseEventRequestData(event.rock.item));
 
     emit(ViewState.routes(event.rock));
   }
 
-  Country? get getCountryOrNull => areasBloc.getBaseitemOrNull as Country?;
-  Area? get getAreaOrNull => subareasBloc.getBaseitemOrNull as Area?;
-  Subarea? get getSubareaOrNull => rocksBloc.getBaseitemOrNull as Subarea?;
-  Rock? get getRockOrNull => routesBloc.getBaseitemOrNull as Rock?;
+  CountryBloc? get getCountryOrNull =>
+      areasBloc.getBaseitemOrNull as CountryBloc?;
+  AreaBloc? get getAreaOrNull => subareasBloc.getBaseitemOrNull as AreaBloc?;
+  SubareaBloc? get getSubareaOrNull =>
+      rocksBloc.getBaseitemOrNull as SubareaBloc?;
+  RockBloc? get getRockOrNull => routesBloc.getBaseitemOrNull as RockBloc?;
 
   bool get isAreasValid => getCountryOrNull != null;
   bool get isSubareasValid => getAreaOrNull != null;

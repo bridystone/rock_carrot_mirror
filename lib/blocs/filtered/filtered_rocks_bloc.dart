@@ -1,6 +1,7 @@
 import 'package:rock_carrot/blocs/rocks_bloc.dart';
 import 'package:rock_carrot/blocs/filtered_base/filtered_base_bloc.dart';
 import 'package:rock_carrot/models/sandstein/baseitem.dart';
+import 'package:rock_carrot/models/sandstein/baseitem_bloc.dart';
 import 'package:rock_carrot/models/sandstein/rock.dart';
 import 'package:rock_carrot/persistence/json_persistence.dart';
 
@@ -19,31 +20,33 @@ class FilteredRocksBloc extends FilteredBaseBloc {
   }
 
   @override
-  List<Rock> getFilterAndSortItems(
+  List<RockBloc> getFilterAndSortItems(
     String filter,
     dynamic sorting,
   ) {
-    var items = List<Rock>.from(baseBloc.items);
+    var items = List<RockBloc>.from(baseBloc.items);
 
     items = filter.isEmpty
         ? items
         : items
             .where((item) =>
-                item.name.toLowerCase().contains(filter.toLowerCase()))
+                item.item.name.toLowerCase().contains(filter.toLowerCase()))
             .toList();
 
     switch (sorting as RockSorting) {
       case RockSorting.nameAscending:
-        items.sort((a, b) => a.name.compareTo(b.name));
+        items.sort((a, b) => a.item.name.compareTo(b.item.name));
         break;
       case RockSorting.nameDescending:
-        items.sort((a, b) => b.name.compareTo(a.name));
+        items.sort((a, b) => b.item.name.compareTo(a.item.name));
         break;
       case RockSorting.numberAscending:
-        items.sort((a, b) => ((a.nr ?? 0) * 10 - (b.nr ?? 0) * 10).toInt());
+        items.sort(
+            (a, b) => ((a.item.nr ?? 0) * 10 - (b.item.nr ?? 0) * 10).toInt());
         break;
       case RockSorting.numberDescending:
-        items.sort((a, b) => ((b.nr ?? 0) * 10 - (a.nr ?? 0) * 10).toInt());
+        items.sort(
+            (a, b) => ((b.item.nr ?? 0) * 10 - (a.item.nr ?? 0) * 10).toInt());
         break;
 
       case RockSorting.unsorted:
@@ -55,19 +58,19 @@ class FilteredRocksBloc extends FilteredBaseBloc {
     return items;
   }
 
-  List<Rock> _extractPinnedItems(List<Rock> items) {
+  List<RockBloc> _extractPinnedItems(List<RockBloc> items) {
     final jsonPersistence = JsonPersistence();
 
     // gather pinned and copy with "isPinned"
     final pinned = items
-        .where(
-            (item) => jsonPersistence.persistence.pinnedRocks.contains(item.id))
-        .map((item) => item.copyWith(isPinned: true))
+        .where((item) =>
+            jsonPersistence.persistence.pinnedRocks.contains(item.item.id))
+        .map((item) => item.copyWith(item: item.item.copyWith(isPinned: true)))
         .toList();
 
     // remove from original list
-    items.removeWhere(
-        (item) => jsonPersistence.persistence.pinnedRocks.contains(item.id));
+    items.removeWhere((item) =>
+        jsonPersistence.persistence.pinnedRocks.contains(item.item.id));
 
     return pinned;
   }

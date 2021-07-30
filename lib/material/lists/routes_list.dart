@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart' hide Route;
 import 'package:rock_carrot/material/list_tiles/route_tile.dart';
-import 'package:rock_carrot/models/sandstein/route.dart';
+import 'package:rock_carrot/models/sandstein/baseitem_bloc.dart';
 
 class RoutesListView extends StatelessWidget {
-  final List<Route> routes;
+  final List<RouteBloc> routes;
   final ScrollController scrollController;
 
   const RoutesListView({
@@ -29,7 +29,7 @@ class RoutesListView extends StatelessWidget {
               return Column(children: [
                 // only first time generate a divider
                 if (i == 0) ...[Divider(height: 1, thickness: 1)],
-                RouteTile(route: route),
+                RouteTile(routeBloc: route),
                 Divider(height: 1, thickness: 1),
               ]);
             },

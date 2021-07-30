@@ -9,7 +9,7 @@ import 'package:rock_carrot/material/rock_carrot_app_bar.dart';
 import 'package:rock_carrot/material/lists/countries_list.dart';
 import 'package:rock_carrot/material/homescreen_bottom_navigation_bar.dart';
 import 'package:rock_carrot/material/snackbar.dart';
-import 'package:rock_carrot/models/sandstein/country.dart';
+import 'package:rock_carrot/models/sandstein/baseitem_bloc.dart';
 
 class CountriesScreen extends StatelessWidget {
   final ScrollController scrollController;
@@ -49,7 +49,7 @@ class CountriesScreen extends StatelessWidget {
                 builder: (context, state) {
                   if (state is FilteredBaseStateReadyForUI) {
                     return CountriesListView(
-                      countries: state.filteredItems as List<Country>,
+                      countries: state.filteredItems as List<CountryBloc>,
                       scrollController: scrollController,
                     );
                   }
@@ -58,6 +58,9 @@ class CountriesScreen extends StatelessWidget {
                   throw (UnimplementedError());
                 },
               );
+            }
+            if (state is BaseStateInitial) {
+              return CircularProgressIndicator();
             }
             ScaffoldMessenger.of(context)
                 .showSnackBar(UnhandledStateSnack(state));

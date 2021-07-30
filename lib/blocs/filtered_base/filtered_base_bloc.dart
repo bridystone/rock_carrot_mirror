@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:rock_carrot/blocs/base/base_bloc.dart';
 import 'package:rock_carrot/models/sandstein/baseitem.dart';
+import 'package:rock_carrot/models/sandstein/baseitem_bloc.dart';
 
 part 'filtered_base_event.dart';
 part 'filtered_base_state.dart';
@@ -25,7 +26,7 @@ abstract class FilteredBaseBloc
     baseitemSubscription = baseBloc.stream.listen((state) {
       // trigger Update event, when data is reloaded
       if (state is BaseStateDataReceived) {
-        add(FilteredBaseEventDataUpdated(state.items));
+        add(FilteredBaseEventDataUpdated(state.blocedItems));
       }
     });
 
@@ -104,7 +105,7 @@ abstract class FilteredBaseBloc
   */
   void pinItem(Baseitem baseitem);
 
-  List<Baseitem> getFilterAndSortItems(
+  List<BaseitemBloc> getFilterAndSortItems(
     String filter,
     dynamic sorting,
   );

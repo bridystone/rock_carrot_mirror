@@ -6,22 +6,20 @@ import 'package:rock_carrot/blocs/filtered/filtered_areas_bloc.dart';
 import 'package:rock_carrot/blocs/filtered_base/filtered_base_bloc.dart';
 import 'package:rock_carrot/blocs/subareas_bloc.dart';
 import 'package:rock_carrot/blocs/view/view_bloc.dart';
-import 'package:rock_carrot/models/sandstein/area.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rock_carrot/models/sandstein/subarea.dart';
+import 'package:rock_carrot/models/sandstein/baseitem_bloc.dart';
 
 class AreaTile extends StatelessWidget {
-  final Area area;
+  final AreaBloc areaBloc;
 
   const AreaTile({
     Key? key,
-    required this.area,
+    required this.areaBloc,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<SubareasBloc>(context).add(BaseEventRequestData(area));
-
+    areaBloc.childBloc.add(BaseEventRequestData(areaBloc.item));
     return Slidable(
       actionPane: SlidableDrawerActionPane(),
       actions: [
@@ -30,7 +28,7 @@ class AreaTile extends StatelessWidget {
           color: Colors.amber,
           icon: Icons.pin_drop,
           onTap: () => BlocProvider.of<FilteredAreasBloc>(context)
-              .add(FilteredBaseEventPinItem(area)),
+              .add(FilteredBaseEventPinItem(areaBloc.item)),
         )
       ],
       secondaryActions: [
@@ -39,16 +37,15 @@ class AreaTile extends StatelessWidget {
             color: Colors.green,
             icon: Icons.update,
             onTap: () async {
-              BlocProvider.of<SubareasBloc>(context)
-                  .add(BaseEventUpdateData(area));
+              areaBloc.childBloc.add(BaseEventUpdateData(areaBloc.item));
             }),
         IconSlideAction(
             caption: 'Update All',
             color: Colors.greenAccent,
             icon: Icons.system_update,
             onTap: () async {
-              BlocProvider.of<SubareasBloc>(context)
-                  .add(BaseEventUpdateDataIntensive(area));
+              areaBloc.childBloc
+                  .add(BaseEventUpdateDataIntensive(areaBloc.item));
             }),
       ], //secondarySlideActions,
       child: _areaTileTap(context),
@@ -59,7 +56,7 @@ class AreaTile extends StatelessWidget {
   Widget _areaTileTap(BuildContext context) {
     return InkWell(
       onTap: () {
-        BlocProvider.of<ViewBloc>(context).add(ViewEvent.toSubareas(area));
+        BlocProvider.of<ViewBloc>(context).add(ViewEvent.toSubareas(areaBloc));
       },
       child: _areaTileContent(context),
     );
@@ -68,47 +65,51 @@ class AreaTile extends StatelessWidget {
   /// the actual Content of the Tile
   Widget _areaTileContent(BuildContext context) {
     return ListTile(
-        tileColor: area.isPinned ? Theme.of(context).highlightColor : null,
+        tileColor:
+            areaBloc.item.isPinned ? Theme.of(context).highlightColor : null,
         title: Text(
-          area.name,
+          areaBloc.item.name,
           style: Theme.of(context).textTheme.headline4,
         ),
-        trailing:
-            BlocBuilder<SubareasBloc, BaseState>(builder: (context, state) {
-          if (state is BaseStateUpdateInProgress) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Text(
-                  '${state.step}: ${state.percent}',
-                  textScaleFactor: 0.7,
-                ),
-              ],
-            );
-          }
-          if (state is BaseStateDataReceived) {
-            return Container(
-              width: 60,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text(
-                    '${state.items.length}',
-                    style: Theme.of(context).textTheme.headline4,
-                  ),
-                  if (state.items.isNotEmpty) ...[
+        trailing: BlocBuilder<SubareasBloc, BaseState>(
+            bloc: areaBloc.childBloc,
+            builder: (context, state) {
+              if (state is BaseStateUpdateInProgress) {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
                     Text(
-                      DateFormat('dd.MM.yy').format(
-                          (state.items as List<Subarea>).first.lastUpdated),
+                      '${state.step}: ${state.percent}',
                       textScaleFactor: 0.7,
-                      style: Theme.of(context).textTheme.headline4,
-                    )
-                  ]
-                ],
-              ),
-            );
-          }
-          return Text('');
-        }));
+                    ),
+                  ],
+                );
+              }
+              if (state is BaseStateDataReceived) {
+                return Container(
+                  width: 60,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text(
+                        '${state.blocedItems.length}',
+                        style: Theme.of(context).textTheme.headline4,
+                      ),
+                      if (state.blocedItems.isNotEmpty) ...[
+                        Text(
+                          DateFormat('dd.MM.yy').format(
+                              (state.blocedItems.first as SubareaBloc)
+                                  .item
+                                  .lastUpdated),
+                          textScaleFactor: 0.7,
+                          style: Theme.of(context).textTheme.headline4,
+                        )
+                      ]
+                    ],
+                  ),
+                );
+              }
+              return Text('');
+            }));
   }
 }

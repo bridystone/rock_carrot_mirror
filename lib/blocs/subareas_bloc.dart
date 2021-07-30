@@ -1,7 +1,9 @@
+import 'package:bloc/bloc.dart';
 import 'package:rock_carrot/blocs/base/base_bloc.dart';
 import 'package:rock_carrot/blocs/rocks_bloc.dart';
 import 'package:rock_carrot/database/sql.dart';
 import 'package:rock_carrot/database/sql_subareas.dart';
+import 'package:rock_carrot/models/sandstein/baseitem_bloc.dart';
 import 'package:rock_carrot/models/sandstein/subarea.dart';
 import 'package:rock_carrot/models/sandstein/area.dart';
 import 'package:rock_carrot/models/sandstein/baseitem.dart';
@@ -12,6 +14,31 @@ class SubareasBloc extends BaseBloc {
   Future<List<Baseitem>> requestData(Baseitem? baseitem) async {
     final sqlResults = await SqlHandler().querySubareas((baseitem as Area).id);
     return sqlResults.map((sqlRow) => Subarea.fromJson(sqlRow)).toList();
+  }
+
+  @override
+  void onRequestData(
+    BaseEventRequestData event,
+    Emit<BaseState> emit,
+  ) async {
+    try {
+      emit(BaseStateInProgress());
+      final items = await requestData(event.baseitem);
+      final blocedItems = items
+          .map((item) =>
+              SubareaBloc(item: item as Subarea, childBloc: RocksBloc()))
+          .toList();
+      emit(BaseStateDataReceived(
+          baseitem:
+              AreaBloc(item: event.baseitem as Area, childBloc: SubareasBloc()),
+          blocedItems: blocedItems));
+    } on Exception catch (exception) {
+      emit(BaseStateFailure(exception));
+      emit(BaseStateDataReceived(
+          baseitem: AreaBloc(
+              item: event.baseitem! as Area, childBloc: SubareasBloc()),
+          blocedItems: []));
+    }
   }
 
   @override

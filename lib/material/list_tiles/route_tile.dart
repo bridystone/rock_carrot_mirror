@@ -6,16 +6,16 @@ import 'package:rock_carrot/blocs/filtered/filtered_routes_bloc.dart';
 import 'package:rock_carrot/blocs/filtered_base/filtered_base_bloc.dart';
 import 'package:rock_carrot/material/comments_bottom_sheet.dart';
 import 'package:rock_carrot/material/snackbar.dart';
+import 'package:rock_carrot/models/sandstein/baseitem_bloc.dart';
 import 'package:rock_carrot/models/sandstein/comment.dart';
-import 'package:rock_carrot/models/sandstein/route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RouteTile extends StatelessWidget {
-  final Route route;
+  final RouteBloc routeBloc;
 
   const RouteTile({
     Key? key,
-    required this.route,
+    required this.routeBloc,
   }) : super(key: key);
 
   @override
@@ -28,7 +28,7 @@ class RouteTile extends StatelessWidget {
           color: Colors.amber,
           icon: Icons.pin_drop,
           onTap: () => BlocProvider.of<FilteredRoutesBloc>(context)
-              .add(FilteredBaseEventPinItem(route)),
+              .add(FilteredBaseEventPinItem(routeBloc.item)),
         )
       ],
       secondaryActions: [], //secondarySlideActions,
@@ -50,17 +50,21 @@ class RouteTile extends StatelessWidget {
   /// the actual Content of the Tile
   Widget _routeTileContent(BuildContext context) {
     return ListTile(
-      tileColor: route.isPinned ? Theme.of(context).highlightColor : null,
+      tileColor:
+          routeBloc.item.isPinned ? Theme.of(context).highlightColor : null,
       title: Text.rich(
         // use rich text to combine Text and Icon and NOT overflow on long route names
         TextSpan(
           children: [
             TextSpan(
-              text: route.nr.toString() + ' ' + route.name + ' ',
+              text: routeBloc.item.nr.toString() +
+                  ' ' +
+                  routeBloc.item.name +
+                  ' ',
               style: Theme.of(context).textTheme.headline4,
             ),
             WidgetSpan(
-              child: (route.commentCount > 0)
+              child: (routeBloc.item.commentCount > 0)
                   ? Icon(
                       Icons.comment,
                       size: 15,
@@ -71,11 +75,11 @@ class RouteTile extends StatelessWidget {
         ),
       ),
 
-      subtitle: route.secondLanguageName.isNotEmpty
-          ? Text(route.secondLanguageName)
+      subtitle: routeBloc.item.secondLanguageName.isNotEmpty
+          ? Text(routeBloc.item.secondLanguageName)
           : null,
       trailing: Text(
-        '${route.difficulty.DifficultyFull ?? ''}',
+        '${routeBloc.item.difficulty.DifficultyFull ?? ''}',
         style: Theme.of(context).textTheme.headline4,
       ), //show grade
     );
@@ -101,29 +105,32 @@ class RouteTile extends StatelessWidget {
         builder: (context, state) {
           return ListTile(
             trailing: Text(
-              (route.rings ?? 0).toString(),
+              (routeBloc.item.rings ?? 0).toString(),
               style: TextStyle(fontSize: 10),
             ),
             title: Text(
-              route.climbingStyle.isNotEmpty
-                  ? route.climbingStyle + '\n' + route.description
-                  : route.description,
+              routeBloc.item.climbingStyle.isNotEmpty
+                  ? routeBloc.item.climbingStyle +
+                      '\n' +
+                      routeBloc.item.description
+                  : routeBloc.item.description,
               style: TextStyle(fontSize: 12),
             ),
             subtitle: Text(
               // concat string for first ascent
-              route.firstAscentLead +
-                  (route.firstAscentLead.isNotEmpty ? ', ' : '') +
-                  route.firstAscentPartners +
-                  (route.firstAscentPartners.isNotEmpty ? ', ' : '') +
-                  ((route.firstAscentDate != null)
-                      ? DateFormat('dd.MM.yy').format(route.firstAscentDate!)
+              routeBloc.item.firstAscentLead +
+                  (routeBloc.item.firstAscentLead.isNotEmpty ? ', ' : '') +
+                  routeBloc.item.firstAscentPartners +
+                  (routeBloc.item.firstAscentPartners.isNotEmpty ? ', ' : '') +
+                  ((routeBloc.item.firstAscentDate != null)
+                      ? DateFormat('dd.MM.yy')
+                          .format(routeBloc.item.firstAscentDate!)
                       : ''),
               style: TextStyle(fontSize: 12),
             ),
             onTap: () async {
               BlocProvider.of<CommentsBloc>(context)
-                  .add(CommentsEventRequestComments(route));
+                  .add(CommentsEventRequestComments(routeBloc.item));
             },
           );
         },

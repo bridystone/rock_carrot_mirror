@@ -13,15 +13,15 @@ class BaseStateInitial extends BaseState {}
 class BaseStateInProgress extends BaseState {}
 
 class BaseStateDataReceived extends BaseState {
-  final List<Baseitem> items;
-  final Baseitem? baseitem;
+  final List<BaseitemBloc> blocedItems;
+  final BaseitemBloc? baseitem;
   const BaseStateDataReceived({
     required this.baseitem,
-    required this.items,
+    required this.blocedItems,
   });
 
   @override
-  List<Object> get props => [items];
+  List<Object> get props => [blocedItems];
 }
 
 class BaseStateUpdateInProgress extends BaseState {

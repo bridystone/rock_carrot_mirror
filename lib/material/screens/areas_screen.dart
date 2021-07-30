@@ -8,19 +8,18 @@ import 'package:rock_carrot/material/lists/areas_list.dart';
 import 'package:rock_carrot/material/homescreen_bottom_navigation_bar.dart';
 import 'package:rock_carrot/material/rock_carrot_app_bar.dart';
 import 'package:rock_carrot/material/snackbar.dart';
-import 'package:rock_carrot/models/sandstein/area.dart';
-import 'package:rock_carrot/models/sandstein/country.dart';
+import 'package:rock_carrot/models/sandstein/baseitem_bloc.dart';
 
 class AreasScreen extends StatelessWidget {
   final ScrollController scrollController;
   final HomeScreenBottomNavigationBar bottomNavigationBar;
-  final Country country;
+  final CountryBloc countryBloc;
 
   const AreasScreen({
     Key? key,
     required this.scrollController,
     required this.bottomNavigationBar,
-    required this.country,
+    required this.countryBloc,
   }) : super(
           key: key,
         );
@@ -31,7 +30,7 @@ class AreasScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: RockCarrotAppBar(
-        headline: country.name,
+        headline: countryBloc.item.name,
         initialFilterValue: filteredAreasBloc.currentFilter,
         onFilterChanged: (filterText) =>
             filteredAreasBloc.add(FilteredBaseEventFilterUpdated(filterText)),
@@ -43,7 +42,7 @@ class AreasScreen extends StatelessWidget {
       bottomNavigationBar: bottomNavigationBar,
       body: RefreshIndicator(
         onRefresh: () async => BlocProvider.of<AreasBloc>(context)
-            .add(BaseEventUpdateData(country)),
+            .add(BaseEventUpdateData(countryBloc.item)),
         child: BlocConsumer<AreasBloc, BaseState>(
           builder: (context, state) {
             if (state is BaseStateInProgress) {
@@ -54,9 +53,9 @@ class AreasScreen extends StatelessWidget {
                 builder: (context, state) {
                   if (state is FilteredBaseStateReadyForUI) {
                     return AreasListView(
-                      areas: state.filteredItems as List<Area>,
+                      areas: state.filteredItems as List<AreaBloc>,
                       scrollController: scrollController,
-                      key: Key('ListviewArea' + country.name),
+                      key: Key('ListviewArea' + countryBloc.item.name),
                     );
                   }
                   ScaffoldMessenger.of(context)

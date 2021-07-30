@@ -1,12 +1,15 @@
 import 'dart:async';
 
+import 'package:bloc/bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:pool/pool.dart';
 import 'package:rock_carrot/blocs/base/base_bloc.dart';
+import 'package:rock_carrot/blocs/routes_bloc.dart';
 import 'package:rock_carrot/database/sql.dart';
 import 'package:rock_carrot/database/sql_rocks.dart';
 import 'package:rock_carrot/database/sql_teufelsturm.dart';
 import 'package:rock_carrot/models/sandstein/baseitem.dart';
+import 'package:rock_carrot/models/sandstein/baseitem_bloc.dart';
 import 'package:rock_carrot/models/sandstein/rock.dart';
 import 'package:rock_carrot/models/sandstein/subarea.dart';
 import 'package:rock_carrot/web/sandstein.dart';
@@ -15,6 +18,30 @@ import 'package:rock_carrot/web/web_helper.dart';
 import 'package:semaphore/semaphore.dart';
 
 class RocksBloc extends BaseBloc {
+  @override
+  void onRequestData(
+    BaseEventRequestData event,
+    Emit<BaseState> emit,
+  ) async {
+    try {
+      emit(BaseStateInProgress());
+      final items = await requestData(event.baseitem);
+      final blocedItems = items
+          .map((item) => RockBloc(item: item as Rock, childBloc: RoutesBloc()))
+          .toList();
+      emit(BaseStateDataReceived(
+          baseitem: SubareaBloc(
+              item: event.baseitem as Subarea, childBloc: RocksBloc()),
+          blocedItems: blocedItems));
+    } on Exception catch (exception) {
+      emit(BaseStateFailure(exception));
+      emit(BaseStateDataReceived(
+          baseitem: SubareaBloc(
+              item: event.baseitem! as Subarea, childBloc: RocksBloc()),
+          blocedItems: []));
+    }
+  }
+
   @override
   Future<List<Baseitem>> requestData(Baseitem? baseitem) async {
     final sqlResults = await SqlHandler().queryRocks((baseitem as Subarea).id);

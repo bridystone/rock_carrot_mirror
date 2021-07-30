@@ -37,27 +37,27 @@ class HomeScreen extends StatelessWidget {
           scrollController: controllerCountries,
         ),
         areas: (country) => AreasScreen(
-          country: country,
+          countryBloc: country,
           bottomNavigationBar: HomeScreenBottomNavigationBar(
             currentNavigationState: 1,
           ),
           scrollController: controllerAreas,
         ),
         subareas: (area) => SubareasScreen(
-            area: area,
+            areaBloc: area,
             bottomNavigationBar: HomeScreenBottomNavigationBar(
               currentNavigationState: 2,
             ),
             scrollController: controllerSubareas),
         rocks: (subarea) => RocksScreen(
-          subarea: subarea,
+          subareaBloc: subarea,
           bottomNavigationBar: HomeScreenBottomNavigationBar(
             currentNavigationState: 3,
           ),
           scrollController: controllerRocks,
         ),
         routes: (rock) => RoutesScreen(
-          rock: rock,
+          rockBloc: rock,
           bottomNavigationBar: HomeScreenBottomNavigationBar(
             currentNavigationState: 4,
           ),

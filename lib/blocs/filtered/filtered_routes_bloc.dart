@@ -1,6 +1,7 @@
 import 'package:rock_carrot/blocs/routes_bloc.dart';
 import 'package:rock_carrot/blocs/filtered_base/filtered_base_bloc.dart';
 import 'package:rock_carrot/models/sandstein/baseitem.dart';
+import 'package:rock_carrot/models/sandstein/baseitem_bloc.dart';
 import 'package:rock_carrot/models/sandstein/route.dart';
 import 'package:rock_carrot/persistence/json_persistence.dart';
 
@@ -21,39 +22,43 @@ class FilteredRoutesBloc extends FilteredBaseBloc {
   }
 
   @override
-  List<Route> getFilterAndSortItems(
+  List<RouteBloc> getFilterAndSortItems(
     String filter,
     dynamic sorting,
   ) {
-    var items = List<Route>.from(baseBloc.items);
+    var items = List<RouteBloc>.from(baseBloc.items);
 
     items = filter.isEmpty
         ? items
         : items
             .where((item) =>
-                item.name.toLowerCase().contains(filter.toLowerCase()))
+                item.item.name.toLowerCase().contains(filter.toLowerCase()))
             .toList();
 
     switch (sorting as RouteSorting) {
       case RouteSorting.nameAscending:
-        items.sort((a, b) => a.name.compareTo(b.name));
+        items.sort((a, b) => a.item.name.compareTo(b.item.name));
         break;
       case RouteSorting.nameDescending:
-        items.sort((a, b) => b.name.compareTo(a.name));
+        items.sort((a, b) => b.item.name.compareTo(a.item.name));
         break;
       case RouteSorting.numberAscending:
-        items.sort((a, b) => ((a.nr ?? 0) * 10 - (b.nr ?? 0) * 10).toInt());
+        items.sort(
+            (a, b) => ((a.item.nr ?? 0) * 10 - (b.item.nr ?? 0) * 10).toInt());
         break;
       case RouteSorting.numberDescending:
-        items.sort((a, b) => ((b.nr ?? 0) * 10 - (a.nr ?? 0) * 10).toInt());
+        items.sort(
+            (a, b) => ((b.item.nr ?? 0) * 10 - (a.item.nr ?? 0) * 10).toInt());
         break;
       case RouteSorting.difficultyAscending:
         items.sort((a, b) =>
-            a.difficulty.sortableDifficulty - b.difficulty.sortableDifficulty);
+            a.item.difficulty.sortableDifficulty -
+            b.item.difficulty.sortableDifficulty);
         break;
       case RouteSorting.difficultyDescending:
         items.sort((a, b) =>
-            b.difficulty.sortableDifficulty - a.difficulty.sortableDifficulty);
+            b.item.difficulty.sortableDifficulty -
+            a.item.difficulty.sortableDifficulty);
         break;
 
       case RouteSorting.unsorted:
@@ -65,19 +70,19 @@ class FilteredRoutesBloc extends FilteredBaseBloc {
     return items;
   }
 
-  List<Route> _extractPinnedItems(List<Route> items) {
+  List<RouteBloc> _extractPinnedItems(List<RouteBloc> items) {
     final jsonPersistence = JsonPersistence();
 
     // gather pinned and copy with "isPinned"
     final pinned = items
         .where((item) =>
-            jsonPersistence.persistence.pinnedRoutes.contains(item.id))
-        .map((item) => item.copyWith(isPinned: true))
+            jsonPersistence.persistence.pinnedRoutes.contains(item.item.id))
+        .map((item) => item.copyWith(item: item.item.copyWith(isPinned: true)))
         .toList();
 
     // remove from original list
-    items.removeWhere(
-        (item) => jsonPersistence.persistence.pinnedRoutes.contains(item.id));
+    items.removeWhere((item) =>
+        jsonPersistence.persistence.pinnedRoutes.contains(item.item.id));
 
     return pinned;
   }

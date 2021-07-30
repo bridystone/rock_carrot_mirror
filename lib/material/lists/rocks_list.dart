@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:rock_carrot/blocs/routes_bloc.dart';
 import 'package:rock_carrot/material/list_tiles/rock_tile.dart';
+import 'package:rock_carrot/models/sandstein/baseitem_bloc.dart';
 import 'package:rock_carrot/models/sandstein/rock.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RocksListView extends StatelessWidget {
-  final List<Rock> rocks;
+  final List<RockBloc> rocks;
   final ScrollController scrollController;
 
   const RocksListView({
@@ -31,7 +30,7 @@ class RocksListView extends StatelessWidget {
             padding: EdgeInsets.all(0),
             itemCount: rocks.length,
             itemBuilder: (context, i) {
-              final rock = rocks[i];
+              final rock = rocks[i].item;
               // exclude not useful items
               // TODO: really not useful?
               if ((rock.type == RockType.Aussicht) ||
@@ -46,12 +45,7 @@ class RocksListView extends StatelessWidget {
               return Column(children: [
                 // only first time generate a divider
                 if (i == 0) ...[Divider(height: 1, thickness: 1)],
-                BlocProvider(
-                  // create temporary Bloc provider for each subitem, to gain relevant data
-                  // add event to retrieve data
-                  create: (context) => RoutesBloc(),
-                  child: RockTile(rock: rock),
-                ),
+                RockTile(rockBloc: rocks[i]),
                 Divider(
                   height: 1,
                   thickness: 1,

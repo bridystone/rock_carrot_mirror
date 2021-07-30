@@ -10,7 +10,7 @@ abstract class FilteredBaseState extends Equatable {
 class FilteredBaseStateInitial extends FilteredBaseState {}
 
 class FilteredBaseStateReadyForUI extends FilteredBaseState {
-  final List<Baseitem> filteredItems;
+  final List<BaseitemBloc> filteredItems;
   final String activeFilter;
   final dynamic activeSorting;
 

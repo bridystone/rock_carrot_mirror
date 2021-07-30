@@ -2,6 +2,7 @@ import 'package:rock_carrot/blocs/areas_bloc.dart';
 import 'package:rock_carrot/blocs/filtered_base/filtered_base_bloc.dart';
 import 'package:rock_carrot/models/sandstein/area.dart';
 import 'package:rock_carrot/models/sandstein/baseitem.dart';
+import 'package:rock_carrot/models/sandstein/baseitem_bloc.dart';
 import 'package:rock_carrot/persistence/json_persistence.dart';
 
 class FilteredAreasBloc extends FilteredBaseBloc {
@@ -11,25 +12,25 @@ class FilteredAreasBloc extends FilteredBaseBloc {
   }
 
   @override
-  List<Area> getFilterAndSortItems(
+  List<AreaBloc> getFilterAndSortItems(
     String filter,
     dynamic sorting,
   ) {
-    var items = List<Area>.from(baseBloc.items);
+    var items = List<AreaBloc>.from(baseBloc.items);
 
     items = filter.isEmpty
         ? items
         : items
             .where((item) =>
-                item.name.toLowerCase().contains(filter.toLowerCase()))
+                item.item.name.toLowerCase().contains(filter.toLowerCase()))
             .toList();
 
     switch (sorting) {
       case BaseSorting.nameAscending:
-        items.sort((a, b) => a.name.compareTo(b.name));
+        items.sort((a, b) => a.item.name.compareTo(b.item.name));
         break;
       case BaseSorting.nameDescending:
-        items.sort((a, b) => b.name.compareTo(a.name));
+        items.sort((a, b) => b.item.name.compareTo(a.item.name));
         break;
       case BaseSorting.unsorted:
     }
@@ -41,19 +42,19 @@ class FilteredAreasBloc extends FilteredBaseBloc {
     return items;
   }
 
-  List<Area> _extractPinnedItems(List<Area> items) {
+  List<AreaBloc> _extractPinnedItems(List<AreaBloc> items) {
     final jsonPersistence = JsonPersistence();
 
     // gather pinned and copy with "isPinned"
     final pinned = items
-        .where(
-            (item) => jsonPersistence.persistence.pinnedAreas.contains(item.id))
-        .map((item) => item.copyWith(isPinned: true))
+        .where((item) =>
+            jsonPersistence.persistence.pinnedAreas.contains(item.item.id))
+        .map((item) => item.copyWith(item: item.item.copyWith(isPinned: true)))
         .toList();
 
     // remove from original list
-    items.removeWhere(
-        (item) => jsonPersistence.persistence.pinnedAreas.contains(item.id));
+    items.removeWhere((item) =>
+        jsonPersistence.persistence.pinnedAreas.contains(item.item.id));
 
     return pinned;
   }
