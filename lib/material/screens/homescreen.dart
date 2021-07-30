@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:rock_carrot/blocs/countries_bloc.dart';
+import 'package:rock_carrot/blocs/filtered/filtered_areas_bloc.dart';
+import 'package:rock_carrot/blocs/filtered/filtered_countries_bloc.dart';
+import 'package:rock_carrot/blocs/filtered/filtered_rocks_bloc.dart';
+import 'package:rock_carrot/blocs/filtered/filtered_routes_bloc.dart';
+import 'package:rock_carrot/blocs/filtered/filtered_subareas_bloc.dart';
 import 'package:rock_carrot/blocs/view/view_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rock_carrot/material/screens/areas_screen.dart';
@@ -31,37 +37,54 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ViewBloc, ViewState>(
       builder: (context, state) => state.when(
-        countries: () => CountriesScreen(
-          bottomNavigationBar:
-              HomeScreenBottomNavigationBar(currentNavigationState: 0),
-          scrollController: controllerCountries,
-        ),
-        areas: (country) => AreasScreen(
-          countryBloc: country,
-          bottomNavigationBar: HomeScreenBottomNavigationBar(
-            currentNavigationState: 1,
+        initial: () => Text('initial'),
+        countries: () => BlocProvider(
+          create: (context) =>
+              FilteredCountriesBloc(BlocProvider.of<CountriesBloc>(context)),
+          child: CountriesScreen(
+            bottomNavigationBar:
+                HomeScreenBottomNavigationBar(currentNavigationState: 0),
+            scrollController: controllerCountries,
           ),
-          scrollController: controllerAreas,
         ),
-        subareas: (area) => SubareasScreen(
-            areaBloc: area,
+        areas: (country) => BlocProvider(
+          create: (context) => FilteredAreasBloc(country.childBloc),
+          child: AreasScreen(
+            countryBloc: country,
             bottomNavigationBar: HomeScreenBottomNavigationBar(
-              currentNavigationState: 2,
+              currentNavigationState: 1,
             ),
-            scrollController: controllerSubareas),
-        rocks: (subarea) => RocksScreen(
-          subareaBloc: subarea,
-          bottomNavigationBar: HomeScreenBottomNavigationBar(
-            currentNavigationState: 3,
+            scrollController: controllerAreas,
           ),
-          scrollController: controllerRocks,
         ),
-        routes: (rock) => RoutesScreen(
-          rockBloc: rock,
-          bottomNavigationBar: HomeScreenBottomNavigationBar(
-            currentNavigationState: 4,
+        subareas: (area) => BlocProvider(
+          create: (context) => FilteredSubareasBloc(area.childBloc),
+          child: SubareasScreen(
+              areaBloc: area,
+              bottomNavigationBar: HomeScreenBottomNavigationBar(
+                currentNavigationState: 2,
+              ),
+              scrollController: controllerSubareas),
+        ),
+        rocks: (subarea) => BlocProvider(
+          create: (context) => FilteredRocksBloc(subarea.childBloc),
+          child: RocksScreen(
+            subareaBloc: subarea,
+            bottomNavigationBar: HomeScreenBottomNavigationBar(
+              currentNavigationState: 3,
+            ),
+            scrollController: controllerRocks,
           ),
-          scrollController: controllerRoutes,
+        ),
+        routes: (rock) => BlocProvider(
+          create: (context) => FilteredRoutesBloc(rock.childBloc),
+          child: RoutesScreen(
+            rockBloc: rock,
+            bottomNavigationBar: HomeScreenBottomNavigationBar(
+              currentNavigationState: 4,
+            ),
+            scrollController: controllerRoutes,
+          ),
         ),
       ),
     );

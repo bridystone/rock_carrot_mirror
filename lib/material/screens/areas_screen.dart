@@ -41,9 +41,11 @@ class AreasScreen extends StatelessWidget {
       ),
       bottomNavigationBar: bottomNavigationBar,
       body: RefreshIndicator(
+        // TODO: user subbloc?!?!?
         onRefresh: () async => BlocProvider.of<AreasBloc>(context)
             .add(BaseEventUpdateData(countryBloc.item)),
         child: BlocConsumer<AreasBloc, BaseState>(
+          bloc: countryBloc.childBloc,
           builder: (context, state) {
             if (state is BaseStateInProgress) {
               return CircularProgressIndicator();
@@ -58,15 +60,21 @@ class AreasScreen extends StatelessWidget {
                       key: Key('ListviewArea' + countryBloc.item.name),
                     );
                   }
+                  /*
                   ScaffoldMessenger.of(context)
                       .showSnackBar(UnhandledStateSnack(state));
                   throw (UnimplementedError());
+                  */
+                  return Container();
                 },
               );
             }
+            /*
             ScaffoldMessenger.of(context)
                 .showSnackBar(UnhandledStateSnack(state));
             throw (UnimplementedError());
+            */
+            return Container();
           },
           // listen on Failure Exceptions
           listenWhen: (prev, next) => next is BaseStateFailure,

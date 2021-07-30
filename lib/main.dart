@@ -34,6 +34,8 @@ void main() {
           ? '/data/user/0/info.breidenstein.rock_carrot/files'
           : '';
 */
+      runApp(RockCarrotApp());
+      /*
       runApp(MultiBlocProvider(
         providers: [
           BlocProvider<CountriesBloc>(
@@ -82,7 +84,7 @@ void main() {
           ],
           child: RockCarrotApp(),
         ),
-      ));
+      ));*/
       return;
     }
   } catch (e) {

@@ -53,9 +53,11 @@ class CountriesScreen extends StatelessWidget {
                       scrollController: scrollController,
                     );
                   }
+                  return Container();
+                  /*
                   ScaffoldMessenger.of(context)
                       .showSnackBar(UnhandledStateSnack(state));
-                  throw (UnimplementedError());
+                  throw (UnimplementedError());*/
                 },
               );
             }

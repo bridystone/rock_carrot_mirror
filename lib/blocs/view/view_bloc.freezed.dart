@@ -1473,6 +1473,10 @@ abstract class _ToRoutesWithoutReload implements ViewEvent {
 class _$ViewStateTearOff {
   const _$ViewStateTearOff();
 
+  _Initial initial() {
+    return const _Initial();
+  }
+
   _Countries countries() {
     return const _Countries();
   }
@@ -1509,6 +1513,7 @@ const $ViewState = _$ViewStateTearOff();
 mixin _$ViewState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() initial,
     required TResult Function() countries,
     required TResult Function(CountryBloc countryBloc) areas,
     required TResult Function(AreaBloc areaBloc) subareas,
@@ -1518,6 +1523,7 @@ mixin _$ViewState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
     TResult Function()? countries,
     TResult Function(CountryBloc countryBloc)? areas,
     TResult Function(AreaBloc areaBloc)? subareas,
@@ -1528,6 +1534,7 @@ mixin _$ViewState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
     required TResult Function(_Countries value) countries,
     required TResult Function(_Areas value) areas,
     required TResult Function(_Subareas value) subareas,
@@ -1537,6 +1544,7 @@ mixin _$ViewState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
     TResult Function(_Countries value)? countries,
     TResult Function(_Areas value)? areas,
     TResult Function(_Subareas value)? subareas,
@@ -1560,6 +1568,105 @@ class _$ViewStateCopyWithImpl<$Res> implements $ViewStateCopyWith<$Res> {
   final ViewState _value;
   // ignore: unused_field
   final $Res Function(ViewState) _then;
+}
+
+/// @nodoc
+abstract class _$InitialCopyWith<$Res> {
+  factory _$InitialCopyWith(_Initial value, $Res Function(_Initial) then) =
+      __$InitialCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$InitialCopyWithImpl<$Res> extends _$ViewStateCopyWithImpl<$Res>
+    implements _$InitialCopyWith<$Res> {
+  __$InitialCopyWithImpl(_Initial _value, $Res Function(_Initial) _then)
+      : super(_value, (v) => _then(v as _Initial));
+
+  @override
+  _Initial get _value => super._value as _Initial;
+}
+
+/// @nodoc
+
+class _$_Initial implements _Initial {
+  const _$_Initial();
+
+  @override
+  String toString() {
+    return 'ViewState.initial()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _Initial);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() countries,
+    required TResult Function(CountryBloc countryBloc) areas,
+    required TResult Function(AreaBloc areaBloc) subareas,
+    required TResult Function(SubareaBloc subareaBloc) rocks,
+    required TResult Function(RockBloc rockBloc) routes,
+  }) {
+    return initial();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? countries,
+    TResult Function(CountryBloc countryBloc)? areas,
+    TResult Function(AreaBloc areaBloc)? subareas,
+    TResult Function(SubareaBloc subareaBloc)? rocks,
+    TResult Function(RockBloc rockBloc)? routes,
+    required TResult orElse(),
+  }) {
+    if (initial != null) {
+      return initial();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Countries value) countries,
+    required TResult Function(_Areas value) areas,
+    required TResult Function(_Subareas value) subareas,
+    required TResult Function(_Rocks value) rocks,
+    required TResult Function(_Routes value) routes,
+  }) {
+    return initial(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Countries value)? countries,
+    TResult Function(_Areas value)? areas,
+    TResult Function(_Subareas value)? subareas,
+    TResult Function(_Rocks value)? rocks,
+    TResult Function(_Routes value)? routes,
+    required TResult orElse(),
+  }) {
+    if (initial != null) {
+      return initial(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Initial implements ViewState {
+  const factory _Initial() = _$_Initial;
 }
 
 /// @nodoc
@@ -1600,6 +1707,7 @@ class _$_Countries implements _Countries {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() initial,
     required TResult Function() countries,
     required TResult Function(CountryBloc countryBloc) areas,
     required TResult Function(AreaBloc areaBloc) subareas,
@@ -1612,6 +1720,7 @@ class _$_Countries implements _Countries {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
     TResult Function()? countries,
     TResult Function(CountryBloc countryBloc)? areas,
     TResult Function(AreaBloc areaBloc)? subareas,
@@ -1628,6 +1737,7 @@ class _$_Countries implements _Countries {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
     required TResult Function(_Countries value) countries,
     required TResult Function(_Areas value) areas,
     required TResult Function(_Subareas value) subareas,
@@ -1640,6 +1750,7 @@ class _$_Countries implements _Countries {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
     TResult Function(_Countries value)? countries,
     TResult Function(_Areas value)? areas,
     TResult Function(_Subareas value)? subareas,
@@ -1721,6 +1832,7 @@ class _$_Areas implements _Areas {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() initial,
     required TResult Function() countries,
     required TResult Function(CountryBloc countryBloc) areas,
     required TResult Function(AreaBloc areaBloc) subareas,
@@ -1733,6 +1845,7 @@ class _$_Areas implements _Areas {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
     TResult Function()? countries,
     TResult Function(CountryBloc countryBloc)? areas,
     TResult Function(AreaBloc areaBloc)? subareas,
@@ -1749,6 +1862,7 @@ class _$_Areas implements _Areas {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
     required TResult Function(_Countries value) countries,
     required TResult Function(_Areas value) areas,
     required TResult Function(_Subareas value) subareas,
@@ -1761,6 +1875,7 @@ class _$_Areas implements _Areas {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
     TResult Function(_Countries value)? countries,
     TResult Function(_Areas value)? areas,
     TResult Function(_Subareas value)? subareas,
@@ -1846,6 +1961,7 @@ class _$_Subareas implements _Subareas {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() initial,
     required TResult Function() countries,
     required TResult Function(CountryBloc countryBloc) areas,
     required TResult Function(AreaBloc areaBloc) subareas,
@@ -1858,6 +1974,7 @@ class _$_Subareas implements _Subareas {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
     TResult Function()? countries,
     TResult Function(CountryBloc countryBloc)? areas,
     TResult Function(AreaBloc areaBloc)? subareas,
@@ -1874,6 +1991,7 @@ class _$_Subareas implements _Subareas {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
     required TResult Function(_Countries value) countries,
     required TResult Function(_Areas value) areas,
     required TResult Function(_Subareas value) subareas,
@@ -1886,6 +2004,7 @@ class _$_Subareas implements _Subareas {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
     TResult Function(_Countries value)? countries,
     TResult Function(_Areas value)? areas,
     TResult Function(_Subareas value)? subareas,
@@ -1972,6 +2091,7 @@ class _$_Rocks implements _Rocks {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() initial,
     required TResult Function() countries,
     required TResult Function(CountryBloc countryBloc) areas,
     required TResult Function(AreaBloc areaBloc) subareas,
@@ -1984,6 +2104,7 @@ class _$_Rocks implements _Rocks {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
     TResult Function()? countries,
     TResult Function(CountryBloc countryBloc)? areas,
     TResult Function(AreaBloc areaBloc)? subareas,
@@ -2000,6 +2121,7 @@ class _$_Rocks implements _Rocks {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
     required TResult Function(_Countries value) countries,
     required TResult Function(_Areas value) areas,
     required TResult Function(_Subareas value) subareas,
@@ -2012,6 +2134,7 @@ class _$_Rocks implements _Rocks {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
     TResult Function(_Countries value)? countries,
     TResult Function(_Areas value)? areas,
     TResult Function(_Subareas value)? subareas,
@@ -2097,6 +2220,7 @@ class _$_Routes implements _Routes {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() initial,
     required TResult Function() countries,
     required TResult Function(CountryBloc countryBloc) areas,
     required TResult Function(AreaBloc areaBloc) subareas,
@@ -2109,6 +2233,7 @@ class _$_Routes implements _Routes {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
     TResult Function()? countries,
     TResult Function(CountryBloc countryBloc)? areas,
     TResult Function(AreaBloc areaBloc)? subareas,
@@ -2125,6 +2250,7 @@ class _$_Routes implements _Routes {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
     required TResult Function(_Countries value) countries,
     required TResult Function(_Areas value) areas,
     required TResult Function(_Subareas value) subareas,
@@ -2137,6 +2263,7 @@ class _$_Routes implements _Routes {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
     TResult Function(_Countries value)? countries,
     TResult Function(_Areas value)? areas,
     TResult Function(_Subareas value)? subareas,

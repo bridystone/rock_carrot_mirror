@@ -53,6 +53,7 @@ class RoutesScreen extends StatelessWidget {
         ),
         bottomNavigationBar: bottomNavigationBar,
         body: BlocConsumer<RoutesBloc, BaseState>(
+          bloc: rockBloc.childBloc,
           builder: (context, state) {
             if (state is BaseStateInProgress) {
               return CircularProgressIndicator();

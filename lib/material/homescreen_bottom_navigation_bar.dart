@@ -22,6 +22,8 @@ class HomeScreenBottomNavigationBar extends StatelessWidget {
       backgroundColor: Theme.of(context).bottomAppBarColor,
       currentIndex: currentNavigationState,
       onTap: (index) {
+        //TODO: reenable
+        /*
         switch (index) {
           case 0:
             return viewBloc.add(ViewEvent.toCountriesWithoutReload());
@@ -41,7 +43,7 @@ class HomeScreenBottomNavigationBar extends StatelessWidget {
             return viewBloc.isRoutesValid
                 ? viewBloc.add(ViewEvent.toRoutesWithoutReload())
                 : null;
-        }
+        }*/
       },
       items: [
         BottomNavigationBarItem(

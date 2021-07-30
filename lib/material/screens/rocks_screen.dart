@@ -50,6 +50,7 @@ class RocksScreen extends StatelessWidget {
             onRefresh: () async => BlocProvider.of<RocksBloc>(context)
                 .add(BaseEventUpdateData(subareaBloc.item)),
             child: BlocConsumer<RocksBloc, BaseState>(
+              bloc: subareaBloc.childBloc,
               builder: (context, state) {
                 if (state is BaseStateInProgress) {
                   return CircularProgressIndicator();

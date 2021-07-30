@@ -50,6 +50,7 @@ class SubareasScreen extends StatelessWidget {
           onRefresh: () async => BlocProvider.of<SubareasBloc>(context)
               .add(BaseEventUpdateData(areaBloc.item)),
           child: BlocConsumer<SubareasBloc, BaseState>(
+            bloc: areaBloc.childBloc,
             builder: (context, state) {
               if (state is BaseStateInProgress) {
                 return CircularProgressIndicator();
