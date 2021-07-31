@@ -65,15 +65,18 @@ class SubareasScreen extends StatelessWidget {
                         key: Key('ListviewSubarea' + areaBloc.item.name),
                       );
                     }
-                    ScaffoldMessenger.of(context)
-                        .showSnackBar(UnhandledStateSnack(state));
-                    throw (UnimplementedError());
+                    throw (UnimplementedError(state.toString()));
                   },
                 );
               }
-              ScaffoldMessenger.of(context)
-                  .showSnackBar(UnhandledStateSnack(state));
-              throw (UnimplementedError());
+              if (state is BaseStateUpdateInProgress) {
+                return CircularProgressIndicator(
+                  value: state.percent.toDouble(),
+                  semanticsLabel: state.step,
+                  semanticsValue: state.percent.toString(),
+                );
+              }
+              throw (UnimplementedError(state.toString()));
             }, // listen on Failure Exceptions
             listenWhen: (prev, next) => next is BaseStateFailure,
             listener: (context, state) {

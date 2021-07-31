@@ -19,7 +19,6 @@ class AreaTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    areaBloc.childBloc.add(BaseEventRequestData(areaBloc.item));
     return Slidable(
       actionPane: SlidableDrawerActionPane(),
       actions: [

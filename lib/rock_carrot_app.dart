@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:rock_carrot/blocs/areas_bloc.dart';
 import 'package:rock_carrot/blocs/base/base_bloc.dart';
 import 'package:rock_carrot/blocs/countries_bloc.dart';
-import 'package:rock_carrot/blocs/rocks_bloc.dart';
-import 'package:rock_carrot/blocs/routes_bloc.dart';
-import 'package:rock_carrot/blocs/subareas_bloc.dart';
 import 'package:rock_carrot/blocs/view/view_bloc.dart';
 import 'package:rock_carrot/material/screens/homescreen.dart';
 import 'package:rock_carrot/rock_carrot_theme.dart';
@@ -29,15 +25,7 @@ class RockCarrotApp extends StatelessWidget {
                       CountriesBloc()..add(BaseEventRequestData()),
                 ),
                 BlocProvider(
-                  create: (context) => ViewBloc(
-                      /*
-                    countriesBloc: BlocProvider.of<CountriesBloc>(context),
-                    areasBloc: BlocProvider.of<AreasBloc>(context),
-                    subareasBloc: BlocProvider.of<SubareasBloc>(context),
-                    rocksBloc: BlocProvider.of<RocksBloc>(context),
-                    routesBloc: BlocProvider.of<RoutesBloc>(context),*/
-                      )
-                    ..add(ViewEvent.toCountries()),
+                  create: (context) => ViewBloc()..add(ViewEvent.toCountries()),
                 ),
               ],
               child: HomeScreen(),

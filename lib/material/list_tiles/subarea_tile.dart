@@ -20,7 +20,6 @@ class SubareaTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    subareaBloc.childBloc.add(BaseEventRequestData(subareaBloc.item));
     return Slidable(
       actionPane: SlidableDrawerActionPane(),
       actions: [

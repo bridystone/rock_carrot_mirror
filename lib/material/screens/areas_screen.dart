@@ -41,7 +41,7 @@ class AreasScreen extends StatelessWidget {
       ),
       bottomNavigationBar: bottomNavigationBar,
       body: RefreshIndicator(
-        // TODO: user subbloc?!?!?
+        // TODO: use subbloc?!?!? - Remove on Refresh at all?
         onRefresh: () async => BlocProvider.of<AreasBloc>(context)
             .add(BaseEventUpdateData(countryBloc.item)),
         child: BlocConsumer<AreasBloc, BaseState>(
@@ -60,21 +60,19 @@ class AreasScreen extends StatelessWidget {
                       key: Key('ListviewArea' + countryBloc.item.name),
                     );
                   }
-                  /*
-                  ScaffoldMessenger.of(context)
-                      .showSnackBar(UnhandledStateSnack(state));
-                  throw (UnimplementedError());
-                  */
-                  return Container();
+                  throw (UnimplementedError(state.toString()));
                 },
               );
             }
-            /*
-            ScaffoldMessenger.of(context)
-                .showSnackBar(UnhandledStateSnack(state));
-            throw (UnimplementedError());
-            */
-            return Container();
+            if (state is BaseStateUpdateInProgress) {
+              return CircularProgressIndicator(
+                value: state.percent.toDouble(),
+                semanticsLabel: state.step,
+                semanticsValue: state.percent.toString(),
+              );
+            }
+
+            throw (UnimplementedError(state.toString()));
           },
           // listen on Failure Exceptions
           listenWhen: (prev, next) => next is BaseStateFailure,

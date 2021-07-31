@@ -24,8 +24,9 @@ class CountriesBloc extends BaseBloc {
       emit(BaseStateInProgress());
       final items = await requestData(event.baseitem);
       final blocedItems = items
-          .map((item) =>
-              CountryBloc(item: item as Country, childBloc: AreasBloc()))
+          .map((item) => CountryBloc(
+              item: item as Country,
+              childBloc: AreasBloc()..add(BaseEventRequestData(item))))
           .toList();
       emit(BaseStateDataReceived(
           baseitem: null,

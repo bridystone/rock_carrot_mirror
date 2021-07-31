@@ -19,7 +19,6 @@ class RockTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    rockBloc.childBloc.add(BaseEventRequestData(rockBloc.item));
     return Slidable(
       actionPane: SlidableDrawerActionPane(),
       actions: [

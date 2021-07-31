@@ -71,15 +71,11 @@ class RoutesScreen extends StatelessWidget {
                             rockBloc.item.name +
                             rockBloc.item.id.toString()));
                   }
-                  ScaffoldMessenger.of(context)
-                      .showSnackBar(UnhandledStateSnack(state));
-                  throw (UnimplementedError());
+                  throw (UnimplementedError(state.toString()));
                 },
               );
             }
-            ScaffoldMessenger.of(context)
-                .showSnackBar(UnhandledStateSnack(state));
-            throw (UnimplementedError());
+            throw (UnimplementedError(state.toString()));
           }, // listen on Failure Exceptions
           listenWhen: (prev, next) => next is BaseStateFailure,
           listener: (context, state) {

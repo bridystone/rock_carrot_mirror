@@ -27,7 +27,9 @@ class RocksBloc extends BaseBloc {
       emit(BaseStateInProgress());
       final items = await requestData(event.baseitem);
       final blocedItems = items
-          .map((item) => RockBloc(item: item as Rock, childBloc: RoutesBloc()))
+          .map((item) => RockBloc(
+              item: item as Rock,
+              childBloc: RoutesBloc()..add(BaseEventRequestData(item))))
           .toList();
       emit(BaseStateDataReceived(
           baseitem: SubareaBloc(

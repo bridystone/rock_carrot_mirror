@@ -23,7 +23,7 @@ class HomeScreenBottomNavigationBar extends StatelessWidget {
       currentIndex: currentNavigationState,
       onTap: (index) {
         //TODO: reenable
-        /*
+
         switch (index) {
           case 0:
             return viewBloc.add(ViewEvent.toCountriesWithoutReload());
@@ -43,7 +43,7 @@ class HomeScreenBottomNavigationBar extends StatelessWidget {
             return viewBloc.isRoutesValid
                 ? viewBloc.add(ViewEvent.toRoutesWithoutReload())
                 : null;
-        }*/
+        }
       },
       items: [
         BottomNavigationBarItem(
@@ -51,19 +51,39 @@ class HomeScreenBottomNavigationBar extends StatelessWidget {
           label: locale.homeBottomNavigationCountry,
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.list),
+          icon: Icon(
+            Icons.list,
+            color: (!viewBloc.isAreasValid)
+                ? Theme.of(context).disabledColor
+                : null,
+          ),
           label: locale.homeBottomNavigationArea,
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.list),
+          icon: Icon(
+            Icons.list,
+            color: (!viewBloc.isSubareasValid)
+                ? Theme.of(context).disabledColor
+                : null,
+          ),
           label: locale.homeBottomNavigationSubarea,
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.list),
+          icon: Icon(
+            Icons.list,
+            color: (!viewBloc.isRocksValid)
+                ? Theme.of(context).disabledColor
+                : null,
+          ),
           label: locale.homeBottomNavigationRock,
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.list),
+          icon: Icon(
+            Icons.list,
+            color: (!viewBloc.isRoutesValid)
+                ? Theme.of(context).disabledColor
+                : null,
+          ),
           label: locale.homeBottomNavigationRoute,
         ),
       ],

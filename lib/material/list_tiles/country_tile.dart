@@ -19,7 +19,6 @@ class CountryTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    countryBloc.childBloc.add(BaseEventRequestData(countryBloc.item));
     return Slidable(
       actionPane: SlidableDrawerActionPane(),
       actions: [
