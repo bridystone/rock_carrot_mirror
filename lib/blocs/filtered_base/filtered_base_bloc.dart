@@ -9,7 +9,10 @@ import 'package:rock_carrot/models/sandstein/baseitem_bloc.dart';
 part 'filtered_base_event.dart';
 part 'filtered_base_state.dart';
 
-enum BaseSorting { unsorted, nameAscending, nameDescending }
+enum BaseSorting {
+  nameAscending,
+  nameDescending,
+}
 
 abstract class FilteredBaseBloc
     extends Bloc<FilteredBaseEvent, FilteredBaseState> {
@@ -118,5 +121,5 @@ abstract class FilteredBaseBloc
       : '';
   dynamic get currentSorting => (state is FilteredBaseStateReadyForUI)
       ? (state as FilteredBaseStateReadyForUI).activeSorting
-      : BaseSorting.unsorted;
+      : BaseSorting.nameAscending;
 }

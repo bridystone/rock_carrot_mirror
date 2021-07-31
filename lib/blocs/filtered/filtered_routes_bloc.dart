@@ -6,7 +6,6 @@ import 'package:rock_carrot/models/sandstein/route.dart';
 import 'package:rock_carrot/persistence/json_persistence.dart';
 
 enum RouteSorting {
-  unsorted,
   nameAscending,
   nameDescending,
   numberAscending,
@@ -60,8 +59,6 @@ class FilteredRoutesBloc extends FilteredBaseBloc {
             b.item.difficulty.sortableDifficulty -
             a.item.difficulty.sortableDifficulty);
         break;
-
-      case RouteSorting.unsorted:
     }
 
     // split normal and pinned items

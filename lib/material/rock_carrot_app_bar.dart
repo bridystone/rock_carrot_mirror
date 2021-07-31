@@ -3,8 +3,6 @@ import 'package:rock_carrot/material/comments_icon.dart';
 import 'package:rock_carrot/material/maps_icon.dart';
 import 'package:rock_carrot/material/sort_icon.dart';
 
-enum Sorting { unsorted, ascending, descending }
-
 class RockCarrotAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String headline;
   final String? initialFilterValue;

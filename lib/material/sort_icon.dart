@@ -65,26 +65,22 @@ class _Button extends StatelessWidget {
     final locale = AppLocalizations.of(context);
     final sortingLocalizations = {
       if (selectedSorting is BaseSorting) ...{
-        BaseSorting.unsorted: locale.sortingUnsorted,
         BaseSorting.nameAscending: locale.sortingNameAscending,
         BaseSorting.nameDescending: locale.sortingNameDescending,
       },
       if (selectedSorting is SubareaSorting) ...{
-        SubareaSorting.unsorted: locale.sortingUnsorted,
         SubareaSorting.nameAscending: locale.sortingNameAscending,
         SubareaSorting.nameDescending: locale.sortingNameDescending,
         SubareaSorting.numberAscending: locale.sortingNumberAscending,
         SubareaSorting.numberDescending: locale.sortingNumberDescending,
       },
       if (selectedSorting is RockSorting) ...{
-        RockSorting.unsorted: locale.sortingUnsorted,
         RockSorting.nameAscending: locale.sortingNameAscending,
         RockSorting.nameDescending: locale.sortingNameDescending,
         RockSorting.numberAscending: locale.sortingNumberAscending,
         RockSorting.numberDescending: locale.sortingNumberDescending,
       },
       if (selectedSorting is RouteSorting) ...{
-        RouteSorting.unsorted: locale.sortingUnsorted,
         RouteSorting.nameAscending: locale.sortingNameAscending,
         RouteSorting.nameDescending: locale.sortingNameDescending,
         RouteSorting.numberAscending: locale.sortingNumberAscending,

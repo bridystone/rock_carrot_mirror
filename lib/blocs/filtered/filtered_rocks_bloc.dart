@@ -6,7 +6,6 @@ import 'package:rock_carrot/models/sandstein/rock.dart';
 import 'package:rock_carrot/persistence/json_persistence.dart';
 
 enum RockSorting {
-  unsorted,
   nameAscending,
   nameDescending,
   numberAscending,
@@ -48,8 +47,6 @@ class FilteredRocksBloc extends FilteredBaseBloc {
         items.sort(
             (a, b) => ((b.item.nr ?? 0) * 10 - (a.item.nr ?? 0) * 10).toInt());
         break;
-
-      case RockSorting.unsorted:
     }
 
     // split normal and pinned items

@@ -32,7 +32,6 @@ class FilteredAreasBloc extends FilteredBaseBloc {
       case BaseSorting.nameDescending:
         items.sort((a, b) => b.item.name.compareTo(a.item.name));
         break;
-      case BaseSorting.unsorted:
     }
 
     // split normal and pinned items

@@ -6,7 +6,6 @@ import 'package:rock_carrot/models/sandstein/subarea.dart';
 import 'package:rock_carrot/persistence/json_persistence.dart';
 
 enum SubareaSorting {
-  unsorted,
   nameAscending,
   nameDescending,
   numberAscending,
@@ -48,7 +47,6 @@ class FilteredSubareasBloc extends FilteredBaseBloc {
         items.sort(
             (a, b) => ((b.item.nr ?? 0) * 10 - (a.item.nr ?? 0) * 10).toInt());
         break;
-      case SubareaSorting.unsorted:
     }
 
     // split normal and pinned items
