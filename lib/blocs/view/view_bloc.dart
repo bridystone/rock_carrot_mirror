@@ -35,7 +35,7 @@ class ViewBloc extends Bloc<ViewEvent, ViewState> {
 
   void _onToCountries(
     _ToCountries event,
-    Emit<ViewState> emit,
+    Emitter<ViewState> emit,
   ) async {
     // TODO: WORKAROUND for Application SupportDirectory (set Global Variable)
     // This is the first async function making this possible
@@ -47,7 +47,7 @@ class ViewBloc extends Bloc<ViewEvent, ViewState> {
 
   void _onToAreas(
     _ToAreas event,
-    Emit<ViewState> emit,
+    Emitter<ViewState> emit,
   ) async {
     // on new Area -> invalidate all subitems
     if (_countryBloc?.item.name != event.country.item.name) {
@@ -62,7 +62,7 @@ class ViewBloc extends Bloc<ViewEvent, ViewState> {
 
   void _onToSubreas(
     _ToSubareas event,
-    Emit<ViewState> emit,
+    Emitter<ViewState> emit,
   ) async {
     if (_areaBloc?.item.name != event.area.item.name) {
       _subareaBloc = null;
@@ -75,7 +75,7 @@ class ViewBloc extends Bloc<ViewEvent, ViewState> {
 
   void _onToRocks(
     _ToRocks event,
-    Emit<ViewState> emit,
+    Emitter<ViewState> emit,
   ) async {
     if (_subareaBloc?.item.name != event.subarea.item.name) {
       _rockBloc = null;
@@ -86,7 +86,7 @@ class ViewBloc extends Bloc<ViewEvent, ViewState> {
 
   void _onToRoutes(
     _ToRoutes event,
-    Emit<ViewState> emit,
+    Emitter<ViewState> emit,
   ) async {
     _rockBloc = event.rock;
     emit(ViewState.routes(event.rock));

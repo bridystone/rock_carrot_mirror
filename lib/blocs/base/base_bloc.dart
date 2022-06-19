@@ -21,7 +21,7 @@ abstract class BaseBloc extends Bloc<BaseEvent, BaseState> {
 
   void onRequestData(
     BaseEventRequestData event,
-    Emit<BaseState> emit,
+    Emitter<BaseState> emit,
   );
   /* async {
     try {
@@ -36,7 +36,7 @@ abstract class BaseBloc extends Bloc<BaseEvent, BaseState> {
 */
   void _onUpdateData(
     BaseEventUpdateData event,
-    Emit<BaseState> emit,
+    Emitter<BaseState> emit,
   ) async {
     try {
       emit(BaseStateUpdateInProgress(event.runtimeType.toString(), 0));
@@ -52,7 +52,7 @@ abstract class BaseBloc extends Bloc<BaseEvent, BaseState> {
 
   void _onUpdateDataIntensive(
     BaseEventUpdateDataIntensive event,
-    Emit<BaseState> emit,
+    Emitter<BaseState> emit,
   ) async {
     // TODO: inform user that action is already in progress
     if (!(state is BaseStateDataReceived)) {

@@ -19,7 +19,7 @@ class CommentsBloc extends Bloc<CommentsEvent, CommentsState> {
 
   void _onRequestComments(
     CommentsEventRequestComments event,
-    Emit<CommentsState> emit,
+    Emitter<CommentsState> emit,
   ) async {
     try {
       emit(CommentsStateInProgress());

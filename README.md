@@ -6,3 +6,5 @@ This is not intended to replace YacGuide, but to have the offline functionality 
 
 This started as my first Mobile App. So it is rather basic and might miss architecture building blocks - but so far it works.
 
+# Localisation
+to compile the code you need to run "flutter gen-l10n" in the root

@@ -17,7 +17,7 @@ class RoutesBloc extends BaseBloc {
   @override
   void onRequestData(
     BaseEventRequestData event,
-    Emit<BaseState> emit,
+    Emitter<BaseState> emit,
   ) async {
     try {
       emit(BaseStateInProgress());

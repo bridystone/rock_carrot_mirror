@@ -47,7 +47,7 @@ abstract class FilteredBaseBloc
 
   void _onCountriesUpdated(
     FilteredBaseEventDataUpdated event,
-    Emit<FilteredBaseState> emit,
+    Emitter<FilteredBaseState> emit,
   ) {
     if (baseBloc.isLoaded) {
       emit(FilteredBaseStateReadyForUI(
@@ -63,7 +63,7 @@ abstract class FilteredBaseBloc
 
   void _onFilterUpdated(
     FilteredBaseEventFilterUpdated event,
-    Emit<FilteredBaseState> emit,
+    Emitter<FilteredBaseState> emit,
   ) {
     if (baseBloc.isLoaded) {
       emit(FilteredBaseStateReadyForUI(
@@ -79,7 +79,7 @@ abstract class FilteredBaseBloc
 
   void _onSortingUpdated(
     FilteredBaseEventSortingUpdated event,
-    Emit<FilteredBaseState> emit,
+    Emitter<FilteredBaseState> emit,
   ) {
     if (baseBloc.isLoaded) {
       emit(FilteredBaseStateReadyForUI(
@@ -95,7 +95,7 @@ abstract class FilteredBaseBloc
 
   void _onPinItem(
     FilteredBaseEventPinItem event,
-    Emit<FilteredBaseState> emit,
+    Emitter<FilteredBaseState> emit,
   ) async {
     pinItem(event.pinBaseitem);
 
