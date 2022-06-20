@@ -120,6 +120,7 @@ class SqlHandler {
       'schwer': 'TEXT COLLATE NOCASE',
       'geklettert': 'TEXT COLLATE NOCASE',
       'begehung': 'TEXT COLLATE NOCASE',
+      'username': 'TEXT COLLATE NOCASE',
       'insert_timestamp': 'INT DEFAULT CURRENT_TIMESTAMP',
     },
 

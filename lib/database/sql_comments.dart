@@ -23,7 +23,7 @@ extension SqlHandlerComments on SqlHandler {
 
           SELECT 
             komment_ID,
-            userid,
+            username as userid,
             datum,
             adatum,
             wegid,
