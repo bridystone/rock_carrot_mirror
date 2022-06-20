@@ -68,7 +68,8 @@ class Sandstein {
     if (WebHelper.isResponseValid(response)) {
       // insert data to DB
       try {
-        return json.decode(_cleanString(response.body));
+        final cleaned_response = _cleanString(response.body);
+        return json.decode(cleaned_response);
       } catch (e) {
         // return empty
         return <List>[];
@@ -91,6 +92,8 @@ class Sandstein {
         .replaceAll(r'\u009e', '\u017e') // ž lower case
         .replaceAll(r'\u0084', '\u201e') // „ low double comma quotation mark
         .replaceAll(r'\u0093', '\u201c') // “ double turned comma quotation mark
-        .replaceAll(RegExp(r'[\\]+\"'), r'\"'); // fix escaped quotes
+        .replaceAll(RegExp(r'[\\]+\"'), r'\"') // fix escaped quotes
+        .replaceAllMapped(
+            RegExp(r'([^{,:\\])"([^},:])'), (Match m) => '${m[1]}\'${m[2]}');
   }
 }
